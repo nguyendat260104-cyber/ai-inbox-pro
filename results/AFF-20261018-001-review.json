@@ -8,10 +8,26 @@
   ],
   "recommended_decision": "SCALE",
   "confidence": 0.92,
-  "business_metrics": {},
+  "business_metrics": {
+    "candidates_evaluated": 20,
+    "scale_candidates_count": 13,
+    "test_candidates_count": 7,
+    "top_score": 92
+  },
   "artifacts": [
     "research/products/20261018-products.json",
     "research/reports/20261018-opportunity-report.md"
+  ],
+  "sources": [
+    "https://www.make.com/en/affiliate-program",
+    "https://www.hostinger.com/affiliates",
+    "https://www.notion.so/affiliates",
+    "https://elevenlabs.io/affiliates",
+    "https://www.descript.com/affiliate-program"
+  ],
+  "risks": [
+    "Strict trademark bidding prohibitions on branded keywords (Hostinger, Notion)",
+    "Technical onboarding friction for complex automation tools (Make.com)"
   ],
   "questions_for_lead": [
     "Confirm whether to prioritize Make.com workflow automation video tutorial or Hostinger website builder guide for the next content sprint.",

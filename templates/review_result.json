@@ -17,6 +17,12 @@
     "research/products/YYYYMMDD-products.json",
     "research/reports/YYYYMMDD-opportunity-report.md"
   ],
+  "sources": [
+    "https://example.com/affiliates"
+  ],
+  "risks": [
+    "Compliance and trademark PPC restriction risk"
+  ],
   "questions_for_lead": [
     "Should priority for next sprint focus on YouTube tutorial creation or SEO review pages?",
     "Confirm payout threshold preference for local VN banking vs PayPal/Stripe."

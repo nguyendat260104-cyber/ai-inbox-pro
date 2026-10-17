@@ -30,6 +30,8 @@ def complete_task(
     recommended_decision: str = "TEST",
     confidence: float = 0.85,
     artifacts: Optional[List[str]] = None,
+    sources: Optional[List[str]] = None,
+    risks: Optional[List[str]] = None,
     business_metrics: Optional[Dict[str, Any]] = None,
     questions_for_lead: Optional[List[str]] = None,
     next_task_suggestions: Optional[List[str]] = None,
@@ -81,7 +83,7 @@ def complete_task(
     if key_findings is not None:
         review_data["key_findings"] = key_findings
     elif "key_findings" not in review_data:
-        review_data["key_findings"] = [f"Deliverables generated according to task requirements."]
+        review_data["key_findings"] = ["Deliverables generated according to task requirements."]
 
     if recommended_decision:
         review_data["recommended_decision"] = recommended_decision
@@ -104,6 +106,16 @@ def complete_task(
             if a not in final_artifacts:
                 final_artifacts.append(a)
     review_data["artifacts"] = final_artifacts
+
+    if sources is not None:
+        review_data["sources"] = sources
+    elif "sources" not in review_data:
+        review_data["sources"] = []
+
+    if risks is not None:
+        review_data["risks"] = risks
+    elif "risks" not in review_data:
+        review_data["risks"] = []
 
     if questions_for_lead is not None:
         review_data["questions_for_lead"] = questions_for_lead
@@ -149,6 +161,8 @@ def main():
     parser.add_argument("--decision", default="TEST", choices=["SCALE", "TEST", "RETEST", "KILL", "REVIEW"], help="Recommended decision")
     parser.add_argument("--confidence", type=float, default=0.85, help="Confidence score 0.0 - 1.0")
     parser.add_argument("--artifacts", nargs="*", help="List of artifact paths")
+    parser.add_argument("--sources", nargs="*", help="List of factual source URLs")
+    parser.add_argument("--risks", nargs="*", help="List of risks identified")
     parser.add_argument("--findings", nargs="*", help="Key findings")
     parser.add_argument("--questions", nargs="*", help="Questions for Lead review")
     parser.add_argument("--next-tasks", nargs="*", help="Next task suggestions")
@@ -164,6 +178,8 @@ def main():
             recommended_decision=args.decision,
             confidence=args.confidence,
             artifacts=args.artifacts,
+            sources=args.sources,
+            risks=args.risks,
             questions_for_lead=args.questions,
             next_task_suggestions=args.next_tasks,
             review_file=args.review_file

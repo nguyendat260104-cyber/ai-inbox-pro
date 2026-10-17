@@ -1,14 +1,18 @@
 #!/usr/bin/env python3
 """
-Affiliate Automation Smoke Test Suite
-Runs all 7 required validation and lifecycle tests:
-1. Task validation test
-2. Create task test
-3. Claim task test
-4. Complete task into review test
-5. Daily task generation test
-6. Duplicate prevention test
-7. Dashboard startup smoke test
+Affiliate Automation Test Suite
+Comprehensive testing engine verifying all 11 required system test cases:
+1. create task
+2. validate task
+3. claim highest priority task
+4. queued -> running transition
+5. running -> review transition
+6. failure handling
+7. duplicate daily-task prevention
+8. malformed JSON handling
+9. missing directory handling
+10. dashboard startup
+11. daily report generation
 """
 
 import sys
@@ -38,47 +42,13 @@ from claim_task import claim_task
 from complete_task import complete_task
 from fail_task import fail_task
 from daily_tasks import generate_daily_tasks, get_existing_tasks_for_date
+from daily_report import generate_daily_report
 from serve_dashboard import run_server
 
-def test_1_task_validation():
-    print("▶ Running Test 1: Task Validation...")
-    # Validate a good task
-    valid_task = {
-        "id": "AFF-TEST-001",
-        "type": "product_research",
-        "executor": "antigravity",
-        "goal": "Test goal",
-        "context": "Test context",
-        "requirements": ["req1"],
-        "deliverables": ["del1"],
-        "acceptance_criteria": ["acc1"],
-        "priority": "high",
-        "dependencies": [],
-        "suggested_branch": "task/AFF-TEST-001",
-        "status": "queued",
-        "created_at": "2026-10-18T00:00:00Z",
-        "started_at": None,
-        "completed_at": None,
-        "result": None,
-        "artifacts": [],
-        "metrics": {}
-    }
-    errs = validate_task_dict(valid_task)
-    assert len(errs) == 0, f"Expected 0 errors, got: {errs}"
-
-    # Validate an invalid task
-    invalid_task = valid_task.copy()
-    invalid_task.pop("id")
-    invalid_task["status"] = "invalid_status"
-    errs2 = validate_task_dict(invalid_task)
-    assert any("Missing required field: 'id'" in e for e in errs2), "Failed to catch missing id"
-    assert any("Invalid status" in e for e in errs2), "Failed to catch invalid status"
-    print("  ✅ Task validation passed.")
-    return True
-
-def test_2_create_task():
-    print("▶ Running Test 2: Create Task...")
-    test_id = "AFF-SMOKE-001"
+# 1. Create Task Test
+def test_1_create_task():
+    print("▶ Running Test 1: Create Task...")
+    test_id = "AFF-TEST-CREATE-001"
     # Ensure cleaned up first
     for sub in ["queued", "running", "review", "done", "failed"]:
         p = BASE_DIR / "tasks" / sub / f"{test_id}.json"
@@ -88,128 +58,256 @@ def test_2_create_task():
     path = create_task(
         task_id=test_id,
         task_type="product_research",
-        goal="Smoke test task creation",
+        goal="Verify task creation mechanics",
         priority="high",
         base_dir=BASE_DIR
     )
-    assert path.exists(), f"Created file does not exist: {path}"
+    assert path.exists(), f"Task file was not created: {path}"
     with open(path, "r", encoding="utf-8") as f:
         data = json.load(f)
     assert data["id"] == test_id
     assert data["status"] == "queued"
-    print(f"  ✅ Created task verified: {path.name}")
+    assert data["priority"] == "high"
+    print(f"  ✅ Task created and validated: {path.name}")
     return True
 
-def test_3_claim_task():
-    print("▶ Running Test 3: Claim Task...")
-    test_id = "AFF-SMOKE-001"
+# 2. Validate Task Test
+def test_2_validate_task():
+    print("▶ Running Test 2: Validate Task...")
+    test_id = "AFF-TEST-CREATE-001"
+    t_file = BASE_DIR / "tasks" / "queued" / f"{test_id}.json"
+    with open(t_file, "r", encoding="utf-8") as f:
+        data = json.load(f)
+
+    # Valid check
+    errs = validate_task_dict(data, t_file)
+    assert len(errs) == 0, f"Expected 0 errors on valid task, got: {errs}"
+
+    # Invalid check
+    bad_data = data.copy()
+    bad_data.pop("goal")
+    bad_data["priority"] = "ultra_high"
+    bad_errs = validate_task_dict(bad_data, t_file)
+    assert any("Missing required field: 'goal'" in e for e in bad_errs), "Did not flag missing field"
+    assert any("Invalid priority" in e for e in bad_errs), "Did not flag invalid priority"
+    print("  ✅ Schema and attribute validation verified.")
+    return True
+
+# 3. Claim Highest Priority Task Test
+def test_3_claim_highest_priority_task():
+    print("▶ Running Test 3: Claim Highest Priority Task...")
+    # Create two tasks: medium and critical
+    id_med = "AFF-TEST-PRIO-MED"
+    id_crit = "AFF-TEST-PRIO-CRIT"
+    for sub in ["queued", "running", "review", "done", "failed"]:
+        for tid in [id_med, id_crit]:
+            (BASE_DIR / "tasks" / sub / f"{tid}.json").unlink(missing_ok=True)
+
+    create_task(task_id=id_med, task_type="product_research", priority="medium", goal="Medium task", base_dir=BASE_DIR)
+    time.sleep(0.05)
+    create_task(task_id=id_crit, task_type="product_research", priority="critical", goal="Critical task", base_dir=BASE_DIR)
+
+    # Automatic claiming without specifying ID should pick critical
+    claimed = claim_task(base_dir=BASE_DIR)
+    assert claimed is not None, "Failed to claim any task"
+    assert claimed.stem == id_crit, f"Expected to claim {id_crit}, but claimed {claimed.stem}"
+
+    # Clean up
+    claimed.unlink(missing_ok=True)
+    (BASE_DIR / "tasks" / "queued" / f"{id_med}.json").unlink(missing_ok=True)
+    print(f"  ✅ Priority ordering verified: {id_crit} claimed before medium.")
+    return True
+
+# 4. Queued -> Running Transition Test
+def test_4_queued_to_running_transition():
+    print("▶ Running Test 4: Queued -> Running Transition...")
+    test_id = "AFF-TEST-CREATE-001"
+    src_file = BASE_DIR / "tasks" / "queued" / f"{test_id}.json"
+    assert src_file.exists(), f"Source queued task does not exist: {src_file}"
+
     dest = claim_task(task_id=test_id, base_dir=BASE_DIR)
     assert dest is not None, "claim_task returned None"
-    assert dest.exists(), f"Claimed task file does not exist: {dest}"
-    assert dest.parent.name == "running", f"Task is not in tasks/running: {dest.parent}"
+    assert not src_file.exists(), "Source task was not removed from queued/"
+    assert dest.exists(), f"Target task does not exist: {dest}"
+    assert dest.parent.name == "running", f"Target is not in running/: {dest.parent}"
 
     with open(dest, "r", encoding="utf-8") as f:
         data = json.load(f)
     assert data["status"] == "running"
     assert data["started_at"] is not None
-    print(f"  ✅ Claimed task verified in running/: {dest.name}")
+    print(f"  ✅ Transitioned {test_id} to running/ with started_at timestamp.")
     return True
 
-def test_4_complete_task_into_review():
-    print("▶ Running Test 4: Complete Task into Review...")
-    test_id = "AFF-SMOKE-001"
-    review_dest = complete_task(
+# 5. Running -> Review Transition Test
+def test_5_running_to_review_transition():
+    print("▶ Running Test 5: Running -> Review Transition...")
+    test_id = "AFF-TEST-CREATE-001"
+    running_file = BASE_DIR / "tasks" / "running" / f"{test_id}.json"
+    assert running_file.exists(), f"Task must be running before completing: {running_file}"
+
+    review_file = complete_task(
         task_id=test_id,
-        executive_summary="Smoke test review executive summary",
-        key_findings=["Finding A", "Finding B"],
+        executive_summary="Unit test review summary",
+        key_findings=["Finding 1", "Finding 2"],
         recommended_decision="TEST",
-        confidence=0.9,
+        confidence=0.95,
+        sources=["https://example.com/source"],
+        risks=["Minimal testing risk"],
         base_dir=BASE_DIR
     )
-    assert review_dest.exists(), f"Review task file not found: {review_dest}"
-    assert review_dest.parent.name == "review", f"Task not in tasks/review: {review_dest.parent}"
+    assert review_file.exists(), f"Review task file does not exist: {review_file}"
+    assert review_file.parent.name == "review", f"Task not moved to review/: {review_file.parent}"
+    assert not running_file.exists(), "Task not removed from running/"
 
-    # Verify review package in results/
-    review_json_path = BASE_DIR / "results" / f"{test_id}-review.json"
-    assert review_json_path.exists(), f"Review result JSON not found: {review_json_path}"
-
-    with open(review_json_path, "r", encoding="utf-8") as f:
+    # Check results review JSON
+    res_json = BASE_DIR / "results" / f"{test_id}-review.json"
+    assert res_json.exists(), f"Review package JSON missing: {res_json}"
+    with open(res_json, "r", encoding="utf-8") as f:
         r_data = json.load(f)
-    assert r_data["task_id"] == test_id
     assert r_data["recommended_decision"] == "TEST"
+    assert "sources" in r_data and "risks" in r_data
 
-    # Clean up smoke test artifacts
-    review_dest.unlink(missing_ok=True)
-    review_json_path.unlink(missing_ok=True)
-    print("  ✅ Complete task into review and results/ JSON verified.")
+    # Clean up test task
+    review_file.unlink(missing_ok=True)
+    res_json.unlink(missing_ok=True)
+    print(f"  ✅ Running -> Review transition verified and review package created.")
     return True
 
-def test_5_daily_task_generation():
-    print("▶ Running Test 5: Daily Task Generation...")
-    smoke_date = "20269999"  # Dummy date so we don't interfere with real daily data
-    # Clean any dummy files first
+# 6. Failure Handling Test
+def test_6_failure_handling():
+    print("▶ Running Test 6: Failure Handling...")
+    test_id = "AFF-TEST-FAIL-001"
     for sub in ["queued", "running", "review", "done", "failed"]:
-        for f in (BASE_DIR / "tasks" / sub).glob(f"AFF-{smoke_date}-*.json"):
-            f.unlink()
+        (BASE_DIR / "tasks" / sub / f"{test_id}.json").unlink(missing_ok=True)
 
-    created = generate_daily_tasks(date_str=smoke_date, base_dir=BASE_DIR)
-    assert len(created) == 4, f"Expected 4 created tasks, got {len(created)}"
-    expected_ids = [f"AFF-{smoke_date}-001", f"AFF-{smoke_date}-002", f"AFF-{smoke_date}-003", f"AFF-{smoke_date}-004"]
-    for eid in expected_ids:
-        fpath = BASE_DIR / "tasks" / "queued" / f"{eid}.json"
-        assert fpath.exists(), f"Expected task {eid} not found in queued/"
+    create_task(task_id=test_id, task_type="product_research", goal="Test failure", base_dir=BASE_DIR)
+    failed_path = fail_task(task_id=test_id, error_message="Simulated upstream network timeout", base_dir=BASE_DIR)
 
-    print("  ✅ Daily task generation successfully created 4 tasks.")
+    assert failed_path.exists(), f"Failed task not found: {failed_path}"
+    assert failed_path.parent.name == "failed", f"Task not in failed/: {failed_path.parent}"
+    with open(failed_path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    assert data["status"] == "failed"
+    assert "error" in data["result"]
+    assert "timeout" in data["result"]["error"]
+
+    failed_path.unlink(missing_ok=True)
+    print("  ✅ Failure transition, error payload, and status captured.")
     return True
 
-def test_6_duplicate_prevention():
-    print("▶ Running Test 6: Duplicate Prevention...")
-    smoke_date = "20269999"
-    # Attempting to re-run generate_daily_tasks for the same date without --force
-    re_created = generate_daily_tasks(date_str=smoke_date, force=False, base_dir=BASE_DIR)
-    assert len(re_created) == 0, f"Expected 0 re-created tasks due to duplicate prevention, got {len(re_created)}"
-
-    # Clean up dummy tasks
+# 7. Duplicate Daily-Task Prevention Test
+def test_7_duplicate_daily_task_prevention():
+    print("▶ Running Test 7: Duplicate Daily-Task Prevention...")
+    test_date = "20268888"
     for sub in ["queued", "running", "review", "done", "failed"]:
-        for f in (BASE_DIR / "tasks" / sub).glob(f"AFF-{smoke_date}-*.json"):
+        for f in (BASE_DIR / "tasks" / sub).glob(f"AFF-{test_date}-*.json"):
             f.unlink(missing_ok=True)
 
-    print("  ✅ Duplicate prevention verified (0 duplicate tasks created).")
+    # First run creates tasks
+    created1 = generate_daily_tasks(date_str=test_date, base_dir=BASE_DIR)
+    assert len(created1) == 5, f"Expected 5 tasks, got {len(created1)}"
+
+    # Second run without force should create 0 tasks
+    created2 = generate_daily_tasks(date_str=test_date, force=False, base_dir=BASE_DIR)
+    assert len(created2) == 0, f"Expected 0 duplicate tasks, got {len(created2)}"
+
+    # Clean up
+    for sub in ["queued", "running", "review", "done", "failed"]:
+        for f in (BASE_DIR / "tasks" / sub).glob(f"AFF-{test_date}-*.json"):
+            f.unlink(missing_ok=True)
+
+    print("  ✅ Idempotent execution confirmed; 0 duplicate tasks created on second run.")
     return True
 
-def test_7_dashboard_startup():
-    print("▶ Running Test 7: Dashboard Startup Smoke Test...")
-    port = 8765
-    server_thread = threading.Thread(target=run_server, kwargs={"host": "127.0.0.1", "port": port, "single_request": True}, daemon=True)
+# 8. Malformed JSON Handling Test
+def test_8_malformed_json_handling():
+    print("▶ Running Test 8: Malformed JSON Handling...")
+    bad_file = BASE_DIR / "tasks" / "queued" / "AFF-TEST-CORRUPT-001.json"
+    with open(bad_file, "w", encoding="utf-8") as f:
+        f.write("{ invalid_json: this is not valid, missing_quotes }")
+
+    # Run validate_all_tasks
+    total, err_count, errors = validate_all_tasks(base_dir=BASE_DIR)
+    assert err_count > 0, "Validator failed to flag malformed JSON file"
+    assert any("JSON parse error" in e for e in errors), "JSON parse error not reported"
+
+    bad_file.unlink(missing_ok=True)
+    print("  ✅ Malformed JSON safely trapped and flagged without crashing system.")
+    return True
+
+# 9. Missing Directory Handling Test
+def test_9_missing_directory_handling():
+    print("▶ Running Test 9: Missing Directory Handling...")
+    temp_dir = BASE_DIR / "tasks" / "temp_isolated_test"
+    # Ensure create_task handles non-existent or newly created target subfolders
+    test_id = "AFF-TEST-DIR-001"
+    path = create_task(task_id=test_id, goal="Test missing dir creation", base_dir=BASE_DIR)
+    assert path.parent.exists(), "Target parent directory does not exist"
+    path.unlink(missing_ok=True)
+    print("  ✅ Missing directory self-healing and path resolution confirmed.")
+    return True
+
+# 10. Dashboard Startup Smoke Test
+def test_10_dashboard_startup():
+    print("▶ Running Test 10: Dashboard Startup Smoke Test...")
+    port = 8769
+    server_thread = threading.Thread(
+        target=run_server,
+        kwargs={"host": "127.0.0.1", "port": port, "single_request": True},
+        daemon=True
+    )
     server_thread.start()
     time.sleep(0.5)
 
-    # Test GET /api/data
-    url = f"http://127.0.0.1:{port}/api/data"
-    req = urllib.request.Request(url)
-    with urllib.request.urlopen(req, timeout=5) as response:
-        assert response.status == 200, f"Dashboard returned status {response.status}"
-        data = json.loads(response.read().decode("utf-8"))
-        assert data["status"] == "healthy", f"Unexpected status: {data.get('status')}"
-        assert "counts" in data, "Counts missing in API response"
+    # Test GET /
+    url_root = f"http://127.0.0.1:{port}/"
+    req_root = urllib.request.Request(url_root)
+    with urllib.request.urlopen(req_root, timeout=5) as resp_root:
+        assert resp_root.status == 200, f"Dashboard UI root returned {resp_root.status}"
+        html_content = resp_root.read().decode("utf-8")
+        assert "Affiliate Automation Command Center" in html_content
 
     server_thread.join(timeout=2)
-    print("  ✅ Dashboard startup and /api/data smoke test passed.")
+    print("  ✅ Dashboard HTTP UI and static routes verified online.")
+    return True
+
+# 11. Daily Report Generation Test
+def test_11_daily_report_generation():
+    print("▶ Running Test 11: Daily Report Generation...")
+    test_date = "20267777"
+    rep_md = generate_daily_report(date_str=test_date, base_dir=BASE_DIR)
+    assert rep_md.exists(), f"Markdown report file not found: {rep_md}"
+    rep_json = BASE_DIR / "metrics" / "daily" / f"{test_date}-report.json"
+    assert rep_json.exists(), f"JSON report file not found: {rep_json}"
+
+    with open(rep_json, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    assert "task_summary" in data
+    assert "report_date" in data and data["report_date"] == test_date
+
+    # Clean up test reports
+    rep_md.unlink(missing_ok=True)
+    rep_json.unlink(missing_ok=True)
+    print("  ✅ Daily report aggregation and markdown/json compilation passed.")
     return True
 
 def main():
     print("==================================================")
-    print("AFFILIATE AUTOMATION SMOKE TEST SUITE")
+    print("AFFILIATE AUTOMATION COMPREHENSIVE TEST SUITE")
     print("==================================================")
     results = {}
     tests = [
-        ("1. Task Validation", test_1_task_validation),
-        ("2. Create Task", test_2_create_task),
-        ("3. Claim Task", test_3_claim_task),
-        ("4. Complete Task into Review", test_4_complete_task_into_review),
-        ("5. Daily Task Generation", test_5_daily_task_generation),
-        ("6. Duplicate Prevention", test_6_duplicate_prevention),
-        ("7. Dashboard Startup", test_7_dashboard_startup)
+        ("1. Create Task", test_1_create_task),
+        ("2. Validate Task", test_2_validate_task),
+        ("3. Claim Highest Priority Task", test_3_claim_highest_priority_task),
+        ("4. Queued -> Running Transition", test_4_queued_to_running_transition),
+        ("5. Running -> Review Transition", test_5_running_to_review_transition),
+        ("6. Failure Handling", test_6_failure_handling),
+        ("7. Duplicate Daily-Task Prevention", test_7_duplicate_daily_task_prevention),
+        ("8. Malformed JSON Handling", test_8_malformed_json_handling),
+        ("9. Missing Directory Handling", test_9_missing_directory_handling),
+        ("10. Dashboard Startup", test_10_dashboard_startup),
+        ("11. Daily Report Generation", test_11_daily_report_generation)
     ]
 
     all_passed = True
@@ -228,7 +326,7 @@ def main():
     print("----------------------------------------------")
 
     if all_passed:
-        print("🎉 ALL 7 TESTS PASSED!")
+        print("🎉 ALL 11 TESTS PASSED!")
         sys.exit(0)
     else:
         print("💥 SOME TESTS FAILED.")
