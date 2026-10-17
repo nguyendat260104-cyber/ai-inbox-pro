@@ -1,0 +1,28 @@
+{
+  "task_id": "AFF-YYYYMMDD-001",
+  "executive_summary": "Executive overview of task execution, findings, and strategic impact.",
+  "key_findings": [
+    "Key quantitative and qualitative finding 1",
+    "Key quantitative and qualitative finding 2"
+  ],
+  "recommended_decision": "TEST",
+  "confidence": 0.85,
+  "business_metrics": {
+    "opportunities_evaluated": 20,
+    "top_candidates_count": 5,
+    "avg_top_score": 83.2,
+    "execution_time_minutes": 25
+  },
+  "artifacts": [
+    "research/products/YYYYMMDD-products.json",
+    "research/reports/YYYYMMDD-opportunity-report.md"
+  ],
+  "questions_for_lead": [
+    "Should priority for next sprint focus on YouTube tutorial creation or SEO review pages?",
+    "Confirm payout threshold preference for local VN banking vs PayPal/Stripe."
+  ],
+  "next_task_suggestions": [
+    "Produce high-retention video script for top scale candidate",
+    "Set up tracking link spreadsheet and test click logging"
+  ]
+}

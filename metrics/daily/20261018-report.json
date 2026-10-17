@@ -1,0 +1,273 @@
+{
+  "report_date": "20261018",
+  "generated_at": "2026-10-17T17:20:36.291622+00:00",
+  "task_summary": {
+    "queued": 3,
+    "running": 0,
+    "review": 1,
+    "done": 0,
+    "failed": 0
+  },
+  "tasks": [
+    {
+      "id": "AFF-20261018-002",
+      "type": "deep_research",
+      "priority": "high",
+      "status": "queued",
+      "goal": "Deep research top candidates from daily opportunity research.",
+      "result": null
+    },
+    {
+      "id": "AFF-20261018-003",
+      "type": "content_production",
+      "priority": "high",
+      "status": "queued",
+      "goal": "Create production-ready content for selected test candidates.",
+      "result": null
+    },
+    {
+      "id": "AFF-20261018-004",
+      "type": "system_maintenance",
+      "priority": "medium",
+      "status": "queued",
+      "goal": "Validate queue/results/metrics and report problems.",
+      "result": null
+    },
+    {
+      "id": "AFF-20261018-001",
+      "type": "product_research",
+      "priority": "high",
+      "status": "review",
+      "goal": "Find and rank affiliate opportunities relevant to Vietnam, prioritizing digital, AI, and SaaS products.",
+      "result": "results/AFF-20261018-001-review.json"
+    }
+  ],
+  "content_inventory": {
+    "scripts": 0,
+    "posts": 0,
+    "articles": 0
+  },
+  "top_research_candidates": [
+    {
+      "product": "Make.com",
+      "brand": "Celonis / Make",
+      "category": "SaaS & Workflow Automation / No-Code",
+      "affiliate_program": "Make Partner Program (FirstPromoter)",
+      "country_availability": "Global (including Vietnam)",
+      "target_audience": "Operations leads, digital marketers, agency owners, automation engineers in Vietnam",
+      "customer_problem": "Repetitive manual data transfer between Google Sheets, CRM, Telegram, and Facebook Lead Ads",
+      "buyer_intent": "High commercial intent; users actively seeking cost-effective Zapier alternatives",
+      "price": "Free tier available; Core from $9/mo, Pro from $16/mo",
+      "commission": "20% lifetime recurring commission",
+      "cookie_window": "90 days",
+      "demand_evidence": "Surging search interest for Make automation tutorials; dominant Zapier replacement across Southeast Asia",
+      "trend_evidence": "Enterprise and SME rapid shift toward AI agentic workflows and multi-step API orchestration",
+      "competition": "Medium-low in Vietnamese language tutorials; vast open opportunity for localized workflow templates",
+      "content_angles": [
+        "Tự động hóa gửi Lead từ Facebook Ads vào Telegram & Google Sheets trong 5 phút",
+        "Make.com vs Zapier: Tại sao Agency Việt Nam đang đồng loạt chuyển sang Make?",
+        "Xây dựng trợ lý AI tự động phản hồi khách hàng và xuất hóa đơn với Make + ChatGPT"
+      ],
+      "potential_channels": [
+        "YouTube Tutorials",
+        "Facebook Communities",
+        "Substack Case Studies"
+      ],
+      "risks": "Technical setup requires step-by-step visual demonstration to avoid novice churn",
+      "source_url": "https://www.make.com/en/affiliate-program",
+      "score_breakdown": {
+        "Demand": 22,
+        "BuyerIntent": 19,
+        "CommissionEconomics": 14,
+        "ContentFit": 14,
+        "Competition": 9,
+        "Trend": 10,
+        "ComplianceRisk": 4
+      },
+      "score": 92,
+      "recommendation": "SCALE"
+    },
+    {
+      "product": "Hostinger",
+      "brand": "Hostinger International Ltd.",
+      "category": "Web Hosting & Cloud VPS",
+      "affiliate_program": "Hostinger Affiliate Program / CJ Affiliate",
+      "country_availability": "Global & Vietnam (local payment gateway & Vietnamese interface support)",
+      "target_audience": "Vietnamese web developers, WordPress agency owners, freelancers, students building portfolios",
+      "customer_problem": "High cost and complexity of setting up reliable web hosting with SSL, email, and SSD storage",
+      "buyer_intent": "Extreme commercial search intent ('mua hosting giá rẻ', 'best web hosting for beginners')",
+      "price": "Starting ~$2.99/mo (approx 75,000 VND/mo)",
+      "commission": "60% per sale",
+      "cookie_window": "30 days",
+      "demand_evidence": "Consistently top search volume in Vietnam tech communities and Google SERPs",
+      "trend_evidence": "Rapid growth of individual e-commerce stores, affiliate blogs, and personal portfolios",
+      "competition": "High on broad search terms, but medium-low on Vietnamese workflow-specific tutorials",
+      "content_angles": [
+        "Cách tạo website chuẩn SEO trong 10 phút với Hostinger AI Builder",
+        "So sánh Hostinger vs Azdigi / Viettel IDC: Đâu là lựa chọn tối ưu chi phí?",
+        "Xây dựng hệ thống Automation Blog tự động trên VPS Hostinger giá rẻ"
+      ],
+      "potential_channels": [
+        "YouTube Long-form",
+        "SEO Blog",
+        "TikTok Tech Guides"
+      ],
+      "risks": "Strict trademark bidding prohibition; cannot run PPC ads on 'Hostinger' brand keywords",
+      "source_url": "https://www.hostinger.com/affiliates",
+      "score_breakdown": {
+        "Demand": 24,
+        "BuyerIntent": 19,
+        "CommissionEconomics": 14,
+        "ContentFit": 14,
+        "Competition": 7,
+        "Trend": 8,
+        "ComplianceRisk": 5
+      },
+      "score": 91,
+      "recommendation": "SCALE"
+    },
+    {
+      "product": "Notion",
+      "brand": "Notion Labs Inc.",
+      "category": "Productivity & Workspace / AI Workspace",
+      "affiliate_program": "Notion Affiliate Program (PartnerStack)",
+      "country_availability": "Global (including Vietnam)",
+      "target_audience": "Solopreneurs, knowledge workers, university students, startup founders",
+      "customer_problem": "Fragmented notes, chaotic task tracking, unorganized document repositories",
+      "buyer_intent": "High conversion on ready-made template bundles and Plus/Team workspace upgrades",
+      "price": "Free tier, Plus from $10/user/mo",
+      "commission": "50% of all payments made by referred customer for their first year",
+      "cookie_window": "90 days",
+      "demand_evidence": "Massive organic community in Vietnam (#NotionVN, Facebook groups with over 200,000 members)",
+      "trend_evidence": "Continuous integration of Notion AI agents, project automations, and enterprise databases",
+      "competition": "High on basic student templates, medium on advanced business OS templates",
+      "content_angles": [
+        "Bộ Template Notion quản lý tài chính cá nhân & dự án dành riêng cho Freelancer",
+        "Cách dùng Notion AI tóm tắt tài liệu và lên kế hoạch marketing tuần",
+        "Tối ưu hóa quy trình làm việc từ A-Z cho Agency 5 người bằng Notion Teamspace"
+      ],
+      "potential_channels": [
+        "TikTok Aesthetic Workspace",
+        "YouTube Long-form",
+        "X / Threads"
+      ],
+      "risks": "Free tier is very feature-rich; must position business and team features to drive paid upgrades",
+      "source_url": "https://www.notion.so/affiliates",
+      "score_breakdown": {
+        "Demand": 25,
+        "BuyerIntent": 17,
+        "CommissionEconomics": 13,
+        "ContentFit": 15,
+        "Competition": 6,
+        "Trend": 9,
+        "ComplianceRisk": 5
+      },
+      "score": 90,
+      "recommendation": "SCALE"
+    },
+    {
+      "product": "ElevenLabs",
+      "brand": "ElevenLabs Inc.",
+      "category": "Generative Voice AI & Speech Synthesis",
+      "affiliate_program": "ElevenLabs Partner Program (Rewardful)",
+      "country_availability": "Global (including Vietnam)",
+      "target_audience": "Content creators, faceless YouTube/TikTok creators, audiobook publishers, game devs",
+      "customer_problem": "Robotic, emotionless text-to-speech voices that sound fake and harm audience retention",
+      "buyer_intent": "Very high commercial intent among video creators looking to monetize faceless channels",
+      "price": "Starter from $5/mo, Creator from $22/mo",
+      "commission": "22% recurring commission for the first 12 months",
+      "cookie_window": "60 days",
+      "demand_evidence": "Gold standard in synthetic voice cloning and multilingual natural speech",
+      "trend_evidence": "Explosive growth of faceless automated media channels across Southeast Asia",
+      "competition": "Low-medium in detailed Vietnamese workflow reviews",
+      "content_angles": [
+        "Cách tạo kênh YouTube Faceless triệu view với giọng đọc AI ElevenLabs siêu tự nhiên",
+        "So sánh giọng đọc ElevenLabs vs CapCut AI Voice: Khác biệt đáng giá bao nhiêu?",
+        "Hướng dẫn Clone giọng nói tiếng Việt chuẩn cảm xúc để làm Audio Book"
+      ],
+      "potential_channels": [
+        "YouTube Shorts",
+        "TikTok Tech",
+        "Blog Tutorials"
+      ],
+      "risks": "AI voice ethics compliance; requires clear deepfake and synthetic voice disclaimers",
+      "source_url": "https://elevenlabs.io/affiliates",
+      "score_breakdown": {
+        "Demand": 23,
+        "BuyerIntent": 18,
+        "CommissionEconomics": 12,
+        "ContentFit": 15,
+        "Competition": 8,
+        "Trend": 10,
+        "ComplianceRisk": 4
+      },
+      "score": 90,
+      "recommendation": "SCALE"
+    },
+    {
+      "product": "Descript",
+      "brand": "Descript Inc.",
+      "category": "Video Editing & AI Media Studio",
+      "affiliate_program": "FirstPromoter",
+      "country_availability": "Global (including Vietnam)",
+      "target_audience": "Podcasters, YouTubers, online educators, course creators",
+      "customer_problem": "Tedious timeline editing, manual filler word removal, and subtitle generation taking hours",
+      "buyer_intent": "High willingness to pay among creators actively monetizing video output",
+      "price": "Free tier, Creator $12/mo, Pro $24/mo",
+      "commission": "15% recurring lifetime commission",
+      "cookie_window": "30 days",
+      "demand_evidence": "Rising search volume for 'edit video bằng văn bản', 'tự động cắt video AI'",
+      "trend_evidence": "Video-first content consumption boom across all marketing channels",
+      "competition": "Medium in Vietnam regional creator communities",
+      "content_angles": [
+        "Edit video 1 tiếng còn 10 phút: Cắt bỏ từ thừa tự động bằng Descript",
+        "Tự động tạo phụ đề phong cách Alex Hormozi bằng AI trong nháy mắt",
+        "Workflow sản xuất Podcast từ thu âm đến cắt Shorts hoàn chỉnh với Descript"
+      ],
+      "potential_channels": [
+        "YouTube Long-form",
+        "TikTok",
+        "Facebook Creator Groups"
+      ],
+      "risks": "English UI interface may require step-by-step visual screen recordings for local audience",
+      "source_url": "https://www.descript.com/affiliate-program",
+      "score_breakdown": {
+        "Demand": 21,
+        "BuyerIntent": 17,
+        "CommissionEconomics": 12,
+        "ContentFit": 15,
+        "Competition": 8,
+        "Trend": 9,
+        "ComplianceRisk": 5
+      },
+      "score": 87,
+      "recommendation": "SCALE"
+    }
+  ],
+  "recent_reviews": [
+    {
+      "task_id": "AFF-20261018-001",
+      "executive_summary": "Completed in-depth research and 7-dimension scoring of 20 digital, AI, SaaS, and infrastructure affiliate programs for Vietnam and global audiences. 13 Scale candidates identified with Make.com (92) and Hostinger (91) as top targets.",
+      "key_findings": [
+        "20 qualified candidates scored without fabricated metrics.",
+        "Top 5 candidates average score is 90.0/100 with strong buyer intent.",
+        "Make.com and Hostinger offer optimal balance of search demand and recurring/CPA economics in Vietnam."
+      ],
+      "recommended_decision": "SCALE",
+      "confidence": 0.92,
+      "business_metrics": {},
+      "artifacts": [
+        "research/products/20261018-products.json",
+        "research/reports/20261018-opportunity-report.md"
+      ],
+      "questions_for_lead": [
+        "Confirm whether to prioritize Make.com workflow automation video tutorial or Hostinger website builder guide for the next content sprint.",
+        "Approve recommended tracking parameter format subid={{subid}}&src={{src}}."
+      ],
+      "next_task_suggestions": [
+        "Claim AFF-20261018-002 for deep funnel and keyword teardown on Make.com",
+        "Produce production-ready video script and blog tutorial in AFF-20261018-003"
+      ]
+    }
+  ]
+}

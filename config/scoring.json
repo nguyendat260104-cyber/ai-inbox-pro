@@ -1,0 +1,47 @@
+{
+  "weights": {
+    "Demand": 25,
+    "BuyerIntent": 20,
+    "CommissionEconomics": 15,
+    "ContentFit": 15,
+    "Competition": 10,
+    "Trend": 10,
+    "ComplianceRisk": 5
+  },
+  "max_raw_score": 100,
+  "decision_framework": {
+    "SCALE": {
+      "min_score": 80,
+      "max_score": 100,
+      "label": "SCALE CANDIDATE",
+      "action": "Immediate production of high-intent content, multiple angles, landing page comparison."
+    },
+    "TEST": {
+      "min_score": 65,
+      "max_score": 79,
+      "label": "TEST",
+      "action": "Produce pilot test content (1-2 videos/articles), validate CTR and conversion tracking."
+    },
+    "RETEST": {
+      "min_score": 50,
+      "max_score": 64,
+      "label": "RETEST / NEW ANGLE",
+      "action": "Hold production until distinct positioning, audience sub-niche, or higher commission angle is identified."
+    },
+    "KILL": {
+      "min_score": 0,
+      "max_score": 49,
+      "label": "KILL",
+      "action": "Archive candidate; low buyer intent, poor economics, or high compliance risk."
+    }
+  },
+  "rubric_guidelines": {
+    "Demand": "Search volume, social buzz, active user growth, and market adoption (0-25 pts)",
+    "BuyerIntent": "Urgency of problem solved, willingness to pay, commercial search keywords (0-20 pts)",
+    "CommissionEconomics": "Commission % or flat payout, recurring vs one-time, EPC/AOV, cookie duration (0-15 pts)",
+    "ContentFit": "Ease of demonstration, visual hook potential, case study compatibility, format fit (0-15 pts)",
+    "Competition": "SERP difficulty, saturation of affiliate reviews; higher score = healthier competitive gap (0-10 pts)",
+    "Trend": "Google Trends slope, tech adoption curve (e.g. AI boom, remote work, automation) (0-10 pts)",
+    "ComplianceRisk": "Strictness of program terms, trademark bidding bans, payout reliability, disclosure hurdles (0-5 pts)"
+  }
+}

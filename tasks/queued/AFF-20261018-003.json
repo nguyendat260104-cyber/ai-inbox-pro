@@ -1,0 +1,36 @@
+{
+  "id": "AFF-20261018-003",
+  "type": "content_production",
+  "executor": "antigravity",
+  "goal": "Create production-ready content for selected test candidates.",
+  "context": "Draft multi-channel creative assets complying with disclosure guidelines and targeting commercial search queries.",
+  "requirements": [
+    "Write high-retention video script (YouTube Shorts / TikTok)",
+    "Write comprehensive tutorial/review post for blog or newsletter",
+    "Incorporate mandatory affiliate disclosure statement",
+    "Include parameterized tracking link placeholders"
+  ],
+  "deliverables": [
+    "content/scripts/20261018-product-script.md",
+    "content/posts/20261018-product-post.md"
+  ],
+  "acceptance_criteria": [
+    "Includes persona, funnel stage, channel, hook, CTA",
+    "Mandatory affiliate disclosure included",
+    "Tracking link placeholders with subid parameters included",
+    "No misleading income guarantees or fake claims",
+    "B-roll, thumbnail, and visual cues specified"
+  ],
+  "priority": "high",
+  "dependencies": [
+    "AFF-20261018-002"
+  ],
+  "suggested_branch": "task/AFF-20261018-003",
+  "status": "queued",
+  "created_at": "2026-10-17T17:17:14.902749+00:00",
+  "started_at": null,
+  "completed_at": null,
+  "result": null,
+  "artifacts": [],
+  "metrics": {}
+}

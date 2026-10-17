@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.env
+.env.local
+
+# Operating System
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE & Editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Logs and runtime locks
+*.log
+*.pid

@@ -1,0 +1,31 @@
+{
+  "id": "AFF-YYYYMMDD-003",
+  "type": "system_maintenance",
+  "executor": "antigravity",
+  "goal": "Validate system integrity, task queue hygiene, metric formats, and output structure.",
+  "context": "Ensure all queue items adhere to schema, audit file linkages, and generate health summaries.",
+  "requirements": [
+    "Execute validate_tasks.py across all queue stages",
+    "Audit research and content artifact links",
+    "Report unverified fields or missing metrics",
+    "Check dashboard server responsiveness"
+  ],
+  "deliverables": [
+    "results/YYYYMMDD-maintenance-log.json"
+  ],
+  "acceptance_criteria": [
+    "Zero schema validation errors across tasks/",
+    "Missing or corrupted files flagged explicitly",
+    "Summary log stored in results/"
+  ],
+  "priority": "medium",
+  "dependencies": [],
+  "suggested_branch": "task/AFF-YYYYMMDD-003",
+  "status": "queued",
+  "created_at": "2026-10-18T00:00:00Z",
+  "started_at": null,
+  "completed_at": null,
+  "result": null,
+  "artifacts": [],
+  "metrics": {}
+}

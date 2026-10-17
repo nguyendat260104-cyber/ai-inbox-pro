@@ -1,0 +1,31 @@
+{
+  "id": "AFF-20261018-004",
+  "type": "system_maintenance",
+  "executor": "antigravity",
+  "goal": "Validate queue/results/metrics and report problems.",
+  "context": "Perform daily hygiene checks on task queues, deliverables, metric schemas, and health endpoints.",
+  "requirements": [
+    "Execute schema validation on all tasks",
+    "Verify file existence for listed deliverables and review artifacts",
+    "Aggregate daily metrics and log system health"
+  ],
+  "deliverables": [
+    "results/20261018-maintenance-log.json"
+  ],
+  "acceptance_criteria": [
+    "Zero schema validation errors across tasks/",
+    "Missing or corrupted files flagged explicitly",
+    "Summary log stored in results/",
+    "Queue health status confirmed"
+  ],
+  "priority": "medium",
+  "dependencies": [],
+  "suggested_branch": "task/AFF-20261018-004",
+  "status": "queued",
+  "created_at": "2026-10-17T17:17:14.903586+00:00",
+  "started_at": null,
+  "completed_at": null,
+  "result": null,
+  "artifacts": [],
+  "metrics": {}
+}

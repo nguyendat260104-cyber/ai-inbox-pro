@@ -1,0 +1,33 @@
+{
+  "id": "AFF-20261018-002",
+  "type": "deep_research",
+  "executor": "antigravity",
+  "goal": "Deep research top candidates from daily opportunity research.",
+  "context": "Conduct thorough funnel, audience, and payout analysis on top shortlisted scale/test candidates.",
+  "requirements": [
+    "Map user journey and landing page conversion friction",
+    "Analyze competitor keyword positioning and organic traffic hooks",
+    "Document exact cookie duration, payout frequencies, and local banking options"
+  ],
+  "deliverables": [
+    "research/reports/20261018-deep-dive.md"
+  ],
+  "acceptance_criteria": [
+    "Detailed funnel analysis for top candidates",
+    "Competitive pricing and payout matrix verified",
+    "Tracking links and cookie attribution mechanics documented",
+    "Conversion hook recommendations finalized"
+  ],
+  "priority": "high",
+  "dependencies": [
+    "AFF-20261018-001"
+  ],
+  "suggested_branch": "task/AFF-20261018-002",
+  "status": "queued",
+  "created_at": "2026-10-17T17:17:14.902081+00:00",
+  "started_at": null,
+  "completed_at": null,
+  "result": null,
+  "artifacts": [],
+  "metrics": {}
+}

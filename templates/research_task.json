@@ -1,0 +1,34 @@
+{
+  "id": "AFF-YYYYMMDD-001",
+  "type": "product_research",
+  "executor": "antigravity",
+  "goal": "Research and evaluate affiliate opportunities in a specific niche with high buyer intent.",
+  "context": "Evaluate candidate products against the 7-dimension scoring framework. Ensure compliance and avoid fabricating numbers.",
+  "requirements": [
+    "Identify active affiliate programs with clear payout structures",
+    "Assess target buyer persona and pain points",
+    "Score opportunities using config/scoring.json weights",
+    "Flag unknown metrics as 'needs_verification'"
+  ],
+  "deliverables": [
+    "research/products/YYYYMMDD-products.json",
+    "research/reports/YYYYMMDD-opportunity-report.md"
+  ],
+  "acceptance_criteria": [
+    "Candidate count meets required quota",
+    "Direct source URLs provided for all factual claims",
+    "No fabricated commissions or pricing",
+    "Scores calculated accurately (0-100 scale)",
+    "Top shortlist clearly highlighted with content angles"
+  ],
+  "priority": "high",
+  "dependencies": [],
+  "suggested_branch": "task/AFF-YYYYMMDD-001",
+  "status": "queued",
+  "created_at": "2026-10-18T00:00:00Z",
+  "started_at": null,
+  "completed_at": null,
+  "result": null,
+  "artifacts": [],
+  "metrics": {}
+}

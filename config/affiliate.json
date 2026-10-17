@@ -1,0 +1,35 @@
+{
+  "system_name": "Affiliate Automation Command Center",
+  "version": "1.0.0",
+  "primary_executor": "antigravity",
+  "lead_reviewer": "chatgpt",
+  "target_geos": ["Vietnam", "Global English", "Southeast Asia"],
+  "primary_niches": [
+    "AI Tools & Generative Media",
+    "SaaS & Workflow Automation",
+    "Developer & Coding Assistants",
+    "E-commerce & Dropshipping Software",
+    "Digital Marketing & SEO Suites",
+    "Web Hosting & Cloud Infrastructure"
+  ],
+  "content_channels": [
+    "YouTube Shorts & Long-form",
+    "TikTok Tech / AI Guides",
+    "Blog / Technical SEO Tutorials",
+    "Substack & Email Newsletter",
+    "X / Twitter Threads & Breakdowns"
+  ],
+  "default_currency": "USD",
+  "local_currency": "VND",
+  "compliance_policy": {
+    "mandatory_affiliate_disclosure": true,
+    "disclosure_text_standard": "Disclosure: This post contains affiliate links. If you purchase through them, we may earn a commission at no additional cost to you.",
+    "strict_no_guarantees_rule": "Never promise specific financial returns or misleading capabilities.",
+    "unknown_metric_policy": "mark explicitly as needs_verification"
+  },
+  "tracking": {
+    "param_subid": "subid",
+    "param_source": "src",
+    "param_channel": "utm_source"
+  }
+}
