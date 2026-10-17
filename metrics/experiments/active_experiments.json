@@ -1,0 +1,32 @@
+[
+  {
+    "experiment_id": "EXP-20261018-001",
+    "offer": "NordVPN",
+    "category": "Cybersecurity & Privacy Infrastructure",
+    "target_persona": "Remote workers & crypto traders on public cafe WiFi",
+    "channel": "TikTok Tech Guides & YouTube Shorts",
+    "status": "planned",
+    "primary_kpi": "CTR (Target >= 2.5%) & Paid Subscriptions",
+    "file_path": "metrics/experiments/EXP-20261018-001-nordvpn.json"
+  },
+  {
+    "experiment_id": "EXP-20261018-002",
+    "offer": "ClickUp",
+    "category": "Project Management & Team Collaboration",
+    "target_persona": "Agency founders & operations leads in Vietnam",
+    "channel": "YouTube Long-form & LinkedIn / Facebook Business Communities",
+    "status": "planned",
+    "primary_kpi": "Free Account Signups (Target >= 5.0%)",
+    "file_path": "metrics/experiments/EXP-20261018-002-clickup.json"
+  },
+  {
+    "experiment_id": "EXP-20261018-003",
+    "offer": "Grammarly",
+    "category": "Writing Assistant & AI Communications",
+    "target_persona": "Vietnamese remote workers, ESL professionals & students",
+    "channel": "TikTok (StudyGram) & Facebook Groups",
+    "status": "planned",
+    "primary_kpi": "Free Extension Installs (Target >= 20 installs)",
+    "file_path": "metrics/experiments/EXP-20261018-003-grammarly.json"
+  }
+]

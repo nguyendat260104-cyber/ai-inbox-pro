@@ -1,0 +1,42 @@
+{
+  "experiment_id": "EXP-20261018-001",
+  "offer": {
+    "name": "NordVPN",
+    "program": "NordVPN Affiliate Program / CJ Affiliate",
+    "category": "Cybersecurity & Privacy Infrastructure",
+    "affiliate_url_template": "https://nordvpn.org/affiliate?subid={{subid}}&src={{src}}"
+  },
+  "hypothesis": "Focusing on 'public cafe WiFi security risks' for Vietnamese tech freelancers and remote workers will drive a higher click-through rate (CTR >= 2.5%) and trial conversion than generic streaming geo-unblocking angles.",
+  "persona": "Remote workers, tech freelancers, crypto traders working from public cafes in Vietnam",
+  "channel": "TikTok Tech Guides & YouTube Shorts",
+  "content_format": "Short-Form Vertical Video (45-second split-screen demonstration)",
+  "hook": "Nếu bạn hay mang laptop ra quán cafe làm việc, dừng lại 30 giây để kiểm tra ngay điều này!",
+  "CTA": "Link kích hoạt ưu đãi giảm tới 70% và nhận thêm 3 tháng miễn phí tại bio/phần mô tả: https://nordvpn.org/affiliate?subid={{subid}}&src={{src}}",
+  "primary_kpi": "CTR (Target >= 2.5%) and Click-to-Account Registrations",
+  "secondary_kpi": "Audience Retention Rate at 3-second mark (Target >= 65%)",
+  "minimum_evidence_required": {
+    "minimum_impressions": 1000,
+    "minimum_clicks": 50,
+    "evaluation_window_days": 7
+  },
+  "decision_criteria": {
+    "SCALE": "CTR >= 3.0% and at least 3 paid subscription conversions within 14 days",
+    "TEST": "CTR between 1.8% and 2.9% with consistent link clicks",
+    "RETEST": "CTR < 1.8% but high 3-second retention (requires testing stronger CTA or alternate pricing angle)",
+    "KILL": "CTR < 1.0% across 3 distinct video hook variants with zero trial conversions"
+  },
+  "metrics": {
+    "impressions": null,
+    "views": null,
+    "clicks": null,
+    "CTR": null,
+    "conversions": null,
+    "conversion_rate": null,
+    "revenue": null,
+    "commission": null,
+    "RPC": null,
+    "production_minutes": null
+  },
+  "status": "planned",
+  "created_at": "2026-10-18T00:28:00Z"
+}

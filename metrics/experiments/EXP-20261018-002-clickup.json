@@ -1,0 +1,42 @@
+{
+  "experiment_id": "EXP-20261018-002",
+  "offer": {
+    "name": "ClickUp",
+    "program": "ClickUp Partner Program (Rewardful)",
+    "category": "Project Management & Team Collaboration",
+    "affiliate_url_template": "https://clickup.com/partners?subid={{subid}}&src={{src}}"
+  },
+  "hypothesis": "Positioning ClickUp 3.0 directly as 'The agency operating system that eliminates Zalo/Slack chat chaos' with free pre-configured templates will achieve a >= 4.0% CTR and qualify business seat conversions.",
+  "persona": "Agency founders, operations managers, tech project leads in Vietnam managing 3+ clients",
+  "channel": "YouTube Long-form & LinkedIn / Facebook Business Communities",
+  "content_format": "Video Tutorial / Deep Blueprint Case Study & Carousel Breakdown",
+  "hook": "Team bạn có đang bị tình trạng: việc thì nhiều, hạn chót thì trễ, mà họp thì hết ngày không?",
+  "CTA": "Bắt đầu dùng thử ClickUp hoàn toàn miễn phí và nhận bộ template quản lý dự án Agile tại: https://clickup.com/partners?subid={{subid}}&src={{src}}",
+  "primary_kpi": "Free Account Signups (Target >= 5.0% conversion from unique page visitors)",
+  "secondary_kpi": "Template Download Opt-ins & Click-to-Registration Rate",
+  "minimum_evidence_required": {
+    "minimum_impressions": 800,
+    "minimum_clicks": 40,
+    "evaluation_window_days": 10
+  },
+  "decision_criteria": {
+    "SCALE": "Over 8 free signups and at least 1 paid Unlimited/Business workspace upgrade within 30 days",
+    "TEST": "Between 3 and 7 free signups with active workspace engagement",
+    "RETEST": "High clicks (> 50) but zero signups (indicates template friction or complicated onboarding)",
+    "KILL": "Zero free signups and CTR < 1.0% across 500+ targeted impressions"
+  },
+  "metrics": {
+    "impressions": null,
+    "views": null,
+    "clicks": null,
+    "CTR": null,
+    "conversions": null,
+    "conversion_rate": null,
+    "revenue": null,
+    "commission": null,
+    "RPC": null,
+    "production_minutes": null
+  },
+  "status": "planned",
+  "created_at": "2026-10-18T00:28:00Z"
+}

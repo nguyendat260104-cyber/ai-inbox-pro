@@ -1,0 +1,42 @@
+{
+  "experiment_id": "EXP-20261018-003",
+  "offer": {
+    "name": "Grammarly",
+    "program": "Grammarly Affiliate Program (CJ Affiliate)",
+    "category": "Writing Assistant & AI Communications",
+    "affiliate_url_template": "https://grammarly.com/affiliates?subid={{subid}}&src={{src}}"
+  },
+  "hypothesis": "Addressing the 'embarrassing rude tone in English emails to foreign clients' will trigger high viral short-form sharing on TikTok and produce a high volume of free browser extension installs ($0.20 CPA) and premium trials.",
+  "persona": "Vietnamese remote workers, ESL professionals, university students and IELTS test takers",
+  "channel": "TikTok (StudyGram) & Facebook Groups",
+  "content_format": "Short-Form Vertical Video (40-second humor/correction scenario)",
+  "hook": "Nếu bạn gửi một câu email như thế này cho sếp người nước ngoài, khả năng cao bạn sẽ bị đánh giá là thô lỗ và thiếu tôn trọng!",
+  "CTA": "Cài đặt tiện ích mở rộng Grammarly miễn phí 100% cho Chrome và Word tại link ở bio: https://grammarly.com/affiliates?subid={{subid}}&src={{src}}",
+  "primary_kpi": "Free Browser Extension Installs (Volume target >= 20 installs)",
+  "secondary_kpi": "Video Completion Rate & Share Count on TikTok/Reels",
+  "minimum_evidence_required": {
+    "minimum_impressions": 2000,
+    "minimum_clicks": 100,
+    "evaluation_window_days": 7
+  },
+  "decision_criteria": {
+    "SCALE": "Over 25 free installs and at least 1 Premium subscription upgrade within 14 days",
+    "TEST": "Between 10 and 24 free installs with positive viewer comments",
+    "RETEST": "High video views (> 5000) but low install conversion (indicates bio link friction or desktop vs mobile barrier)",
+    "KILL": "Fewer than 3 free installs across 100+ outbound clicks"
+  },
+  "metrics": {
+    "impressions": null,
+    "views": null,
+    "clicks": null,
+    "CTR": null,
+    "conversions": null,
+    "conversion_rate": null,
+    "revenue": null,
+    "commission": null,
+    "RPC": null,
+    "production_minutes": null
+  },
+  "status": "planned",
+  "created_at": "2026-10-18T00:28:00Z"
+}
