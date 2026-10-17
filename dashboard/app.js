@@ -145,7 +145,62 @@ function renderDashboard(data) {
     });
   }
 
-  // 5. Reviews Handoff
+  // 5. Experiments
+  const expContainer = document.getElementById("experiments-container");
+  if (expContainer) {
+    expContainer.innerHTML = "";
+    const experiments = data.experiments || [];
+    if (experiments.length === 0) {
+      expContainer.innerHTML = `<div class="text-muted" style="padding: 2rem; text-align: center;">No active experiments defined in metrics/experiments/</div>`;
+    } else {
+      experiments.forEach(e => {
+        const card = document.createElement("div");
+        card.className = "review-card";
+        const offerName = (e.offer && e.offer.name) || "Unknown Offer";
+        card.innerHTML = `
+          <div class="review-card-header">
+            <div>
+              <strong style="color:var(--accent); font-size:1.1rem;">${escapeHtml(e.experiment_id)}: ${escapeHtml(offerName)}</strong>
+              <span class="badge test" style="margin-left: 0.8rem;">Status: ${escapeHtml(e.status || "planned")}</span>
+            </div>
+            <span class="text-muted" style="font-size:0.85rem;">Channel: ${escapeHtml(e.channel || "Multi-channel")}</span>
+          </div>
+          <p class="review-summary"><strong>Hypothesis:</strong> ${escapeHtml(e.hypothesis || "None")}</p>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 0.8rem;">
+            <div>
+              <strong style="font-size:0.8rem; color:var(--text-muted); text-transform:uppercase;">KPIs</strong>
+              <ul class="review-list">
+                <li><strong>Primary:</strong> ${escapeHtml(e.primary_kpi || "N/A")}</li>
+                <li><strong>Secondary:</strong> ${escapeHtml(e.secondary_kpi || "N/A")}</li>
+              </ul>
+            </div>
+            <div>
+              <strong style="font-size:0.8rem; color:var(--text-muted); text-transform:uppercase;">Creative Angle</strong>
+              <ul class="review-list">
+                <li><strong>Hook:</strong> "${escapeHtml(e.hook || "N/A")}"</li>
+                <li><strong>CTA:</strong> "${escapeHtml(e.CTA || "N/A")}"</li>
+              </ul>
+            </div>
+          </div>
+        `;
+        expContainer.appendChild(card);
+      });
+    }
+  }
+
+  // 6. Research Report
+  const resReportEl = document.getElementById("research-report-body");
+  const resFilenameEl = document.getElementById("research-filename");
+  if (resReportEl) {
+    if (data.latest_research) {
+      if (resFilenameEl) resFilenameEl.textContent = `File: ${data.latest_research.filename}`;
+      resReportEl.textContent = data.latest_research.content;
+    } else {
+      resReportEl.textContent = "No research report available yet in research/reports/.";
+    }
+  }
+
+  // 7. Reviews Handoff
   const reviewsContainer = document.getElementById("reviews-container");
   reviewsContainer.innerHTML = "";
   const reviews = data.reviews || [];
@@ -191,7 +246,7 @@ function renderDashboard(data) {
     });
   }
 
-  // 6. Daily Report
+  // 8. Daily Report
   const reportBody = document.getElementById("daily-report-body");
   const reportFilename = document.getElementById("report-filename");
   if (data.latest_report) {

@@ -110,18 +110,44 @@ class DashboardRequestHandler(BaseHTTPRequestHandler):
             except Exception:
                 pass
 
+        # 7. Experiments
+        experiments = []
+        exp_dir = metrics_dir / "experiments"
+        if exp_dir.exists():
+            for ef in sorted(exp_dir.glob("EXP-*.json")):
+                try:
+                    with open(ef, "r", encoding="utf-8") as f:
+                        experiments.append(json.load(f))
+                except Exception:
+                    pass
+
+        # 8. Latest research report
+        latest_research = None
+        rep_files = sorted(list((research_dir / "reports").glob("*.md")), reverse=True)
+        if rep_files:
+            try:
+                with open(rep_files[0], "r", encoding="utf-8") as f:
+                    latest_research = {
+                        "filename": rep_files[0].name,
+                        "content": f.read()
+                    }
+            except Exception:
+                pass
+
         return {
             "status": "healthy",
             "counts": {s: len(tasks_by_status[s]) for s in statuses},
             "tasks": tasks_by_status,
             "top_products": products[:20],
             "content_assets": content_assets,
+            "experiments": experiments,
             "reviews": reviews,
             "config": {
                 "affiliate": affiliate_cfg,
                 "scoring": scoring_cfg
             },
-            "latest_report": latest_report
+            "latest_report": latest_report,
+            "latest_research": latest_research
         }
 
     def do_GET(self):

@@ -61,7 +61,9 @@
     <nav class="tab-nav">
       <button class="tab-btn active" onclick="switchTab('tasks')">Task Pipeline</button>
       <button class="tab-btn" onclick="switchTab('offers')">Researched Offers & Scoring</button>
+      <button class="tab-btn" onclick="switchTab('experiments')">Experiments & Metrics</button>
       <button class="tab-btn" onclick="switchTab('content')">Content Pipeline</button>
+      <button class="tab-btn" onclick="switchTab('research')">Latest Research Report</button>
       <button class="tab-btn" onclick="switchTab('reviews')">Lead Review Handoffs</button>
       <button class="tab-btn" onclick="switchTab('reports')">Daily Reports</button>
     </nav>
@@ -145,12 +147,39 @@
       </div>
     </section>
 
-    <!-- Tab 3: Content Pipeline -->
+    <!-- Tab: Experiments & Metrics -->
+    <section id="tab-experiments" class="tab-content">
+      <div class="section-card">
+        <div class="section-header">
+          <h2>Active Growth Experiments & KPI Framework</h2>
+          <span class="badge test">Top 3 Hypotheses</span>
+        </div>
+        <p class="section-desc">Structured experiments validating audience hooks, CTR thresholds, and real attribution mechanics.</p>
+        <div id="experiments-container" class="experiments-grid">
+          <!-- Experiment cards rendered here -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab: Content Pipeline -->
     <section id="tab-content" class="tab-content">
       <div class="section-card">
         <h2>Production Content Assets</h2>
         <div id="content-grid" class="content-cards-grid">
           <!-- Content cards rendered here -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab: Latest Research Report -->
+    <section id="tab-research" class="tab-content">
+      <div class="section-card">
+        <div class="section-header">
+          <h2>Latest Market Opportunity Research Report</h2>
+          <span id="research-filename" class="text-muted"></span>
+        </div>
+        <div id="research-report-body" class="markdown-preview">
+          <!-- Research report content rendered here -->
         </div>
       </div>
     </section>
