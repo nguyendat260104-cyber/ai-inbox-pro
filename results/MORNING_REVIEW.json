@@ -1,0 +1,101 @@
+{
+  "sprint_name": "Overnight Affiliate Automation Sprint",
+  "generated_at": "2026-10-18T00:30:00Z",
+  "executor": "antigravity",
+  "lead": "chatgpt",
+  "executive_summary": "Complete local-first affiliate automation platform bootstrap: 11/11 tests passing, 20 verified affiliate opportunities scored across 7 dimensions, 33 content test assets produced for top 3 test offers, 3 growth experiments designed, and local command center dashboard active.",
+  "test_suite_status": {
+    "total_tests": 11,
+    "passed": 11,
+    "failed": 0,
+    "all_passed": true
+  },
+  "queue_state": {
+    "queued": 4,
+    "running": 0,
+    "review": 1,
+    "done": 0,
+    "failed": 0
+  },
+  "top_5_scale_candidates": [
+    {
+      "name": "Make.com",
+      "score": 92,
+      "category": "Workflow Automation",
+      "commission": "20% Lifetime Recurring",
+      "recommendation": "SCALE"
+    },
+    {
+      "name": "Hostinger",
+      "score": 91,
+      "category": "Web Hosting & Cloud VPS",
+      "commission": "60% CPA",
+      "recommendation": "SCALE"
+    },
+    {
+      "name": "Notion",
+      "score": 90,
+      "category": "Productivity & Workspace AI",
+      "commission": "50% 1st Year Payments",
+      "recommendation": "SCALE"
+    },
+    {
+      "name": "ElevenLabs",
+      "score": 90,
+      "category": "Voice AI & Speech Synthesis",
+      "commission": "22% Recurring (1 Year)",
+      "recommendation": "SCALE"
+    },
+    {
+      "name": "Descript",
+      "score": 87,
+      "category": "AI Video / Audio Studio",
+      "commission": "15% Lifetime Recurring",
+      "recommendation": "SCALE"
+    }
+  ],
+  "top_3_recommended_tests": [
+    {
+      "offer": "NordVPN",
+      "score": 79,
+      "experiment_id": "EXP-20261018-001",
+      "primary_angle": "Public Cafe WiFi Security Check",
+      "target_ctr": ">= 2.5%"
+    },
+    {
+      "offer": "ClickUp",
+      "score": 79,
+      "experiment_id": "EXP-20261018-002",
+      "primary_angle": "Eliminating Group Chat Chaos for Agencies",
+      "target_ctr": ">= 4.0%"
+    },
+    {
+      "offer": "Grammarly",
+      "score": 77,
+      "experiment_id": "EXP-20261018-003",
+      "primary_angle": "Preventing Rude Tone in English Client Emails",
+      "target_installs": ">= 20"
+    }
+  ],
+  "content_production_inventory": {
+    "video_concepts": 9,
+    "full_video_scripts": 6,
+    "social_posts": 6,
+    "seo_article_briefs": 3,
+    "hooks": 15,
+    "ctas": 9,
+    "total_assets": 33
+  },
+  "decisions_requested_from_lead": [
+    "Approve strategic verdict on Task AFF-20261018-001 (SCALE for Make.com / Hostinger, TEST for NordVPN / ClickUp / Grammarly)",
+    "Select primary initial channel focus: Short-form video (TikTok/Shorts) vs Search-intent tutorials (YouTube/SEO)",
+    "Authorize claiming next queued task AFF-20261018-002 for deep research"
+  ],
+  "suggested_next_tasks": [
+    "Execute AFF-20261018-002: Deep funnel analysis for Make.com",
+    "Execute AFF-20261018-003: Production video recording and article writing for Make.com",
+    "Deploy lightweight local affiliate link redirect counter (scripts/redirect_link.py)",
+    "Generate visual graphic overlays and thumbnails for Top 3 test videos",
+    "Execute AFF-20261018-004: System hygiene audit and metrics validation"
+  ]
+}
