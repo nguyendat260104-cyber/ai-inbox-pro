@@ -1,10 +1,10 @@
 {
   "report_date": "20261018",
-  "generated_at": "2026-10-18T04:01:56.654018+00:00",
+  "generated_at": "2026-10-18T04:17:14.790113+00:00",
   "task_summary": {
     "queued": 0,
     "running": 0,
-    "review": 9,
+    "review": 10,
     "done": 0,
     "failed": 0
   },
@@ -83,6 +83,14 @@
       "status": "review",
       "goal": "Use the authenticated Shopee/Lazada affiliate portals to convert approved public source URLs into custom tracking links.",
       "result": "results/AFF-20261018-009-review.json"
+    },
+    {
+      "id": "AFF-20261018-010",
+      "type": "provider_authorization",
+      "priority": "high",
+      "status": "review",
+      "goal": "Complete one-time official API authorization for Shopee and/or Lazada so link generation and metrics sync can run without portal scraping.",
+      "result": "results/AFF-20261018-010-review.json"
     }
   ],
   "content_inventory": {
@@ -703,6 +711,38 @@
       "next_task_suggestions": [
         "Human operator generates Shopee/Lazada custom tracking links",
         "Replace needs_verification in config/links.json"
+      ]
+    },
+    {
+      "task_id": "AFF-20261018-010",
+      "executive_summary": "Established an API-first authorization gate and metadata framework for Shopee and Lazada. Automated anti-bot bypassing, CAPTCHA solving, and credential persistence are strictly forbidden. Providers are maintained in user_authorization_required status until official developer app keys are connected through runtime environment variables.",
+      "key_findings": [
+        "Defined non-secret provider connection metadata in config/provider_connections.json for Shopee Open Platform and Lazada Open Platform",
+        "Implemented API authorization and smoke test validation in scripts/provider_api.py",
+        "Verified via automated test suite (Test 16): unauthorized providers remain blocked and API payloads reject secret tokens",
+        "Strictly enforced safety boundaries: zero keys, tokens, cookies, or tax data stored in the repository"
+      ],
+      "recommended_decision": "TEST",
+      "confidence": 0.85,
+      "business_metrics": {
+        "shopee_api_status": "user_authorization_required",
+        "lazada_api_status": "user_authorization_required",
+        "enforced_gates": "no_scraping, no_captcha, non_secret_metadata"
+      },
+      "artifacts": [],
+      "sources": [
+        "https://open.shopee.com/",
+        "https://open.lazada.com/"
+      ],
+      "risks": [
+        "Portal scraping triggers aggressive anti-bot rate-limiting and account suspension; official API credentials are mandatory for programmatic scale."
+      ],
+      "questions_for_lead": [
+        "Does Lead prefer registering for official Shopee Open Platform developer credentials, or proceeding with manual link generation via the affiliate portal?"
+      ],
+      "next_task_suggestions": [
+        "If API keys are obtained, provide via runtime environment variables (e.g. SHOPEE_APP_ID, SHOPEE_API_SECRET)",
+        "Otherwise, proceed with human operator manual link generation using docs/AFFILIATE_ONBOARDING_GUIDE.md"
       ]
     }
   ]
