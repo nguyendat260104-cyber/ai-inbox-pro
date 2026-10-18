@@ -226,6 +226,26 @@ class SalesAgent:
                 True
             )
 
+        # 1b. Height & Weight Sizing Assistant (Vietnamese fit consulting)
+        weight_match = re.search(r"(\d{2,3})\s*(?:kg|kí|cân)", lower)
+        height_match = re.search(r"(?:1m\d{2}|1\.\d{2}m|\d{3}\s*cm)", lower)
+        if weight_match or height_match:
+            rec_size = "L"
+            if weight_match:
+                w_val = int(weight_match.group(1))
+                if w_val < 58:
+                    rec_size = "M"
+                elif w_val <= 68:
+                    rec_size = "L"
+                else:
+                    rec_size = "XL"
+            return (
+                f"Dạ với số đo của mình, mẫu {p_name} bạn mặc size {rec_size} là chuẩn form và tôn dáng nhất ạ! "
+                f"Sản phẩm có giá niêm yết {price_fmt}, hiện đang sẵn các màu: {colors_str}. "
+                "Bạn thích màu nào để em giữ hàng gửi mình nhé?",
+                False
+            )
+
         # 2. Customer asks about shipping / delivery
         if any(k in lower for k in ["ship", "giao hàng", "đà nẵng", "hà nội", "phí"]):
             return (

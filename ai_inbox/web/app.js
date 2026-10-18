@@ -1,9 +1,26 @@
 /**
  * AI Inbox & Sales Management - Admin Dashboard Application Logic
+ * Omnichannel Unified Inbox, Kanban Pipeline, Product Catalog & Staff Metrics
  */
 
 let activeConvId = null;
+let currentActiveLeadId = null;
 let currentConversations = [];
+let activeChannelFilter = "all";
+let searchQuery = "";
+
+const CHANNEL_LABELS = {
+  "web_widget": "Web",
+  "facebook_page": "Messenger",
+  "zalo_oa": "Zalo OA",
+  "tiktok_shop": "TikTok",
+  "shopee": "Shopee",
+  "lazada": "Lazada"
+};
+
+function getChannelLabel(channel) {
+  return CHANNEL_LABELS[channel] || (channel ? channel.toUpperCase() : "WEB");
+}
 
 function switchTab(tabId) {
   document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
@@ -41,16 +58,51 @@ async function loadInbox() {
     if (!res.ok) return;
     const data = await res.json();
     currentConversations = data.conversations || [];
-    renderInboxList(currentConversations);
+    filterAndRenderConversations();
   } catch (e) {
     console.error("Failed to load inbox:", e);
   }
 }
 
+function filterByChannel(channel) {
+  activeChannelFilter = channel;
+  document.querySelectorAll(".channel-pill").forEach(pill => {
+    const fnAttr = pill.getAttribute("onclick") || "";
+    if (fnAttr.includes(`'${channel}'`)) {
+      pill.classList.add("active");
+    } else {
+      pill.classList.remove("active");
+    }
+  });
+  filterAndRenderConversations();
+}
+
+function handleSearch(query) {
+  searchQuery = (query || "").toLowerCase().trim();
+  filterAndRenderConversations();
+}
+
+function filterAndRenderConversations() {
+  let list = currentConversations;
+  if (activeChannelFilter !== "all") {
+    list = list.filter(c => c.channel === activeChannelFilter);
+  }
+  if (searchQuery) {
+    list = list.filter(c => {
+      const name = (c.customer_name || "").toLowerCase();
+      const phone = (c.customer_phone || "").toLowerCase();
+      const prod = (c.product_name || "").toLowerCase();
+      return name.includes(searchQuery) || phone.includes(searchQuery) || prod.includes(searchQuery);
+    });
+  }
+  renderInboxList(list);
+}
+
 function renderInboxList(convs) {
   const container = document.getElementById("inbox-list");
+  if (!container) return;
   if (!convs || convs.length === 0) {
-    container.innerHTML = '<div style="padding:20px; color:var(--text-muted); text-align:center;">Chưa có cuộc trò chuyện nào</div>';
+    container.innerHTML = '<div style="padding:28px 16px; color:var(--text-muted); text-align:center; font-size:13px;">Không tìm thấy cuộc trò chuyện phù hợp</div>';
     return;
   }
 
@@ -61,25 +113,44 @@ function renderInboxList(convs) {
     item.onclick = () => selectConversation(c.id);
 
     const isHot = c.intent_label === "HOT";
-    const badgeHtml = isHot ? '<span class="badge-hot">🔥 HOT</span>' : (c.intent_label === "WARM" ? '<span class="badge-warm">⚡ WARM</span>' : '');
+    const isWarm = c.intent_label === "WARM";
+    const badgeHtml = isHot ? '<span class="badge-hot">🔥 HOT</span>' : (isWarm ? '<span class="badge-warm">⚡ WARM</span>' : '');
+
+    const channelTag = `<span class="badge-channel channel-${c.channel || 'web_widget'}">${getChannelLabel(c.channel)}</span>`;
+    const isStaff = c.status === "assigned_human";
 
     item.innerHTML = `
       <div class="inbox-item-header">
-        <span class="inbox-cust-name">${escapeHtml(c.customer_name || 'Khách Hàng')}</span>
+        <span class="inbox-cust-name">${escapeHtml(c.customer_name || 'Khách Hàng')} ${channelTag}</span>
         ${badgeHtml}
       </div>
-      <div class="inbox-last-msg">${escapeHtml(c.product_name || 'Đang trao đổi...')}</div>
-      <div style="font-size:11px; color:var(--text-muted); margin-top:4px;">
-        Trạng thái: <strong>${c.status === 'assigned_human' ? 'Nhân viên chốt' : 'Bot hỗ trợ'}</strong>
+      <div class="inbox-last-msg">${escapeHtml(c.product_name ? 'Quan tâm: ' + c.product_name : 'Đang trao đổi...')}${c.customer_phone ? ' • ' + escapeHtml(c.customer_phone) : ''}</div>
+      <div style="font-size:11px; color:var(--text-muted); margin-top:5px; display:flex; justify-content:space-between; align-items:center;">
+        <span>${isStaff ? '<span style="color:var(--primary); font-weight:600;">👨‍💼 Nhân viên tiếp quản</span>' : '🤖 AI Trợ lý tự động'}</span>
+        <span style="font-size:10.5px; opacity:0.8;">${formatTimestamp(c.last_message_at)}</span>
       </div>
     `;
     container.appendChild(item);
   });
 }
 
+function formatTimestamp(ts) {
+  if (!ts) return "";
+  try {
+    const d = new Date(ts);
+    const now = new Date();
+    if (d.toDateString() === now.toDateString()) {
+      return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    }
+    return `${d.getDate()}/${d.getMonth() + 1}`;
+  } catch (e) {
+    return "";
+  }
+}
+
 async function selectConversation(convId) {
   activeConvId = convId;
-  renderInboxList(currentConversations); // Update active state
+  filterAndRenderConversations(); // Update active highlight
 
   try {
     const res = await fetch(`/api/dashboard/conversations/${convId}/messages`);
@@ -88,32 +159,87 @@ async function selectConversation(convId) {
     const conv = data.conversation;
     const messages = data.messages || [];
 
-    // 1. Update Header & Sidebar
-    document.getElementById("thread-cust-name").textContent = conv ? conv.customer_name : "Khách Hàng";
-    document.getElementById("thread-cust-meta").textContent = `Kênh: ${conv ? conv.channel : 'Web'} • Trạng thái: ${conv ? (conv.status === 'assigned_human' ? 'Nhân viên tiếp quản' : 'Bot đang xử lý') : ''}`;
+    currentActiveLeadId = conv ? conv.lead_id : null;
+
+    // 1. Update Header
+    const channelName = getChannelLabel(conv ? conv.channel : "web_widget");
+    document.getElementById("thread-cust-name").textContent = conv ? (conv.customer_name || "Khách Hàng") : "Khách Hàng";
+    document.getElementById("thread-cust-meta").textContent = `Kênh: ${channelName} • Trạng thái: ${conv ? (conv.status === 'assigned_human' ? 'Nhân viên tiếp quản' : 'Bot AI đang xử lý') : ''}`;
+
+    const takeoverBtn = document.getElementById("btn-takeover");
+    if (takeoverBtn) {
+      if (conv && conv.status === "assigned_human") {
+        takeoverBtn.className = "btn-takeover active-staff";
+        takeoverBtn.textContent = "✅ Đang Tiếp Quản";
+      } else {
+        takeoverBtn.className = "btn-takeover";
+        takeoverBtn.textContent = "⚡ Can Thiệp / Chốt Đơn";
+      }
+    }
+
+    // 2. Update Customer 360 Sidebar
+    const channelBadge = document.getElementById("detail-channel-badge");
+    if (channelBadge && conv) {
+      channelBadge.textContent = channelName;
+      channelBadge.className = `badge-channel channel-${conv.channel || 'web_widget'}`;
+    }
 
     document.getElementById("detail-name").textContent = conv ? (conv.customer_name || '-') : '-';
     document.getElementById("detail-phone").textContent = conv ? (conv.customer_phone || 'Chưa cung cấp') : '-';
     document.getElementById("detail-product").textContent = conv ? (conv.product_name ? `${conv.product_name} (${(conv.product_price || 0).toLocaleString()}đ)` : 'Chưa xác định') : '-';
-    document.getElementById("detail-score").textContent = conv ? `${conv.lead_score || 0} / 100 (${conv.intent_label || 'COLD'})` : '-';
-    document.getElementById("detail-stage").textContent = conv ? (conv.lead_status || 'new').toUpperCase() : '-';
-    document.getElementById("detail-conv-status").textContent = conv ? (conv.status === 'assigned_human' ? '👨‍💼 Nhân viên đang chat' : '🤖 Bot đang tự trả lời') : '-';
+    
+    const scoreVal = conv ? (conv.lead_score || 0) : 0;
+    const intentLabel = conv ? (conv.intent_label || 'COLD') : 'COLD';
+    document.getElementById("detail-score").textContent = `${scoreVal} / 100 (${intentLabel})`;
 
-    // 2. Render Messages
+    // Score Gauge Fill
+    const gaugeFill = document.getElementById("score-gauge");
+    if (gaugeFill) {
+      gaugeFill.style.width = `${Math.min(scoreVal, 100)}%`;
+      if (scoreVal >= 70) {
+        gaugeFill.style.background = "var(--hot-red)";
+      } else if (scoreVal >= 40) {
+        gaugeFill.style.background = "var(--warm-orange)";
+      } else {
+        gaugeFill.style.background = "var(--cold-blue)";
+      }
+    }
+
+    // Stage Select
+    const stageSelect = document.getElementById("detail-stage-select");
+    if (stageSelect && conv) {
+      stageSelect.value = conv.lead_status || "new";
+    }
+
+    // 3. Render Messages in Thread Body
     const body = document.getElementById("thread-body");
     body.innerHTML = "";
-    messages.forEach(m => {
-      const msgEl = document.createElement("div");
-      msgEl.className = `thread-msg ${m.sender_type}`;
-      msgEl.innerHTML = `
-        <div style="font-size:11px; font-weight:600; margin-bottom:2px; color:var(--text-muted);">
-          ${escapeHtml(m.sender_name || (m.sender_type === 'bot' ? 'Trợ lý AI' : (m.sender_type === 'staff' ? 'Nhân viên Sale' : 'Khách')))}
-        </div>
-        <div>${escapeHtml(m.content)}</div>
-      `;
-      body.appendChild(msgEl);
-    });
-    body.scrollTop = body.scrollHeight;
+    if (messages.length === 0) {
+      body.innerHTML = '<div style="text-align:center; color:var(--text-muted); margin-top:40px;">Chưa có tin nhắn trong hội thoại này</div>';
+    } else {
+      messages.forEach(m => {
+        const msgEl = document.createElement("div");
+        msgEl.className = `msg-row ${m.sender_type}`;
+
+        const senderTitle = m.sender_name || (
+          m.sender_type === 'bot' ? '🤖 Trợ lý AI' :
+          (m.sender_type === 'staff' ? '👨‍💼 Nhân viên Sale' : '👤 Khách hàng')
+        );
+
+        msgEl.innerHTML = `
+          <div class="msg-bubble">
+            <div style="font-size:11px; font-weight:700; margin-bottom:3px; opacity:0.85;">${escapeHtml(senderTitle)}</div>
+            <div>${escapeHtml(m.content)}</div>
+          </div>
+          <div class="msg-meta">
+            <span>${formatTimestamp(m.timestamp)}</span>
+            ${m.intent ? `<span style="font-size:10px; background:#e2e8f0; padding:1px 4px; border-radius:3px;">${escapeHtml(m.intent)}</span>` : ''}
+          </div>
+        `;
+        body.appendChild(msgEl);
+      });
+      body.scrollTop = body.scrollHeight;
+    }
   } catch (e) {
     console.error("Failed to load conversation details:", e);
   }
@@ -128,7 +254,6 @@ async function takeoverChat() {
       body: JSON.stringify({ staff_id: "staff-01" })
     });
     if (res.ok) {
-      alert("⚡ Bạn đã tiếp quản cuộc trò chuyện! Bot đã tạm dừng để bạn trực tiếp chốt đơn.");
       selectConversation(activeConvId);
       loadInbox();
     }
@@ -156,6 +281,72 @@ async function sendStaffReply(e) {
     }
   } catch (e) {
     console.error("Send reply error:", e);
+  }
+}
+
+function insertQuickReply(text) {
+  const input = document.getElementById("reply-input");
+  if (input) {
+    input.value = text;
+    input.focus();
+  }
+}
+
+function copyPhone() {
+  const phoneEl = document.getElementById("detail-phone");
+  const phone = phoneEl ? phoneEl.textContent.trim() : "";
+  if (!phone || phone === "-" || phone === "Chưa cung cấp") {
+    alert("Khách hàng này chưa để lại số điện thoại.");
+    return;
+  }
+  navigator.clipboard.writeText(phone).then(() => {
+    alert(`Đã sao chép SĐT: ${phone}`);
+  }).catch(() => {
+    prompt("Sao chép số điện thoại:", phone);
+  });
+}
+
+async function updateLeadStageFromSidebar(newStage) {
+  if (!currentActiveLeadId) {
+    alert("Cuộc trò chuyện này chưa gắn với Lead nào.");
+    return;
+  }
+  try {
+    const res = await fetch(`/api/dashboard/leads/${currentActiveLeadId}/stage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ stage: newStage })
+    });
+    if (res.ok) {
+      loadMetrics();
+      loadInbox();
+    }
+  } catch (e) {
+    console.error("Update lead stage error:", e);
+  }
+}
+
+async function markLeadWonFast() {
+  if (!currentActiveLeadId) {
+    alert("Chưa có hồ sơ lead để chốt đơn.");
+    return;
+  }
+  try {
+    const res = await fetch(`/api/dashboard/leads/${currentActiveLeadId}/stage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ stage: "won" })
+    });
+    if (res.ok) {
+      const stageSelect = document.getElementById("detail-stage-select");
+      if (stageSelect) stageSelect.value = "won";
+      alert("🎉 Chúc mừng! Đã chốt đơn thành công (Won) và ghi nhận doanh thu!");
+      loadMetrics();
+      loadInbox();
+      if (activeConvId) selectConversation(activeConvId);
+    }
+  } catch (e) {
+    console.error("Mark won error:", e);
   }
 }
 
@@ -203,9 +394,11 @@ async function loadKanban() {
           event.dataTransfer.effectAllowed = "move";
         });
         const isHot = c.intent_label === "HOT";
+        const channelTag = `<span class="badge-channel channel-${c.channel || 'web_widget'}">${getChannelLabel(c.channel)}</span>`;
+
         cardEl.innerHTML = `
           <div class="lead-card-header">
-            <span class="lead-name">${escapeHtml(c.customer_name || 'Khách')}</span>
+            <span class="lead-name">${escapeHtml(c.customer_name || 'Khách')} ${channelTag}</span>
             ${isHot ? '<span class="badge-hot">🔥 HOT</span>' : ''}
           </div>
           <div class="lead-prod">${escapeHtml(c.product_name || 'Quan tâm sản phẩm')}</div>
@@ -410,7 +603,7 @@ async function loadStaffMetrics() {
 function escapeHtml(str) {
   if (!str) return "";
   return String(str).replace(/[&<>"']/g, function(m) {
-    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[m];
+    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
   });
 }
 

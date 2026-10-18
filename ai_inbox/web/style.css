@@ -1,15 +1,40 @@
-/* Command Center Admin Dashboard Styles */
+/* ==========================================================================
+   AI Inbox & Sales Management Platform - Enterprise Omnichannel Design System
+   Modern, Ultra-responsive, High-converting SaaS Theme
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
 :root {
-  --primary: #10b981;
-  --primary-dark: #059669;
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --primary-light: #eef2ff;
+  --primary-gradient: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+
   --bg: #f8fafc;
   --card-bg: #ffffff;
   --text-main: #0f172a;
   --text-muted: #64748b;
   --border: #e2e8f0;
+  --border-focus: #818cf8;
+
   --hot-red: #ef4444;
+  --hot-glow: rgba(239, 68, 68, 0.25);
   --warm-orange: #f59e0b;
   --cold-blue: #3b82f6;
+  --success-green: #10b981;
+
+  /* Omnichannel Channel Brand Colors */
+  --channel-web: #6366f1;
+  --channel-fb: #1877f2;
+  --channel-zalo: #0068ff;
+  --channel-tiktok: #0f172a;
+  --channel-shopee: #ee4d2d;
+  --channel-lazada: #0f146d;
+
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
 }
 
 * {
@@ -19,22 +44,27 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   background-color: var(--bg);
   color: var(--text-main);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* Header */
 .app-header {
   background: #ffffff;
   border-bottom: 1px solid var(--border);
-  padding: 14px 24px;
+  padding: 12px 28px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow-sm);
 }
 
 .brand {
@@ -44,20 +74,23 @@ body {
 }
 
 .brand-icon {
-  width: 36px;
-  height: 36px;
-  background: var(--primary);
-  border-radius: 8px;
+  width: 38px;
+  height: 38px;
+  background: var(--primary-gradient);
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #fff;
   font-size: 20px;
+  box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3);
 }
 
 .brand h1 {
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #0f172a;
 }
 
 .brand span {
@@ -67,19 +100,20 @@ body {
 
 .nav-tabs {
   display: flex;
-  gap: 8px;
+  gap: 6px;
+  align-items: center;
 }
 
 .tab-btn {
   background: none;
   border: none;
-  padding: 8px 16px;
-  font-size: 14px;
+  padding: 8px 14px;
+  font-size: 13.5px;
   font-weight: 500;
   color: var(--text-muted);
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.15s ease-in-out;
 }
 
 .tab-btn:hover {
@@ -88,16 +122,16 @@ body {
 }
 
 .tab-btn.active {
-  background: #ecfdf5;
-  color: var(--primary-dark);
+  background: var(--primary-light);
+  color: var(--primary);
   font-weight: 600;
 }
 
 /* Main Container */
 .main-container {
   flex: 1;
-  padding: 20px 24px;
-  max-width: 1440px;
+  padding: 20px 28px;
+  max-width: 1600px;
   width: 100%;
   margin: 0 auto;
 }
@@ -110,12 +144,12 @@ body {
   display: block;
 }
 
-/* Metrics Row */
+/* Top Metrics Row */
 .metrics-row {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 16px;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .metric-card {
@@ -123,72 +157,202 @@ body {
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 16px 20px;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.metric-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
 .metric-title {
-  font-size: 13px;
+  font-size: 12.5px;
+  font-weight: 600;
   color: var(--text-muted);
   margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
 }
 
 .metric-val {
   font-size: 26px;
-  font-weight: 700;
+  font-weight: 800;
+  letter-spacing: -0.02em;
 }
 
 .metric-sub {
   font-size: 12px;
-  color: var(--primary-dark);
+  color: var(--text-muted);
   margin-top: 4px;
 }
 
-/* Tab 1: Inbox Split View */
+/* ==========================================================================
+   Tab 1: Unified Omnichannel Inbox
+   ========================================================================== */
 .inbox-split {
   display: grid;
-  grid-template-columns: 320px 1fr 280px;
+  grid-template-columns: 340px 1fr 320px;
   gap: 16px;
-  height: calc(100vh - 200px);
-  min-height: 520px;
+  height: calc(100vh - 210px);
+  min-height: 560px;
 }
 
-.inbox-list {
+/* 1. Left Inbox List */
+.inbox-sidebar {
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: 12px;
-  overflow-y: auto;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.inbox-filter-bar {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+  background: #ffffff;
+}
+
+.search-box {
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 8px 12px 8px 32px;
+  font-size: 13px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #f8fafc;
+  outline: none;
+  font-family: inherit;
+  transition: border 0.15s ease;
+}
+
+.search-box input:focus {
+  border-color: var(--border-focus);
+  background: #ffffff;
+}
+
+.search-box .search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.channel-pill-scroll {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.channel-pill-scroll::-webkit-scrollbar {
+  height: 3px;
+}
+
+.channel-pill-scroll::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+.channel-pill {
+  padding: 4px 10px;
+  font-size: 11.5px;
+  font-weight: 600;
+  border-radius: 20px;
+  background: #f1f5f9;
+  color: var(--text-muted);
+  border: 1px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s;
+}
+
+.channel-pill:hover {
+  background: #e2e8f0;
+  color: var(--text-main);
+}
+
+.channel-pill.active {
+  background: #0f172a;
+  color: #ffffff;
+}
+
+.inbox-list {
+  flex: 1;
+  overflow-y: auto;
 }
 
 .inbox-item {
-  padding: 14px 16px;
+  padding: 13px 16px;
   border-bottom: 1px solid var(--border);
   cursor: pointer;
-  transition: background 0.15s;
+  transition: all 0.15s ease;
+  position: relative;
 }
 
-.inbox-item:hover, .inbox-item.active {
-  background: #f1f5f9;
+.inbox-item:hover {
+  background: #f8fafc;
+}
+
+.inbox-item.active {
+  background: #eef2ff;
+  border-left: 3px solid var(--primary);
 }
 
 .inbox-item-header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 4px;
 }
 
 .inbox-cust-name {
-  font-weight: 600;
-  font-size: 14px;
+  font-weight: 700;
+  font-size: 13.5px;
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
+
+.badge-channel {
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.channel-web_widget { background: #e0e7ff; color: var(--channel-web); }
+.channel-facebook_page { background: #dbeafe; color: var(--channel-fb); }
+.channel-zalo_oa { background: #e0f2fe; color: var(--channel-zalo); }
+.channel-tiktok_shop { background: #f1f5f9; color: var(--channel-tiktok); border: 1px solid #cbd5e1; }
+.channel-shopee { background: #ffedd5; color: var(--channel-shopee); }
+.channel-lazada { background: #ede9fe; color: var(--channel-lazada); }
 
 .badge-hot {
   background: #fee2e2;
   color: var(--hot-red);
   font-size: 11px;
   font-weight: 700;
-  padding: 2px 6px;
+  padding: 2px 7px;
   border-radius: 4px;
+  box-shadow: 0 0 8px var(--hot-glow);
+  animation: pulseHot 2s infinite;
+}
+
+@keyframes pulseHot {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
 }
 
 .badge-warm {
@@ -206,9 +370,10 @@ body {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  margin-top: 2px;
 }
 
-/* Chat Thread */
+/* 2. Center Chat Thread */
 .chat-thread-card {
   background: var(--card-bg);
   border: 1px solid var(--border);
@@ -216,10 +381,11 @@ body {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  box-shadow: var(--shadow-sm);
 }
 
 .thread-header {
-  padding: 14px 20px;
+  padding: 12px 20px;
   border-bottom: 1px solid var(--border);
   display: flex;
   justify-content: space-between;
@@ -227,22 +393,57 @@ body {
   background: #ffffff;
 }
 
+.thread-cust-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.thread-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--primary);
+  border: 2px solid #e2e8f0;
+}
+
+.thread-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--success-green);
+  display: inline-block;
+  margin-right: 4px;
+}
+
 .btn-takeover {
   background: var(--hot-red);
   color: #fff;
   border: none;
   border-radius: 8px;
-  padding: 8px 16px;
-  font-size: 13px;
+  padding: 8px 15px;
+  font-size: 12.5px;
   font-weight: 600;
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 6px;
+  transition: all 0.15s;
 }
 
 .btn-takeover:hover {
   background: #dc2626;
+  box-shadow: 0 4px 10px rgba(220, 38, 38, 0.3);
+}
+
+.btn-takeover.active-staff {
+  background: #10b981;
 }
 
 .thread-body {
@@ -251,52 +452,114 @@ body {
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
   background: #f8fafc;
 }
 
-.thread-msg {
+.msg-row {
+  display: flex;
+  flex-direction: column;
   max-width: 75%;
-  padding: 10px 14px;
+}
+
+.msg-row.customer {
+  align-self: flex-start;
+}
+
+.msg-row.bot, .msg-row.staff {
+  align-self: flex-end;
+}
+
+.msg-bubble {
+  padding: 10px 15px;
   border-radius: 12px;
   font-size: 13.5px;
+  line-height: 1.5;
+  box-shadow: var(--shadow-sm);
 }
 
-.thread-msg.customer {
-  align-self: flex-start;
+.msg-row.customer .msg-bubble {
   background: #ffffff;
+  color: #0f172a;
   border: 1px solid var(--border);
+  border-bottom-left-radius: 2px;
 }
 
-.thread-msg.bot {
-  align-self: flex-start;
-  background: #ecfdf5;
-  border: 1px solid #d1fae5;
-  color: #065f46;
+.msg-row.bot .msg-bubble {
+  background: #f1f5f9;
+  color: #0f172a;
+  border: 1px solid #cbd5e1;
+  border-bottom-right-radius: 2px;
 }
 
-.thread-msg.staff {
-  align-self: flex-end;
-  background: #eff6ff;
-  border: 1px solid #bfdbfe;
-  color: #1e40af;
+.msg-row.staff .msg-bubble {
+  background: var(--primary);
+  color: #ffffff;
+  border-bottom-right-radius: 2px;
+}
+
+.msg-meta {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 3px;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.msg-row.bot .msg-meta, .msg-row.staff .msg-meta {
+  justify-content: flex-end;
+}
+
+/* Quick Response Suggestions Bar */
+.quick-replies-bar {
+  padding: 8px 16px;
+  background: #ffffff;
+  border-top: 1px solid var(--border);
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+}
+
+.quick-chip {
+  padding: 5px 11px;
+  font-size: 12px;
+  font-weight: 500;
+  background: #f8fafc;
+  color: #334155;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s;
+}
+
+.quick-chip:hover {
+  background: #eef2ff;
+  border-color: var(--primary-light);
+  color: var(--primary);
 }
 
 .thread-footer {
   padding: 12px 16px;
+  background: #ffffff;
   border-top: 1px solid var(--border);
   display: flex;
-  gap: 8px;
-  background: #ffffff;
+  gap: 10px;
 }
 
 .thread-input {
   flex: 1;
-  border: 1px solid var(--border);
-  border-radius: 8px;
   padding: 10px 14px;
   font-size: 13.5px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
   outline: none;
+  font-family: inherit;
+}
+
+.thread-input:focus {
+  border-color: var(--border-focus);
 }
 
 .btn-reply {
@@ -307,116 +570,135 @@ body {
   padding: 0 18px;
   font-weight: 600;
   cursor: pointer;
+  font-size: 13px;
+  transition: background 0.15s;
 }
 
-/* Detail Sidebar */
+.btn-reply:hover {
+  background: var(--primary-hover);
+}
+
+/* 3. Right Sidebar: Customer 360 & Quick Closing */
 .detail-sidebar {
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: 12px;
-  padding: 16px;
+  padding: 18px;
   overflow-y: auto;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-.detail-sidebar h3 {
-  font-size: 14px;
+.detail-section-title {
+  font-size: 12.5px;
   font-weight: 700;
-  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
   border-bottom: 1px solid var(--border);
   padding-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .detail-group {
-  margin-bottom: 14px;
+  margin-top: 8px;
 }
 
 .detail-label {
   font-size: 11.5px;
   color: var(--text-muted);
+  margin-bottom: 2px;
 }
 
 .detail-value {
   font-size: 13.5px;
   font-weight: 600;
-  margin-top: 2px;
+  color: #0f172a;
 }
 
-/* Tab 2: Lead Kanban Board */
+.score-gauge-wrap {
+  background: #f1f5f9;
+  border-radius: 8px;
+  height: 10px;
+  overflow: hidden;
+  margin-top: 6px;
+}
+
+.score-gauge-fill {
+  height: 100%;
+  border-radius: 8px;
+  transition: width 0.3s ease;
+}
+
+.quick-order-card {
+  background: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  border-radius: 10px;
+  padding: 12px;
+  margin-top: 8px;
+}
+
+.btn-quick-close {
+  width: 100%;
+  background: #10b981;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: all 0.15s;
+}
+
+.btn-quick-close:hover {
+  background: #059669;
+  box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+}
+
+/* ==========================================================================
+   Kanban & Catalog Tables
+   ========================================================================== */
 .kanban-board {
   display: grid;
-  grid-template-columns: repeat(7, minmax(210px, 1fr));
-  gap: 14px;
-  overflow-x: auto;
-  min-height: 600px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  align-items: start;
 }
 
-.kanban-col {
+.kanban-column {
   background: #f1f5f9;
   border-radius: 12px;
-  padding: 12px;
-  display: flex;
-  flex-direction: column;
+  padding: 14px;
+  min-height: 400px;
 }
 
 .kanban-col-header {
-  font-weight: 700;
   font-size: 13px;
+  font-weight: 700;
   margin-bottom: 12px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  color: #334155;
 }
 
-.kanban-cards {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.kanban-cards.drag-over {
-  outline: 2px dashed var(--primary);
-  outline-offset: 4px;
-  border-radius: 8px;
-  background: #ecfdf5;
-}
-
-.lead-card {
+.kanban-card {
   background: #ffffff;
-  border: 1px solid var(--border);
   border-radius: 8px;
   padding: 12px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  margin-bottom: 10px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+  transition: all 0.15s ease;
 }
 
-.lead-card[draggable="true"] {
-  cursor: grab;
-}
-
-.lead-card[draggable="true"]:active {
-  cursor: grabbing;
-}
-
-.lead-card-header {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 6px;
-}
-
-.lead-name {
-  font-weight: 600;
-  font-size: 13px;
-}
-
-.lead-prod {
-  font-size: 12px;
-  color: var(--primary-dark);
-  font-weight: 500;
-  margin-bottom: 4px;
-}
-
-.lead-meta {
-  font-size: 11px;
-  color: var(--text-muted);
-  display: flex;
-  justify-content: space-between;
+.kanban-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
 }

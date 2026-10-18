@@ -59,6 +59,11 @@ def get_status(path: str) -> int:
     with urllib.request.urlopen(url) as resp:
         return resp.status
 
+def get_text(path: str) -> tuple[int, str]:
+    url = f"{BASE_URL}{path}"
+    with urllib.request.urlopen(url) as resp:
+        return resp.status, resp.read().decode("utf-8")
+
 def request_status(path: str, method: str = "GET", data: dict | None = None) -> int:
     """Return HTTP status for positive and negative API contract checks."""
     payload = json.dumps(data).encode("utf-8") if data is not None else None
@@ -446,8 +451,113 @@ def run_e2e():
         assert tuan_rep["estimated_commission_vnd"] == int(tuan_rep["won_revenue_vnd"] * 0.05)
         print(f"  ✅ Staff leaderboard verified: {tuan_rep['name']} closed {tuan_rep['won_deals']} deal(s) (Revenue: {tuan_rep['won_revenue_vnd']:,}đ, Commission: {tuan_rep['estimated_commission_vnd']:,}đ).")
 
+        # Test 19: TikTok Shop Webhook Verification & Chat Ingestion
+        print("▶ Running Test 19: TikTok Shop Webhook & Chat Ingestion...")
+        # GET challenge verification
+        tt_ver_status, tt_ver_body = get_text("/api/webhooks/tiktok?challenge=tiktok_test_challenge_999")
+        assert tt_ver_status == 200
+        assert tt_ver_body.strip() == "tiktok_test_challenge_999"
+
+        # POST customer message event
+        tt_res = post_json("/api/webhooks/tiktok", {
+            "type": "im.message.receive",
+            "data": {
+                "buyer_user_id": "tt_buyer_8899",
+                "content": {"text": "Áo sơ mi linen cổ tàu giá bao nhiêu vậy shop?"}
+            }
+        })
+        assert tt_res.get("status") == "success"
+        tt_event = tt_res.get("event", {})
+        assert tt_event.get("bot_replied") is True
+        assert "320.000" in tt_event.get("response", "") or "320,000" in tt_event.get("response", "")
+
+        # Verify TikTok conversation appears in unified inbox
+        inbox_data = get_json("/api/dashboard/inbox")
+        tt_conv = next((c for c in inbox_data["conversations"] if c.get("channel") == "tiktok_shop"), None)
+        assert tt_conv is not None, "TikTok conversation must be present in Dashboard Inbox"
+        assert "8899" in tt_conv["customer_name"]
+        print("  ✅ TikTok Shop challenge verified and customer chat reply delivered.")
+
+        # Test 20: Shopee Webhook Verification & Chat Ingestion
+        print("▶ Running Test 20: Shopee Webhook & Chat Ingestion...")
+        sp_ver_status, sp_ver_body = get_text("/api/webhooks/shopee?challenge=shopee_test_challenge_888")
+        assert sp_ver_status == 200
+        assert sp_ver_body.strip() == "shopee_test_challenge_888"
+
+        sp_res = post_json("/api/webhooks/shopee", {
+            "shop_id": 998877,
+            "data": {
+                "from_id": "shopee_buyer_1122",
+                "content": {"text": "Áo polo nam classic còn hàng không shop ơi?"}
+            }
+        })
+        assert sp_res.get("status") == "success"
+        sp_event = sp_res.get("event", {})
+        assert sp_event.get("bot_replied") is True
+        assert "250.000" in sp_event.get("response", "") or "250,000" in sp_event.get("response", "")
+
+        inbox_data = get_json("/api/dashboard/inbox")
+        sp_conv = next((c for c in inbox_data["conversations"] if c.get("channel") == "shopee"), None)
+        assert sp_conv is not None, "Shopee conversation must be present in Dashboard Inbox"
+        assert "1122" in sp_conv["customer_name"]
+        print("  ✅ Shopee challenge verified and buyer message grounded reply delivered.")
+
+        # Test 21: Lazada Webhook Verification & Chat Ingestion
+        print("▶ Running Test 21: Lazada Webhook & Chat Ingestion...")
+        lz_ver_status, lz_ver_body = get_text("/api/webhooks/lazada?challenge=lazada_test_challenge_777")
+        assert lz_ver_status == 200
+        assert lz_ver_body.strip() == "lazada_test_challenge_777"
+
+        lz_res = post_json("/api/webhooks/lazada", {
+            "seller_id": "seller_laz_55",
+            "data": {
+                "buyer_id": "lazada_buyer_3344",
+                "content": {"text": "Quần short kaki co giãn có những màu gì shop?"}
+            }
+        })
+        assert lz_res.get("status") == "success"
+        lz_event = lz_res.get("event", {})
+        assert lz_event.get("bot_replied") is True
+        assert "Đen" in lz_event.get("response", "")
+
+        inbox_data = get_json("/api/dashboard/inbox")
+        lz_conv = next((c for c in inbox_data["conversations"] if c.get("channel") == "lazada"), None)
+        assert lz_conv is not None, "Lazada conversation must be present in Dashboard Inbox"
+        assert "3344" in lz_conv["customer_name"]
+        print("  ✅ Lazada challenge verified and customer chat grounded reply delivered.")
+
+        # Test 22: Height & Weight Sizing Recommendation Assistant
+        print("▶ Running Test 22: Height & Weight Sizing Assistant...")
+        # 1m70 64kg -> Size L
+        size_l_res = post_json("/api/widget/message", {
+            "workspace_id": "ws-01",
+            "customer_text": "Mình cao 1m70 nặng 64kg thì mặc áo polo size gì vừa ạ?",
+            "customer_name": "Bạn Nam Thử Size L"
+        })
+        assert size_l_res.get("bot_replied") is True
+        assert "size L" in size_l_res.get("response", ""), "64kg should recommend size L"
+
+        # 1m62 52kg -> Size M
+        size_m_res = post_json("/api/widget/message", {
+            "workspace_id": "ws-01",
+            "customer_text": "Mình cao 1m62 nặng 50kg thì mặc áo sơ mi linen size gì vậy?",
+            "customer_name": "Bạn Nữ Thử Size M"
+        })
+        assert size_m_res.get("bot_replied") is True
+        assert "size M" in size_m_res.get("response", ""), "50kg should recommend size M"
+
+        # 1m80 80kg -> Size XL
+        size_xl_res = post_json("/api/widget/message", {
+            "workspace_id": "ws-01",
+            "customer_text": "Em nặng 82kg cao 1m80 mặc áo polo có vừa không shop?",
+            "customer_name": "Bạn Nam Thử Size XL"
+        })
+        assert size_xl_res.get("bot_replied") is True
+        assert "size XL" in size_xl_res.get("response", ""), "82kg should recommend size XL"
+        print("  ✅ Vietnamese height/weight sizing engine accurately advised sizes M, L, and XL.")
+
         print("\n----------------------------------------------")
-        print("🎉 ALL 18 E2E INTEGRATION TESTS PASSED (100%)!")
+        print("🎉 ALL 22 E2E INTEGRATION TESTS PASSED (100%)!")
         print("----------------------------------------------")
 
     finally:

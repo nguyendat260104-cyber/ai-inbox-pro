@@ -25,6 +25,9 @@ from ai_inbox.core.db import get_connection, init_db, DB_FILE
 from ai_inbox.engine.sales_agent import SalesAgent
 from ai_inbox.adapters.facebook import FacebookAdapter
 from ai_inbox.adapters.zalo import ZaloAdapter
+from ai_inbox.adapters.tiktok import TikTokShopAdapter
+from ai_inbox.adapters.shopee import ShopeeAdapter
+from ai_inbox.adapters.lazada import LazadaAdapter
 from ai_inbox.api.billing import register_workspace, get_workspace_billing_info, PLANS
 from ai_inbox.engine.followup_scheduler import FollowupScheduler
 
@@ -93,6 +96,39 @@ class InboxRequestHandler(BaseHTTPRequestHandler):
         # Zalo OA Webhook Verification
         if path == "/api/webhooks/zalo":
             adapter = ZaloAdapter()
+            code, challenge = adapter.verify_webhook(qs)
+            self.send_response(code)
+            self.send_header("Content-Type", "text/plain; charset=utf-8")
+            self.send_cors_headers()
+            self.end_headers()
+            self.wfile.write(challenge.encode("utf-8"))
+            return
+
+        # TikTok Shop Webhook Verification
+        if path == "/api/webhooks/tiktok":
+            adapter = TikTokShopAdapter()
+            code, challenge = adapter.verify_webhook(qs)
+            self.send_response(code)
+            self.send_header("Content-Type", "text/plain; charset=utf-8")
+            self.send_cors_headers()
+            self.end_headers()
+            self.wfile.write(challenge.encode("utf-8"))
+            return
+
+        # Shopee Webhook Verification
+        if path == "/api/webhooks/shopee":
+            adapter = ShopeeAdapter()
+            code, challenge = adapter.verify_webhook(qs)
+            self.send_response(code)
+            self.send_header("Content-Type", "text/plain; charset=utf-8")
+            self.send_cors_headers()
+            self.end_headers()
+            self.wfile.write(challenge.encode("utf-8"))
+            return
+
+        # Lazada Webhook Verification
+        if path == "/api/webhooks/lazada":
+            adapter = LazadaAdapter()
             code, challenge = adapter.verify_webhook(qs)
             self.send_response(code)
             self.send_header("Content-Type", "text/plain; charset=utf-8")
@@ -178,7 +214,7 @@ class InboxRequestHandler(BaseHTTPRequestHandler):
             query = """
                 SELECT c.id, c.customer_id, c.channel, c.status, c.unread_count, c.last_message_at,
                        cust.name AS customer_name, cust.phone AS customer_phone,
-                       l.score AS lead_score, l.intent_label, l.status AS lead_status,
+                       l.id AS lead_id, l.score AS lead_score, l.intent_label, l.status AS lead_status,
                        p.name AS product_name
                 FROM conversations c
                 LEFT JOIN customers cust ON c.customer_id = cust.id
@@ -211,7 +247,7 @@ class InboxRequestHandler(BaseHTTPRequestHandler):
             messages = [dict(r) for r in cur.fetchall()]
             cur.execute(
                 """SELECT c.*, cust.name AS customer_name, cust.phone AS customer_phone,
-                          l.score AS lead_score, l.intent_label, l.status AS lead_status,
+                          l.id AS lead_id, l.score AS lead_score, l.intent_label, l.status AS lead_status,
                           p.name AS product_name, p.price_vnd AS product_price
                    FROM conversations c
                    LEFT JOIN customers cust ON c.customer_id = cust.id
@@ -462,6 +498,27 @@ class InboxRequestHandler(BaseHTTPRequestHandler):
         if path == "/api/webhooks/zalo":
             workspace_id = qs.get("workspace_id", ["ws-01"])[0]
             adapter = ZaloAdapter()
+            result = adapter.handle_webhook_event(body, default_workspace_id=workspace_id)
+            return self.send_json(200, result)
+
+        # TikTok Shop Webhook Ingestion
+        if path == "/api/webhooks/tiktok":
+            workspace_id = qs.get("workspace_id", ["ws-01"])[0]
+            adapter = TikTokShopAdapter()
+            result = adapter.handle_webhook_event(body, default_workspace_id=workspace_id)
+            return self.send_json(200, result)
+
+        # Shopee Webhook Ingestion
+        if path == "/api/webhooks/shopee":
+            workspace_id = qs.get("workspace_id", ["ws-01"])[0]
+            adapter = ShopeeAdapter()
+            result = adapter.handle_webhook_event(body, default_workspace_id=workspace_id)
+            return self.send_json(200, result)
+
+        # Lazada Webhook Ingestion
+        if path == "/api/webhooks/lazada":
+            workspace_id = qs.get("workspace_id", ["ws-01"])[0]
+            adapter = LazadaAdapter()
             result = adapter.handle_webhook_event(body, default_workspace_id=workspace_id)
             return self.send_json(200, result)
 
