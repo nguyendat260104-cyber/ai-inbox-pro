@@ -10,7 +10,7 @@
     "buyer_intent": "High commercial intent; users actively seeking cost-effective Zapier alternatives",
     "price": "Free tier available; Core from $9/mo, Pro from $16/mo",
     "commission": "35% of qualifying subscription payments for 12 months from referral registration",
-    "cookie_window": "needs_verification",
+    "cookie_window": "30 days",
     "demand_evidence": "Surging search interest for Make automation tutorials; dominant Zapier replacement across Southeast Asia",
     "trend_evidence": "Enterprise and SME rapid shift toward AI agentic workflows and multi-step API orchestration",
     "competition": "Medium-low in Vietnamese language tutorials; vast open opportunity for localized workflow templates",
@@ -25,7 +25,7 @@
       "Substack Case Studies"
     ],
     "risks": "Technical setup requires step-by-step visual demonstration to avoid novice churn",
-    "source_url": "https://www.make.com/en/affiliate-program",
+    "source_url": "https://www.make.com/en/affiliate",
     "score_breakdown": {
       "Demand": 22,
       "BuyerIntent": 19,
@@ -896,7 +896,7 @@
       "Business OS Newsletter"
     ],
     "risks": "Feature density can overwhelm solo users; must target teams/agencies",
-    "source_url": "https://clickup.com/affiliate",
+    "source_url": "https://clickup.com/partners/affiliates",
     "score_breakdown": {
       "Demand": 18,
       "BuyerIntent": 17,
