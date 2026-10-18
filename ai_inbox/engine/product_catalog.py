@@ -10,10 +10,12 @@ import sqlite3
 from typing import Dict, Any, List, Optional
 from pathlib import Path
 from ai_inbox.core.db import get_connection
+from ai_inbox.engine.semantic_matcher import SemanticMatcher
 
 class ProductCatalogEngine:
     def __init__(self, db_path: Optional[Path] = None):
         self.db_path = db_path
+        self.matcher = SemanticMatcher()
 
     def find_product_by_query(self, workspace_id: str, query: str) -> Optional[Dict[str, Any]]:
         """Look up product by name, keyword, or SKU in the workspace database."""
@@ -29,36 +31,15 @@ class ProductCatalogEngine:
         row = cur.fetchone()
 
         if not row:
-            # Match keywords in product name or category with relevance scoring
+            # Rank only active, verified catalog rows. A semantic match chooses a
+            # row; it never manufactures price, stock, size or policy values.
             cur.execute(
                 "SELECT * FROM products WHERE workspace_id = ? AND is_active = 1",
                 (workspace_id,)
             )
             rows = cur.fetchall()
-            stopwords = {"shop", "ơi", "cho", "mình", "em", "hỏi", "có", "còn", "không", "bao", "nhiêu", "tiền", "giá", "size", "màu", "nhé", "nè", "ạ"}
-            q_tokens = set([w for w in clean_q.split() if len(w) > 1 and w not in stopwords])
-            scored_candidates = []
-
-            for r in rows:
-                p_name = r["name"].lower()
-                p_cat = r["category"].lower()
-                score = 0
-
-                if p_name in clean_q:
-                    score += 100
-                if p_cat in clean_q:
-                    score += 50
-
-                p_tokens = set([w for w in p_name.split() if len(w) > 1 and w not in stopwords])
-                overlap = q_tokens.intersection(p_tokens)
-                score += len(overlap) * 10
-
-                if score > 0:
-                    scored_candidates.append((score, r))
-
-            if scored_candidates:
-                scored_candidates.sort(key=lambda x: x[0], reverse=True)
-                row = scored_candidates[0][1]
+            matched = self.matcher.best_match(clean_q, rows)
+            row = matched.product if matched else None
 
         conn.close()
 
