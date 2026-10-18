@@ -1,5 +1,5 @@
 /* AI Sales Chat Widget Styling */
-:root {
+#ai-chat-root {
   --ai-primary: #10b981;
   --ai-primary-hover: #059669;
   --ai-bg: #ffffff;

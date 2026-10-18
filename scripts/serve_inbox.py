@@ -26,7 +26,7 @@ def seed_demo_data():
         conn.close()
         return
 
-    print("🌱 Seeding realistic demo catalog and workspace data...")
+    print("[AI Inbox] Seeding realistic demo catalog and workspace data...")
     now_iso = datetime.now(timezone.utc).isoformat()
 
     # Workspace
@@ -71,7 +71,7 @@ def seed_demo_data():
 
     conn.commit()
     conn.close()
-    print("✅ Demo store catalog seeded successfully!")
+    print("[AI Inbox] Demo store catalog seeded successfully.")
 
 def main():
     parser = argparse.ArgumentParser(description="Start AI Inbox & Sales Management Platform.")

@@ -9,10 +9,11 @@ import sys
 import json
 import time
 import threading
+import tempfile
 import urllib.request
 import urllib.error
 from pathlib import Path
-from http.server import HTTPServer
+from http.server import ThreadingHTTPServer
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(BASE_DIR))
@@ -24,6 +25,7 @@ if sys.stdout.encoding and sys.stdout.encoding.lower() != "utf-8":
     except Exception:
         pass
 
+from ai_inbox.core import db as db_module
 from ai_inbox.core.db import init_db
 from scripts.serve_inbox import seed_demo_data
 from ai_inbox.api.server import InboxRequestHandler
@@ -52,16 +54,35 @@ def get_status(path: str) -> int:
     with urllib.request.urlopen(url) as resp:
         return resp.status
 
+def request_status(path: str, method: str = "GET", data: dict | None = None) -> int:
+    """Return HTTP status for positive and negative API contract checks."""
+    payload = json.dumps(data).encode("utf-8") if data is not None else None
+    req = urllib.request.Request(
+        f"{BASE_URL}{path}",
+        data=payload,
+        headers={"Content-Type": "application/json"},
+        method=method,
+    )
+    try:
+        with urllib.request.urlopen(req) as resp:
+            return resp.status
+    except urllib.error.HTTPError as exc:
+        return exc.code
+
 def run_e2e():
     print("==================================================")
     print("AI INBOX & SALES MANAGEMENT PLATFORM - E2E TESTS")
     print("==================================================")
 
+    # Never write test conversations or fake revenue to the real local-first DB.
+    temp_dir = tempfile.TemporaryDirectory(prefix="ai-inbox-e2e-")
+    original_db_file = db_module.DB_FILE
+    db_module.DB_FILE = Path(temp_dir.name) / "inbox-e2e.db"
     init_db()
     seed_demo_data()
 
     # Start test server in background thread
-    server = HTTPServer(("127.0.0.1", TEST_PORT), InboxRequestHandler)
+    server = ThreadingHTTPServer(("127.0.0.1", TEST_PORT), InboxRequestHandler)
     t = threading.Thread(target=server.serve_forever)
     t.daemon = True
     t.start()
@@ -74,6 +95,10 @@ def run_e2e():
         assert get_status("/demo") == 200, "Demo store route should return 200"
         assert get_status("/widget/chat_widget.js") == 200, "Widget JS should return 200"
         assert get_status("/widget/chat_widget.css") == 200, "Widget CSS should return 200"
+        req = urllib.request.Request(f"{BASE_URL}/api/dashboard/metrics", method="OPTIONS")
+        with urllib.request.urlopen(req) as resp:
+            assert resp.status == 204
+            assert resp.headers.get("Access-Control-Allow-Origin") == "*"
         print("  ✅ All frontend & widget assets online.")
 
         # Test 2: Product Catalog API
@@ -133,8 +158,20 @@ def run_e2e():
         })
         assert reply.get("success") is True
 
+        customer_followup = post_json("/api/widget/message", {
+            "workspace_id": "ws-01",
+            "conversation_id": conv_id,
+            "customer_text": "Mình xác nhận số điện thoại 0912345678 nhé."
+        })
+        assert customer_followup["bot_replied"] is False
+        assert customer_followup["reason"] == "human_staff_active"
+
         history = get_json(f"/api/widget/history?conversation_id={conv_id}")
         assert any(m["sender_type"] == "staff" for m in history.get("messages", [])), "Staff message must be in history"
+        assert any(
+            m["sender_type"] == "customer" and "0912345678" in m["content"]
+            for m in history.get("messages", [])
+        ), "Customer follow-up after takeover must remain in history"
         print("  ✅ Staff takeover and manual message delivery confirmed.")
 
         # Test 7: Closing Lead to 'Won' & Checking Revenue Metrics
@@ -147,13 +184,35 @@ def run_e2e():
         assert metrics.get("won_revenue_vnd", 0) >= 250000, "Won revenue must be recorded"
         print(f"  ✅ Deal marked WON! Total Revenue: {metrics['won_revenue_vnd']:,}đ, Conversion: {metrics['conversion_rate_pct']}%")
 
+        # Test 8: Reject invalid identifiers and pipeline values
+        print("▶ Running Test 8: API Validation & Error Contracts...")
+        assert request_status("/api/dashboard/leads/not-found/stage", "POST", {"stage": "won"}) == 404
+        assert request_status(f"/api/dashboard/leads/{lead_id}/stage", "POST", {"stage": "invalid"}) == 400
+        assert request_status("/api/widget/history?conversation_id=not-found") == 404
+        hot_only = get_json("/api/dashboard/inbox?hot=true")
+        assert hot_only["conversations"]
+        assert all(item["intent_label"] == "HOT" for item in hot_only["conversations"])
+        # Test 9: Lead CSV Export
+        print("▶ Running Test 9: Lead CSV Export Engine...")
+        export_req = urllib.request.Request(f"{BASE_URL}/api/dashboard/leads/export")
+        with urllib.request.urlopen(export_req) as export_resp:
+            assert export_resp.status == 200
+            assert "text/csv" in export_resp.headers.get("Content-Type", "")
+            raw_csv = export_resp.read().decode("utf-8")
+            assert raw_csv.startswith("\ufeff"), "Must contain UTF-8 BOM"
+            assert "Mã Lead,Họ Tên Khách,Số Điện Thoại" in raw_csv
+            assert "250000" in raw_csv or "Áo Polo" in raw_csv
+        print("  ✅ Lead CSV export verified with UTF-8 BOM and valid header schema.")
+
         print("\n----------------------------------------------")
-        print("🎉 ALL 7 E2E INTEGRATION TESTS PASSED (100%)!")
+        print("🎉 ALL 9 E2E INTEGRATION TESTS PASSED (100%)!")
         print("----------------------------------------------")
 
     finally:
         server.shutdown()
         server.server_close()
+        db_module.DB_FILE = original_db_file
+        temp_dir.cleanup()
 
 if __name__ == "__main__":
     run_e2e()

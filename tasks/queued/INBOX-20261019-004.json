@@ -1,0 +1,29 @@
+{
+  "id": "INBOX-20261019-004",
+  "type": "notification_engine",
+  "executor": "antigravity",
+  "goal": "Telegram Alert Dispatcher for HOT Leads",
+  "context": "Notify sales staff immediately when a high-intent buyer is detected",
+  "requirements": [
+    "Dispatch instant alert when HOT lead is detected",
+    "Include customer phone, name, product, and admin deep-link",
+    "Support fallback logging when bot token is empty"
+  ],
+  "deliverables": [
+    "ai_inbox/engine/notifier.py",
+    "ai_inbox/engine/sales_agent.py"
+  ],
+  "acceptance_criteria": [
+    "Sends alert payload on score >= 75 or customer phone provided"
+  ],
+  "priority": "high",
+  "dependencies": [],
+  "suggested_branch": "task/INBOX-20261019-004",
+  "status": "queued",
+  "created_at": "2026-10-18T14:07:55.181174+00:00",
+  "started_at": null,
+  "completed_at": null,
+  "result": null,
+  "artifacts": [],
+  "metrics": {}
+}

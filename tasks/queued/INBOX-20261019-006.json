@@ -1,0 +1,29 @@
+{
+  "id": "INBOX-20261019-006",
+  "type": "multi_tenant_saas",
+  "executor": "antigravity",
+  "goal": "Multi-Tenant Registration & VietQR Billing Integration",
+  "context": "Enable self-service merchant signup and subscription payment via VietQR",
+  "requirements": [
+    "Workspace self-registration API",
+    "Quota tracking for conversations and staff seats",
+    "Dynamic VietQR payment payload generator"
+  ],
+  "deliverables": [
+    "ai_inbox/api/billing.py",
+    "ai_inbox/api/server.py"
+  ],
+  "acceptance_criteria": [
+    "Can register new workspace with quota limits and generate scan-and-pay VietQR URL"
+  ],
+  "priority": "high",
+  "dependencies": [],
+  "suggested_branch": "task/INBOX-20261019-006",
+  "status": "queued",
+  "created_at": "2026-10-18T14:08:06.582691+00:00",
+  "started_at": null,
+  "completed_at": null,
+  "result": null,
+  "artifacts": [],
+  "metrics": {}
+}

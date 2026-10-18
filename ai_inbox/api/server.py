@@ -12,7 +12,7 @@ import os
 import json
 import uuid
 from pathlib import Path
-from http.server import HTTPServer, BaseHTTPRequestHandler
+from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler
 from urllib.parse import urlparse, parse_qs
 from datetime import datetime, timezone
 from typing import Dict, Any, Optional
@@ -25,10 +25,16 @@ from ai_inbox.core.db import get_connection, init_db, DB_FILE
 from ai_inbox.engine.sales_agent import SalesAgent
 
 class InboxRequestHandler(BaseHTTPRequestHandler):
+    VALID_LEAD_STAGES = {
+        "new", "ai_qualified", "assigned", "contacted",
+        "negotiating", "won", "lost"
+    }
+
     def send_cors_headers(self):
         self.send_header("Access-Control-Allow-Origin", "*")
         self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
         self.send_header("Access-Control-Allow-Headers", "Content-Type, Authorization")
+        self.send_header("Access-Control-Max-Age", "86400")
 
     def do_OPTIONS(self):
         self.send_response(204)
@@ -45,10 +51,21 @@ class InboxRequestHandler(BaseHTTPRequestHandler):
         self.wfile.write(payload)
 
     def read_json_body(self) -> Dict[str, Any]:
-        content_length = int(self.headers.get("Content-Length", 0))
+        try:
+            content_length = int(self.headers.get("Content-Length", 0))
+        except ValueError as exc:
+            raise ValueError("Invalid Content-Length header") from exc
+        if content_length > 1_000_000:
+            raise ValueError("Request body is too large")
         if content_length > 0:
-            raw_body = self.wfile if False else self.rfile.read(content_length).decode("utf-8")
-            return json.loads(raw_body)
+            raw_body = self.rfile.read(content_length).decode("utf-8")
+            try:
+                body = json.loads(raw_body)
+            except json.JSONDecodeError as exc:
+                raise ValueError("Request body must be valid JSON") from exc
+            if not isinstance(body, dict):
+                raise ValueError("Request body must be a JSON object")
+            return body
         return {}
 
     def do_GET(self):
@@ -71,6 +88,8 @@ class InboxRequestHandler(BaseHTTPRequestHandler):
             cur.execute("SELECT status, assigned_staff_id FROM conversations WHERE id = ?", (conv_id,))
             c_row = cur.fetchone()
             conn.close()
+            if not c_row:
+                return self.send_json(404, {"error": "Conversation not found"})
             return self.send_json(200, {
                 "conversation_id": conv_id,
                 "status": c_row["status"] if c_row else "bot_handling",
@@ -81,6 +100,9 @@ class InboxRequestHandler(BaseHTTPRequestHandler):
         if path == "/api/dashboard/inbox":
             workspace_id = qs.get("workspace_id", ["ws-01"])[0]
             status_filter = qs.get("status", [None])[0]
+            hot_only = qs.get("hot", ["false"])[0].lower() in {"1", "true", "yes"}
+            if status_filter and status_filter not in {"bot_handling", "assigned_human", "closed"}:
+                return self.send_json(400, {"error": "Invalid conversation status"})
             conn = get_connection()
             cur = conn.cursor()
             query = """
@@ -98,6 +120,8 @@ class InboxRequestHandler(BaseHTTPRequestHandler):
             if status_filter:
                 query += " AND c.status = ?"
                 params.append(status_filter)
+            if hot_only:
+                query += " AND l.intent_label = 'HOT'"
             query += " ORDER BY c.last_message_at DESC"
             cur.execute(query, params)
             convs = [dict(r) for r in cur.fetchall()]
@@ -128,6 +152,8 @@ class InboxRequestHandler(BaseHTTPRequestHandler):
             )
             details = cur.fetchone()
             conn.close()
+            if not details:
+                return self.send_json(404, {"error": "Conversation not found"})
             return self.send_json(200, {
                 "conversation": dict(details) if details else None,
                 "messages": messages
@@ -163,6 +189,63 @@ class InboxRequestHandler(BaseHTTPRequestHandler):
                     kanban["new"].append(ld)
             return self.send_json(200, {"stages": kanban, "total_leads": len(leads)})
 
+        # 4b. API: Export Leads as CSV
+        if path == "/api/dashboard/leads/export":
+            workspace_id = qs.get("workspace_id", ["ws-01"])[0]
+            conn = get_connection()
+            cur = conn.cursor()
+            cur.execute(
+                """SELECT l.id, cust.name AS customer_name, cust.phone AS customer_phone, cust.channel,
+                          p.name AS product_name, l.estimated_value_vnd, l.score, l.intent_label,
+                          l.status AS lead_status, s.name AS staff_name, l.created_at
+                   FROM leads l
+                   LEFT JOIN customers cust ON l.customer_id = cust.id
+                   LEFT JOIN products p ON l.interested_product_id = p.id
+                   LEFT JOIN staff s ON l.assigned_staff_id = s.id
+                   WHERE l.workspace_id = ?
+                   ORDER BY l.created_at DESC""",
+                (workspace_id,)
+            )
+            rows = cur.fetchall()
+            conn.close()
+
+            import csv
+            import io
+            output = io.StringIO()
+            # Write UTF-8 BOM so Excel on Windows opens Vietnamese characters without garbled text
+            output.write("\ufeff")
+            writer = csv.writer(output)
+            writer.writerow([
+                "Mã Lead", "Họ Tên Khách", "Số Điện Thoại", "Kênh",
+                "Sản Phẩm Quan Tâm", "Giá Trị Ước Tính (VNĐ)", "Điểm Intent (0-100)",
+                "Phân Loại", "Trạng Thái Phễu", "Nhân Viên Phụ Trách", "Thời Gian Tạo"
+            ])
+            for r in rows:
+                writer.writerow([
+                    r["id"],
+                    r["customer_name"] or "Khách Chưa Đặt Tên",
+                    r["customer_phone"] or "Chưa có SĐT",
+                    r["channel"],
+                    r["product_name"] or "Chưa rõ sản phẩm",
+                    r["estimated_value_vnd"] or 0,
+                    r["score"] or 0,
+                    r["intent_label"] or "COLD",
+                    r["lead_status"],
+                    r["staff_name"] or "Chưa phân công",
+                    r["created_at"]
+                ])
+
+            csv_data = output.getvalue().encode("utf-8")
+            date_str = datetime.now(timezone.utc).strftime("%Y%m%d")
+            self.send_response(200)
+            self.send_header("Content-Type", "text/csv; charset=utf-8")
+            self.send_header("Content-Disposition", f'attachment; filename="leads_export_{date_str}.csv"')
+            self.send_header("Content-Length", str(len(csv_data)))
+            self.send_cors_headers()
+            self.end_headers()
+            self.wfile.write(csv_data)
+            return
+
         # 5. API: Dashboard Products
         if path == "/api/dashboard/products":
             workspace_id = qs.get("workspace_id", ["ws-01"])[0]
@@ -195,6 +278,27 @@ class InboxRequestHandler(BaseHTTPRequestHandler):
             cur.execute("SELECT COUNT(*) AS total_leads FROM leads WHERE workspace_id = ?", (workspace_id,))
             total_leads = cur.fetchone()["total_leads"] or 0
 
+            # The Core stores both sides of an automated exchange with the same
+            # timestamp, so the measurable local response time is currently zero.
+            # Return measured data instead of a fabricated marketing number.
+            cur.execute(
+                """SELECT AVG(
+                       (julianday(bot.timestamp) - julianday(customer.timestamp)) * 86400.0
+                   ) AS avg_seconds
+                   FROM messages bot
+                   JOIN messages customer ON customer.id = (
+                       SELECT m.id FROM messages m
+                       WHERE m.conversation_id = bot.conversation_id
+                         AND m.sender_type = 'customer'
+                         AND m.timestamp <= bot.timestamp
+                       ORDER BY m.timestamp DESC LIMIT 1
+                   )
+                   JOIN conversations c ON c.id = bot.conversation_id
+                   WHERE bot.sender_type = 'bot' AND c.workspace_id = ?""",
+                (workspace_id,)
+            )
+            avg_response_seconds = cur.fetchone()["avg_seconds"]
+
             conversion_rate = round((won_deals / total_leads * 100), 1) if total_leads > 0 else 0.0
 
             conn.close()
@@ -205,7 +309,7 @@ class InboxRequestHandler(BaseHTTPRequestHandler):
                 "won_deals": won_deals,
                 "won_revenue_vnd": won_revenue,
                 "conversion_rate_pct": conversion_rate,
-                "avg_ai_response_time_sec": 0.45
+                "avg_ai_response_time_sec": round(avg_response_seconds or 0.0, 3)
             })
 
         # Static File Serving (Widget, Admin Web, Demo Shop)
@@ -214,7 +318,10 @@ class InboxRequestHandler(BaseHTTPRequestHandler):
     def do_POST(self):
         parsed = urlparse(self.path)
         path = parsed.path
-        body = self.read_json_body()
+        try:
+            body = self.read_json_body()
+        except (UnicodeDecodeError, ValueError) as exc:
+            return self.send_json(400, {"error": str(exc)})
 
         # 1. API: Widget Customer Message
         if path == "/api/widget/message":
@@ -227,6 +334,11 @@ class InboxRequestHandler(BaseHTTPRequestHandler):
             conn = get_connection()
             cur = conn.cursor()
             now_iso = datetime.now(timezone.utc).isoformat()
+
+            cur.execute("SELECT id FROM workspaces WHERE id = ?", (workspace_id,))
+            if not cur.fetchone():
+                conn.close()
+                return self.send_json(404, {"error": "Workspace not found"})
 
             # Ensure customer & conversation exist
             if not conv_id:
@@ -243,6 +355,41 @@ class InboxRequestHandler(BaseHTTPRequestHandler):
                     (conv_id, workspace_id, cust_id, now_iso, now_iso)
                 )
                 conn.commit()
+            else:
+                cur.execute(
+                    "SELECT id, status FROM conversations WHERE id = ? AND workspace_id = ?",
+                    (conv_id, workspace_id)
+                )
+                existing_conv = cur.fetchone()
+                if not existing_conv:
+                    conn.close()
+                    return self.send_json(404, {"error": "Conversation not found"})
+
+                # Once a human owns the conversation, keep recording customer
+                # messages while preserving the Core contract that silences AI.
+                if existing_conv["status"] == "assigned_human":
+                    msg_id = str(uuid.uuid4())
+                    cur.execute(
+                        """INSERT INTO messages
+                           (id, conversation_id, sender_type, sender_name, content, timestamp)
+                           VALUES (?, ?, 'customer', 'Khách hàng', ?, ?)""",
+                        (msg_id, conv_id, customer_text, now_iso)
+                    )
+                    cur.execute(
+                        """UPDATE conversations
+                           SET last_message_at = ?, unread_count = unread_count + 1
+                           WHERE id = ?""",
+                        (now_iso, conv_id)
+                    )
+                    conn.commit()
+                    conn.close()
+                    return self.send_json(200, {
+                        "conversation_id": conv_id,
+                        "bot_replied": False,
+                        "reason": "human_staff_active",
+                        "conversation_status": "assigned_human",
+                        "human_handoff_triggered": True,
+                    })
             conn.close()
 
             # Execute 5-step Sales AI Agent
@@ -265,10 +412,17 @@ class InboxRequestHandler(BaseHTTPRequestHandler):
             conn = get_connection()
             cur = conn.cursor()
             now_iso = datetime.now(timezone.utc).isoformat()
+            cur.execute("SELECT id FROM staff WHERE id = ? AND is_active = 1", (staff_id,))
+            if not cur.fetchone():
+                conn.close()
+                return self.send_json(404, {"error": "Active staff member not found"})
             cur.execute(
                 "UPDATE conversations SET status = 'assigned_human', assigned_staff_id = ?, last_message_at = ? WHERE id = ?",
                 (staff_id, now_iso, conv_id)
             )
+            if cur.rowcount == 0:
+                conn.close()
+                return self.send_json(404, {"error": "Conversation not found"})
             # Update associated lead
             cur.execute(
                 "UPDATE leads SET status = 'assigned', assigned_staff_id = ?, updated_at = ? WHERE conversation_id = ?",
@@ -290,6 +444,10 @@ class InboxRequestHandler(BaseHTTPRequestHandler):
             cur = conn.cursor()
             now_iso = datetime.now(timezone.utc).isoformat()
             msg_id = str(uuid.uuid4())
+            cur.execute("SELECT id FROM conversations WHERE id = ?", (conv_id,))
+            if not cur.fetchone():
+                conn.close()
+                return self.send_json(404, {"error": "Conversation not found"})
             cur.execute(
                 """INSERT INTO messages (id, conversation_id, sender_type, sender_name, content, timestamp)
                    VALUES (?, ?, 'staff', ?, ?, ?)""",
@@ -307,6 +465,11 @@ class InboxRequestHandler(BaseHTTPRequestHandler):
         if path.startswith("/api/dashboard/leads/") and path.endswith("/stage"):
             lead_id = path.strip("/").split("/")[3]
             new_stage = body.get("stage", "assigned")
+            if new_stage not in self.VALID_LEAD_STAGES:
+                return self.send_json(400, {
+                    "error": "Invalid lead stage",
+                    "allowed_stages": sorted(self.VALID_LEAD_STAGES)
+                })
             conn = get_connection()
             cur = conn.cursor()
             now_iso = datetime.now(timezone.utc).isoformat()
@@ -314,9 +477,52 @@ class InboxRequestHandler(BaseHTTPRequestHandler):
                 "UPDATE leads SET status = ?, updated_at = ? WHERE id = ?",
                 (new_stage, now_iso, lead_id)
             )
+            if cur.rowcount == 0:
+                conn.close()
+                return self.send_json(404, {"error": "Lead not found"})
             conn.commit()
             conn.close()
             return self.send_json(200, {"success": True, "lead_id": lead_id, "stage": new_stage})
+
+        # 5. API: Create Product
+        if path == "/api/dashboard/products":
+            workspace_id = body.get("workspace_id", "ws-01")
+            name = body.get("name", "").strip()
+            sku = body.get("sku", "").strip()
+            if not name or not sku:
+                return self.send_json(400, {"error": "Product name and sku are required"})
+            
+            category = body.get("category", "Thời trang")
+            price_vnd = int(body.get("price_vnd", 0))
+            stock_qty = int(body.get("stock_quantity", 0))
+            sizes = body.get("sizes", [])
+            colors = body.get("colors", [])
+            description = body.get("description", "")
+            shipping = body.get("shipping_policy", "Đồng giá ship 25k toàn quốc, miễn phí ship từ 2 chiếc.")
+
+            prod_id = body.get("id") or str(uuid.uuid4())
+            now_iso = datetime.now(timezone.utc).isoformat()
+
+            conn = get_connection()
+            cur = conn.cursor()
+            cur.execute(
+                """INSERT INTO products (id, workspace_id, sku, name, category, price_vnd, stock_quantity, sizes_json, colors_json, description, shipping_policy, is_active, created_at)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, ?)""",
+                (prod_id, workspace_id, sku, name, category, price_vnd, stock_qty, json.dumps(sizes, ensure_ascii=False), json.dumps(colors, ensure_ascii=False), description, shipping, now_iso)
+            )
+            conn.commit()
+            conn.close()
+            return self.send_json(201, {"success": True, "product_id": prod_id, "name": name, "sku": sku})
+
+        # 6. API: Delete Product
+        if path.startswith("/api/dashboard/products/") and path.endswith("/delete"):
+            prod_id = path.strip("/").split("/")[3]
+            conn = get_connection()
+            cur = conn.cursor()
+            cur.execute("UPDATE products SET is_active = 0 WHERE id = ?", (prod_id,))
+            conn.commit()
+            conn.close()
+            return self.send_json(200, {"success": True, "product_id": prod_id, "status": "deleted"})
 
         return self.send_json(404, {"error": "Endpoint not found"})
 
@@ -342,8 +548,15 @@ class InboxRequestHandler(BaseHTTPRequestHandler):
             file_path = base_dir / "web" / clean
             content_type = "text/plain"
 
-        if file_path.exists() and file_path.is_file():
-            with open(file_path, "rb") as f:
+        allowed_root = base_dir.resolve()
+        try:
+            resolved_path = file_path.resolve()
+            resolved_path.relative_to(allowed_root)
+        except (OSError, ValueError):
+            return self.send_json(404, {"error": "File not found"})
+
+        if resolved_path.exists() and resolved_path.is_file():
+            with open(resolved_path, "rb") as f:
                 content = f.read()
             self.send_response(200)
             self.send_header("Content-Type", content_type)
@@ -361,11 +574,11 @@ class InboxRequestHandler(BaseHTTPRequestHandler):
 def run_server(port: int = 8080):
     init_db()
     server_address = ("127.0.0.1", port)
-    httpd = HTTPServer(server_address, InboxRequestHandler)
-    print(f"⚡ AI Inbox & Sales Management Platform running at http://127.0.0.1:{port}/")
-    print(f"   👉 Admin Command Center: http://127.0.0.1:{port}/admin")
-    print(f"   👉 Customer Demo Store: http://127.0.0.1:{port}/demo")
-    print(f"   👉 Embeddable Widget:   http://127.0.0.1:{port}/widget/chat_widget.js")
+    httpd = ThreadingHTTPServer(server_address, InboxRequestHandler)
+    print(f"[AI Inbox] Running at http://127.0.0.1:{port}/")
+    print(f"  Admin Command Center: http://127.0.0.1:{port}/admin")
+    print(f"  Customer Demo Store: http://127.0.0.1:{port}/demo")
+    print(f"  Embeddable Widget:   http://127.0.0.1:{port}/widget/chat_widget.js")
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:

@@ -172,7 +172,8 @@ async function loadKanban() {
       "assigned": "3. Đã Bàn Giao Sale",
       "contacted": "4. Đang Liên Hệ",
       "negotiating": "5. Đang Thương Lượng",
-      "won": "6. Chốt Đơn Thành Công (Won)"
+      "won": "6. Thành Công (Won)",
+      "lost": "7. Thất Bại (Lost)"
     };
 
     container.innerHTML = "";
@@ -194,6 +195,12 @@ async function loadKanban() {
       cards.forEach(c => {
         const cardEl = document.createElement("div");
         cardEl.className = "lead-card";
+        cardEl.draggable = true;
+        cardEl.dataset.leadId = c.id;
+        cardEl.addEventListener("dragstart", event => {
+          event.dataTransfer.setData("text/plain", c.id);
+          event.dataTransfer.effectAllowed = "move";
+        });
         const isHot = c.intent_label === "HOT";
         cardEl.innerHTML = `
           <div class="lead-card-header">
@@ -218,6 +225,19 @@ async function loadKanban() {
           </div>
         `;
         cardsContainer.appendChild(cardEl);
+      });
+
+      cardsContainer.addEventListener("dragover", event => {
+        event.preventDefault();
+        event.dataTransfer.dropEffect = "move";
+        cardsContainer.classList.add("drag-over");
+      });
+      cardsContainer.addEventListener("dragleave", () => cardsContainer.classList.remove("drag-over"));
+      cardsContainer.addEventListener("drop", event => {
+        event.preventDefault();
+        cardsContainer.classList.remove("drag-over");
+        const leadId = event.dataTransfer.getData("text/plain");
+        if (leadId) moveLeadStage(leadId, st);
       });
     });
   } catch (e) {
@@ -265,6 +285,7 @@ async function loadProducts() {
             <th style="padding:8px;">Size Có Sẵn</th>
             <th style="padding:8px;">Màu Sắc</th>
             <th style="padding:8px;">Chính Sách Giao Hàng</th>
+            <th style="padding:8px; text-align:center;">Thao Tác</th>
           </tr>
         </thead>
         <tbody>
@@ -280,6 +301,9 @@ async function loadProducts() {
           <td style="padding:8px;">${escapeHtml((p.sizes || []).join(', '))}</td>
           <td style="padding:8px;">${escapeHtml((p.colors || []).join(', '))}</td>
           <td style="padding:8px; font-size:12px; color:var(--text-muted);">${escapeHtml(p.shipping_policy || '-')}</td>
+          <td style="padding:8px; text-align:center;">
+            <button onclick="deleteProduct('${p.id}')" style="background:#fee2e2; color:#ef4444; border:none; padding:4px 8px; border-radius:4px; font-size:11px; cursor:pointer;">Xóa</button>
+          </td>
         </tr>
       `;
     });
@@ -288,6 +312,65 @@ async function loadProducts() {
     container.innerHTML = html;
   } catch (e) {
     console.error("Failed to load products:", e);
+  }
+}
+
+function openProductModal() {
+  document.getElementById("product-modal").style.display = "flex";
+}
+
+function closeProductModal() {
+  document.getElementById("product-modal").style.display = "none";
+}
+
+async function submitAddProduct(e) {
+  e.preventDefault();
+  const sku = document.getElementById("prod-sku").value.trim();
+  const name = document.getElementById("prod-name").value.trim();
+  const price = parseInt(document.getElementById("prod-price").value) || 0;
+  const stock = parseInt(document.getElementById("prod-stock").value) || 0;
+  const sizes = document.getElementById("prod-sizes").value.split(",").map(s => s.trim()).filter(Boolean);
+  const colors = document.getElementById("prod-colors").value.split(",").map(c => c.trim()).filter(Boolean);
+  const shipping = document.getElementById("prod-shipping").value.trim();
+
+  try {
+    const res = await fetch("/api/dashboard/products", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        workspace_id: "ws-01",
+        sku,
+        name,
+        price_vnd: price,
+        stock_quantity: stock,
+        sizes,
+        colors,
+        shipping_policy: shipping
+      })
+    });
+    if (res.ok) {
+      closeProductModal();
+      loadProducts();
+    } else {
+      const err = await res.json();
+      alert("Lỗi thêm sản phẩm: " + (err.error || "Không thể lưu"));
+    }
+  } catch (err) {
+    console.error("Add product error:", err);
+  }
+}
+
+async function deleteProduct(productId) {
+  if (!confirm("Bạn có chắc chắn muốn xóa sản phẩm này khỏi danh mục không?")) return;
+  try {
+    const res = await fetch(`/api/dashboard/products/${productId}/delete`, {
+      method: "POST"
+    });
+    if (res.ok) {
+      loadProducts();
+    }
+  } catch (err) {
+    console.error("Delete product error:", err);
   }
 }
 

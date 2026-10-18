@@ -1,0 +1,31 @@
+{
+  "id": "INBOX-20261019-005",
+  "type": "production_deployment",
+  "executor": "antigravity",
+  "goal": "Dockerization & Production Deployment Package",
+  "context": "Package the complete application for single-command VPS/Cloud deployment",
+  "requirements": [
+    "Write multi-stage Dockerfile",
+    "Write docker-compose.yml with volume persistence",
+    "Create healthcheck route /api/health",
+    "Write deployment guide"
+  ],
+  "deliverables": [
+    "Dockerfile",
+    "docker-compose.yml",
+    "docs/PRODUCTION_DEPLOYMENT.md"
+  ],
+  "acceptance_criteria": [
+    "Container builds cleanly and runs with persistent SQLite storage"
+  ],
+  "priority": "critical",
+  "dependencies": [],
+  "suggested_branch": "task/INBOX-20261019-005",
+  "status": "queued",
+  "created_at": "2026-10-18T14:08:01.570702+00:00",
+  "started_at": null,
+  "completed_at": null,
+  "result": null,
+  "artifacts": [],
+  "metrics": {}
+}

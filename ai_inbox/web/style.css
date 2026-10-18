@@ -344,7 +344,7 @@ body {
 /* Tab 2: Lead Kanban Board */
 .kanban-board {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(7, minmax(210px, 1fr));
   gap: 14px;
   overflow-x: auto;
   min-height: 600px;
@@ -373,12 +373,27 @@ body {
   gap: 10px;
 }
 
+.kanban-cards.drag-over {
+  outline: 2px dashed var(--primary);
+  outline-offset: 4px;
+  border-radius: 8px;
+  background: #ecfdf5;
+}
+
 .lead-card {
   background: #ffffff;
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 12px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.lead-card[draggable="true"] {
+  cursor: grab;
+}
+
+.lead-card[draggable="true"]:active {
+  cursor: grabbing;
 }
 
 .lead-card-header {

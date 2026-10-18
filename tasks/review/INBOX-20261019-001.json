@@ -1,0 +1,35 @@
+{
+  "id": "INBOX-20261019-001",
+  "type": "product_management",
+  "executor": "antigravity",
+  "goal": "Admin Product CRUD & Quick Add Modal UI",
+  "context": "Allow merchants to manage product catalog directly from Web UI",
+  "requirements": [
+    "Add POST/PUT/DELETE /api/dashboard/products endpoints",
+    "Add Add-Product modal in web UI",
+    "Support sizes and colors JSON arrays"
+  ],
+  "deliverables": [
+    "ai_inbox/api/server.py",
+    "ai_inbox/web/index.html",
+    "ai_inbox/web/app.js"
+  ],
+  "acceptance_criteria": [
+    "Can create edit and delete products from UI",
+    "Changes reflect immediately in catalog and chatbot responses"
+  ],
+  "priority": "high",
+  "dependencies": [],
+  "suggested_branch": "task/INBOX-20261019-001",
+  "status": "review",
+  "created_at": "2026-10-18T14:07:40.272337+00:00",
+  "started_at": "2026-10-18T14:08:13.305953+00:00",
+  "completed_at": "2026-10-18T14:09:28.771686+00:00",
+  "result": "results/INBOX-20261019-001-review.json",
+  "artifacts": [
+    "ai_inbox/api/server.py",
+    "ai_inbox/web/index.html",
+    "ai_inbox/web/app.js"
+  ],
+  "metrics": {}
+}

@@ -109,6 +109,12 @@
 
     <!-- Tab 2: Lead Kanban Board -->
     <section id="tab-kanban" class="tab-content">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+        <h2 style="font-size:16px;">Phễu Chuyển Đổi Khách Hàng (Sales Pipeline)</h2>
+        <a href="/api/dashboard/leads/export" class="tab-btn" style="background:#0f172a; color:#fff; text-decoration:none; font-weight:600; display:inline-flex; align-items:center; gap:6px;">
+          📥 Xuất File Excel / CSV
+        </a>
+      </div>
       <div class="kanban-board" id="kanban-board">
         <!-- Stages injected by JS -->
       </div>
@@ -117,7 +123,10 @@
     <!-- Tab 3: Product Catalog -->
     <section id="tab-products" class="tab-content">
       <div style="background:#fff; border:1px solid var(--border); border-radius:12px; padding:20px;">
-        <h2 style="font-size:16px; margin-bottom:16px;">Kho Dữ Liệu Sản Phẩm (Grounded Catalog)</h2>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+          <h2 style="font-size:16px;">Kho Dữ Liệu Sản Phẩm (Grounded Catalog)</h2>
+          <button class="tab-btn" style="background:var(--primary); color:#fff; font-weight:600;" onclick="openProductModal()">+ Thêm Sản Phẩm Mới</button>
+        </div>
         <div id="product-list-container">Đang tải danh mục...</div>
       </div>
     </section>
@@ -131,6 +140,51 @@
         </p>
       </div>
     </section>
+
+    <!-- Product Modal -->
+    <div id="product-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:99999; align-items:center; justify-content:center;">
+      <div style="background:#fff; border-radius:12px; max-width:500px; width:90%; padding:24px; box-shadow:0 10px 25px rgba(0,0,0,0.2);">
+        <h3 style="font-size:16px; margin-bottom:16px;">Thêm Sản Phẩm Mới Vào Kho Dữ Liệu</h3>
+        <form onsubmit="submitAddProduct(event)">
+          <div style="margin-bottom:10px;">
+            <label style="font-size:12px; color:var(--text-muted); display:block; margin-bottom:4px;">Mã SKU *</label>
+            <input type="text" id="prod-sku" required style="width:100%; padding:8px 12px; border:1px solid var(--border); border-radius:6px;" placeholder="VD: AO-THUN-01">
+          </div>
+          <div style="margin-bottom:10px;">
+            <label style="font-size:12px; color:var(--text-muted); display:block; margin-bottom:4px;">Tên Sản Phẩm *</label>
+            <input type="text" id="prod-name" required style="width:100%; padding:8px 12px; border:1px solid var(--border); border-radius:6px;" placeholder="VD: Áo Thun Cổ Tròn Unisex">
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:10px;">
+            <div>
+              <label style="font-size:12px; color:var(--text-muted); display:block; margin-bottom:4px;">Giá Bán (VNĐ) *</label>
+              <input type="number" id="prod-price" required style="width:100%; padding:8px 12px; border:1px solid var(--border); border-radius:6px;" placeholder="190000">
+            </div>
+            <div>
+              <label style="font-size:12px; color:var(--text-muted); display:block; margin-bottom:4px;">Tồn Kho (Số lượng)</label>
+              <input type="number" id="prod-stock" value="50" style="width:100%; padding:8px 12px; border:1px solid var(--border); border-radius:6px;">
+            </div>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:10px;">
+            <div>
+              <label style="font-size:12px; color:var(--text-muted); display:block; margin-bottom:4px;">Sizes (phẩy)</label>
+              <input type="text" id="prod-sizes" value="S, M, L, XL" style="width:100%; padding:8px 12px; border:1px solid var(--border); border-radius:6px;">
+            </div>
+            <div>
+              <label style="font-size:12px; color:var(--text-muted); display:block; margin-bottom:4px;">Màu Sắc (phẩy)</label>
+              <input type="text" id="prod-colors" value="Đen, Trắng" style="width:100%; padding:8px 12px; border:1px solid var(--border); border-radius:6px;">
+            </div>
+          </div>
+          <div style="margin-bottom:16px;">
+            <label style="font-size:12px; color:var(--text-muted); display:block; margin-bottom:4px;">Chính Sách Vận Chuyển</label>
+            <input type="text" id="prod-shipping" value="Đồng giá ship 25k toàn quốc, miễn phí ship từ 2 chiếc." style="width:100%; padding:8px 12px; border:1px solid var(--border); border-radius:6px;">
+          </div>
+          <div style="display:flex; justify-content:flex-end; gap:8px;">
+            <button type="button" class="tab-btn" onclick="closeProductModal()">Hủy</button>
+            <button type="submit" class="tab-btn" style="background:var(--primary); color:#fff; font-weight:600;">Lưu Sản Phẩm</button>
+          </div>
+        </form>
+      </div>
+    </div>
   </main>
 
   <script src="/web/app.js"></script>
