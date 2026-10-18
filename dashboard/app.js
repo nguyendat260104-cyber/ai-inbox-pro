@@ -46,6 +46,13 @@ function renderDashboard(data) {
   document.getElementById("count-failed").textContent = data.counts.failed || 0;
   document.getElementById("count-offers").textContent = (data.top_products || []).length;
 
+  const activationEl = document.getElementById("revenue-activation-body");
+  if (activationEl && data.revenue_activation) {
+    const r = data.revenue_activation;
+    const accounts = (r.accounts || []).map(a => `<li><strong>${escapeHtml(a.platform)}</strong>: account ${escapeHtml(a.status || "unknown")}, payout ${escapeHtml(a.payout_status || "unknown")}</li>`).join("");
+    activationEl.innerHTML = `<p><strong>${r.ready_campaigns || 0}</strong> campaign(s) ready; <strong>${r.blocked_campaigns || 0}</strong> blocked.</p><ul class="review-list">${accounts || "<li>No account records.</li>"}</ul><p class="text-muted">${escapeHtml(r.next_action || "Confirm account and payout status.")}</p>`;
+  }
+
   document.getElementById("badge-queued").textContent = data.counts.queued || 0;
   document.getElementById("badge-running").textContent = data.counts.running || 0;
   document.getElementById("badge-review").textContent = data.counts.review || 0;

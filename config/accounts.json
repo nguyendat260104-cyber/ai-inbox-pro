@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "last_reviewed": "2026-10-18",
+  "accounts": [
+    {
+      "platform": "shopee",
+      "market": "VN",
+      "status": "user_confirmation_required",
+      "payout_status": "user_confirmation_required",
+      "affiliate_id": null,
+      "notes": "Do not store login, password, bank or tax data here."
+    },
+    {
+      "platform": "lazada",
+      "market": "VN",
+      "status": "user_confirmation_required",
+      "payout_status": "user_confirmation_required",
+      "affiliate_id": null,
+      "notes": "Do not store login, password, bank or tax data here."
+    },
+    {
+      "platform": "tiktok_shop",
+      "market": "VN",
+      "status": "not_verified",
+      "payout_status": "not_verified",
+      "affiliate_id": null,
+      "notes": "Follower count is not proof of affiliate approval."
+    }
+  ]
+}

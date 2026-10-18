@@ -45,6 +45,22 @@ from daily_tasks import generate_daily_tasks, get_existing_tasks_for_date
 from daily_report import generate_daily_report
 from serve_dashboard import run_server
 from readiness import calculate_readiness, apply_readiness_gate
+from revenue_activation import validate_campaign_activation
+
+def test_13_revenue_activation_gate():
+    print("▶ Running Test 13: Revenue Activation Gate...")
+    blocked = validate_campaign_activation(
+        {"platform": "shopee", "affiliate_url": "https://shopee.vn/x", "tracking_id": "t1", "product_id": "p1", "publish_mode": "human_review"},
+        [{"platform": "shopee", "status": "user_confirmation_required", "payout_status": "user_confirmation_required"}],
+    )
+    assert not blocked.ready and "affiliate_account_not_approved" in blocked.blockers
+    ready = validate_campaign_activation(
+        {"platform": "shopee", "affiliate_url": "https://shopee.vn/x", "tracking_id": "t1", "product_id": "p1", "publish_mode": "human_review"},
+        [{"platform": "shopee", "status": "approved", "payout_status": "approved"}],
+    )
+    assert ready.ready
+    print("  ✅ Campaigns are blocked until account, payout, link, and tracking are verified.")
+    return True
 
 # 1. Create Task Test
 def test_1_create_task():
@@ -339,7 +355,8 @@ def main():
         ("9. Missing Directory Handling", test_9_missing_directory_handling),
         ("10. Dashboard Startup", test_10_dashboard_startup),
         ("11. Daily Report Generation", test_11_daily_report_generation),
-        ("12. Affiliate Readiness Gate", test_12_affiliate_readiness_gate)
+        ("12. Affiliate Readiness Gate", test_12_affiliate_readiness_gate),
+        ("13. Revenue Activation Gate", test_13_revenue_activation_gate)
     ]
 
     all_passed = True
@@ -358,7 +375,7 @@ def main():
     print("----------------------------------------------")
 
     if all_passed:
-        print("🎉 ALL 12 TESTS PASSED!")
+        print("🎉 ALL 13 TESTS PASSED!")
         sys.exit(0)
     else:
         print("💥 SOME TESTS FAILED.")

@@ -14,6 +14,7 @@ from pathlib import Path
 from typing import Dict, Any, List
 
 from readiness import apply_readiness_gate
+from revenue_activation import activation_summary
 
 if sys.stdout.encoding and sys.stdout.encoding.lower() != "utf-8":
     try:
@@ -34,6 +35,20 @@ class DashboardRequestHandler(BaseHTTPRequestHandler):
         results_dir = base_dir / "results"
         metrics_dir = base_dir / "metrics"
         config_dir = base_dir / "config"
+
+        accounts_cfg = {"accounts": []}
+        campaigns_cfg = {"campaigns": []}
+        for name, target in [("accounts.json", "accounts_cfg"), ("campaigns.json", "campaigns_cfg")]:
+            path = config_dir / name
+            if path.exists():
+                try:
+                    with open(path, "r", encoding="utf-8") as f:
+                        if target == "accounts_cfg":
+                            accounts_cfg = json.load(f)
+                        else:
+                            campaigns_cfg = json.load(f)
+                except (OSError, json.JSONDecodeError):
+                    pass
 
         # 1. Tasks by status
         statuses = ["queued", "running", "review", "done", "failed"]
@@ -154,6 +169,9 @@ class DashboardRequestHandler(BaseHTTPRequestHandler):
             },
             "latest_report": latest_report,
             "latest_research": latest_research
+            ,"revenue_activation": activation_summary(
+                accounts_cfg.get("accounts", []), campaigns_cfg.get("campaigns", [])
+            )
         }
 
     def do_GET(self):
