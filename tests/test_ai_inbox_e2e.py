@@ -574,8 +574,40 @@ def run_e2e():
         assert "window.openAiChat" in demo_html, "Demo storefront must connect product cards to chat widget"
         print("  ✅ Mobile-first chat widget, safe-area composer, quick action chips, and demo CTAs verified.")
 
+        # Test 24: B2B SaaS Landing Page & VietQR Registration Showcase
+        print("▶ Running Test 24: B2B SaaS Landing Page & VietQR Registration...")
+        l_status, l_html = get_text("/landing")
+        assert l_status == 200
+        assert "AI Inbox Pro" in l_html
+        assert "Biến Mọi Tin Nhắn Thành Đơn Hàng" in l_html
+        assert "Facebook Messenger" in l_html and "Zalo Official Account" in l_html and "TikTok Shop" in l_html
+        assert "Shopee Open Platform" in l_html and "Lazada Open Platform" in l_html
+        assert "Starter" in l_html and "Growth" in l_html and "Pro" in l_html
+
+        c_status, c_css = get_text("/web/landing.css")
+        assert c_status == 200
+        assert "Plus Jakarta Sans" in c_css
+        assert "--bg-dark" in c_css
+        assert "vietqr-box" in c_css
+
+        # Test registration from landing page
+        reg_res = post_json("/api/workspaces/register", {
+            "name": "B2B Fashion Boutique",
+            "plan_code": "growth",
+            "admin_name": "Trần Thị Lan",
+            "admin_email": "lan@b2bfashion.vn",
+            "admin_phone": "0911223344"
+        })
+        assert "workspace" in reg_res
+        assert "billing" in reg_res
+        b_info = reg_res["billing"]
+        assert "vietqr_quicklink_url" in b_info
+        assert "img.vietqr.io" in b_info["vietqr_quicklink_url"]
+        assert "B2B-FASHION-BOUTIQUE" in b_info["payment_memo"]
+        print("  ✅ Landing page rendered with 6 omnichannel showcases, comparison matrix, and instant VietQR registration.")
+
         print("\n----------------------------------------------")
-        print("🎉 ALL 23 E2E INTEGRATION TESTS PASSED (100%)!")
+        print("🎉 ALL 24 E2E INTEGRATION TESTS PASSED (100%)!")
         print("----------------------------------------------")
 
     finally:

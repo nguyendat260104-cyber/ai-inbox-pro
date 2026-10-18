@@ -526,9 +526,12 @@ class InboxRequestHandler(BaseHTTPRequestHandler):
         if path == "/api/workspaces/register":
             name = body.get("name", "").strip()
             slug = body.get("slug", "").strip()
+            if not slug and name:
+                import re
+                slug = re.sub(r'[^a-zA-Z0-9]+', '-', name).strip('-').lower()
             admin_name = body.get("admin_name", "").strip()
             admin_email = body.get("admin_email", "").strip()
-            plan = body.get("plan", "starter").strip()
+            plan = (body.get("plan") or body.get("plan_code") or "starter").strip()
 
             try:
                 reg_res = register_workspace(
@@ -785,6 +788,9 @@ class InboxRequestHandler(BaseHTTPRequestHandler):
         # Route aliases
         if clean in ["", "admin", "admin/"]:
             file_path = base_dir / "web" / "index.html"
+            content_type = "text/html; charset=utf-8"
+        elif clean in ["landing", "landing/", "welcome", "welcome/"]:
+            file_path = base_dir / "web" / "landing.html"
             content_type = "text/html; charset=utf-8"
         elif clean in ["demo", "demo/"]:
             file_path = base_dir / "web" / "demo_shop.html"

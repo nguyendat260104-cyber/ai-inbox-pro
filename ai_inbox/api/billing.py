@@ -157,7 +157,13 @@ def register_workspace(
         },
         "billing": {
             "plan_details": plan,
-            "payment": payment_info
+            "payment": payment_info,
+            "vietqr_quicklink_url": payment_info["qr_image_url"],
+            "payment_memo": payment_info["transfer_memo"],
+            "subscription_price_vnd": payment_info["amount_vnd"],
+            "bank_name": "MB Bank (Ngân hàng Quân đội)",
+            "bank_account_number": payment_info["account_no"],
+            "bank_account_holder": payment_info["account_name"]
         }
     }
 
