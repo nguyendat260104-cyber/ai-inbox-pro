@@ -2,56 +2,69 @@
   const SCRIPT_URL = document.currentScript ? document.currentScript.src : "http://127.0.0.1:8080/widget/chat_widget.js";
   const BASE_ORIGIN = new URL(SCRIPT_URL).origin;
 
-  // 1. Inject Stylesheet
-  const link = document.createElement("link");
-  link.rel = "stylesheet";
-  link.href = `${BASE_ORIGIN}/widget/chat_widget.css`;
-  document.head.appendChild(link);
+  // 1. Inject Stylesheet (Guarded against duplicates)
+  if (!document.getElementById("ai-widget-stylesheet")) {
+    const link = document.createElement("link");
+    link.id = "ai-widget-stylesheet";
+    link.rel = "stylesheet";
+    link.href = `${BASE_ORIGIN}/widget/chat_widget.css`;
+    document.head.appendChild(link);
+  }
 
-  // 2. State & Storage
+  // 2. Storage & State Keys
   const STORAGE_KEY = "ai_inbox_conv_id";
   let conversationId = localStorage.getItem(STORAGE_KEY) || null;
   let isHandoffActive = false;
+  let lastActiveElement = null;
 
-  // 3. Inject DOM Structure
+  // 3. Inject Widget DOM Tree
   const root = document.createElement("div");
   root.id = "ai-chat-root";
   root.innerHTML = `
-    <button class="ai-launcher-btn" id="ai-toggle-btn" title="Trợ lý bán hàng">
-      <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0-2-.9-2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>
+    <button class="ai-launcher-btn" id="ai-toggle-btn" aria-label="Mở khung chat trợ lý bán hàng" title="Trợ lý bán hàng AI">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0-2-.9-2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>
     </button>
 
-    <div class="ai-chat-dialog" id="ai-dialog">
+    <div class="ai-chat-dialog" id="ai-dialog" role="dialog" aria-modal="true" aria-label="Cửa sổ tư vấn bán hàng AI">
       <div class="ai-header">
         <div class="ai-header-info">
-          <div class="ai-avatar">🤖</div>
+          <div class="ai-avatar" aria-hidden="true">🤖</div>
           <div>
             <div class="ai-title">Trợ Lý Tư Vấn Bán Hàng</div>
             <div class="ai-status"><span class="ai-status-dot"></span> Sẵn sàng phản hồi (0.5s)</div>
           </div>
         </div>
-        <button class="ai-close-btn" id="ai-close-btn">&times;</button>
+        <button class="ai-close-btn" id="ai-close-btn" aria-label="Đóng cửa sổ chat">&times;</button>
       </div>
 
-      <div class="ai-handoff-banner" id="ai-handoff-banner">
-        <span>⚡</span> <span>Đã kết nối nhân viên tư vấn trực tiếp</span>
+      <div class="ai-handoff-banner" id="ai-handoff-banner" role="status">
+        <span aria-hidden="true">👨‍💼</span> <span>Nhân viên tư vấn đang trực tiếp hỗ trợ bạn</span>
       </div>
 
-      <div class="ai-feed" id="ai-feed">
+      <div class="ai-feed" id="ai-feed" aria-live="polite">
         <div class="ai-msg bot">
-          <div class="ai-msg-sender">Trợ lý AI</div>
-          Xin chào! Em là trợ lý tư vấn sản phẩm. Bạn đang tìm mẫu nào, cần kiểm tra size, màu hay phí ship cứ nhắn em nhé!
+          <div class="ai-msg-sender">🤖 Trợ lý AI</div>
+          <div>Xin chào! Em là trợ lý tư vấn sản phẩm. Bạn đang tìm mẫu nào, cần kiểm tra size, màu hay phí ship cứ nhắn em nhé!</div>
+          <div class="ai-msg-time">Vừa xong</div>
         </div>
       </div>
 
-      <div class="ai-typing" id="ai-typing">
+      <div class="ai-typing" id="ai-typing" aria-label="AI đang phản hồi...">
         <div class="ai-dot"></div><div class="ai-dot"></div><div class="ai-dot"></div>
       </div>
 
+      <!-- Quick Action Suggestions Row -->
+      <div class="ai-quick-actions" id="ai-quick-actions">
+        <button type="button" class="ai-quick-chip" onclick="window.prepareAiPrompt('Dạ shop báo giá chi tiết sản phẩm này giúp mình nhé!')">💰 Báo giá chi tiết</button>
+        <button type="button" class="ai-quick-chip" onclick="window.prepareAiPrompt('Mình cần tư vấn chọn size chuẩn ạ!')">📏 Tư vấn chọn size</button>
+        <button type="button" class="ai-quick-chip" onclick="window.prepareAiPrompt('Phí ship và thời gian giao hàng thế nào ạ?')">🚚 Phí ship</button>
+        <button type="button" class="ai-quick-chip" onclick="window.prepareAiPrompt('Mình muốn gặp trực tiếp nhân viên tư vấn ạ!')">👨‍💼 Gặp nhân viên</button>
+      </div>
+
       <form class="ai-input-wrap" id="ai-form">
-        <input type="text" class="ai-input" id="ai-input" placeholder="Nhập câu hỏi (size, màu, giá, ship)..." autocomplete="off" />
-        <button type="submit" class="ai-send-btn" id="ai-send-btn">
-          <svg style="width:16px;height:16px;fill:currentColor" viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+        <input type="text" class="ai-input" id="ai-input" placeholder="Nhập câu hỏi (size, màu, giá, ship)..." autocomplete="off" aria-label="Tin nhắn gửi shop" />
+        <button type="submit" class="ai-send-btn" id="ai-send-btn" aria-label="Gửi tin nhắn">
+          <svg style="width:18px;height:18px;fill:currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
         </button>
       </form>
     </div>
@@ -67,16 +80,55 @@
   const typing = document.getElementById("ai-typing");
   const handoffBanner = document.getElementById("ai-handoff-banner");
 
+  function openDialog() {
+    lastActiveElement = document.activeElement;
+    dialog.classList.add("open");
+    input.focus();
+    if (conversationId) fetchHistory();
+  }
+
+  function closeDialog() {
+    dialog.classList.remove("open");
+    if (lastActiveElement && typeof lastActiveElement.focus === "function") {
+      lastActiveElement.focus();
+    }
+  }
+
   // Toggle Dialog
   toggleBtn.addEventListener("click", () => {
-    dialog.classList.toggle("open");
     if (dialog.classList.contains("open")) {
-      input.focus();
-      if (conversationId) fetchHistory();
+      closeDialog();
+    } else {
+      openDialog();
     }
   });
 
-  closeBtn.addEventListener("click", () => dialog.classList.remove("open"));
+  closeBtn.addEventListener("click", closeDialog);
+
+  // Escape key closes dialog
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && dialog.classList.contains("open")) {
+      closeDialog();
+    }
+  });
+
+  // Public API to prepare prompt without sending
+  window.prepareAiPrompt = function(text) {
+    if (!dialog.classList.contains("open")) {
+      openDialog();
+    }
+    input.value = text;
+    input.focus();
+  };
+
+  // Public API to open chat with optional pre-filled grounded question
+  window.openAiChat = function(initialText) {
+    openDialog();
+    if (initialText) {
+      input.value = initialText;
+    }
+    input.focus();
+  };
 
   // Append Message Helper
   function appendMessage(text, type, senderName) {
@@ -91,6 +143,12 @@
     const content = document.createElement("div");
     content.textContent = text;
     msg.appendChild(content);
+
+    const timeEl = document.createElement("div");
+    timeEl.className = "ai-msg-time";
+    timeEl.textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    msg.appendChild(timeEl);
+
     feed.appendChild(msg);
     feed.scrollTop = feed.scrollHeight;
   }
@@ -110,7 +168,8 @@
         feed.innerHTML = "";
         data.messages.forEach(m => {
           const type = m.sender_type === "customer" ? "user" : (m.sender_type === "staff" ? "staff" : "bot");
-          appendMessage(m.content, type, m.sender_name);
+          const senderLabel = m.sender_type === "customer" ? "Khách" : (m.sender_type === "staff" ? "👨‍💼 " + (m.sender_name || "Nhân viên Sale") : "🤖 Trợ lý AI");
+          appendMessage(m.content, type, senderLabel);
         });
       }
     } catch (e) {
@@ -148,13 +207,13 @@
         localStorage.setItem(STORAGE_KEY, conversationId);
       }
 
-      if (data.human_handoff_triggered) {
+      if (data.human_handoff_triggered || data.status === "assigned_human") {
         isHandoffActive = true;
         handoffBanner.classList.add("active");
       }
 
       if (data.bot_replied && data.response) {
-        appendMessage(data.response, "bot", "Trợ lý AI");
+        appendMessage(data.response, "bot", "🤖 Trợ lý AI");
       }
     } catch (err) {
       typing.classList.remove("active");

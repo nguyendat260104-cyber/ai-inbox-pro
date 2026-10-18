@@ -2,37 +2,193 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Fashion Young Studio - Demo Storefront</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #fdfdfd; color: #1e293b; line-height: 1.6; }
-    header { background: #fff; border-bottom: 1px solid #e2e8f0; padding: 18px 40px; display: flex; justify-content: space-between; align-items: center; }
-    .logo { font-size: 20px; font-weight: 800; color: #10b981; }
-    .banner { background: linear-gradient(135deg, #10b981, #059669); color: #fff; padding: 50px 40px; text-align: center; border-radius: 0 0 24px 24px; margin-bottom: 40px; }
-    .banner h1 { font-size: 32px; margin-bottom: 12px; }
-    .banner p { font-size: 16px; opacity: 0.95; max-width: 600px; margin: 0 auto; }
-    .container { max-width: 1100px; margin: 0 auto; padding: 0 20px 80px; }
-    .instruction-card { background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 12px; padding: 20px; margin-bottom: 32px; font-size: 14px; }
-    .instruction-card h3 { color: #065f46; margin-bottom: 8px; font-size: 16px; }
-    .instruction-card ul { margin-left: 20px; }
-    .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
-    .prod-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.04); transition: transform 0.2s; }
-    .prod-card:hover { transform: translateY(-4px); }
-    .prod-img { height: 220px; background: #f1f5f9; display: flex; align-items: center; justify-content: center; font-size: 48px; }
-    .prod-body { padding: 20px; }
-    .prod-cat { font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; }
-    .prod-title { font-size: 18px; font-weight: 700; margin: 4px 0 8px; }
-    .prod-price { font-size: 20px; font-weight: 800; color: #10b981; margin-bottom: 12px; }
-    .prod-desc { font-size: 13px; color: #64748b; margin-bottom: 16px; }
-    .badge { display: inline-block; padding: 3px 8px; border-radius: 6px; font-size: 12px; font-weight: 600; background: #f1f5f9; margin-right: 4px; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #fdfdfd;
+      color: #1e293b;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    header {
+      background: #fff;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .logo {
+      font-size: 19px;
+      font-weight: 800;
+      color: #059669;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .banner {
+      background: linear-gradient(135deg, #059669, #047857);
+      color: #fff;
+      padding: 44px 20px;
+      text-align: center;
+      border-radius: 0 0 20px 20px;
+      margin-bottom: 32px;
+    }
+    .banner h1 {
+      font-size: 28px;
+      margin-bottom: 10px;
+      letter-spacing: -0.02em;
+    }
+    .banner p {
+      font-size: 15px;
+      opacity: 0.95;
+      max-width: 620px;
+      margin: 0 auto;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 16px 80px;
+    }
+    .instruction-card {
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      border-radius: 14px;
+      padding: 18px 20px;
+      margin-bottom: 28px;
+      font-size: 13.5px;
+    }
+    .instruction-card h3 {
+      color: #065f46;
+      margin-bottom: 8px;
+      font-size: 15px;
+    }
+    .instruction-card ul {
+      margin-left: 20px;
+    }
+    .instruction-card li {
+      margin-bottom: 6px;
+    }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .prod-card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+    .prod-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+    }
+    .prod-img {
+      height: 200px;
+      background: #f1f5f9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 52px;
+    }
+    .prod-body {
+      padding: 18px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .prod-cat {
+      font-size: 11.5px;
+      color: #64748b;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .prod-title {
+      font-size: 17px;
+      font-weight: 700;
+      margin: 4px 0 6px;
+      color: #0f172a;
+    }
+    .prod-price {
+      font-size: 20px;
+      font-weight: 800;
+      color: #059669;
+      margin-bottom: 8px;
+    }
+    .prod-desc {
+      font-size: 13px;
+      color: #64748b;
+      margin-bottom: 14px;
+      flex: 1;
+    }
+    .badge-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 11.5px;
+      font-weight: 600;
+      background: #f1f5f9;
+      color: #475569;
+    }
+    .btn-ask-ai {
+      width: 100%;
+      min-height: 44px;
+      background: #ecfdf5;
+      color: #047857;
+      border: 1px solid #a7f3d0;
+      border-radius: 10px;
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+    .btn-ask-ai:hover {
+      background: #059669;
+      color: #ffffff;
+      border-color: #059669;
+    }
+    .btn-ask-ai:focus-visible {
+      outline: 2px solid #059669;
+      outline-offset: 2px;
+    }
+
+    @media (max-width: 600px) {
+      header { padding: 14px 16px; }
+      .banner { padding: 32px 16px; border-radius: 0 0 16px 16px; }
+      .banner h1 { font-size: 23px; }
+      .container { padding: 0 12px 60px; }
+      .product-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
   <header>
-    <div class="logo">👕 FASHION YOUNG STUDIO</div>
-    <div style="font-size:14px; color:#64748b;">
-      <a href="/admin" target="_blank" style="color:#10b981; font-weight:600; text-decoration:none;">👉 Mở Admin Dashboard (Xem Hộp Thư & Kanban) ↗</a>
+    <div class="logo"><span>👕</span> FASHION YOUNG STUDIO</div>
+    <div>
+      <a href="/admin" target="_blank" style="color:#059669; font-weight:700; font-size:13.5px; text-decoration:none; display:inline-flex; align-items:center; gap:4px;">
+        👉 Mở Admin Command Center (Hộp Thư & CRM) ↗
+      </a>
     </div>
   </header>
 
@@ -43,12 +199,12 @@
 
   <div class="container">
     <div class="instruction-card">
-      <h3>💡 Hướng Dẫn Thử Nghiệm Chatbot & Human Takeover:</h3>
+      <h3>💡 Hướng Dẫn Thử Nghiệm Chatbot & Bán Hàng Tự Động:</h3>
       <ul>
-        <li><strong>Bước 1</strong>: Bấm vào <strong>nút tròn chat xanh ở góc phải bên dưới</strong> màn hình.</li>
-        <li><strong>Bước 2</strong>: Thử hỏi câu hỏi sản phẩm: <em>"Áo polo nam còn size M không, ship Đà Nẵng bao nhiêu?"</em> ➔ Xem bot tra cứu kho dữ liệu thật, trả lời đúng giá 250k, phí ship 25k và hỏi lại màu sắc.</li>
-        <li><strong>Bước 3</strong>: Thử đặt hàng: <em>"Cho mình 1 áo màu Đen size M nhé, ship về 123 Nguyễn Văn Linh Đà Nẵng."</em> ➔ Xem bot phát hiện <strong>HOT Lead</strong> và kích hoạt bàn giao cho nhân viên.</li>
-        <li><strong>Bước 4</strong>: Mở tab <a href="/admin" target="_blank"><strong>Admin Dashboard</strong></a> ➔ Thấy còi báo động khách HOT, thẻ Lead xuất hiện trên Kanban, và nhân viên có thể bấm <strong>Takeover</strong> để chat trực tiếp với bạn!</li>
+        <li><strong>Cách 1</strong>: Bấm nút <strong>"💬 Hỏi tư vấn mẫu này"</strong> dưới bất kỳ sản phẩm nào để mở chatbot và hỏi thông tin.</li>
+        <li><strong>Cách 2</strong>: Bấm vào <strong>nút tròn chat xanh ở góc phải</strong> để bắt đầu trò chuyện tự do.</li>
+        <li><strong>Thử hỏi size & cân nặng</strong>: <em>"Mình cao 1m70 nặng 64kg mặc size gì vừa?"</em> ➔ AI tự động tư vấn size chuẩn form.</li>
+        <li><strong>Thử đặt hàng</strong>: <em>"Cho mình 1 áo màu Đen size M nhé, ship về 123 Nguyễn Văn Linh Đà Nẵng."</em> ➔ Kích hoạt <strong>HOT Lead</strong> và chuông báo sang Telegram.</li>
       </ul>
     </div>
 
@@ -61,10 +217,13 @@
           <div class="prod-title">Áo Polo Nam Classic</div>
           <div class="prod-price">250.000đ</div>
           <div class="prod-desc">Chất liệu cotton 100% mềm mịn, thoáng mát, form regular fit chuẩn Hàn Quốc.</div>
-          <div>
+          <div class="badge-wrap">
             <span class="badge">Size: M, L, XL</span>
             <span class="badge">Màu: Đen, Trắng, Xanh Navy</span>
           </div>
+          <button class="btn-ask-ai" onclick="window.openAiChat('Shop ơi tư vấn giúp mình mẫu Áo Polo Nam Classic nhé!')">
+            💬 Hỏi tư vấn mẫu này
+          </button>
         </div>
       </div>
 
@@ -76,10 +235,13 @@
           <div class="prod-title">Áo Sơ Mi Linen Cổ Tàu</div>
           <div class="prod-price">320.000đ</div>
           <div class="prod-desc">Vải đũi linen tự nhiên thấm hút mồ hôi cực tốt, phong cách lịch lãm, tinh tế.</div>
-          <div>
+          <div class="badge-wrap">
             <span class="badge">Size: L, XL</span>
             <span class="badge">Màu: Trắng, Be, Xanh Rêu</span>
           </div>
+          <button class="btn-ask-ai" onclick="window.openAiChat('Shop ơi tư vấn giúp mình mẫu Áo Sơ Mi Linen Cổ Tàu nhé!')">
+            💬 Hỏi tư vấn mẫu này
+          </button>
         </div>
       </div>
 
@@ -91,10 +253,13 @@
           <div class="prod-title">Quần Short Kaki Co Giãn</div>
           <div class="prod-price">180.000đ</div>
           <div class="prod-desc">Quần short kaki năng động, lưng chun co giãn thoải mái cho ngày hè.</div>
-          <div>
+          <div class="badge-wrap">
             <span class="badge">Size: 29, 30, 31, 32</span>
             <span class="badge">Màu: Đen, Ghi, Be</span>
           </div>
+          <button class="btn-ask-ai" onclick="window.openAiChat('Shop ơi tư vấn giúp mình mẫu Quần Short Kaki Co Giãn nhé!')">
+            💬 Hỏi tư vấn mẫu này
+          </button>
         </div>
       </div>
     </div>

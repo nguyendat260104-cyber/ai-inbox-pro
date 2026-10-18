@@ -556,8 +556,26 @@ def run_e2e():
         assert "size XL" in size_xl_res.get("response", ""), "82kg should recommend size XL"
         print("  ✅ Vietnamese height/weight sizing engine accurately advised sizes M, L, and XL.")
 
+        # Test 23: Professional Mobile-First Chatbot & Storefront Integration
+        print("▶ Running Test 23: Mobile-First Chatbot & Storefront Integration...")
+        _, js_content = get_text("/widget/chat_widget.js")
+        assert "window.openAiChat" in js_content, "Widget must expose window.openAiChat"
+        assert "window.prepareAiPrompt" in js_content, "Widget must expose window.prepareAiPrompt"
+        assert "Escape" in js_content, "Widget must support Escape key closing"
+        assert "aria-modal" in js_content, "Widget must include accessible dialog attributes"
+
+        _, css_content = get_text("/widget/chat_widget.css")
+        assert "safe-area-inset" in css_content, "Widget CSS must support safe-area insets"
+        assert "44px" in css_content, "Widget CSS must enforce 44px tap target minimums"
+        assert "ai-quick-actions" in css_content, "Widget CSS must style quick action suggestions"
+
+        _, demo_html = get_text("/demo")
+        assert "btn-ask-ai" in demo_html, "Demo storefront must include product-card ask AI buttons"
+        assert "window.openAiChat" in demo_html, "Demo storefront must connect product cards to chat widget"
+        print("  ✅ Mobile-first chat widget, safe-area composer, quick action chips, and demo CTAs verified.")
+
         print("\n----------------------------------------------")
-        print("🎉 ALL 22 E2E INTEGRATION TESTS PASSED (100%)!")
+        print("🎉 ALL 23 E2E INTEGRATION TESTS PASSED (100%)!")
         print("----------------------------------------------")
 
     finally:
