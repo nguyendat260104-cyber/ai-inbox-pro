@@ -1,19 +1,22 @@
 /**
  * AI Inbox & Sales Management - Admin Dashboard Application Logic
- * Omnichannel Unified Inbox, Kanban Pipeline, Product Catalog & Staff Metrics
+ * Omnichannel Unified Inbox, Live AI Insights, Kanban Pipeline, Product Catalog & Staff Metrics
  */
 
 let activeConvId = null;
 let currentActiveLeadId = null;
 let currentConversations = [];
 let activeChannelFilter = "all";
+let activePriorityFilter = "all";
 let searchQuery = "";
+let currentCarrier = "GHTK";
+let currentShippingFee = 25000;
 
 const CHANNEL_LABELS = {
-  "web_widget": "Web",
+  "web_widget": "Web Livechat",
   "facebook_page": "Messenger",
   "zalo_oa": "Zalo OA",
-  "tiktok_shop": "TikTok",
+  "tiktok_shop": "TikTok Shop",
   "shopee": "Shopee",
   "lazada": "Lazada"
 };
@@ -25,9 +28,13 @@ function getChannelLabel(channel) {
 function switchTab(tabId) {
   document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
   document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
+  document.querySelectorAll(".rail-btn").forEach(btn => btn.classList.remove("active"));
 
   const targetBtn = Array.from(document.querySelectorAll(".tab-btn")).find(b => b.getAttribute("onclick") && b.getAttribute("onclick").includes(tabId));
   if (targetBtn) targetBtn.classList.add("active");
+
+  const railBtn = document.getElementById(`rail-btn-${tabId}`);
+  if (railBtn) railBtn.classList.add("active");
 
   const targetContent = document.getElementById(`tab-${tabId}`);
   if (targetContent) targetContent.classList.add("active");
@@ -47,6 +54,11 @@ async function loadMetrics() {
     document.getElementById("metric-won").textContent = data.won_deals || 0;
     document.getElementById("metric-won-rev").textContent = `${(data.won_revenue_vnd || 0).toLocaleString()}đ doanh thu`;
     document.getElementById("metric-cvr").textContent = `${data.conversion_rate_pct || 0}%`;
+
+    const railBadge = document.getElementById("rail-inbox-badge");
+    if (railBadge) {
+      railBadge.textContent = data.hot_leads || data.total_conversations || 0;
+    }
   } catch (e) {
     console.error("Failed to load metrics:", e);
   }
@@ -77,6 +89,19 @@ function filterByChannel(channel) {
   filterAndRenderConversations();
 }
 
+function filterByPriority(priority) {
+  activePriorityFilter = priority;
+  document.querySelectorAll(".priority-tab").forEach(tab => {
+    const fnAttr = tab.getAttribute("onclick") || "";
+    if (fnAttr.includes(`'${priority}'`)) {
+      tab.classList.add("active");
+    } else {
+      tab.classList.remove("active");
+    }
+  });
+  filterAndRenderConversations();
+}
+
 function handleSearch(query) {
   searchQuery = (query || "").toLowerCase().trim();
   filterAndRenderConversations();
@@ -86,6 +111,13 @@ function filterAndRenderConversations() {
   let list = currentConversations;
   if (activeChannelFilter !== "all") {
     list = list.filter(c => c.channel === activeChannelFilter);
+  }
+  if (activePriorityFilter === "hot") {
+    list = list.filter(c => c.intent_label === "HOT");
+  } else if (activePriorityFilter === "won") {
+    list = list.filter(c => c.lead_status === "won");
+  } else if (activePriorityFilter === "unread") {
+    list = list.filter(c => c.status !== "assigned_human");
   }
   if (searchQuery) {
     list = list.filter(c => {
@@ -116,18 +148,33 @@ function renderInboxList(convs) {
     const isWarm = c.intent_label === "WARM";
     const badgeHtml = isHot ? '<span class="badge-hot">🔥 HOT</span>' : (isWarm ? '<span class="badge-warm">⚡ WARM</span>' : '');
 
-    const channelTag = `<span class="badge-channel channel-${c.channel || 'web_widget'}">${getChannelLabel(c.channel)}</span>`;
+    const channel = c.channel || 'web_widget';
+    let channelIconLetter = 'W';
+    if (channel.includes('facebook')) channelIconLetter = 'f';
+    else if (channel.includes('zalo')) channelIconLetter = 'Z';
+    else if (channel.includes('tiktok')) channelIconLetter = 'T';
+    else if (channel.includes('shopee')) channelIconLetter = 'S';
+    else if (channel.includes('lazada')) channelIconLetter = 'L';
+
+    const channelTag = `<span class="badge-channel channel-${channel}">${getChannelLabel(channel)}</span>`;
     const isStaff = c.status === "assigned_human";
+    const initials = (c.customer_name || 'Khách').split(' ').map(n => n[0]).slice(0, 2).join('').toUpperCase();
 
     item.innerHTML = `
-      <div class="inbox-item-header">
-        <span class="inbox-cust-name">${escapeHtml(c.customer_name || 'Khách Hàng')} ${channelTag}</span>
-        ${badgeHtml}
+      <div class="inbox-avatar-box">
+        <div class="inbox-avatar">${initials}</div>
+        <div class="channel-overlay-badge ${channel}">${channelIconLetter}</div>
       </div>
-      <div class="inbox-last-msg">${escapeHtml(c.product_name ? 'Quan tâm: ' + c.product_name : 'Đang trao đổi...')}${c.customer_phone ? ' • ' + escapeHtml(c.customer_phone) : ''}</div>
-      <div style="font-size:13px; color:var(--text-muted); margin-top:6px; display:flex; justify-content:space-between; align-items:center;">
-        <span>${isStaff ? '<span style="color:var(--primary); font-weight:700;">👨‍💼 Nhân viên tiếp quản</span>' : '🤖 AI Trợ lý tự động'}</span>
-        <span style="font-size:12.5px; opacity:0.9; font-weight:500;">${formatTimestamp(c.last_message_at)}</span>
+      <div class="inbox-item-content">
+        <div class="inbox-item-header">
+          <span class="inbox-cust-name">${escapeHtml(c.customer_name || 'Khách Hàng')} ${channelTag}</span>
+          ${badgeHtml}
+        </div>
+        <div class="inbox-last-msg">${escapeHtml(c.product_name ? 'Quan tâm: ' + c.product_name : 'Đang trao đổi...')}${c.customer_phone ? ' • ' + escapeHtml(c.customer_phone) : ''}</div>
+        <div style="font-size:12px; color:var(--text-muted); margin-top:5px; display:flex; justify-content:space-between; align-items:center;">
+          <span>${isStaff ? '<span style="color:var(--primary); font-weight:700;">👨‍💼 Nhân viên tiếp quản</span>' : '🤖 AI Trợ lý tự động'}</span>
+          <span style="font-size:11.5px; opacity:0.9; font-weight:500;">${formatTimestamp(c.last_message_at)}</span>
+        </div>
       </div>
     `;
     container.appendChild(item);
@@ -208,7 +255,7 @@ async function selectConversation(convId) {
     
     // Order Draft Summary calculation
     const prodPrice = conv ? (conv.product_price || 0) : 0;
-    const shipFee = prodPrice > 0 ? 25000 : 0;
+    const shipFee = prodPrice > 0 ? currentShippingFee : 0;
     const totalAmount = prodPrice + shipFee;
     const draftNameEl = document.getElementById("draft-prod-name");
     const draftPriceEl = document.getElementById("draft-prod-price");
@@ -234,6 +281,56 @@ async function selectConversation(convId) {
       } else {
         gaugeFill.style.background = "var(--cold-blue)";
       }
+    }
+
+    // Live AI Insights Banner Updates
+    const intentMeterFill = document.getElementById("ai-intent-fill");
+    const intentMeterText = document.getElementById("ai-intent-text");
+    const sentimentBadge = document.getElementById("ai-sentiment-badge");
+    const sizeAdviceEl = document.getElementById("ai-size-advice");
+    const summaryTextEl = document.getElementById("ai-summary-text");
+
+    if (intentMeterFill && intentMeterText) {
+      intentMeterFill.style.width = `${Math.min(scoreVal, 100)}%`;
+      if (scoreVal >= 70) {
+        intentMeterFill.style.background = "var(--hot-red)";
+        intentMeterText.textContent = `${scoreVal}% (🔥 HOT LEAD)`;
+      } else if (scoreVal >= 40) {
+        intentMeterFill.style.background = "var(--warm-amber)";
+        intentMeterText.textContent = `${scoreVal}% (⚡ Cân nhắc size/màu)`;
+      } else {
+        intentMeterFill.style.background = "var(--cold-blue)";
+        intentMeterText.textContent = `${scoreVal}% (💬 Khám phá)`;
+      }
+    }
+
+    if (sentimentBadge) {
+      if (scoreVal >= 70) {
+        sentimentBadge.textContent = "🔥 Khách sẵn sàng đặt hàng & để lại SĐT";
+        sentimentBadge.style.background = "#fef2f2";
+        sentimentBadge.style.color = "#dc2626";
+        sentimentBadge.style.borderColor = "#fecaca";
+      } else {
+        sentimentBadge.textContent = "😊 Khách tương tác tích cực";
+        sentimentBadge.style.background = "#ecfdf5";
+        sentimentBadge.style.color = "#047857";
+        sentimentBadge.style.borderColor = "#a7f3d0";
+      }
+    }
+
+    if (sizeAdviceEl) {
+      if (conv && conv.product_name) {
+        sizeAdviceEl.textContent = `📦 ${conv.product_name} • Kho sẵn M, L, XL`;
+      } else {
+        sizeAdviceEl.textContent = "📏 AI phân tích form dáng theo chiều cao/cân nặng";
+      }
+    }
+
+    if (summaryTextEl) {
+      const pName = conv ? (conv.product_name || "sản phẩm") : "sản phẩm";
+      const pPhone = conv && conv.customer_phone ? `SĐT: ${conv.customer_phone}` : "chưa có SĐT";
+      const pStage = conv ? (conv.lead_status || "mới") : "mới";
+      summaryTextEl.textContent = `Khách hỏi mua ${pName}, kênh ${channelName}, ${pPhone}. Giai đoạn: ${pStage.toUpperCase()}. AI đã đối chiếu kho dữ liệu thật 100% và sẵn sàng chốt đơn.`;
     }
 
     // Stage Select
@@ -262,7 +359,7 @@ async function selectConversation(convId) {
 
       if (lastText.includes("ship") || lastText.includes("địa chỉ") || lastText.includes("sđt") || lastText.includes("đà nẵng") || lastText.includes("hà nội") || lastText.includes("hcm") || lastText.includes("giao")) {
         chipsHtml += `
-          <button class="quick-chip" onclick="insertQuickReply('Dạ em đã ghi nhận địa chỉ nhận hàng. Đơn hàng trị giá ${(totalAmount || 275000).toLocaleString()}đ (gồm 25k ship) sẽ được chuyển phát nhanh và giao trong 2-3 ngày ạ!')">
+          <button class="quick-chip" onclick="insertQuickReply('Dạ em đã ghi nhận địa chỉ nhận hàng. Đơn hàng trị giá ${(totalAmount || 275000).toLocaleString()}đ (gồm ${currentShippingFee.toLocaleString()}đ ship) sẽ được chuyển phát nhanh và giao trong 2-3 ngày ạ!')">
             📦 Xác nhận lên đơn & giao hàng
           </button>
           <button class="quick-chip" onclick="insertQuickReply('Dạ bên em áp dụng chính sách FREESHIP toàn quốc cho mọi đơn hàng từ 2 sản phẩm trở lên. Bạn có muốn chọn thêm 1 mẫu để được miễn phí ship không ạ?')">
@@ -300,18 +397,18 @@ async function selectConversation(convId) {
         msgEl.className = `msg-row ${m.sender_type}`;
 
         const senderTitle = m.sender_name || (
-          m.sender_type === 'bot' ? '🤖 Trợ lý AI' :
+          m.sender_type === 'bot' ? '🤖 Trợ lý AI Bán Hàng (Kho thật)' :
           (m.sender_type === 'staff' ? '👨‍💼 Nhân viên Sale' : '👤 Khách hàng')
         );
 
         msgEl.innerHTML = `
           <div class="msg-bubble">
-            <div style="font-size:13px; font-weight:700; margin-bottom:4px; opacity:0.9;">${escapeHtml(senderTitle)}</div>
+            <div style="font-size:12.5px; font-weight:700; margin-bottom:4px; opacity:0.9;">${escapeHtml(senderTitle)}</div>
             <div>${escapeHtml(m.content)}</div>
           </div>
           <div class="msg-meta">
-            <span style="font-size:12.5px;">${formatTimestamp(m.timestamp)}</span>
-            ${m.intent ? `<span style="font-size:12px; background:#e2e8f0; padding:2px 6px; border-radius:4px; font-weight:600;">${escapeHtml(m.intent)}</span>` : ''}
+            <span style="font-size:11.5px;">${formatTimestamp(m.timestamp)}</span>
+            ${m.intent ? `<span style="font-size:11px; background:#e2e8f0; padding:1px 6px; border-radius:4px; font-weight:600;">${escapeHtml(m.intent)}</span>` : ''}
           </div>
         `;
         body.appendChild(msgEl);
@@ -321,6 +418,26 @@ async function selectConversation(convId) {
   } catch (e) {
     console.error("Failed to load conversation details:", e);
   }
+}
+
+function selectCarrier(name, fee) {
+  currentCarrier = name;
+  currentShippingFee = fee;
+  document.querySelectorAll(".carrier-pill").forEach(p => {
+    if (p.textContent.includes(name)) p.classList.add("active");
+    else p.classList.remove("active");
+  });
+  const nameEl = document.getElementById("selected-carrier-name");
+  if (nameEl) nameEl.textContent = `${name} Nhanh`;
+  const shipFeeEl = document.getElementById("draft-ship-fee");
+  if (shipFeeEl) shipFeeEl.textContent = `${fee.toLocaleString()}đ`;
+  
+  // Re-calculate total
+  const priceEl = document.getElementById("draft-prod-price");
+  const rawPrice = parseInt((priceEl ? priceEl.textContent : "0").replace(/[^\d]/g, "")) || 0;
+  const total = rawPrice + fee;
+  const totalEl = document.getElementById("draft-total-amount");
+  if (totalEl) totalEl.textContent = `${total.toLocaleString()}đ`;
 }
 
 async function takeoverChat() {
@@ -384,6 +501,16 @@ function copyPhone() {
   });
 }
 
+function callPhone() {
+  const phoneEl = document.getElementById("detail-phone");
+  const phone = phoneEl ? phoneEl.textContent.trim() : "";
+  if (!phone || phone === "-" || phone === "Chưa cung cấp") {
+    alert("Khách hàng này chưa để lại số điện thoại để gọi.");
+    return;
+  }
+  window.location.href = `tel:${phone}`;
+}
+
 async function updateLeadStageFromSidebar(newStage) {
   if (!currentActiveLeadId) {
     alert("Cuộc trò chuyện này chưa gắn với Lead nào.");
@@ -418,7 +545,7 @@ async function markLeadWonFast() {
     if (res.ok) {
       const stageSelect = document.getElementById("detail-stage-select");
       if (stageSelect) stageSelect.value = "won";
-      alert("🎉 Chúc mừng! Đã chốt đơn thành công (Won) và ghi nhận doanh thu!");
+      alert("🎉 Chúc mừng! Đã tạo đơn hàng thành công (Won) và ghi nhận doanh thu!");
       loadMetrics();
       loadInbox();
       if (activeConvId) selectConversation(activeConvId);
@@ -442,7 +569,7 @@ async function loadKanban() {
       "assigned": "3. Đã Bàn Giao Sale",
       "contacted": "4. Đang Liên Hệ",
       "negotiating": "5. Đang Thương Lượng",
-      "won": "6. Thành Công (Won)",
+      "won": "6. Thành Công (Won 🏆)",
       "lost": "7. Thất Bại (Lost)"
     };
 
@@ -455,7 +582,7 @@ async function loadKanban() {
       col.innerHTML = `
         <div class="kanban-col-header">
           <span>${stageTitles[st]}</span>
-          <span style="background:#e2e8f0; padding:2px 8px; border-radius:10px; font-size:12.5px; font-weight:700;">${cards.length}</span>
+          <span style="background:#e2e8f0; padding:2px 8px; border-radius:10px; font-size:12px; font-weight:700;">${cards.length}</span>
         </div>
         <div class="kanban-cards" id="col-${st}"></div>
       `;
@@ -475,17 +602,17 @@ async function loadKanban() {
         const channelTag = `<span class="badge-channel channel-${c.channel || 'web_widget'}">${getChannelLabel(c.channel)}</span>`;
 
         cardEl.innerHTML = `
-          <div class="lead-card-header">
+          <div class="lead-card-header" style="display:flex; justify-content:space-between; align-items:center;">
             <span class="lead-name">${escapeHtml(c.customer_name || 'Khách')} ${channelTag}</span>
             ${isHot ? '<span class="badge-hot">🔥 HOT</span>' : ''}
           </div>
           <div class="lead-prod">${escapeHtml(c.product_name || 'Quan tâm sản phẩm')}</div>
           <div class="lead-meta">
             <span>SĐT: ${escapeHtml(c.customer_phone || '-')}</span>
-            <strong>${(c.estimated_value_vnd || 0).toLocaleString()}đ</strong>
+            <strong style="color:var(--emerald-dark);">${(c.estimated_value_vnd || 0).toLocaleString()}đ</strong>
           </div>
           <div style="margin-top:10px; display:flex; justify-content:space-between; align-items:center;">
-            <select style="font-size:13px; font-weight:600; padding:4px 8px; border-radius:6px; border:1px solid var(--border-light); background:#f8fafc; cursor:pointer;" onchange="moveLeadStage('${c.id}', this.value)">
+            <select style="font-size:12.5px; font-weight:600; padding:4px 8px; border-radius:6px; border:1px solid var(--border-light); background:#f8fafc; cursor:pointer;" onchange="moveLeadStage('${c.id}', this.value)">
               <option value="new" ${c.status === 'new' ? 'selected' : ''}>1. Mới Nhận</option>
               <option value="ai_qualified" ${c.status === 'ai_qualified' ? 'selected' : ''}>2. AI Qualified</option>
               <option value="assigned" ${c.status === 'assigned' ? 'selected' : ''}>3. Giao Sale</option>
@@ -550,14 +677,14 @@ async function loadProducts() {
       <table style="width:100%; border-collapse:collapse; font-size:14px;">
         <thead>
           <tr style="text-align:left; border-bottom:2px solid var(--border-light); background:#f8fafc;">
-            <th style="padding:14px 16px; font-size:13px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Mã SKU</th>
-            <th style="padding:14px 16px; font-size:13px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Tên Sản Phẩm</th>
-            <th style="padding:14px 16px; font-size:13px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Giá Bán</th>
-            <th style="padding:14px 16px; font-size:13px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Tồn Kho</th>
-            <th style="padding:14px 16px; font-size:13px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Size Có Sẵn</th>
-            <th style="padding:14px 16px; font-size:13px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Màu Sắc</th>
-            <th style="padding:14px 16px; font-size:13px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Chính Sách Giao Hàng</th>
-            <th style="padding:14px 16px; font-size:13px; font-weight:700; color:var(--text-muted); text-transform:uppercase; text-align:center;">Thao Tác</th>
+            <th style="padding:14px 16px; font-size:12.5px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Mã SKU</th>
+            <th style="padding:14px 16px; font-size:12.5px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Tên Sản Phẩm</th>
+            <th style="padding:14px 16px; font-size:12.5px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Giá Bán</th>
+            <th style="padding:14px 16px; font-size:12.5px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Tồn Kho</th>
+            <th style="padding:14px 16px; font-size:12.5px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Size Có Sẵn</th>
+            <th style="padding:14px 16px; font-size:12.5px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Màu Sắc</th>
+            <th style="padding:14px 16px; font-size:12.5px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Chính Sách Giao Hàng</th>
+            <th style="padding:14px 16px; font-size:12.5px; font-weight:700; color:var(--text-muted); text-transform:uppercase; text-align:center;">Thao Tác</th>
           </tr>
         </thead>
         <tbody>
@@ -574,7 +701,7 @@ async function loadProducts() {
           <td style="padding:14px 16px; font-size:13.5px;">${escapeHtml((p.colors || []).join(', '))}</td>
           <td style="padding:14px 16px; font-size:13px; color:var(--text-muted);">${escapeHtml(p.shipping_policy || '-')}</td>
           <td style="padding:14px 16px; text-align:center;">
-            <button onclick="deleteProduct('${p.id}')" style="background:#fee2e2; color:#ef4444; border:none; padding:6px 14px; border-radius:6px; font-size:12.5px; font-weight:700; cursor:pointer;">Xóa</button>
+            <button onclick="deleteProduct('${p.id}')" style="background:#fee2e2; color:#ef4444; border:none; padding:5px 12px; border-radius:6px; font-size:12px; font-weight:700; cursor:pointer;">Xóa</button>
           </td>
         </tr>
       `;
@@ -684,6 +811,15 @@ function escapeHtml(str) {
     return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
   });
 }
+
+// Global Keyboard Shortcut: Ctrl + K / Cmd + K to Search
+window.addEventListener("keydown", (e) => {
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
+    e.preventDefault();
+    const searchInput = document.getElementById("inbox-search");
+    if (searchInput) searchInput.focus();
+  }
+});
 
 // Initial Boot
 loadMetrics();

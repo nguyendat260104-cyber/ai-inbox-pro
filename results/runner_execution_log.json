@@ -1,15 +1,15 @@
 {
-  "timestamp": "2026-10-18T15:15:09.813088+00:00",
+  "timestamp": "2026-10-18T15:30:45.923987+00:00",
   "schema_validation_passed": true,
   "e2e_tests_passed": true,
-  "running_count": 0,
-  "running_tasks": [],
-  "queued_count": 5,
+  "running_count": 1,
+  "running_tasks": [
+    "INBOX-20261019-017"
+  ],
+  "queued_count": 3,
   "queued_tasks": [
-    "INBOX-20261019-012",
     "INBOX-20261019-013",
     "INBOX-20261019-014",
-    "INBOX-20261019-017",
     "INBOX-20261019-018"
   ],
   "review_count": 20,

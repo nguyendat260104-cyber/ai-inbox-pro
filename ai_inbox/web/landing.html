@@ -177,6 +177,38 @@
     </div>
   </header>
 
+  <!-- 3 Big Merchant Pain Points Section -->
+  <section class="section-wrapper" id="pain-points">
+    <div class="section-eyebrow">
+      <svg style="width:14px;height:14px;stroke:currentColor;fill:none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <span>RÀO CẢN BÁN HÀNG ĐA KÊNH</span>
+    </div>
+    <h2 class="section-title">3 Nỗi Đau Lớn Khiến Các Shop Bị Đánh Rơi Đơn Hàng</h2>
+    <p class="section-lead">
+      Bán hàng online tại Việt Nam đang đối mặt với những thách thức vận hành ngày càng khắc nghiệt:
+    </p>
+
+    <div class="pain-grid">
+      <div class="pain-card">
+        <div class="pain-icon">🌙</div>
+        <h3 class="pain-title">1. Mất Khách Khung Giờ Đêm (23h – 7h Sáng)</h3>
+        <p class="pain-desc">Hơn 35% lượt click xem sản phẩm và gửi tin nhắn diễn ra vào ban đêm. Không có người trực, khách hàng chỉ chờ 5 phút rồi thoát sang mua của đối thủ có bot phản hồi ngay.</p>
+      </div>
+
+      <div class="pain-card">
+        <div class="pain-icon">🤖</div>
+        <h3 class="pain-title">2. Chatbot Cũ Kém Thông Minh, Ép Khách Bấm Nút</h3>
+        <p class="pain-desc">Chatbot kịch bản thế hệ cũ chỉ biết ép khách bấm nút 1, 2, 3 cứng nhắc. Khi khách gõ tiếng Việt tự nhiên hỏi chiều cao cân nặng, bot không hiểu khiến khách bực bội bỏ đi.</p>
+      </div>
+
+      <div class="pain-card">
+        <div class="pain-icon">💸</div>
+        <h3 class="pain-title">3. Quá Tải Đa Kênh, Bỏ Sót Khách Nóng</h3>
+        <p class="pain-desc">Nhân viên phải nhảy qua lại giữa 6 tab: Messenger, Zalo, TikTok, Shopee, Lazada. Khách để lại SĐT muốn chốt nhanh lại bị trôi tin nhắn giữa hàng trăm tin hỏi dạo.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- Bento Grid Section: Architectural Deep-Dive -->
   <section class="section-wrapper" id="features">
     <div class="section-eyebrow">
@@ -335,6 +367,69 @@
         <p class="channel-card-desc">Đồng bộ tin nhắn Lazada Chat. Hỗ trợ khách hỏi chương trình khuyến mãi, phí vận chuyển và giải đáp thắc mắc đơn hàng 24/7.</p>
         <div class="channel-card-meta">Tự động giải đáp phí ship &bull; Trực xuyên đêm LazFlash</div>
       </div>
+    </div>
+  </section>
+
+  <!-- Detailed Comparison Table: Old Bots vs Generic ChatGPT vs AI Inbox Pro -->
+  <section class="section-wrapper" id="comparison">
+    <div class="section-eyebrow">
+      <svg style="width:14px;height:14px;stroke:currentColor;fill:none" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      <span>SO SÁNH CÔNG NGHỆ VƯỢT TRỘI</span>
+    </div>
+    <h2 class="section-title">Tại Sao Chatbot Cũ & ChatGPT Thông Thường Không Thể Chốt Đơn?</h2>
+    <p class="section-lead">
+      Xem bảng phân tích trực quan để hiểu lý do các shop thời trang, mỹ phẩm và chuỗi bán lẻ chuyển sang AI Inbox Pro:
+    </p>
+
+    <div style="overflow-x:auto;">
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th style="width:28%;">Năng lực tư vấn & vận hành</th>
+            <th style="width:24%;">Chatbot Cũ (Nút bấm)</th>
+            <th style="width:24%;">ChatGPT Thông Thường (Raw API)</th>
+            <th style="width:24%; background:#eff6ff; color:#1e40af; border-top:3px solid #2563eb;">AI Inbox Pro (Local-First) 🏆</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Độ chính xác tồn kho & giá</strong></td>
+            <td>❌ Phải cập nhật thủ công từng nút</td>
+            <td>❌ Bịa giá, bịa tồn kho (Ảo giác AI)</td>
+            <td style="background:#f0f7ff; color:#047857; font-weight:700;">✅ Grounded Catalog 100% không bịa</td>
+          </tr>
+          <tr>
+            <td><strong>Tư vấn size số đo người Việt</strong></td>
+            <td>❌ Không hiểu tiếng Việt tự nhiên</td>
+            <td>⚠️ Tư vấn chung chung, sai form dáng</td>
+            <td style="background:#f0f7ff; color:#047857; font-weight:700;">✅ Nhận diện 1m70 64kg chuẩn 98%</td>
+          </tr>
+          <tr>
+            <td><strong>Khai thác đơn hàng (Slot Filling)</strong></td>
+            <td>❌ Mất ngữ cảnh sau 1 tin nhắn</td>
+            <td>❌ Quên thông tin, hỏi lặp lại</td>
+            <td style="background:#f0f7ff; color:#047857; font-weight:700;">✅ Gom đủ SKU, Size, Màu, ĐC, SĐT</td>
+          </tr>
+          <tr>
+            <td><strong>Còi báo động chốt khách HOT</strong></td>
+            <td>❌ Không có</td>
+            <td>❌ Không có</td>
+            <td style="background:#f0f7ff; color:#047857; font-weight:700;">✅ Bắn chuông Telegram sau 0.5s</td>
+          </tr>
+          <tr>
+            <td><strong>Hợp nhất 6 kênh & CRM POS</strong></td>
+            <td>❌ Phí phụ thu theo từng Fanpage</td>
+            <td>❌ Không có giao diện CRM</td>
+            <td style="background:#f0f7ff; color:#047857; font-weight:700;">✅ 6 Kênh + POS tạo đơn 1-chạm</td>
+          </tr>
+          <tr>
+            <td><strong>Bảo mật dữ liệu khách hàng</strong></td>
+            <td>⚠️ Lưu trữ server bên thứ ba</td>
+            <td>❌ Dữ liệu chuyển về máy chủ nước ngoài</td>
+            <td style="background:#f0f7ff; color:#047857; font-weight:700;">✅ Local-First, bảo mật Nghị định 13</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </section>
 
