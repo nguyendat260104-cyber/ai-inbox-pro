@@ -24,6 +24,7 @@ sys.path.insert(0, str(BASE_DIR))
 from ai_inbox.core.db import get_connection, init_db, DB_FILE
 from ai_inbox.engine.sales_agent import SalesAgent
 from ai_inbox.adapters.facebook import FacebookAdapter
+from ai_inbox.api.billing import register_workspace, get_workspace_billing_info, PLANS
 
 class InboxRequestHandler(BaseHTTPRequestHandler):
     VALID_LEAD_STAGES = {
@@ -104,6 +105,19 @@ class InboxRequestHandler(BaseHTTPRequestHandler):
                 "database": db_status,
                 "timestamp": datetime.now(timezone.utc).isoformat()
             })
+
+        # Billing & Quota Overview
+        if path == "/api/dashboard/billing":
+            workspace_id = qs.get("workspace_id", ["ws-01"])[0]
+            try:
+                billing_info = get_workspace_billing_info(workspace_id)
+                return self.send_json(200, billing_info)
+            except ValueError as ve:
+                return self.send_json(404, {"error": str(ve)})
+
+        # Subscription Plans List
+        if path == "/api/billing/plans":
+            return self.send_json(200, {"plans": list(PLANS.values())})
 
         # 1. API: Widget Message History
         if path == "/api/widget/history":
@@ -367,6 +381,28 @@ class InboxRequestHandler(BaseHTTPRequestHandler):
                 return self.send_json(403, {"error": "Invalid or unconfigured Facebook webhook signature"})
             result = adapter.handle_webhook_event(body, default_workspace_id=workspace_id)
             return self.send_json(200, result)
+
+        # Multi-Tenant Workspace Self-Registration
+        if path == "/api/workspaces/register":
+            name = body.get("name", "").strip()
+            slug = body.get("slug", "").strip()
+            admin_name = body.get("admin_name", "").strip()
+            admin_email = body.get("admin_email", "").strip()
+            plan = body.get("plan", "starter").strip()
+
+            try:
+                reg_res = register_workspace(
+                    name=name,
+                    slug=slug,
+                    admin_name=admin_name,
+                    admin_email=admin_email,
+                    plan_code=plan
+                )
+                return self.send_json(201, reg_res)
+            except ValueError as ve:
+                err_msg = str(ve)
+                status_code = 409 if "already taken" in err_msg else 400
+                return self.send_json(status_code, {"error": err_msg})
 
         # 1. API: Widget Customer Message
         if path == "/api/widget/message":

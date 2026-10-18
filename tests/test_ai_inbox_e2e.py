@@ -329,8 +329,57 @@ def run_e2e():
         assert health.get("service") == "ai-inbox-sales-platform"
         print("  ✅ Healthcheck verified: service online and SQLite connected.")
 
+        # Test 14: Multi-Tenant Workspace Self-Registration & VietQR Billing
+        print("▶ Running Test 14: Multi-Tenant Workspace Self-Registration & VietQR Generation...")
+        reg_payload = {
+            "name": "Giày Sneaker VN Store",
+            "slug": "sneaker-vn",
+            "admin_name": "Trần Hải Nam",
+            "admin_email": "nam@sneakervn.vn",
+            "plan": "growth"
+        }
+        reg_res = post_json("/api/workspaces/register", reg_payload)
+        assert reg_res.get("success") is True
+        ws_info = reg_res["workspace"]
+        new_ws_id = ws_info["id"]
+        assert ws_info["slug"] == "sneaker-vn"
+        assert ws_info["plan"] == "growth"
+        assert ws_info["monthly_conv_quota"] == 2000
+        assert ws_info["max_staff_seats"] == 5
+
+        # Check VietQR details
+        pay_info = reg_res["billing"]["payment"]
+        assert "img.vietqr.io" in pay_info["qr_image_url"]
+        assert "599000" in pay_info["qr_image_url"]
+        assert "SNEAKER-VN" in pay_info["transfer_memo"]
+        assert pay_info["amount_vnd"] == 599000
+
+        # Duplicate slug rejected with 409 Conflict
+        assert request_status("/api/workspaces/register", "POST", reg_payload) == 409
+        print(f"  ✅ Workspace registered successfully with Growth plan (VietQR Memo: {pay_info['transfer_memo']}).")
+
+        # Test 15: Workspace Quota Tracking & Dashboard Billing Info Endpoint
+        print("▶ Running Test 15: Quota Tracking & Dashboard Billing Info Endpoint...")
+        billing_res = get_json(f"/api/dashboard/billing?workspace_id={new_ws_id}")
+        assert billing_res["slug"] == "sneaker-vn"
+        assert billing_res["plan"] == "growth"
+        q = billing_res["quota"]
+        assert q["conversations_limit"] == 2000
+        assert q["conversations_used"] == 0
+        assert q["conversations_remaining"] == 2000
+        assert q["staff_seats_used"] == 1 # 1 admin staff created during registration
+        assert q["staff_seats_limit"] == 5
+        assert q["staff_seats_remaining"] == 4
+
+        # Verify plans listing
+        plans_res = get_json("/api/billing/plans")
+        assert len(plans_res.get("plans", [])) == 3
+        plan_codes = [p["code"] for p in plans_res["plans"]]
+        assert "starter" in plan_codes and "growth" in plan_codes and "pro" in plan_codes
+        print("  ✅ Quota tracking and VietQR billing endpoints verified.")
+
         print("\n----------------------------------------------")
-        print("🎉 ALL 13 E2E INTEGRATION TESTS PASSED (100%)!")
+        print("🎉 ALL 15 E2E INTEGRATION TESTS PASSED (100%)!")
         print("----------------------------------------------")
 
     finally:

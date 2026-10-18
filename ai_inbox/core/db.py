@@ -32,6 +32,10 @@ def init_db(db_path: Optional[Path] = None) -> None:
         id TEXT PRIMARY KEY,
         name TEXT NOT NULL,
         slug TEXT UNIQUE NOT NULL,
+        plan TEXT NOT NULL DEFAULT 'starter',
+        monthly_conv_quota INTEGER NOT NULL DEFAULT 500,
+        max_staff_seats INTEGER NOT NULL DEFAULT 2,
+        subscription_status TEXT NOT NULL DEFAULT 'active',
         created_at TEXT NOT NULL
     );
 
@@ -139,6 +143,18 @@ def init_db(db_path: Optional[Path] = None) -> None:
         FOREIGN KEY (workspace_id) REFERENCES workspaces(id) ON DELETE CASCADE
     );
     """)
+
+    # Backward compatibility migrations for existing SQLite databases
+    cur.execute("PRAGMA table_info(workspaces)")
+    existing_cols = {row["name"] for row in cur.fetchall()}
+    if "plan" not in existing_cols:
+        cur.execute("ALTER TABLE workspaces ADD COLUMN plan TEXT NOT NULL DEFAULT 'starter'")
+    if "monthly_conv_quota" not in existing_cols:
+        cur.execute("ALTER TABLE workspaces ADD COLUMN monthly_conv_quota INTEGER NOT NULL DEFAULT 500")
+    if "max_staff_seats" not in existing_cols:
+        cur.execute("ALTER TABLE workspaces ADD COLUMN max_staff_seats INTEGER NOT NULL DEFAULT 2")
+    if "subscription_status" not in existing_cols:
+        cur.execute("ALTER TABLE workspaces ADD COLUMN subscription_status TEXT NOT NULL DEFAULT 'active'")
 
     conn.commit()
     conn.close()
