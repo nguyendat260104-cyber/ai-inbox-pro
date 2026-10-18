@@ -1,6 +1,6 @@
 {
   "report_date": "20261018",
-  "generated_at": "2026-10-17T17:30:30.405205+00:00",
+  "generated_at": "2026-10-18T03:22:04.008893+00:00",
   "task_summary": {
     "queued": 4,
     "running": 0,
@@ -14,7 +14,7 @@
       "type": "deep_research",
       "priority": "high",
       "status": "queued",
-      "goal": "Deep research top candidates from daily opportunity research.",
+      "goal": "Deep research affiliate readiness for priority and secondary offers before any SCALE decision.",
       "result": null
     },
     {
@@ -60,14 +60,14 @@
       "product": "Make.com",
       "brand": "Celonis / Make",
       "category": "SaaS & Workflow Automation / No-Code",
-      "affiliate_program": "Make Partner Program (FirstPromoter)",
-      "country_availability": "Global (including Vietnam)",
+      "affiliate_program": "Make Affiliate Program (in-house)",
+      "country_availability": "Anyone with a Make account may join; Vietnam is not explicitly named",
       "target_audience": "Operations leads, digital marketers, agency owners, automation engineers in Vietnam",
       "customer_problem": "Repetitive manual data transfer between Google Sheets, CRM, Telegram, and Facebook Lead Ads",
       "buyer_intent": "High commercial intent; users actively seeking cost-effective Zapier alternatives",
       "price": "Free tier available; Core from $9/mo, Pro from $16/mo",
-      "commission": "20% lifetime recurring commission",
-      "cookie_window": "90 days",
+      "commission": "35% of qualifying subscription payments for 12 months from referral registration",
+      "cookie_window": "needs_verification",
       "demand_evidence": "Surging search interest for Make automation tutorials; dominant Zapier replacement across Southeast Asia",
       "trend_evidence": "Enterprise and SME rapid shift toward AI agentic workflows and multi-step API orchestration",
       "competition": "Medium-low in Vietnamese language tutorials; vast open opportunity for localized workflow templates",
@@ -93,7 +93,102 @@
         "ComplianceRisk": 4
       },
       "score": 92,
-      "recommendation": "SCALE"
+      "recommendation": "TEST_HIGH_PRIORITY",
+      "opportunity_recommendation": "SCALE",
+      "payout": "Wise only; minimum $100 and 3 unique paying users; payout requested manually",
+      "program_status": "open",
+      "verification_status": {
+        "program_open": "verified",
+        "vietnam_eligible": "inferred_not_explicit",
+        "approval": "verified_self_serve",
+        "payout": "verified_method; Vietnam practicality needs_verification",
+        "commercial_terms": "verified",
+        "verified_on": "2026-10-18"
+      },
+      "readiness_score_breakdown": {
+        "ProgramOpen": 30,
+        "VietnamEligible": 20,
+        "ApprovalDifficulty": 15,
+        "PayoutPracticality": 10,
+        "CommercialTermsVerified": 20
+      },
+      "verification_sources": [
+        "https://help.make.com/affiliate-program",
+        "https://www.make.com/en/affiliate"
+      ],
+      "prohibited_methods": [
+        "No use of the Make trademark in ad keywords, ad copy, titles, body text, metadata, or search ads without written consent"
+      ],
+      "readiness_score": 95,
+      "readiness_gate": "ELIGIBLE"
+    },
+    {
+      "product": "ElevenLabs",
+      "brand": "ElevenLabs Inc.",
+      "category": "Generative Voice AI & Speech Synthesis",
+      "affiliate_program": "ElevenLabs Creator Affiliate Program (PartnerStack)",
+      "country_availability": "Global (including Vietnam)",
+      "target_audience": "Content creators, faceless YouTube/TikTok creators, audiobook publishers, game devs",
+      "customer_problem": "Robotic, emotionless text-to-speech voices that sound fake and harm audience retention",
+      "buyer_intent": "Very high commercial intent among video creators looking to monetize faceless channels",
+      "price": "Starter from $5/mo, Creator from $22/mo",
+      "commission": "22% for Starter, Creator, Pro, and Scale; 11% for Business; first 12 months; Enterprise excluded",
+      "cookie_window": "needs_verification",
+      "demand_evidence": "Gold standard in synthetic voice cloning and multilingual natural speech",
+      "trend_evidence": "Explosive growth of faceless automated media channels across Southeast Asia",
+      "competition": "Low-medium in detailed Vietnamese workflow reviews",
+      "content_angles": [
+        "Cách tạo kênh YouTube Faceless triệu view với giọng đọc AI ElevenLabs siêu tự nhiên",
+        "So sánh giọng đọc ElevenLabs vs CapCut AI Voice: Khác biệt đáng giá bao nhiêu?",
+        "Hướng dẫn Clone giọng nói tiếng Việt chuẩn cảm xúc để làm Audio Book"
+      ],
+      "potential_channels": [
+        "YouTube Shorts",
+        "TikTok Tech",
+        "Blog Tutorials"
+      ],
+      "risks": "AI voice ethics compliance; requires clear deepfake and synthetic voice disclaimers",
+      "source_url": "https://elevenlabs.io/affiliates",
+      "score_breakdown": {
+        "Demand": 23,
+        "BuyerIntent": 18,
+        "CommissionEconomics": 12,
+        "ContentFit": 15,
+        "Competition": 8,
+        "Trend": 10,
+        "ComplianceRisk": 4
+      },
+      "score": 90,
+      "recommendation": "TEST_HIGH_PRIORITY",
+      "opportunity_recommendation": "SCALE",
+      "payout": "PartnerStack; commission becomes payable after the 90-day validation period and is paid monthly",
+      "program_status": "open_application",
+      "verification_status": {
+        "program_open": "verified",
+        "vietnam_eligible": "inferred_not_explicit",
+        "approval": "application_or_account_requirements_verified",
+        "payout": "verified_platform; Vietnam bank compatibility needs_verification",
+        "commercial_terms": "verified",
+        "verified_on": "2026-10-18"
+      },
+      "readiness_score_breakdown": {
+        "ProgramOpen": 30,
+        "VietnamEligible": 10,
+        "ApprovalDifficulty": 10,
+        "PayoutPracticality": 10,
+        "CommercialTermsVerified": 20
+      },
+      "verification_sources": [
+        "https://elevenlabs.io/affiliates-terms",
+        "https://elevenlabs.io/affiliate-partner-guide"
+      ],
+      "prohibited_methods": [
+        "No brand-keyword bidding without consent",
+        "No misleading affiliation or brand impersonation",
+        "Comply with prohibited-use and disclosure requirements"
+      ],
+      "readiness_score": 80,
+      "readiness_gate": "ELIGIBLE"
     },
     {
       "product": "Hostinger",
@@ -105,7 +200,7 @@
       "customer_problem": "High cost and complexity of setting up reliable web hosting with SSL, email, and SSD storage",
       "buyer_intent": "Extreme commercial search intent ('mua hosting giá rẻ', 'best web hosting for beginners')",
       "price": "Starting ~$2.99/mo (approx 75,000 VND/mo)",
-      "commission": "60% per sale",
+      "commission": "Up to 40% on eligible hosting; up to 60% for specific Hostinger AI Builder offers only",
       "cookie_window": "30 days",
       "demand_evidence": "Consistently top search volume in Vietnam tech communities and Google SERPs",
       "trend_evidence": "Rapid growth of individual e-commerce stores, affiliate blogs, and personal portfolios",
@@ -132,165 +227,216 @@
         "ComplianceRisk": 5
       },
       "score": 91,
-      "recommendation": "SCALE"
+      "recommendation": "TEST_HIGH_PRIORITY",
+      "opportunity_recommendation": "SCALE",
+      "payout": "Minimum $100; current payout methods for a Vietnam-based affiliate need_verification in the approved dashboard",
+      "program_status": "open_application",
+      "verification_status": {
+        "program_open": "verified",
+        "vietnam_eligible": "needs_verification",
+        "approval": "verified_review_required_about_3_business_days",
+        "payout": "threshold_verified; method needs_verification",
+        "commercial_terms": "verified",
+        "verified_on": "2026-10-18"
+      },
+      "readiness_score_breakdown": {
+        "ProgramOpen": 30,
+        "VietnamEligible": 10,
+        "ApprovalDifficulty": 10,
+        "PayoutPracticality": 5,
+        "CommercialTermsVerified": 20
+      },
+      "verification_sources": [
+        "https://www.hostinger.com/affiliates",
+        "https://www.hostinger.com/legal/affiliate-program-agreement",
+        "https://www.hostinger.com/support/the-most-frequently-asked-questions-about-hostinger/"
+      ],
+      "prohibited_methods": [
+        "Brand/trademark bidding and other promotion restrictions must be checked against the current affiliate agreement before launch"
+      ],
+      "readiness_score": 75,
+      "readiness_gate": "ELIGIBLE"
     },
     {
-      "product": "Notion",
-      "brand": "Notion Labs Inc.",
-      "category": "Productivity & Workspace / AI Workspace",
-      "affiliate_program": "Notion Affiliate Program (PartnerStack)",
-      "country_availability": "Global (including Vietnam)",
-      "target_audience": "Solopreneurs, knowledge workers, university students, startup founders",
-      "customer_problem": "Fragmented notes, chaotic task tracking, unorganized document repositories",
-      "buyer_intent": "High conversion on ready-made template bundles and Plus/Team workspace upgrades",
-      "price": "Free tier, Plus from $10/user/mo",
-      "commission": "50% of all payments made by referred customer for their first year",
-      "cookie_window": "90 days",
-      "demand_evidence": "Massive organic community in Vietnam (#NotionVN, Facebook groups with over 200,000 members)",
-      "trend_evidence": "Continuous integration of Notion AI agents, project automations, and enterprise databases",
-      "competition": "High on basic student templates, medium on advanced business OS templates",
+      "product": "ClickUp",
+      "brand": "ClickUp Inc.",
+      "category": "Project Management & Team Collaboration",
+      "affiliate_program": "ClickUp Affiliate Program (PartnerStack)",
+      "country_availability": "Global",
+      "target_audience": "Startup founders, agency project managers, agile dev teams",
+      "customer_problem": "Disconnected task boards, lost deadlines, lack of team workload visibility",
+      "buyer_intent": "High willingness to pay for Unlimited/Business tiers",
+      "price": "Unlimited $7/user/mo, Business $12/user/mo",
+      "commission": "Up to $25 per qualified new free-workspace referral",
+      "cookie_window": "30 days; last qualifying marketing touch",
+      "demand_evidence": "Strong contender challenging Asana and Monday.com",
+      "trend_evidence": "Introduction of ClickUp Brain (integrated AI knowledge assistant)",
+      "competition": "Medium in Vietnam business segment",
       "content_angles": [
-        "Bộ Template Notion quản lý tài chính cá nhân & dự án dành riêng cho Freelancer",
-        "Cách dùng Notion AI tóm tắt tài liệu và lên kế hoạch marketing tuần",
-        "Tối ưu hóa quy trình làm việc từ A-Z cho Agency 5 người bằng Notion Teamspace"
+        "Setup hệ thống quản lý dự án Scrum cho Software Team bằng ClickUp 3.0",
+        "ClickUp vs Notion: Công cụ nào tốt hơn để điều hành công ty dịch vụ?",
+        "Tự động hóa giao việc và nhắc deadline qua Slack với ClickUp Brain"
       ],
       "potential_channels": [
-        "TikTok Aesthetic Workspace",
-        "YouTube Long-form",
-        "X / Threads"
+        "YouTube B2B tutorials",
+        "LinkedIn",
+        "Business OS Newsletter"
       ],
-      "risks": "Free tier is very feature-rich; must position business and team features to drive paid upgrades",
-      "source_url": "https://www.notion.so/affiliates",
+      "risks": "Feature density can overwhelm solo users; must target teams/agencies",
+      "source_url": "https://clickup.com/affiliate",
       "score_breakdown": {
-        "Demand": 25,
+        "Demand": 18,
         "BuyerIntent": 17,
-        "CommissionEconomics": 13,
-        "ContentFit": 15,
-        "Competition": 6,
-        "Trend": 9,
+        "CommissionEconomics": 11,
+        "ContentFit": 12,
+        "Competition": 8,
+        "Trend": 8,
         "ComplianceRisk": 5
       },
-      "score": 90,
-      "recommendation": "SCALE"
-    },
-    {
-      "product": "ElevenLabs",
-      "brand": "ElevenLabs Inc.",
-      "category": "Generative Voice AI & Speech Synthesis",
-      "affiliate_program": "ElevenLabs Partner Program (Rewardful)",
-      "country_availability": "Global (including Vietnam)",
-      "target_audience": "Content creators, faceless YouTube/TikTok creators, audiobook publishers, game devs",
-      "customer_problem": "Robotic, emotionless text-to-speech voices that sound fake and harm audience retention",
-      "buyer_intent": "Very high commercial intent among video creators looking to monetize faceless channels",
-      "price": "Starter from $5/mo, Creator from $22/mo",
-      "commission": "22% recurring commission for the first 12 months",
-      "cookie_window": "60 days",
-      "demand_evidence": "Gold standard in synthetic voice cloning and multilingual natural speech",
-      "trend_evidence": "Explosive growth of faceless automated media channels across Southeast Asia",
-      "competition": "Low-medium in detailed Vietnamese workflow reviews",
-      "content_angles": [
-        "Cách tạo kênh YouTube Faceless triệu view với giọng đọc AI ElevenLabs siêu tự nhiên",
-        "So sánh giọng đọc ElevenLabs vs CapCut AI Voice: Khác biệt đáng giá bao nhiêu?",
-        "Hướng dẫn Clone giọng nói tiếng Việt chuẩn cảm xúc để làm Audio Book"
-      ],
-      "potential_channels": [
-        "YouTube Shorts",
-        "TikTok Tech",
-        "Blog Tutorials"
-      ],
-      "risks": "AI voice ethics compliance; requires clear deepfake and synthetic voice disclaimers",
-      "source_url": "https://elevenlabs.io/affiliates",
-      "score_breakdown": {
-        "Demand": 23,
-        "BuyerIntent": 18,
-        "CommissionEconomics": 12,
-        "ContentFit": 15,
-        "Competition": 8,
-        "Trend": 10,
-        "ComplianceRisk": 4
+      "score": 79,
+      "recommendation": "TEST",
+      "opportunity_recommendation": "TEST",
+      "payout": "Actions lock one month after month-end; approved transactions pay 15 days after lock",
+      "program_status": "open_application",
+      "verification_status": {
+        "program_open": "verified",
+        "vietnam_eligible": "needs_verification (some countries are non-commissionable)",
+        "approval": "application_required",
+        "payout": "schedule_verified; Vietnam method needs_verification",
+        "commercial_terms": "verified",
+        "verified_on": "2026-10-18"
       },
-      "score": 90,
-      "recommendation": "SCALE"
+      "readiness_score_breakdown": {
+        "ProgramOpen": 30,
+        "VietnamEligible": 0,
+        "ApprovalDifficulty": 10,
+        "PayoutPracticality": 5,
+        "CommercialTermsVerified": 20
+      },
+      "verification_sources": [
+        "https://clickup.com/partners/affiliates",
+        "https://help.clickup.com/hc/en-us/articles/6311978850967-Sign-up-for-the-affiliate-program"
+      ],
+      "prohibited_methods": [
+        "No self-referrals",
+        "No fraudulent tactics",
+        "Referral must be the last qualifying marketing touch"
+      ],
+      "readiness_score": 65,
+      "readiness_gate": "ELIGIBLE"
     },
     {
-      "product": "Descript",
-      "brand": "Descript Inc.",
-      "category": "Video Editing & AI Media Studio",
-      "affiliate_program": "FirstPromoter",
-      "country_availability": "Global (including Vietnam)",
-      "target_audience": "Podcasters, YouTubers, online educators, course creators",
-      "customer_problem": "Tedious timeline editing, manual filler word removal, and subtitle generation taking hours",
-      "buyer_intent": "High willingness to pay among creators actively monetizing video output",
-      "price": "Free tier, Creator $12/mo, Pro $24/mo",
-      "commission": "15% recurring lifetime commission",
-      "cookie_window": "30 days",
-      "demand_evidence": "Rising search volume for 'edit video bằng văn bản', 'tự động cắt video AI'",
-      "trend_evidence": "Video-first content consumption boom across all marketing channels",
-      "competition": "Medium in Vietnam regional creator communities",
+      "product": "Grammarly",
+      "brand": "Grammarly Inc.",
+      "category": "Writing Assistant & AI Communications",
+      "affiliate_program": "CJ Affiliate",
+      "country_availability": "Global & Vietnam (massive university & corporate English userbase)",
+      "target_audience": "ESL students, remote workers writing in English, researchers, copywriters",
+      "customer_problem": "Grammar errors, tone inconsistencies, and slow English composition",
+      "buyer_intent": "High conversion on free registrations and annual premium plans",
+      "price": "Free, Premium from $12/mo (billed annually)",
+      "commission": "needs_verification in the affiliate portal (public page confirms two action types but not current rates in accessible text)",
+      "cookie_window": "90 days; last-click attribution",
+      "demand_evidence": "Top-tier household brand for English writing assistance in Vietnam",
+      "trend_evidence": "Grammarly Business and generative email writing features",
+      "competition": "Very high on generic brand searches; medium on IELTS and academic review angles",
       "content_angles": [
-        "Edit video 1 tiếng còn 10 phút: Cắt bỏ từ thừa tự động bằng Descript",
-        "Tự động tạo phụ đề phong cách Alex Hormozi bằng AI trong nháy mắt",
-        "Workflow sản xuất Podcast từ thu âm đến cắt Shorts hoàn chỉnh với Descript"
+        "Bí quyết viết Email thương mại chuẩn bản ngữ không lỗi diễn đạt với Grammarly AI",
+        "Grammarly Premium vs ChatGPT: Công cụ nào sửa bài IELTS hiệu quả hơn?",
+        "Tự động kiểm tra đạo văn và văn phong học thuật cho luận văn thạc sĩ"
       ],
       "potential_channels": [
-        "YouTube Long-form",
-        "TikTok",
-        "Facebook Creator Groups"
+        "TikTok Study Gram",
+        "YouTube English Study Guides",
+        "Academic Forums"
       ],
-      "risks": "English UI interface may require step-by-step visual screen recordings for local audience",
-      "source_url": "https://www.descript.com/affiliate-program",
+      "risks": "High competition; low free-registration payout requires high volume",
+      "source_url": "https://www.grammarly.com/affiliates",
       "score_breakdown": {
-        "Demand": 21,
-        "BuyerIntent": 17,
-        "CommissionEconomics": 12,
-        "ContentFit": 15,
-        "Competition": 8,
-        "Trend": 9,
+        "Demand": 24,
+        "BuyerIntent": 14,
+        "CommissionEconomics": 10,
+        "ContentFit": 13,
+        "Competition": 4,
+        "Trend": 7,
         "ComplianceRisk": 5
       },
-      "score": 87,
-      "recommendation": "SCALE"
+      "score": 77,
+      "recommendation": "TEST",
+      "opportunity_recommendation": "TEST",
+      "payout": "Payment details and applicable method for Vietnam need_verification after approval",
+      "program_status": "open_application",
+      "verification_status": {
+        "program_open": "verified",
+        "vietnam_eligible": "needs_verification",
+        "approval": "application_required",
+        "payout": "needs_verification",
+        "commercial_terms": "partially_verified_rate_needs_verification",
+        "verified_on": "2026-10-18"
+      },
+      "readiness_score_breakdown": {
+        "ProgramOpen": 30,
+        "VietnamEligible": 10,
+        "ApprovalDifficulty": 10,
+        "PayoutPracticality": 5,
+        "CommercialTermsVerified": 10
+      },
+      "verification_sources": [
+        "https://www.grammarly.com/affiliates",
+        "https://www.grammarly.com/affiliates/terms",
+        "https://support.grammarly.com/hc/en-us/articles/360037424871-About-Grammarly-s-affiliate-program"
+      ],
+      "prohibited_methods": [
+        "Unauthorized coupons are prohibited",
+        "Some brand-plus-discount keyword bidding requires written consent",
+        "Low-quality or fraudulent traffic may be rejected"
+      ],
+      "readiness_score": 65,
+      "readiness_gate": "ELIGIBLE"
     }
   ],
   "recent_reviews": [
     {
       "task_id": "AFF-20261018-001",
-      "executive_summary": "Completed in-depth research and 7-dimension scoring of 20 digital, AI, SaaS, and infrastructure affiliate programs for Vietnam and global audiences. 13 Scale candidates identified with Make.com (92) and Hostinger (91) as top targets.",
+      "executive_summary": "Technical delivery accepted. Original commercial scoring was stale, so official terms were corrected and a separate Affiliate Readiness gate was added. No offer below 60 readiness may SCALE.",
       "key_findings": [
-        "20 qualified candidates scored without fabricated metrics.",
-        "Top 5 candidates average score is 90.0/100 with strong buyer intent.",
-        "Make.com and Hostinger offer optimal balance of search demand and recurring/CPA economics in Vietnam."
+        "Make.com pays 35% for 12 months and uses Wise-only payouts.",
+        "Hostinger hosting commission is up to 40%; up to 60% applies only to specific AI Builder offers.",
+        "Notion is not accepting new affiliates and is therefore HOLD.",
+        "ElevenLabs pays 22% on Starter, Creator, Pro, and Scale and 11% on Business for 12 months.",
+        "Grammarly public sources verify a 90-day cookie, but the current rate needs portal verification.",
+        "ClickUp currently advertises up to $25 per qualified new free-workspace referral with a 30-day cookie."
       ],
-      "recommended_decision": "SCALE",
-      "confidence": 0.92,
+      "recommended_decision": "TEST",
+      "confidence": 0.9,
       "business_metrics": {
         "candidates_evaluated": 20,
-        "scale_candidates_count": 13,
-        "test_candidates_count": 7,
-        "top_score": 92
+        "readiness_eligible_count": 5,
+        "readiness_blocked_count": 15,
+        "scale_readiness_minimum": 60
       },
       "artifacts": [
         "research/products/20261018-products.json",
-        "research/reports/20261018-opportunity-report.md"
+        "research/reports/20261018-opportunity-report.md",
+        "config/scoring.json"
       ],
       "sources": [
-        "https://www.make.com/en/affiliate-program",
-        "https://www.hostinger.com/affiliates",
-        "https://www.notion.so/affiliates",
-        "https://elevenlabs.io/affiliates",
-        "https://www.descript.com/affiliate-program"
+        "https://help.make.com/affiliate-program",
+        "https://www.hostinger.com/legal/affiliate-program-agreement",
+        "https://www.notion.com/affiliates",
+        "https://elevenlabs.io/affiliates-terms",
+        "https://www.grammarly.com/affiliates/terms",
+        "https://clickup.com/partners/affiliates"
       ],
       "risks": [
-        "Strict trademark bidding prohibitions on branded keywords (Hostinger, Notion)",
-        "Technical onboarding friction for complex automation tools (Make.com)"
+        "Approved-account status is not yet confirmed for the operator.",
+        "Vietnam eligibility and payout practicality remain portal-dependent for several programs.",
+        "Unknown terms are scored conservatively and marked needs_verification."
       ],
-      "questions_for_lead": [
-        "Confirm whether to prioritize Make.com workflow automation video tutorial or Hostinger website builder guide for the next content sprint.",
-        "Approve recommended tracking parameter format subid={{subid}}&src={{src}}."
-      ],
+      "questions_for_lead": [],
       "next_task_suggestions": [
-        "Claim AFF-20261018-002 for deep funnel and keyword teardown on Make.com",
-        "Produce production-ready video script and blog tutorial in AFF-20261018-003"
+        "Execute AFF-20261018-002 for priority Make.com, Hostinger, and ElevenLabs research; then NordVPN, Grammarly, and ClickUp.",
+        "Do not SCALE until readiness evidence and an approved account are confirmed."
       ]
     }
   ]

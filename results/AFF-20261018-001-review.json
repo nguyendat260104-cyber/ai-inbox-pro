@@ -1,40 +1,43 @@
 {
   "task_id": "AFF-20261018-001",
-  "executive_summary": "Completed in-depth research and 7-dimension scoring of 20 digital, AI, SaaS, and infrastructure affiliate programs for Vietnam and global audiences. 13 Scale candidates identified with Make.com (92) and Hostinger (91) as top targets.",
+  "executive_summary": "Technical delivery accepted. Original commercial scoring was stale, so official terms were corrected and a separate Affiliate Readiness gate was added. No offer below 60 readiness may SCALE.",
   "key_findings": [
-    "20 qualified candidates scored without fabricated metrics.",
-    "Top 5 candidates average score is 90.0/100 with strong buyer intent.",
-    "Make.com and Hostinger offer optimal balance of search demand and recurring/CPA economics in Vietnam."
+    "Make.com pays 35% for 12 months and uses Wise-only payouts.",
+    "Hostinger hosting commission is up to 40%; up to 60% applies only to specific AI Builder offers.",
+    "Notion is not accepting new affiliates and is therefore HOLD.",
+    "ElevenLabs pays 22% on Starter, Creator, Pro, and Scale and 11% on Business for 12 months.",
+    "Grammarly public sources verify a 90-day cookie, but the current rate needs portal verification.",
+    "ClickUp currently advertises up to $25 per qualified new free-workspace referral with a 30-day cookie."
   ],
-  "recommended_decision": "SCALE",
-  "confidence": 0.92,
+  "recommended_decision": "TEST",
+  "confidence": 0.9,
   "business_metrics": {
     "candidates_evaluated": 20,
-    "scale_candidates_count": 13,
-    "test_candidates_count": 7,
-    "top_score": 92
+    "readiness_eligible_count": 5,
+    "readiness_blocked_count": 15,
+    "scale_readiness_minimum": 60
   },
   "artifacts": [
     "research/products/20261018-products.json",
-    "research/reports/20261018-opportunity-report.md"
+    "research/reports/20261018-opportunity-report.md",
+    "config/scoring.json"
   ],
   "sources": [
-    "https://www.make.com/en/affiliate-program",
-    "https://www.hostinger.com/affiliates",
-    "https://www.notion.so/affiliates",
-    "https://elevenlabs.io/affiliates",
-    "https://www.descript.com/affiliate-program"
+    "https://help.make.com/affiliate-program",
+    "https://www.hostinger.com/legal/affiliate-program-agreement",
+    "https://www.notion.com/affiliates",
+    "https://elevenlabs.io/affiliates-terms",
+    "https://www.grammarly.com/affiliates/terms",
+    "https://clickup.com/partners/affiliates"
   ],
   "risks": [
-    "Strict trademark bidding prohibitions on branded keywords (Hostinger, Notion)",
-    "Technical onboarding friction for complex automation tools (Make.com)"
+    "Approved-account status is not yet confirmed for the operator.",
+    "Vietnam eligibility and payout practicality remain portal-dependent for several programs.",
+    "Unknown terms are scored conservatively and marked needs_verification."
   ],
-  "questions_for_lead": [
-    "Confirm whether to prioritize Make.com workflow automation video tutorial or Hostinger website builder guide for the next content sprint.",
-    "Approve recommended tracking parameter format subid={{subid}}&src={{src}}."
-  ],
+  "questions_for_lead": [],
   "next_task_suggestions": [
-    "Claim AFF-20261018-002 for deep funnel and keyword teardown on Make.com",
-    "Produce production-ready video script and blog tutorial in AFF-20261018-003"
+    "Execute AFF-20261018-002 for priority Make.com, Hostinger, and ElevenLabs research; then NordVPN, Grammarly, and ClickUp.",
+    "Do not SCALE until readiness evidence and an approved account are confirmed."
   ]
 }

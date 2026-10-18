@@ -3,14 +3,14 @@
     "product": "Make.com",
     "brand": "Celonis / Make",
     "category": "SaaS & Workflow Automation / No-Code",
-    "affiliate_program": "Make Partner Program (FirstPromoter)",
-    "country_availability": "Global (including Vietnam)",
+    "affiliate_program": "Make Affiliate Program (in-house)",
+    "country_availability": "Anyone with a Make account may join; Vietnam is not explicitly named",
     "target_audience": "Operations leads, digital marketers, agency owners, automation engineers in Vietnam",
     "customer_problem": "Repetitive manual data transfer between Google Sheets, CRM, Telegram, and Facebook Lead Ads",
     "buyer_intent": "High commercial intent; users actively seeking cost-effective Zapier alternatives",
     "price": "Free tier available; Core from $9/mo, Pro from $16/mo",
-    "commission": "20% lifetime recurring commission",
-    "cookie_window": "90 days",
+    "commission": "35% of qualifying subscription payments for 12 months from referral registration",
+    "cookie_window": "needs_verification",
     "demand_evidence": "Surging search interest for Make automation tutorials; dominant Zapier replacement across Southeast Asia",
     "trend_evidence": "Enterprise and SME rapid shift toward AI agentic workflows and multi-step API orchestration",
     "competition": "Medium-low in Vietnamese language tutorials; vast open opportunity for localized workflow templates",
@@ -19,7 +19,11 @@
       "Make.com vs Zapier: Tại sao Agency Việt Nam đang đồng loạt chuyển sang Make?",
       "Xây dựng trợ lý AI tự động phản hồi khách hàng và xuất hóa đơn với Make + ChatGPT"
     ],
-    "potential_channels": ["YouTube Tutorials", "Facebook Communities", "Substack Case Studies"],
+    "potential_channels": [
+      "YouTube Tutorials",
+      "Facebook Communities",
+      "Substack Case Studies"
+    ],
     "risks": "Technical setup requires step-by-step visual demonstration to avoid novice churn",
     "source_url": "https://www.make.com/en/affiliate-program",
     "score_breakdown": {
@@ -32,7 +36,34 @@
       "ComplianceRisk": 4
     },
     "score": 92,
-    "recommendation": "SCALE"
+    "recommendation": "TEST_HIGH_PRIORITY",
+    "opportunity_recommendation": "SCALE",
+    "payout": "Wise only; minimum $100 and 3 unique paying users; payout requested manually",
+    "program_status": "open",
+    "verification_status": {
+      "program_open": "verified",
+      "vietnam_eligible": "inferred_not_explicit",
+      "approval": "verified_self_serve",
+      "payout": "verified_method; Vietnam practicality needs_verification",
+      "commercial_terms": "verified",
+      "verified_on": "2026-10-18"
+    },
+    "readiness_score_breakdown": {
+      "ProgramOpen": 30,
+      "VietnamEligible": 20,
+      "ApprovalDifficulty": 15,
+      "PayoutPracticality": 10,
+      "CommercialTermsVerified": 20
+    },
+    "verification_sources": [
+      "https://help.make.com/affiliate-program",
+      "https://www.make.com/en/affiliate"
+    ],
+    "prohibited_methods": [
+      "No use of the Make trademark in ad keywords, ad copy, titles, body text, metadata, or search ads without written consent"
+    ],
+    "readiness_score": 95,
+    "readiness_gate": "ELIGIBLE"
   },
   {
     "product": "Hostinger",
@@ -44,7 +75,7 @@
     "customer_problem": "High cost and complexity of setting up reliable web hosting with SSL, email, and SSD storage",
     "buyer_intent": "Extreme commercial search intent ('mua hosting giá rẻ', 'best web hosting for beginners')",
     "price": "Starting ~$2.99/mo (approx 75,000 VND/mo)",
-    "commission": "60% per sale",
+    "commission": "Up to 40% on eligible hosting; up to 60% for specific Hostinger AI Builder offers only",
     "cookie_window": "30 days",
     "demand_evidence": "Consistently top search volume in Vietnam tech communities and Google SERPs",
     "trend_evidence": "Rapid growth of individual e-commerce stores, affiliate blogs, and personal portfolios",
@@ -54,7 +85,11 @@
       "So sánh Hostinger vs Azdigi / Viettel IDC: Đâu là lựa chọn tối ưu chi phí?",
       "Xây dựng hệ thống Automation Blog tự động trên VPS Hostinger giá rẻ"
     ],
-    "potential_channels": ["YouTube Long-form", "SEO Blog", "TikTok Tech Guides"],
+    "potential_channels": [
+      "YouTube Long-form",
+      "SEO Blog",
+      "TikTok Tech Guides"
+    ],
     "risks": "Strict trademark bidding prohibition; cannot run PPC ads on 'Hostinger' brand keywords",
     "source_url": "https://www.hostinger.com/affiliates",
     "score_breakdown": {
@@ -67,20 +102,48 @@
       "ComplianceRisk": 5
     },
     "score": 91,
-    "recommendation": "SCALE"
+    "recommendation": "TEST_HIGH_PRIORITY",
+    "opportunity_recommendation": "SCALE",
+    "payout": "Minimum $100; current payout methods for a Vietnam-based affiliate need_verification in the approved dashboard",
+    "program_status": "open_application",
+    "verification_status": {
+      "program_open": "verified",
+      "vietnam_eligible": "needs_verification",
+      "approval": "verified_review_required_about_3_business_days",
+      "payout": "threshold_verified; method needs_verification",
+      "commercial_terms": "verified",
+      "verified_on": "2026-10-18"
+    },
+    "readiness_score_breakdown": {
+      "ProgramOpen": 30,
+      "VietnamEligible": 10,
+      "ApprovalDifficulty": 10,
+      "PayoutPracticality": 5,
+      "CommercialTermsVerified": 20
+    },
+    "verification_sources": [
+      "https://www.hostinger.com/affiliates",
+      "https://www.hostinger.com/legal/affiliate-program-agreement",
+      "https://www.hostinger.com/support/the-most-frequently-asked-questions-about-hostinger/"
+    ],
+    "prohibited_methods": [
+      "Brand/trademark bidding and other promotion restrictions must be checked against the current affiliate agreement before launch"
+    ],
+    "readiness_score": 75,
+    "readiness_gate": "ELIGIBLE"
   },
   {
     "product": "Notion",
     "brand": "Notion Labs Inc.",
     "category": "Productivity & Workspace / AI Workspace",
     "affiliate_program": "Notion Affiliate Program (PartnerStack)",
-    "country_availability": "Global (including Vietnam)",
+    "country_availability": "Existing affiliates only; Vietnam eligibility for an existing account needs_verification",
     "target_audience": "Solopreneurs, knowledge workers, university students, startup founders",
     "customer_problem": "Fragmented notes, chaotic task tracking, unorganized document repositories",
     "buyer_intent": "High conversion on ready-made template bundles and Plus/Team workspace upgrades",
     "price": "Free tier, Plus from $10/user/mo",
-    "commission": "50% of all payments made by referred customer for their first year",
-    "cookie_window": "90 days",
+    "commission": "Up to $50 per activated signup plus 20% of first-year revenue",
+    "cookie_window": "180 days",
     "demand_evidence": "Massive organic community in Vietnam (#NotionVN, Facebook groups with over 200,000 members)",
     "trend_evidence": "Continuous integration of Notion AI agents, project automations, and enterprise databases",
     "competition": "High on basic student templates, medium on advanced business OS templates",
@@ -89,8 +152,12 @@
       "Cách dùng Notion AI tóm tắt tài liệu và lên kế hoạch marketing tuần",
       "Tối ưu hóa quy trình làm việc từ A-Z cho Agency 5 người bằng Notion Teamspace"
     ],
-    "potential_channels": ["TikTok Aesthetic Workspace", "YouTube Long-form", "X / Threads"],
-    "risks": "Free tier is very feature-rich; must position business and team features to drive paid upgrades",
+    "potential_channels": [
+      "TikTok Aesthetic Workspace",
+      "YouTube Long-form",
+      "X / Threads"
+    ],
+    "risks": "Program is currently not accepting new affiliates. HOLD unless an already-approved affiliate account is confirmed.",
     "source_url": "https://www.notion.so/affiliates",
     "score_breakdown": {
       "Demand": 25,
@@ -102,20 +169,42 @@
       "ComplianceRisk": 5
     },
     "score": 90,
-    "recommendation": "SCALE"
+    "recommendation": "HOLD",
+    "opportunity_recommendation": "SCALE",
+    "program_status": "closed_to_new_affiliates",
+    "verification_status": {
+      "program_open": "verified_closed",
+      "vietnam_eligible": "needs_verification",
+      "approval": "not_available_for_new_applicants",
+      "payout": "needs_verification",
+      "commercial_terms": "verified",
+      "verified_on": "2026-10-18"
+    },
+    "readiness_score_breakdown": {
+      "ProgramOpen": 0,
+      "VietnamEligible": 10,
+      "ApprovalDifficulty": 0,
+      "PayoutPracticality": 0,
+      "CommercialTermsVerified": 20
+    },
+    "verification_sources": [
+      "https://www.notion.com/affiliates"
+    ],
+    "readiness_score": 30,
+    "readiness_gate": "BLOCKED_BELOW_60"
   },
   {
     "product": "ElevenLabs",
     "brand": "ElevenLabs Inc.",
     "category": "Generative Voice AI & Speech Synthesis",
-    "affiliate_program": "ElevenLabs Partner Program (Rewardful)",
+    "affiliate_program": "ElevenLabs Creator Affiliate Program (PartnerStack)",
     "country_availability": "Global (including Vietnam)",
     "target_audience": "Content creators, faceless YouTube/TikTok creators, audiobook publishers, game devs",
     "customer_problem": "Robotic, emotionless text-to-speech voices that sound fake and harm audience retention",
     "buyer_intent": "Very high commercial intent among video creators looking to monetize faceless channels",
     "price": "Starter from $5/mo, Creator from $22/mo",
-    "commission": "22% recurring commission for the first 12 months",
-    "cookie_window": "60 days",
+    "commission": "22% for Starter, Creator, Pro, and Scale; 11% for Business; first 12 months; Enterprise excluded",
+    "cookie_window": "needs_verification",
     "demand_evidence": "Gold standard in synthetic voice cloning and multilingual natural speech",
     "trend_evidence": "Explosive growth of faceless automated media channels across Southeast Asia",
     "competition": "Low-medium in detailed Vietnamese workflow reviews",
@@ -124,7 +213,11 @@
       "So sánh giọng đọc ElevenLabs vs CapCut AI Voice: Khác biệt đáng giá bao nhiêu?",
       "Hướng dẫn Clone giọng nói tiếng Việt chuẩn cảm xúc để làm Audio Book"
     ],
-    "potential_channels": ["YouTube Shorts", "TikTok Tech", "Blog Tutorials"],
+    "potential_channels": [
+      "YouTube Shorts",
+      "TikTok Tech",
+      "Blog Tutorials"
+    ],
     "risks": "AI voice ethics compliance; requires clear deepfake and synthetic voice disclaimers",
     "source_url": "https://elevenlabs.io/affiliates",
     "score_breakdown": {
@@ -137,7 +230,36 @@
       "ComplianceRisk": 4
     },
     "score": 90,
-    "recommendation": "SCALE"
+    "recommendation": "TEST_HIGH_PRIORITY",
+    "opportunity_recommendation": "SCALE",
+    "payout": "PartnerStack; commission becomes payable after the 90-day validation period and is paid monthly",
+    "program_status": "open_application",
+    "verification_status": {
+      "program_open": "verified",
+      "vietnam_eligible": "inferred_not_explicit",
+      "approval": "application_or_account_requirements_verified",
+      "payout": "verified_platform; Vietnam bank compatibility needs_verification",
+      "commercial_terms": "verified",
+      "verified_on": "2026-10-18"
+    },
+    "readiness_score_breakdown": {
+      "ProgramOpen": 30,
+      "VietnamEligible": 10,
+      "ApprovalDifficulty": 10,
+      "PayoutPracticality": 10,
+      "CommercialTermsVerified": 20
+    },
+    "verification_sources": [
+      "https://elevenlabs.io/affiliates-terms",
+      "https://elevenlabs.io/affiliate-partner-guide"
+    ],
+    "prohibited_methods": [
+      "No brand-keyword bidding without consent",
+      "No misleading affiliation or brand impersonation",
+      "Comply with prohibited-use and disclosure requirements"
+    ],
+    "readiness_score": 80,
+    "readiness_gate": "ELIGIBLE"
   },
   {
     "product": "Descript",
@@ -159,7 +281,11 @@
       "Tự động tạo phụ đề phong cách Alex Hormozi bằng AI trong nháy mắt",
       "Workflow sản xuất Podcast từ thu âm đến cắt Shorts hoàn chỉnh với Descript"
     ],
-    "potential_channels": ["YouTube Long-form", "TikTok", "Facebook Creator Groups"],
+    "potential_channels": [
+      "YouTube Long-form",
+      "TikTok",
+      "Facebook Creator Groups"
+    ],
     "risks": "English UI interface may require step-by-step visual screen recordings for local audience",
     "source_url": "https://www.descript.com/affiliate-program",
     "score_breakdown": {
@@ -172,7 +298,29 @@
       "ComplianceRisk": 5
     },
     "score": 87,
-    "recommendation": "SCALE"
+    "recommendation": "HOLD",
+    "opportunity_recommendation": "SCALE",
+    "program_status": "needs_verification",
+    "verification_status": {
+      "program_open": "needs_verification",
+      "vietnam_eligible": "needs_verification",
+      "approval": "needs_verification",
+      "payout": "needs_verification",
+      "commercial_terms": "needs_verification",
+      "verified_on": "2026-10-18"
+    },
+    "readiness_score_breakdown": {
+      "ProgramOpen": 0,
+      "VietnamEligible": 0,
+      "ApprovalDifficulty": 0,
+      "PayoutPracticality": 0,
+      "CommercialTermsVerified": 0
+    },
+    "verification_sources": [
+      "https://www.descript.com/affiliate-program"
+    ],
+    "readiness_score": 0,
+    "readiness_gate": "BLOCKED_BELOW_60"
   },
   {
     "product": "Synthesia",
@@ -194,7 +342,11 @@
       "So sánh Synthesia vs HeyGen: Công cụ nào tạo avatar AI chân thực nhất?",
       "Cách doanh nghiệp tiết kiệm 80% chi phí sản xuất video onboarding"
     ],
-    "potential_channels": ["LinkedIn Articles", "YouTube B2B Tutorials", "Tech Blog"],
+    "potential_channels": [
+      "LinkedIn Articles",
+      "YouTube B2B Tutorials",
+      "Tech Blog"
+    ],
     "risks": "Higher price point for individual VN consumers; best targeted at agencies/B2B",
     "source_url": "https://www.synthesia.io/affiliates",
     "score_breakdown": {
@@ -207,7 +359,29 @@
       "ComplianceRisk": 4
     },
     "score": 87,
-    "recommendation": "SCALE"
+    "recommendation": "HOLD",
+    "opportunity_recommendation": "SCALE",
+    "program_status": "needs_verification",
+    "verification_status": {
+      "program_open": "needs_verification",
+      "vietnam_eligible": "needs_verification",
+      "approval": "needs_verification",
+      "payout": "needs_verification",
+      "commercial_terms": "needs_verification",
+      "verified_on": "2026-10-18"
+    },
+    "readiness_score_breakdown": {
+      "ProgramOpen": 0,
+      "VietnamEligible": 0,
+      "ApprovalDifficulty": 0,
+      "PayoutPracticality": 0,
+      "CommercialTermsVerified": 0
+    },
+    "verification_sources": [
+      "https://www.synthesia.io/affiliates"
+    ],
+    "readiness_score": 0,
+    "readiness_gate": "BLOCKED_BELOW_60"
   },
   {
     "product": "HeyGen",
@@ -229,7 +403,11 @@
       "Tạo mẫu MC ảo livestream bán hàng không biết mệt mỏi với HeyGen",
       "Chiến lược bán hàng Amazon Affiliate bằng video AI không lộ mặt"
     ],
-    "potential_channels": ["TikTok Guides", "YouTube Shorts", "E-commerce Webinars"],
+    "potential_channels": [
+      "TikTok Guides",
+      "YouTube Shorts",
+      "E-commerce Webinars"
+    ],
     "risks": "Strict credit usage policies can cause user hesitation",
     "source_url": "https://www.heygen.com/affiliates",
     "score_breakdown": {
@@ -242,7 +420,29 @@
       "ComplianceRisk": 4
     },
     "score": 87,
-    "recommendation": "SCALE"
+    "recommendation": "HOLD",
+    "opportunity_recommendation": "SCALE",
+    "program_status": "needs_verification",
+    "verification_status": {
+      "program_open": "needs_verification",
+      "vietnam_eligible": "needs_verification",
+      "approval": "needs_verification",
+      "payout": "needs_verification",
+      "commercial_terms": "needs_verification",
+      "verified_on": "2026-10-18"
+    },
+    "readiness_score_breakdown": {
+      "ProgramOpen": 0,
+      "VietnamEligible": 0,
+      "ApprovalDifficulty": 0,
+      "PayoutPracticality": 0,
+      "CommercialTermsVerified": 0
+    },
+    "verification_sources": [
+      "https://www.heygen.com/affiliates"
+    ],
+    "readiness_score": 0,
+    "readiness_gate": "BLOCKED_BELOW_60"
   },
   {
     "product": "Semrush",
@@ -264,7 +464,11 @@
       "Spy chiến lược đối thủ: Họ đang kéo hàng triệu traffic từ đâu?",
       "Tối ưu hóa website chuẩn GEO để xuất hiện trong câu trả lời của ChatGPT & Gemini"
     ],
-    "potential_channels": ["YouTube SEO In-depth Guides", "Blog Case Studies", "Marketing Newsletters"],
+    "potential_channels": [
+      "YouTube SEO In-depth Guides",
+      "Blog Case Studies",
+      "Marketing Newsletters"
+    ],
     "risks": "High monthly price can deter individual beginners; focus on agency and trial conversion",
     "source_url": "https://www.semrush.com/kb/952-semrush-affiliate-program",
     "score_breakdown": {
@@ -277,7 +481,29 @@
       "ComplianceRisk": 5
     },
     "score": 87,
-    "recommendation": "SCALE"
+    "recommendation": "HOLD",
+    "opportunity_recommendation": "SCALE",
+    "program_status": "needs_verification",
+    "verification_status": {
+      "program_open": "needs_verification",
+      "vietnam_eligible": "needs_verification",
+      "approval": "needs_verification",
+      "payout": "needs_verification",
+      "commercial_terms": "needs_verification",
+      "verified_on": "2026-10-18"
+    },
+    "readiness_score_breakdown": {
+      "ProgramOpen": 0,
+      "VietnamEligible": 0,
+      "ApprovalDifficulty": 0,
+      "PayoutPracticality": 0,
+      "CommercialTermsVerified": 0
+    },
+    "verification_sources": [
+      "https://www.semrush.com/kb/952-semrush-affiliate-program"
+    ],
+    "readiness_score": 0,
+    "readiness_gate": "BLOCKED_BELOW_60"
   },
   {
     "product": "Shopify",
@@ -299,7 +525,11 @@
       "Cách tích hợp Shopify với TikTok Shop và Google Merchant Center chuẩn 2026",
       "Shopify vs WooCommerce: Đâu là nền tảng tối ưu cho người mới bắt đầu?"
     ],
-    "potential_channels": ["YouTube Step-by-Step Stores", "E-com Blogs", "Telegram Dropship Groups"],
+    "potential_channels": [
+      "YouTube Step-by-Step Stores",
+      "E-com Blogs",
+      "Telegram Dropship Groups"
+    ],
     "risks": "High competitive saturation on tier-1 English queries",
     "source_url": "https://www.shopify.com/affiliates",
     "score_breakdown": {
@@ -312,7 +542,29 @@
       "ComplianceRisk": 5
     },
     "score": 86,
-    "recommendation": "SCALE"
+    "recommendation": "HOLD",
+    "opportunity_recommendation": "SCALE",
+    "program_status": "needs_verification",
+    "verification_status": {
+      "program_open": "needs_verification",
+      "vietnam_eligible": "needs_verification",
+      "approval": "needs_verification",
+      "payout": "needs_verification",
+      "commercial_terms": "needs_verification",
+      "verified_on": "2026-10-18"
+    },
+    "readiness_score_breakdown": {
+      "ProgramOpen": 0,
+      "VietnamEligible": 0,
+      "ApprovalDifficulty": 0,
+      "PayoutPracticality": 0,
+      "CommercialTermsVerified": 0
+    },
+    "verification_sources": [
+      "https://www.shopify.com/affiliates"
+    ],
+    "readiness_score": 0,
+    "readiness_gate": "BLOCKED_BELOW_60"
   },
   {
     "product": "InVideo AI",
@@ -334,7 +586,11 @@
       "Quy trình xây dựng kênh tin tức tự động triệu view với InVideo",
       "Đánh giá chi tiết InVideo AI: Liệu có thay thế được dựng phim chuyên nghiệp?"
     ],
-    "potential_channels": ["TikTok Demos", "YouTube Shorts", "Facebook AI Tools groups"],
+    "potential_channels": [
+      "TikTok Demos",
+      "YouTube Shorts",
+      "Facebook AI Tools groups"
+    ],
     "risks": "Output quality can feel repetitive if custom prompts aren't well engineered",
     "source_url": "https://invideo.io/affiliates/",
     "score_breakdown": {
@@ -347,7 +603,29 @@
       "ComplianceRisk": 4
     },
     "score": 86,
-    "recommendation": "SCALE"
+    "recommendation": "HOLD",
+    "opportunity_recommendation": "SCALE",
+    "program_status": "needs_verification",
+    "verification_status": {
+      "program_open": "needs_verification",
+      "vietnam_eligible": "needs_verification",
+      "approval": "needs_verification",
+      "payout": "needs_verification",
+      "commercial_terms": "needs_verification",
+      "verified_on": "2026-10-18"
+    },
+    "readiness_score_breakdown": {
+      "ProgramOpen": 0,
+      "VietnamEligible": 0,
+      "ApprovalDifficulty": 0,
+      "PayoutPracticality": 0,
+      "CommercialTermsVerified": 0
+    },
+    "verification_sources": [
+      "https://invideo.io/affiliates/"
+    ],
+    "readiness_score": 0,
+    "readiness_gate": "BLOCKED_BELOW_60"
   },
   {
     "product": "Surfer SEO",
@@ -369,7 +647,10 @@
       "Surfer SEO vs Yoast SEO: Tại sao chỉ cài Yoast là chưa đủ?",
       "Tự động hóa viết bài chuẩn ngữ nghĩa NLP với Surfer + AI Writer"
     ],
-    "potential_channels": ["SEO Community Blogs", "YouTube Screen-record Tutorials"],
+    "potential_channels": [
+      "SEO Community Blogs",
+      "YouTube Screen-record Tutorials"
+    ],
     "risks": "Monthly price barrier for entry-level hobby bloggers",
     "source_url": "https://surferseo.com/affiliate-program/",
     "score_breakdown": {
@@ -382,7 +663,29 @@
       "ComplianceRisk": 5
     },
     "score": 83,
-    "recommendation": "SCALE"
+    "recommendation": "HOLD",
+    "opportunity_recommendation": "SCALE",
+    "program_status": "needs_verification",
+    "verification_status": {
+      "program_open": "needs_verification",
+      "vietnam_eligible": "needs_verification",
+      "approval": "needs_verification",
+      "payout": "needs_verification",
+      "commercial_terms": "needs_verification",
+      "verified_on": "2026-10-18"
+    },
+    "readiness_score_breakdown": {
+      "ProgramOpen": 0,
+      "VietnamEligible": 0,
+      "ApprovalDifficulty": 0,
+      "PayoutPracticality": 0,
+      "CommercialTermsVerified": 0
+    },
+    "verification_sources": [
+      "https://surferseo.com/affiliate-program/"
+    ],
+    "readiness_score": 0,
+    "readiness_gate": "BLOCKED_BELOW_60"
   },
   {
     "product": "Webflow",
@@ -404,7 +707,11 @@
       "Webflow vs WordPress: Nền tảng nào giúp Freelancer nhận dự án giá cao hơn?",
       "Tạo landing page chuyển đổi cao với hiệu ứng 3D mượt mà trên Webflow"
     ],
-    "potential_channels": ["YouTube Design Tutorials", "Dribbble/Behance breakdowns", "Tech SEO Blog"],
+    "potential_channels": [
+      "YouTube Design Tutorials",
+      "Dribbble/Behance breakdowns",
+      "Tech SEO Blog"
+    ],
     "risks": "Steeper learning curve than Wix/Squarespace",
     "source_url": "https://webflow.com/affiliates",
     "score_breakdown": {
@@ -417,7 +724,29 @@
       "ComplianceRisk": 5
     },
     "score": 83,
-    "recommendation": "SCALE"
+    "recommendation": "HOLD",
+    "opportunity_recommendation": "SCALE",
+    "program_status": "needs_verification",
+    "verification_status": {
+      "program_open": "needs_verification",
+      "vietnam_eligible": "needs_verification",
+      "approval": "needs_verification",
+      "payout": "needs_verification",
+      "commercial_terms": "needs_verification",
+      "verified_on": "2026-10-18"
+    },
+    "readiness_score_breakdown": {
+      "ProgramOpen": 0,
+      "VietnamEligible": 0,
+      "ApprovalDifficulty": 0,
+      "PayoutPracticality": 0,
+      "CommercialTermsVerified": 0
+    },
+    "verification_sources": [
+      "https://webflow.com/affiliates"
+    ],
+    "readiness_score": 0,
+    "readiness_gate": "BLOCKED_BELOW_60"
   },
   {
     "product": "Canva",
@@ -439,7 +768,11 @@
       "Cách tạo trọn bộ ấn phẩm truyền thông sự kiện trong 30 phút trên Canva",
       "Thiết kế Carousel TikTok & Instagram tăng x3 lượng lưu bài viết"
     ],
-    "potential_channels": ["TikTok Shorts", "Facebook Communities", "Canva VN groups"],
+    "potential_channels": [
+      "TikTok Shorts",
+      "Facebook Communities",
+      "Canva VN groups"
+    ],
     "risks": "Highly competitive affiliate landscape; require unique template bundles to stand out",
     "source_url": "https://www.canva.com/affiliates/",
     "score_breakdown": {
@@ -452,7 +785,29 @@
       "ComplianceRisk": 5
     },
     "score": 82,
-    "recommendation": "SCALE"
+    "recommendation": "HOLD",
+    "opportunity_recommendation": "SCALE",
+    "program_status": "needs_verification",
+    "verification_status": {
+      "program_open": "needs_verification",
+      "vietnam_eligible": "needs_verification",
+      "approval": "needs_verification",
+      "payout": "needs_verification",
+      "commercial_terms": "needs_verification",
+      "verified_on": "2026-10-18"
+    },
+    "readiness_score_breakdown": {
+      "ProgramOpen": 0,
+      "VietnamEligible": 0,
+      "ApprovalDifficulty": 0,
+      "PayoutPracticality": 0,
+      "CommercialTermsVerified": 0
+    },
+    "verification_sources": [
+      "https://www.canva.com/affiliates/"
+    ],
+    "readiness_score": 0,
+    "readiness_gate": "BLOCKED_BELOW_60"
   },
   {
     "product": "NordVPN",
@@ -474,7 +829,11 @@
       "Bảo vệ ví Crypto và tài khoản thanh toán khi dùng WiFi quán cafe",
       "Đánh giá tốc độ server NordVPN tại Châu Á: Có bị bóp băng thông không?"
     ],
-    "potential_channels": ["YouTube Tech Reviews", "Telegram Crypto communities", "Blog"],
+    "potential_channels": [
+      "YouTube Tech Reviews",
+      "Telegram Crypto communities",
+      "Blog"
+    ],
     "risks": "Strict compliance with regional cyber laws and advertising disclosures",
     "source_url": "https://nordvpn.com/affiliate/",
     "score_breakdown": {
@@ -487,20 +846,42 @@
       "ComplianceRisk": 4
     },
     "score": 79,
-    "recommendation": "TEST"
+    "recommendation": "RESEARCH",
+    "opportunity_recommendation": "TEST",
+    "program_status": "needs_verification",
+    "verification_status": {
+      "program_open": "needs_verification",
+      "vietnam_eligible": "needs_verification",
+      "approval": "needs_verification",
+      "payout": "needs_verification",
+      "commercial_terms": "needs_verification",
+      "verified_on": "2026-10-18"
+    },
+    "readiness_score_breakdown": {
+      "ProgramOpen": 0,
+      "VietnamEligible": 0,
+      "ApprovalDifficulty": 0,
+      "PayoutPracticality": 0,
+      "CommercialTermsVerified": 0
+    },
+    "verification_sources": [
+      "https://nordvpn.com/affiliate/"
+    ],
+    "readiness_score": 0,
+    "readiness_gate": "BLOCKED_BELOW_60"
   },
   {
     "product": "ClickUp",
     "brand": "ClickUp Inc.",
     "category": "Project Management & Team Collaboration",
-    "affiliate_program": "Rewardful",
+    "affiliate_program": "ClickUp Affiliate Program (PartnerStack)",
     "country_availability": "Global",
     "target_audience": "Startup founders, agency project managers, agile dev teams",
     "customer_problem": "Disconnected task boards, lost deadlines, lack of team workload visibility",
     "buyer_intent": "High willingness to pay for Unlimited/Business tiers",
     "price": "Unlimited $7/user/mo, Business $12/user/mo",
-    "commission": "Up to 20% commission on referred subscriptions for the first year",
-    "cookie_window": "90 days",
+    "commission": "Up to $25 per qualified new free-workspace referral",
+    "cookie_window": "30 days; last qualifying marketing touch",
     "demand_evidence": "Strong contender challenging Asana and Monday.com",
     "trend_evidence": "Introduction of ClickUp Brain (integrated AI knowledge assistant)",
     "competition": "Medium in Vietnam business segment",
@@ -509,7 +890,11 @@
       "ClickUp vs Notion: Công cụ nào tốt hơn để điều hành công ty dịch vụ?",
       "Tự động hóa giao việc và nhắc deadline qua Slack với ClickUp Brain"
     ],
-    "potential_channels": ["YouTube B2B tutorials", "LinkedIn", "Business OS Newsletter"],
+    "potential_channels": [
+      "YouTube B2B tutorials",
+      "LinkedIn",
+      "Business OS Newsletter"
+    ],
     "risks": "Feature density can overwhelm solo users; must target teams/agencies",
     "source_url": "https://clickup.com/affiliate",
     "score_breakdown": {
@@ -522,7 +907,36 @@
       "ComplianceRisk": 5
     },
     "score": 79,
-    "recommendation": "TEST"
+    "recommendation": "TEST",
+    "opportunity_recommendation": "TEST",
+    "payout": "Actions lock one month after month-end; approved transactions pay 15 days after lock",
+    "program_status": "open_application",
+    "verification_status": {
+      "program_open": "verified",
+      "vietnam_eligible": "needs_verification (some countries are non-commissionable)",
+      "approval": "application_required",
+      "payout": "schedule_verified; Vietnam method needs_verification",
+      "commercial_terms": "verified",
+      "verified_on": "2026-10-18"
+    },
+    "readiness_score_breakdown": {
+      "ProgramOpen": 30,
+      "VietnamEligible": 0,
+      "ApprovalDifficulty": 10,
+      "PayoutPracticality": 5,
+      "CommercialTermsVerified": 20
+    },
+    "verification_sources": [
+      "https://clickup.com/partners/affiliates",
+      "https://help.clickup.com/hc/en-us/articles/6311978850967-Sign-up-for-the-affiliate-program"
+    ],
+    "prohibited_methods": [
+      "No self-referrals",
+      "No fraudulent tactics",
+      "Referral must be the last qualifying marketing touch"
+    ],
+    "readiness_score": 65,
+    "readiness_gate": "ELIGIBLE"
   },
   {
     "product": "HubSpot",
@@ -544,7 +958,11 @@
       "Cách đo lường ROI từng kênh Marketing với HubSpot Dashboard",
       "HubSpot vs Zoho CRM: Đâu là giải pháp tối ưu cho doanh nghiệp B2B SME?"
     ],
-    "potential_channels": ["B2B Thought Leadership", "In-depth Case Studies", "Webinars"],
+    "potential_channels": [
+      "B2B Thought Leadership",
+      "In-depth Case Studies",
+      "Webinars"
+    ],
     "risks": "Longer sales cycle and qualification hurdles for commissions",
     "source_url": "https://www.hubspot.com/partners/affiliates",
     "score_breakdown": {
@@ -557,7 +975,29 @@
       "ComplianceRisk": 5
     },
     "score": 77,
-    "recommendation": "TEST"
+    "recommendation": "RESEARCH",
+    "opportunity_recommendation": "TEST",
+    "program_status": "needs_verification",
+    "verification_status": {
+      "program_open": "needs_verification",
+      "vietnam_eligible": "needs_verification",
+      "approval": "needs_verification",
+      "payout": "needs_verification",
+      "commercial_terms": "needs_verification",
+      "verified_on": "2026-10-18"
+    },
+    "readiness_score_breakdown": {
+      "ProgramOpen": 0,
+      "VietnamEligible": 0,
+      "ApprovalDifficulty": 0,
+      "PayoutPracticality": 0,
+      "CommercialTermsVerified": 0
+    },
+    "verification_sources": [
+      "https://www.hubspot.com/partners/affiliates"
+    ],
+    "readiness_score": 0,
+    "readiness_gate": "BLOCKED_BELOW_60"
   },
   {
     "product": "Grammarly",
@@ -569,8 +1009,8 @@
     "customer_problem": "Grammar errors, tone inconsistencies, and slow English composition",
     "buyer_intent": "High conversion on free registrations and annual premium plans",
     "price": "Free, Premium from $12/mo (billed annually)",
-    "commission": "$0.20 per free registration, $20 per Premium subscription sale",
-    "cookie_window": "90 days",
+    "commission": "needs_verification in the affiliate portal (public page confirms two action types but not current rates in accessible text)",
+    "cookie_window": "90 days; last-click attribution",
     "demand_evidence": "Top-tier household brand for English writing assistance in Vietnam",
     "trend_evidence": "Grammarly Business and generative email writing features",
     "competition": "Very high on generic brand searches; medium on IELTS and academic review angles",
@@ -579,7 +1019,11 @@
       "Grammarly Premium vs ChatGPT: Công cụ nào sửa bài IELTS hiệu quả hơn?",
       "Tự động kiểm tra đạo văn và văn phong học thuật cho luận văn thạc sĩ"
     ],
-    "potential_channels": ["TikTok Study Gram", "YouTube English Study Guides", "Academic Forums"],
+    "potential_channels": [
+      "TikTok Study Gram",
+      "YouTube English Study Guides",
+      "Academic Forums"
+    ],
     "risks": "High competition; low free-registration payout requires high volume",
     "source_url": "https://www.grammarly.com/affiliates",
     "score_breakdown": {
@@ -592,7 +1036,37 @@
       "ComplianceRisk": 5
     },
     "score": 77,
-    "recommendation": "TEST"
+    "recommendation": "TEST",
+    "opportunity_recommendation": "TEST",
+    "payout": "Payment details and applicable method for Vietnam need_verification after approval",
+    "program_status": "open_application",
+    "verification_status": {
+      "program_open": "verified",
+      "vietnam_eligible": "needs_verification",
+      "approval": "application_required",
+      "payout": "needs_verification",
+      "commercial_terms": "partially_verified_rate_needs_verification",
+      "verified_on": "2026-10-18"
+    },
+    "readiness_score_breakdown": {
+      "ProgramOpen": 30,
+      "VietnamEligible": 10,
+      "ApprovalDifficulty": 10,
+      "PayoutPracticality": 5,
+      "CommercialTermsVerified": 10
+    },
+    "verification_sources": [
+      "https://www.grammarly.com/affiliates",
+      "https://www.grammarly.com/affiliates/terms",
+      "https://support.grammarly.com/hc/en-us/articles/360037424871-About-Grammarly-s-affiliate-program"
+    ],
+    "prohibited_methods": [
+      "Unauthorized coupons are prohibited",
+      "Some brand-plus-discount keyword bidding requires written consent",
+      "Low-quality or fraudulent traffic may be rejected"
+    ],
+    "readiness_score": 65,
+    "readiness_gate": "ELIGIBLE"
   },
   {
     "product": "Tabnine",
@@ -614,7 +1088,11 @@
       "Tabnine vs GitHub Copilot: Đâu là lựa chọn an toàn cho dự án bảo mật cao?",
       "Cài đặt Tabnine trên VS Code và tối ưu hóa quy trình viết Unit Test"
     ],
-    "potential_channels": ["Dev YouTube Channels", "IT Facebook Groups (VNOI, DevVN)", "Tech Blog"],
+    "potential_channels": [
+      "Dev YouTube Channels",
+      "IT Facebook Groups (VNOI, DevVN)",
+      "Tech Blog"
+    ],
     "risks": "Developer audience is sensitive to ad pitches; content must be highly technical",
     "source_url": "https://www.tabnine.com/partners",
     "score_breakdown": {
@@ -627,7 +1105,29 @@
       "ComplianceRisk": 4
     },
     "score": 77,
-    "recommendation": "TEST"
+    "recommendation": "RESEARCH",
+    "opportunity_recommendation": "TEST",
+    "program_status": "needs_verification",
+    "verification_status": {
+      "program_open": "needs_verification",
+      "vietnam_eligible": "needs_verification",
+      "approval": "needs_verification",
+      "payout": "needs_verification",
+      "commercial_terms": "needs_verification",
+      "verified_on": "2026-10-18"
+    },
+    "readiness_score_breakdown": {
+      "ProgramOpen": 0,
+      "VietnamEligible": 0,
+      "ApprovalDifficulty": 0,
+      "PayoutPracticality": 0,
+      "CommercialTermsVerified": 0
+    },
+    "verification_sources": [
+      "https://www.tabnine.com/partners"
+    ],
+    "readiness_score": 0,
+    "readiness_gate": "BLOCKED_BELOW_60"
   },
   {
     "product": "Loom",
@@ -649,7 +1149,11 @@
       "Cách tạo video hướng dẫn sử dụng sản phẩm chuyên nghiệp cho khách hàng bằng Loom",
       "Tích hợp Loom + Notion: Tối ưu hóa quy trình Onboarding nhân sự mới"
     ],
-    "potential_channels": ["Remote Work Guides", "YouTube Productivity", "LinkedIn"],
+    "potential_channels": [
+      "Remote Work Guides",
+      "YouTube Productivity",
+      "LinkedIn"
+    ],
     "risks": "Moderate commission per user; requires business tier volume",
     "source_url": "https://www.loom.com/affiliates",
     "score_breakdown": {
@@ -662,7 +1166,29 @@
       "ComplianceRisk": 5
     },
     "score": 76,
-    "recommendation": "TEST"
+    "recommendation": "RESEARCH",
+    "opportunity_recommendation": "TEST",
+    "program_status": "needs_verification",
+    "verification_status": {
+      "program_open": "needs_verification",
+      "vietnam_eligible": "needs_verification",
+      "approval": "needs_verification",
+      "payout": "needs_verification",
+      "commercial_terms": "needs_verification",
+      "verified_on": "2026-10-18"
+    },
+    "readiness_score_breakdown": {
+      "ProgramOpen": 0,
+      "VietnamEligible": 0,
+      "ApprovalDifficulty": 0,
+      "PayoutPracticality": 0,
+      "CommercialTermsVerified": 0
+    },
+    "verification_sources": [
+      "https://www.loom.com/affiliates"
+    ],
+    "readiness_score": 0,
+    "readiness_gate": "BLOCKED_BELOW_60"
   },
   {
     "product": "Jasper AI",
@@ -684,7 +1210,11 @@
       "Jasper AI vs ChatGPT Plus: Công cụ nào viết bài bán hàng chuyển đổi cao hơn?",
       "Tạo chiến dịch 50 mẫu quảng cáo Facebook Ads chỉ trong 10 phút với Jasper"
     ],
-    "potential_channels": ["Marketing Agency Webinars", "Long-form Case Studies", "Blog"],
+    "potential_channels": [
+      "Marketing Agency Webinars",
+      "Long-form Case Studies",
+      "Blog"
+    ],
     "risks": "Potential churn as users experiment with raw LLMs; requires focus on brand voice workflow",
     "source_url": "https://www.jasper.ai/partners",
     "score_breakdown": {
@@ -697,6 +1227,28 @@
       "ComplianceRisk": 4
     },
     "score": 73,
-    "recommendation": "TEST"
+    "recommendation": "RESEARCH",
+    "opportunity_recommendation": "TEST",
+    "program_status": "needs_verification",
+    "verification_status": {
+      "program_open": "needs_verification",
+      "vietnam_eligible": "needs_verification",
+      "approval": "needs_verification",
+      "payout": "needs_verification",
+      "commercial_terms": "needs_verification",
+      "verified_on": "2026-10-18"
+    },
+    "readiness_score_breakdown": {
+      "ProgramOpen": 0,
+      "VietnamEligible": 0,
+      "ApprovalDifficulty": 0,
+      "PayoutPracticality": 0,
+      "CommercialTermsVerified": 0
+    },
+    "verification_sources": [
+      "https://www.jasper.ai/partners"
+    ],
+    "readiness_score": 0,
+    "readiness_gate": "BLOCKED_BELOW_60"
   }
 ]

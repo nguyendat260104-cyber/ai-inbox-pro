@@ -13,6 +13,8 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 from pathlib import Path
 from typing import Dict, Any, List
 
+from readiness import apply_readiness_gate
+
 if sys.stdout.encoding and sys.stdout.encoding.lower() != "utf-8":
     try:
         sys.stdout.reconfigure(encoding="utf-8", errors="replace")
@@ -55,14 +57,18 @@ class DashboardRequestHandler(BaseHTTPRequestHandler):
                 with open(pf, "r", encoding="utf-8") as f:
                     p_data = json.load(f)
                     cands = p_data if isinstance(p_data, list) else p_data.get("candidates", [])
-                    for c in cands:
+                    for candidate in cands:
+                        c = apply_readiness_gate(candidate)
                         c["source_file"] = pf.name
                         products.append(c)
             except Exception:
                 pass
 
-        # Sort products by score descending
-        products.sort(key=lambda x: x.get("score", 0), reverse=True)
+        # Readiness is the operational constraint; opportunity score breaks ties.
+        products.sort(
+            key=lambda x: (x.get("readiness_score", 0), x.get("score", 0)),
+            reverse=True,
+        )
 
         # 3. Content assets
         content_assets = []
@@ -178,9 +184,15 @@ class DashboardRequestHandler(BaseHTTPRequestHandler):
             file_path = dashboard_dir / "style.css"
             content_type = "text/css; charset=utf-8"
         else:
-            # Fallback to local files in dashboard
+            # Resolve and constrain fallback paths to prevent traversal outside dashboard/.
             clean_path = req_path.lstrip("/")
-            file_path = dashboard_dir / clean_path
+            file_path = (dashboard_dir / clean_path).resolve()
+            if dashboard_dir.resolve() not in file_path.parents:
+                self.send_response(404)
+                self.send_header("Content-Type", "text/plain")
+                self.end_headers()
+                self.wfile.write(b"404 Not Found")
+                return
             if clean_path.endswith(".js"):
                 content_type = "application/javascript"
             elif clean_path.endswith(".css"):

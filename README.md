@@ -2,6 +2,8 @@
 
 Local-first, agent-driven command center for automated affiliate marketing research, content production, scoring, and performance tracking.
 
+Portfolio decisions use two separate scores: opportunity potential and Affiliate Readiness. Readiness is weighted as Program open (30), Vietnam eligible (20), Approval difficulty (15), Payout practicality (15), and Commercial terms verified (20). A score below 60 blocks SCALE.
+
 Built with Python 3.13, dependency-light vanilla frontend, and a filesystem-based queue state machine.
 
 ---
@@ -37,6 +39,9 @@ python scripts/complete_task.py --id <TASK_ID> --summary "Done" --decision "TEST
 
 # 4. Generate daily executive report
 python scripts/daily_report.py
+
+# Validate the task engine, dashboard, and readiness gate
+python tests/test_suite.py
 ```
 
 ---

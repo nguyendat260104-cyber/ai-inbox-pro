@@ -22,6 +22,7 @@ if sys.stdout.encoding and sys.stdout.encoding.lower() != "utf-8":
         pass
 
 from validate_tasks import get_base_dir
+from readiness import apply_readiness_gate
 
 def generate_daily_report(date_str: Optional[str] = None, base_dir: Optional[Path] = None) -> Path:
     if base_dir is None:
@@ -75,7 +76,12 @@ def generate_daily_report(date_str: Optional[str] = None, base_dir: Optional[Pat
                 p_data = json.load(pf)
                 # Could be a list of products or dict with "candidates"
                 candidates = p_data if isinstance(p_data, list) else p_data.get("candidates", [])
-                top_products = candidates[:5]
+                gated_candidates = [apply_readiness_gate(c) for c in candidates]
+                gated_candidates.sort(
+                    key=lambda x: (x.get("readiness_score", 0), x.get("score", 0)),
+                    reverse=True,
+                )
+                top_products = gated_candidates[:5]
         except Exception:
             pass
 
@@ -152,6 +158,7 @@ def generate_daily_report(date_str: Optional[str] = None, base_dir: Optional[Pat
         for idx, p in enumerate(top_products, 1):
             md_content += f"""### {idx}. {p.get('product', 'Unknown')} ({p.get('brand', 'Unknown')})
 - **Score:** {p.get('score', 'N/A')} / 100 — **Recommendation:** {p.get('recommendation', 'N/A')}
+- **Affiliate Readiness:** {p.get('readiness_score', 0)} / 100 — **Gate:** {p.get('readiness_gate', 'BLOCKED_NEEDS_VERIFICATION')}
 - **Niche/Category:** {p.get('category', 'N/A')}
 - **Commission Model:** {p.get('commission', 'needs_verification')} (Cookie: {p.get('cookie_window', 'needs_verification')})
 - **Target Persona:** {p.get('target_audience', 'N/A')}

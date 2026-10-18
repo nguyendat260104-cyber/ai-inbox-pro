@@ -9,6 +9,18 @@
     "ComplianceRisk": 5
   },
   "max_raw_score": 100,
+  "affiliate_readiness": {
+    "weights": {
+      "ProgramOpen": 30,
+      "VietnamEligible": 20,
+      "ApprovalDifficulty": 15,
+      "PayoutPracticality": 15,
+      "CommercialTermsVerified": 20
+    },
+    "max_score": 100,
+    "scale_gate_minimum": 60,
+    "rule": "A product with readiness_score below 60 must not be recommended for SCALE. Unknown facts receive zero or partial credit and must be marked needs_verification."
+  },
   "decision_framework": {
     "SCALE": {
       "min_score": 80,

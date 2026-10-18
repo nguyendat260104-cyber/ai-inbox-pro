@@ -82,13 +82,14 @@ def generate_daily_tasks(date_str: Optional[str] = None, force: bool = False, ba
             "suffix": "001",
             "type": "opportunity_radar",
             "goal": "01 Opportunity Radar — Find and rank affiliate opportunities relevant to Vietnam, prioritizing digital, AI, and SaaS products.",
-            "context": "Execute 7-dimension scoring framework (Demand, BuyerIntent, CommissionEconomics, ContentFit, Competition, Trend, ComplianceRisk). Flag unknown metrics as 'needs_verification'.",
+            "context": "Execute 7-dimension opportunity scoring plus Affiliate Readiness. Flag unknown metrics as 'needs_verification'; readiness below 60 blocks SCALE.",
             "priority": "high",
             "dependencies": [],
             "requirements": [
                 "Research active affiliate programs compatible with Vietnam and global traffic",
                 "Assess target buyer persona, urgency, and monetization models",
                 "Apply rubric weights from config/scoring.json",
+                "Score Affiliate Readiness: Program open 30, Vietnam eligible 20, Approval difficulty 15, Payout practicality 15, Commercial terms verified 20",
                 "Verify program terms and disclosure rules"
             ],
             "deliverables": [
@@ -103,20 +104,22 @@ def generate_daily_tasks(date_str: Optional[str] = None, force: bool = False, ba
                 "At least 3 content angles per shortlisted candidate",
                 "Score 0-100 normalized",
                 "Top 5 shortlist highlighted",
-                "Explicit risks documented"
+                "Explicit risks documented",
+                "No SCALE recommendation when readiness_score is below 60"
             ]
         },
         {
             "suffix": "002",
             "type": "deep_research",
             "goal": "02 Deep Research — Conduct deep research and funnel breakdown for top shortlisted candidates.",
-            "context": "Conduct thorough funnel, audience, and payout analysis on top shortlisted scale/test candidates.",
+            "context": "Priority: Make.com, Hostinger, ElevenLabs. Secondary: NordVPN, Grammarly, ClickUp. Verify all facts from current official sources and mark unknowns needs_verification.",
             "priority": "high",
             "dependencies": [f"AFF-{date_str}-001"],
             "requirements": [
                 "Map user journey and landing page conversion friction",
                 "Analyze competitor keyword positioning and organic traffic hooks",
-                "Document exact cookie duration, payout frequencies, and local banking options"
+                "Document exact cookie duration, payout frequencies, and local banking options",
+                "Verify Vietnam eligibility, approval, prohibited methods, personas, buyer-intent keywords, and five short-form angles per offer"
             ],
             "deliverables": [
                 f"research/reports/{date_str}-deep-dive.md"

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Affiliate Automation Test Suite
-Comprehensive testing engine verifying all 11 required system test cases:
+Comprehensive testing engine verifying the original 11 system tests plus readiness gating:
 1. create task
 2. validate task
 3. claim highest priority task
@@ -44,6 +44,7 @@ from fail_task import fail_task
 from daily_tasks import generate_daily_tasks, get_existing_tasks_for_date
 from daily_report import generate_daily_report
 from serve_dashboard import run_server
+from readiness import calculate_readiness, apply_readiness_gate
 
 # 1. Create Task Test
 def test_1_create_task():
@@ -291,6 +292,36 @@ def test_11_daily_report_generation():
     print("  ✅ Daily report aggregation and markdown/json compilation passed.")
     return True
 
+def test_12_affiliate_readiness_gate():
+    print("▶ Running Test 12: Affiliate Readiness Gate...")
+    breakdown = {
+        "ProgramOpen": 30,
+        "VietnamEligible": 0,
+        "ApprovalDifficulty": 10,
+        "PayoutPracticality": 5,
+        "CommercialTermsVerified": 10,
+    }
+    assert calculate_readiness(breakdown) == 55
+    gated = apply_readiness_gate({
+        "product": "Example",
+        "recommendation": "SCALE",
+        "readiness_score_breakdown": breakdown,
+    })
+    assert gated["readiness_score"] == 55
+    assert gated["readiness_gate"] == "BLOCKED_BELOW_60"
+    assert gated["recommendation"] == "HOLD"
+
+    eligible = apply_readiness_gate({
+        "product": "Verified Example",
+        "recommendation": "SCALE",
+        "readiness_score_breakdown": {**breakdown, "VietnamEligible": 20},
+    })
+    assert eligible["readiness_score"] == 75
+    assert eligible["readiness_gate"] == "ELIGIBLE"
+    assert eligible["recommendation"] == "SCALE"
+    print("  ✅ Readiness calculation and <60 SCALE block verified.")
+    return True
+
 def main():
     print("==================================================")
     print("AFFILIATE AUTOMATION COMPREHENSIVE TEST SUITE")
@@ -307,7 +338,8 @@ def main():
         ("8. Malformed JSON Handling", test_8_malformed_json_handling),
         ("9. Missing Directory Handling", test_9_missing_directory_handling),
         ("10. Dashboard Startup", test_10_dashboard_startup),
-        ("11. Daily Report Generation", test_11_daily_report_generation)
+        ("11. Daily Report Generation", test_11_daily_report_generation),
+        ("12. Affiliate Readiness Gate", test_12_affiliate_readiness_gate)
     ]
 
     all_passed = True
@@ -326,7 +358,7 @@ def main():
     print("----------------------------------------------")
 
     if all_passed:
-        print("🎉 ALL 11 TESTS PASSED!")
+        print("🎉 ALL 12 TESTS PASSED!")
         sys.exit(0)
     else:
         print("💥 SOME TESTS FAILED.")

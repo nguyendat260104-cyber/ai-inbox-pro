@@ -2,21 +2,31 @@
   "id": "AFF-20261018-002",
   "type": "deep_research",
   "executor": "antigravity",
-  "goal": "Deep research top candidates from daily opportunity research.",
-  "context": "Conduct thorough funnel, audience, and payout analysis on top shortlisted scale/test candidates.",
+  "goal": "Deep research affiliate readiness for priority and secondary offers before any SCALE decision.",
+  "context": "Priority: Make.com, Hostinger, ElevenLabs. Secondary: NordVPN, Grammarly, ClickUp. Use current official sources; mark unknowns needs_verification. No real secrets, applications, posting, or spend.",
   "requirements": [
-    "Map user journey and landing page conversion friction",
-    "Analyze competitor keyword positioning and organic traffic hooks",
-    "Document exact cookie duration, payout frequencies, and local banking options"
+    "Verify current affiliate terms and program-open status from official sources",
+    "Verify explicit Vietnam eligibility or record needs_verification",
+    "Document application and approval difficulty with evidence",
+    "Document payout method, threshold, validation delay, schedule, tax/KYC needs, and Vietnam practicality",
+    "Verify cookie or attribution model and last-click rules",
+    "Capture prohibited promotional methods, trademark bidding rules, coupon rules, and disclosure requirements",
+    "Define 2-3 buyer personas and buyer-intent keyword clusters per offer",
+    "Produce exactly 5 short-form content angles per offer with hook, promise, proof/demo, CTA, and compliance note"
   ],
   "deliverables": [
-    "research/reports/20261018-deep-dive.md"
+    "research/reports/20261018-deep-dive.md",
+    "research/products/20261018-affiliate-readiness.json",
+    "results/AFF-20261018-002-review.json"
   ],
   "acceptance_criteria": [
-    "Detailed funnel analysis for top candidates",
-    "Competitive pricing and payout matrix verified",
-    "Tracking links and cookie attribution mechanics documented",
-    "Conversion hook recommendations finalized"
+    "All six offers have dated official-source URLs for every commercial claim",
+    "Unknown or portal-only facts are marked needs_verification, never inferred as fact",
+    "Readiness breakdown uses Program open 30, Vietnam eligible 20, Approval difficulty 15, Payout practicality 15, Commercial terms verified 20",
+    "No offer with readiness below 60 is recommended for SCALE",
+    "Priority offers appear first: Make.com, Hostinger, ElevenLabs",
+    "Secondary offers follow: NordVPN, Grammarly, ClickUp",
+    "Each offer has personas, buyer-intent keywords, and five short-form angles"
   ],
   "priority": "high",
   "dependencies": [

@@ -94,15 +94,18 @@ function renderDashboard(data) {
   const products = data.top_products || [];
 
   if (products.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="8" class="text-center text-muted" style="padding: 2rem;">No evaluated products found in research/products/</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="10" class="text-center text-muted" style="padding: 2rem;">No evaluated products found in research/products/</td></tr>`;
   } else {
     products.forEach(p => {
       const tr = document.createElement("tr");
 
       const score = p.score !== undefined ? p.score : "N/A";
+      const readiness = p.readiness_score !== undefined ? p.readiness_score : 0;
+      const gate = p.readiness_gate || "BLOCKED_NEEDS_VERIFICATION";
       const rec = (p.recommendation || "REVIEW").toUpperCase();
       let badgeClass = "badge-retest";
       if (rec.includes("SCALE")) badgeClass = "badge scale";
+      else if (rec.includes("HOLD") || rec.includes("RESEARCH")) badgeClass = "badge hold";
       else if (rec.includes("TEST")) badgeClass = "badge test";
       else if (rec.includes("KILL")) badgeClass = "badge kill";
       else if (rec.includes("RETEST")) badgeClass = "badge retest";
@@ -113,6 +116,8 @@ function renderDashboard(data) {
 
       tr.innerHTML = `
         <td><span class="score-badge" style="color: ${getScoreColor(score)}">${score}</span></td>
+        <td><span class="score-badge" style="color: ${getReadinessColor(readiness)}">${readiness}</span></td>
+        <td><span class="badge ${gate === "ELIGIBLE" ? "scale" : "hold"}">${escapeHtml(gate)}</span></td>
         <td><span class="${badgeClass}">${escapeHtml(rec)}</span></td>
         <td><strong>${escapeHtml(p.product || "Unknown")}</strong><br><small class="text-muted">${escapeHtml(p.brand || "")}</small></td>
         <td>${escapeHtml(p.category || "N/A")}</td>
@@ -264,6 +269,10 @@ function getScoreColor(score) {
   if (score >= 65) return "var(--color-test)";
   if (score >= 50) return "var(--color-retest)";
   return "var(--color-kill)";
+}
+
+function getReadinessColor(score) {
+  return Number(score) >= 60 ? "var(--color-scale)" : "var(--color-kill)";
 }
 
 function getDecisionClass(decision) {
