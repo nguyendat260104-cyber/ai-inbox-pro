@@ -1,0 +1,20 @@
+{
+  "id": "AFF-20261018-008",
+  "type": "content_production",
+  "executor": "antigravity",
+  "goal": "Review and package Revenue Content Sprint 1 drafts after real marketplace links are imported.",
+  "context": "15 scripts and 5 captions are prepared; replace placeholders only with user-provided validated URLs.",
+  "requirements": ["Check every claim against listing", "Preserve disclosure", "Keep human approval before publishing", "Record KPI results only from platform analytics"],
+  "deliverables": ["results/AFF-20261018-008-review.json"],
+  "acceptance_criteria": ["15 scripts and 5 captions reviewed", "No unresolved placeholder in a publish candidate", "No public publishing or ad spend"],
+  "priority": "high",
+  "dependencies": ["AFF-20261018-006", "AFF-20261018-007"],
+  "suggested_branch": "task/AFF-20261018-008",
+  "status": "queued",
+  "created_at": "2026-10-18T00:00:00+00:00",
+  "started_at": null,
+  "completed_at": null,
+  "result": null,
+  "artifacts": [],
+  "metrics": {}
+}
