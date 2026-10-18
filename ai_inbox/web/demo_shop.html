@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Fashion Young Studio — Demo Storefront & AI Sales Assistant</title>
+  <title>Fashion Young Studio — Storefront & AI Sales Assistant</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap">
   <style>
     :root {
       --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
 
-      /* Light Mode */
+      /* Quiet Enterprise SaaS Palette */
       --bg-base: #f8fafc;
       --bg-surface: #ffffff;
       --bg-card: #ffffff;
@@ -20,31 +20,40 @@
       --text-main: #0f172a;
       --text-secondary: #334155;
       --text-muted: #64748b;
-      --primary: #059669;
-      --primary-hover: #047857;
-      --primary-light: #ecfdf5;
-      --primary-border: #a7f3d0;
+
+      /* Brand Indigo */
+      --primary: #465fff;
+      --primary-hover: #3641f5;
+      --primary-light: #eef2ff;
+      --primary-border: #c7d2fe;
+
+      /* Success Teal */
+      --emerald: #10b981;
+      --emerald-dark: #059669;
+      --emerald-light: #ecfdf5;
+
       --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.05);
-      --shadow-card: 0 4px 20px -2px rgba(15, 23, 42, 0.06), 0 2px 6px -1px rgba(15, 23, 42, 0.03);
-      --shadow-hover: 0 16px 36px -4px rgba(15, 23, 42, 0.12);
+      --shadow-card: 0 4px 16px -2px rgba(15, 23, 42, 0.05);
+      --shadow-hover: 0 12px 28px -4px rgba(15, 23, 42, 0.08);
+
+      --radius-lg: 12px;
+      --radius-md: 8px;
     }
 
     [data-theme="dark"] {
-      --bg-base: #090d16;
-      --bg-surface: #0f1627;
-      --bg-card: #131c33;
-      --bg-subtle: #1a2540;
-      --border-subtle: #1e293b;
+      --bg-base: #0b0f19;
+      --bg-surface: #111827;
+      --bg-card: #111827;
+      --bg-subtle: #1a2234;
+      --border-subtle: #1f293d;
       --border-mid: #334155;
       --text-main: #f8fafc;
       --text-secondary: #cbd5e1;
       --text-muted: #94a3b8;
-      --primary: #10b981;
-      --primary-hover: #059669;
-      --primary-light: rgba(16, 185, 129, 0.15);
-      --primary-border: rgba(16, 185, 129, 0.3);
-      --shadow-card: 0 4px 20px -2px rgba(0, 0, 0, 0.5), 0 0 0 1px #1e293b;
-      --shadow-hover: 0 16px 36px -4px rgba(0, 0, 0, 0.7), 0 0 0 1px #334155;
+      --primary-light: rgba(70, 95, 255, 0.15);
+      --primary-border: #3b49c4;
+      --shadow-card: 0 4px 20px -2px rgba(0, 0, 0, 0.6), 0 0 0 1px #1f293d;
+      --shadow-hover: 0 12px 30px -4px rgba(0, 0, 0, 0.8), 0 0 0 1px #334155;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -54,17 +63,17 @@
       color: var(--text-main);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
-      transition: background 0.2s, color 0.2s;
+      transition: background 0.15s, color 0.15s;
     }
 
     /* Top Announcement */
     .announcement-bar {
-      background: linear-gradient(90deg, #059669 0%, #0d9488 100%);
+      background: var(--primary);
       color: #ffffff;
-      font-size: 12.5px;
-      font-weight: 700;
+      font-size: 12px;
+      font-weight: 600;
       text-align: center;
-      padding: 8px 16px;
+      padding: 7px 16px;
       letter-spacing: 0.02em;
     }
 
@@ -75,13 +84,13 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      transition: background 0.2s, border-color 0.2s;
+      transition: background 0.15s, border-color 0.15s;
     }
 
     .header-container {
-      max-width: 1360px;
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 14px 24px;
+      padding: 12px 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -89,7 +98,7 @@
     }
 
     .logo {
-      font-size: 19px;
+      font-size: 17px;
       font-weight: 800;
       color: var(--text-main);
       display: flex;
@@ -100,24 +109,25 @@
     }
 
     .logo-badge {
-      background: var(--primary);
-      color: #fff;
-      font-size: 11px;
-      font-weight: 800;
-      padding: 3px 7px;
-      border-radius: 6px;
+      background: var(--primary-light);
+      color: var(--primary);
+      border: 1px solid var(--primary-border);
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
       text-transform: uppercase;
     }
 
     .nav-links {
       display: flex;
-      gap: 24px;
+      gap: 20px;
     }
 
     .nav-links a {
       color: var(--text-secondary);
       text-decoration: none;
-      font-size: 14px;
+      font-size: 13.5px;
       font-weight: 600;
       transition: color 0.15s;
     }
@@ -129,32 +139,32 @@
     .header-actions {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
 
     .btn-theme-toggle {
-      width: 38px;
-      height: 38px;
-      border-radius: 10px;
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-md);
       background: var(--bg-subtle);
-      border: 1px solid var(--border-mid);
+      border: 1px solid var(--border-subtle);
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      font-size: 16px;
+      font-size: 15px;
       color: var(--text-main);
       transition: all 0.15s;
     }
 
     .btn-admin-link {
-      background: var(--primary-light);
+      background: var(--bg-surface);
       color: var(--primary);
-      border: 1px solid var(--primary-border);
-      padding: 8px 16px;
-      border-radius: 10px;
+      border: 1px solid var(--border-subtle);
+      padding: 7px 14px;
+      border-radius: var(--radius-md);
       font-size: 13px;
-      font-weight: 700;
+      font-weight: 600;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
@@ -163,17 +173,17 @@
     }
 
     .btn-admin-link:hover {
-      background: var(--primary);
-      color: #ffffff;
+      background: var(--primary-light);
+      border-color: var(--primary-border);
     }
 
     .cart-btn {
       position: relative;
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-md);
       background: var(--bg-subtle);
-      border: 1px solid var(--border-mid);
+      border: 1px solid var(--border-subtle);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -183,221 +193,234 @@
 
     .cart-badge {
       position: absolute;
-      top: -4px;
-      right: -4px;
-      background: #ef4444;
+      top: -3px;
+      right: -3px;
+      background: var(--primary);
       color: #ffffff;
-      font-size: 10.5px;
+      font-size: 10px;
       font-weight: 800;
-      width: 18px;
-      height: 18px;
+      width: 16px;
+      height: 16px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    /* Hero Banner */
+    /* Storefront Hero */
     .hero-banner {
-      background: linear-gradient(135deg, rgba(5, 150, 105, 0.12) 0%, rgba(13, 148, 136, 0.08) 100%);
+      background: var(--bg-surface);
       border-bottom: 1px solid var(--border-subtle);
-      padding: 50px 24px;
+      padding: 36px 24px 30px;
       text-align: center;
-      position: relative;
-    }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--primary-light);
-      border: 1px solid var(--primary-border);
-      color: var(--primary);
-      font-size: 12px;
-      font-weight: 700;
-      padding: 4px 14px;
-      border-radius: 20px;
-      margin-bottom: 16px;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
     }
 
     .hero-banner h1 {
-      font-size: clamp(26px, 4vw, 36px);
+      font-size: clamp(24px, 3.5vw, 32px);
       font-weight: 800;
       color: var(--text-main);
-      margin-bottom: 12px;
+      margin-bottom: 8px;
       letter-spacing: -0.02em;
     }
 
     .hero-banner p {
-      font-size: 15.5px;
+      font-size: 14.5px;
       color: var(--text-secondary);
-      max-width: 680px;
-      margin: 0 auto 20px;
-      line-height: 1.6;
+      max-width: 620px;
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+
+    /* Guided Journey Bar (Subtle & Actionable) */
+    .guided-journey-strip {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 16px 20px;
+      margin-bottom: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .journey-steps {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+
+    .journey-step {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .journey-step.active {
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .journey-step-num {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--border-subtle);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-secondary);
+    }
+
+    .journey-step.active .journey-step-num {
+      background: var(--primary);
+      color: #ffffff;
+    }
+
+    .journey-prompt-chips {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 10px;
+    }
+
+    .prompt-chip-label {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .prompt-chip {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 5px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+
+    .prompt-chip:hover {
+      background: var(--primary-light);
+      border-color: var(--primary-border);
+      color: var(--primary);
     }
 
     /* Main Container */
     .container {
-      max-width: 1360px;
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 36px 24px 90px;
+      padding: 32px 24px 80px;
     }
 
-    /* Instruction Guide Card */
-    .instruction-card {
-      background: var(--bg-surface);
-      border: 1px solid var(--primary-border);
-      border-left: 4px solid var(--primary);
-      border-radius: 14px;
-      padding: 22px 26px;
-      margin-bottom: 36px;
-      box-shadow: var(--shadow-sm);
-    }
-
-    .instruction-card h3 {
-      color: var(--primary);
-      font-size: 16px;
-      font-weight: 800;
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .instruction-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 16px;
-    }
-
-    .instruction-item {
-      background: var(--bg-subtle);
-      padding: 12px 16px;
-      border-radius: 10px;
-      font-size: 13.5px;
-      color: var(--text-secondary);
-    }
-
-    .instruction-item strong {
-      color: var(--text-main);
-      display: block;
-      margin-bottom: 4px;
-    }
-
-    /* Section Heading */
     .section-header {
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
 
     .section-title {
-      font-size: 22px;
+      font-size: 18px;
       font-weight: 800;
       color: var(--text-main);
     }
 
     .section-subtitle {
-      font-size: 14px;
+      font-size: 13px;
       color: var(--text-muted);
-      margin-top: 4px;
+      margin-top: 2px;
     }
 
     /* Product Grid */
     .product-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 28px;
+      gap: 24px;
     }
 
     .prod-card {
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
-      border-radius: 18px;
+      border-radius: var(--radius-lg);
       overflow: hidden;
       box-shadow: var(--shadow-card);
-      transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+      transition: border-color 0.15s, box-shadow 0.15s;
       display: flex;
       flex-direction: column;
-      position: relative;
     }
 
     .prod-card:hover {
-      transform: translateY(-5px);
-      box-shadow: var(--shadow-hover);
       border-color: var(--primary-border);
+      box-shadow: var(--shadow-hover);
     }
 
-    /* Modern Fashion SVG Mockup Showcase */
+    /* Product Visual Showcase */
     .prod-media {
-      height: 260px;
-      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      height: 240px;
+      background: var(--bg-subtle);
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
-      overflow: hidden;
     }
 
-    .prod-card:nth-child(1) .prod-media {
-      background: linear-gradient(135deg, #182238 0%, #0a1122 100%);
+    .tag-sale {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: var(--primary);
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
     }
 
-    .prod-card:nth-child(2) .prod-media {
-      background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
-    }
-
-    .prod-card:nth-child(3) .prod-media {
-      background: linear-gradient(135deg, #2b3a32 0%, #15221b 100%);
+    .tag-stock {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: var(--bg-surface);
+      color: var(--emerald-dark);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      border: 1px solid var(--border-subtle);
     }
 
     .fashion-art {
       width: 140px;
       height: 140px;
-      filter: drop-shadow(0 14px 20px rgba(0, 0, 0, 0.4));
-      transition: transform 0.3s;
+      transition: transform 0.2s ease;
     }
 
     .prod-card:hover .fashion-art {
-      transform: scale(1.08);
-    }
-
-    .tag-sale {
-      position: absolute;
-      top: 14px;
-      left: 14px;
-      background: #ef4444;
-      color: #fff;
-      font-size: 11.5px;
-      font-weight: 800;
-      padding: 4px 10px;
-      border-radius: 8px;
-      text-transform: uppercase;
-      box-shadow: 0 4px 10px rgba(239, 68, 68, 0.4);
-    }
-
-    .tag-stock {
-      position: absolute;
-      top: 14px;
-      right: 14px;
-      background: rgba(15, 23, 42, 0.75);
-      backdrop-filter: blur(8px);
-      color: #10b981;
-      font-size: 11.5px;
-      font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 8px;
-      border: 1px solid rgba(16, 185, 129, 0.3);
+      transform: scale(1.05);
     }
 
     .prod-body {
-      padding: 22px;
-      flex: 1;
+      padding: 18px 20px;
       display: flex;
       flex-direction: column;
+      flex: 1;
     }
 
     .prod-meta-row {
@@ -408,63 +431,60 @@
     }
 
     .prod-cat {
-      font-size: 12px;
-      color: var(--primary);
-      font-weight: 800;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--text-muted);
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.04em;
     }
 
     .prod-rating {
-      font-size: 12.5px;
+      font-size: 12px;
       font-weight: 700;
       color: #f59e0b;
-      display: flex;
-      align-items: center;
-      gap: 3px;
     }
 
     .prod-title {
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 800;
-      margin-bottom: 8px;
       color: var(--text-main);
-      line-height: 1.35;
+      margin-bottom: 6px;
     }
 
     .prod-price-row {
       display: flex;
       align-items: baseline;
-      gap: 8px;
-      margin-bottom: 12px;
+      gap: 10px;
+      margin-bottom: 10px;
     }
 
     .prod-price {
-      font-size: 22px;
+      font-size: 18px;
       font-weight: 800;
-      color: var(--primary);
+      color: var(--text-main);
+      font-family: var(--font-mono);
     }
 
     .prod-price-old {
-      font-size: 14px;
+      font-size: 13px;
       color: var(--text-muted);
       text-decoration: line-through;
     }
 
     .prod-desc {
-      font-size: 13.5px;
+      font-size: 13px;
       color: var(--text-secondary);
-      margin-bottom: 16px;
+      margin-bottom: 14px;
       line-height: 1.5;
     }
 
-    /* Swatches & Options */
+    /* Options */
     .option-group {
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     .option-label {
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 700;
       color: var(--text-muted);
       text-transform: uppercase;
@@ -478,16 +498,16 @@
     }
 
     .color-dot {
-      width: 22px;
-      height: 22px;
+      width: 20px;
+      height: 20px;
       border-radius: 50%;
       border: 2px solid var(--border-mid);
       cursor: pointer;
-      transition: transform 0.15s, border-color 0.15s;
+      transition: all 0.15s;
     }
 
     .color-dot:hover, .color-dot.active {
-      transform: scale(1.2);
+      transform: scale(1.15);
       border-color: var(--primary);
     }
 
@@ -501,7 +521,7 @@
       padding: 4px 10px;
       border-radius: 6px;
       font-size: 12px;
-      font-weight: 700;
+      font-weight: 600;
       background: var(--bg-subtle);
       border: 1px solid var(--border-subtle);
       color: var(--text-secondary);
@@ -525,13 +545,13 @@
 
     .btn-ask-ai {
       width: 100%;
-      min-height: 44px;
+      min-height: 40px;
       background: var(--primary-light);
       color: var(--primary);
       border: 1px solid var(--primary-border);
-      border-radius: 12px;
+      border-radius: var(--radius-md);
       font-family: inherit;
-      font-size: 14px;
+      font-size: 13.5px;
       font-weight: 700;
       cursor: pointer;
       display: flex;
@@ -545,24 +565,18 @@
       background: var(--primary);
       color: #ffffff;
       border-color: var(--primary);
-      box-shadow: 0 4px 12px rgba(5, 150, 105, 0.25);
-    }
-
-    .btn-ask-ai:focus-visible {
-      outline: 2px solid var(--primary);
-      outline-offset: 2px;
     }
 
     .btn-add-cart {
       width: 100%;
-      min-height: 42px;
-      background: var(--bg-subtle);
+      min-height: 38px;
+      background: var(--bg-surface);
       color: var(--text-main);
-      border: 1px solid var(--border-mid);
-      border-radius: 12px;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
       font-family: inherit;
-      font-size: 13.5px;
-      font-weight: 700;
+      font-size: 13px;
+      font-weight: 600;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -572,23 +586,66 @@
     }
 
     .btn-add-cart:hover {
-      background: var(--border-mid);
+      background: var(--bg-subtle);
     }
 
-    /* Floating Omnichannel Contact Dock */
+    /* Trust Badges Strip */
+    .trust-strip {
+      margin-top: 48px;
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 24px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+    }
+
+    .trust-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: var(--primary-light);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .trust-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .trust-sub {
+      font-size: 11.5px;
+      color: var(--text-muted);
+    }
+
+    /* Floating Dock */
     .floating-dock {
       position: fixed;
-      right: 24px;
-      bottom: 24px;
+      right: 20px;
+      bottom: 20px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
       z-index: 999;
     }
 
     .dock-btn {
-      width: 48px;
-      height: 48px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -596,58 +653,36 @@
       color: #ffffff;
       border: none;
       cursor: pointer;
-      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.25);
-      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+      transition: transform 0.15s;
       position: relative;
       text-decoration: none;
     }
 
     .dock-btn:hover {
-      transform: scale(1.12);
-      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.35);
+      transform: scale(1.08);
     }
 
     .dock-btn.zalo { background: #0068ff; }
     .dock-btn.messenger { background: #0084ff; }
     .dock-btn.hotline { background: #10b981; }
 
-    .dock-tooltip {
-      position: absolute;
-      right: 60px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: #0f172a;
-      color: #ffffff;
-      font-size: 12px;
-      font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 6px;
-      white-space: nowrap;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.15s;
-    }
-
-    .dock-btn:hover .dock-tooltip {
-      opacity: 1;
-    }
-
-    /* Toast Notification */
+    /* Toast */
     .toast {
       position: fixed;
-      bottom: 90px;
+      bottom: 84px;
       left: 50%;
-      transform: translateX(-50%) translateY(30px);
+      transform: translateX(-50%) translateY(20px);
       background: var(--text-main);
       color: var(--bg-surface);
-      font-size: 14px;
-      font-weight: 700;
-      padding: 12px 24px;
-      border-radius: 30px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      font-size: 13.5px;
+      font-weight: 600;
+      padding: 10px 20px;
+      border-radius: 24px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
       opacity: 0;
       pointer-events: none;
-      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transition: all 0.2s ease;
       z-index: 1000;
     }
 
@@ -657,35 +692,35 @@
     }
 
     @media (max-width: 768px) {
-      .header-container { padding: 12px 16px; }
+      .header-container { padding: 10px 16px; }
       .nav-links { display: none; }
-      .hero-banner { padding: 36px 16px; }
+      .hero-banner { padding: 24px 16px; }
       .container { padding: 20px 16px 80px; }
       .product-grid { grid-template-columns: 1fr; }
-      .floating-dock { right: 16px; bottom: 16px; }
+      .floating-dock { right: 14px; bottom: 14px; }
     }
   </style>
 </head>
 <body>
   <!-- Top Announcement Bar -->
   <div class="announcement-bar">
-    🚚 MIỄN PHÍ VẬN CHUYỂN TOÀN QUỐC CHO ĐƠN TỪ 2 SẢN PHẨM • ĐỔI TRẢ TRONG 15 NGÀY
+    Đồng giá ship 25k toàn quốc &bull; Miễn phí vận chuyển từ 2 sản phẩm &bull; Đồng kiểm trước khi nhận
   </div>
 
   <!-- Header -->
   <header>
     <div class="header-container">
       <a href="/demo" class="logo">
-        <svg style="width:24px;height:24px;fill:var(--primary);" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-        <span>FASHION YOUNG STUDIO</span>
-        <span class="logo-badge">Demo</span>
+        <svg style="width:20px;height:20px;fill:var(--primary);" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        <span>Fashion Young Studio</span>
+        <span class="logo-badge">Demo Store</span>
       </a>
 
       <nav class="nav-links">
-        <a href="#polo" class="active">Áo Polo Nam</a>
+        <a href="#polo" class="active">Áo Polo Classic</a>
         <a href="#linen">Sơ Mi Linen</a>
         <a href="#kaki">Quần Short Kaki</a>
-        <a href="/landing" target="_blank">Giới Thiệu SaaS ↗</a>
+        <a href="/landing" target="_blank">Về Nền Tảng AI ↗</a>
       </nav>
 
       <div class="header-actions">
@@ -695,85 +730,103 @@
         </button>
 
         <a href="/admin" target="_blank" class="btn-admin-link">
-          <span>⚡ Bàn Làm Việc CRM</span>
-          <svg style="width:14px;height:14px;fill:currentColor" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          <svg style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M15 3v18"/></svg>
+          <span>Admin Command Center ↗</span>
         </a>
 
-        <div class="cart-btn" onclick="showToast('Giỏ hàng hiện có 1 sản phẩm đang chờ chốt!')" title="Giỏ Hàng">
-          <svg style="width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        <div class="cart-btn" onclick="showToast('Giỏ hàng có 1 sản phẩm đang chờ chốt!')" title="Giỏ Hàng">
+          <svg style="width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
           <span class="cart-badge" id="cart-count">1</span>
         </div>
       </div>
     </div>
   </header>
 
-  <!-- Hero Collection Banner -->
+  <!-- Storefront Collection Hero -->
   <div class="hero-banner">
-    <div class="hero-badge">
-      <span>🤖 TÍCH HỢP TRỢ LÝ AI BÁN HÀNG TỰ ĐỘNG 2026</span>
-    </div>
-    <h1>Bộ Sưu Tập Thời Trang Trẻ — Xu Hướng Mới</h1>
-    <p>Trang bán hàng thời trang thực tế kết nối hệ thống AI tư vấn bảng size theo chiều cao, cân nặng, tự động tra cứu tồn kho thật và chốt đơn ngay lập tức.</p>
+    <h1>Bộ Sưu Tập Thời Trang Nam Tối Giản</h1>
+    <p>Chất liệu tự nhiên cao cấp, form may chuẩn tôn dáng. Trợ lý AI trực 24/7 sẵn sàng tư vấn size theo chiều cao, cân nặng và kiểm tra kho tức thì.</p>
   </div>
 
   <!-- Store Container -->
   <div class="container">
-    <!-- Instruction Guide -->
-    <div class="instruction-card">
-      <h3>
-        <svg style="width:18px;height:18px;fill:currentColor" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 15h-2v-6h2zm0-8h-2V7h2z"/></svg>
-        <span>Hướng Dẫn Trải Nghiệm Khả Năng AI & Tiếp Quản Bán Hàng:</span>
-      </h3>
-      <div class="instruction-grid">
-        <div class="instruction-item">
-          <strong>1. Tư Vấn Chi Tiết Sản Phẩm</strong>
-          Bấm nút <em>"💬 Hỏi tư vấn mẫu này"</em> dưới thẻ bất kỳ hoặc nút chat tròn góc phải để AI báo giá và kiểm tra kho thật.
+    <!-- Subtle Guided Journey Progress Strip -->
+    <div class="guided-journey-strip">
+      <div class="journey-steps">
+        <div class="journey-step active">
+          <span class="journey-step-num">1</span>
+          <span>Chọn mẫu</span>
         </div>
-        <div class="instruction-item">
-          <strong>2. Thử Nhập Chiều Cao & Cân Nặng</strong>
-          Nhắn: <em>"Mình cao 1m70 nặng 64kg mặc size gì vừa?"</em> ➔ AI sẽ đề xuất size L chuẩn form mà không cần hỏi nhân viên.
+        <div class="journey-step">
+          <span style="color:var(--border-mid);">&rarr;</span>
+          <span class="journey-step-num">2</span>
+          <span>Hỏi size theo số đo</span>
         </div>
-        <div class="instruction-item">
-          <strong>3. Kích Hoạt HOT Lead & Chốt Đơn</strong>
-          Nhắn: <em>"Cho mình 1 áo màu Đen size M nhé, ship về 123 Nguyễn Văn Linh Đà Nẵng"</em> ➔ Chuông báo Telegram nổ và CRM nhận đơn.
+        <div class="journey-step">
+          <span style="color:var(--border-mid);">&rarr;</span>
+          <span class="journey-step-num">3</span>
+          <span>AI tra kho thật</span>
         </div>
+        <div class="journey-step">
+          <span style="color:var(--border-mid);">&rarr;</span>
+          <span class="journey-step-num">4</span>
+          <span>Cung cấp SĐT / Địa chỉ</span>
+        </div>
+        <div class="journey-step">
+          <span style="color:var(--border-mid);">&rarr;</span>
+          <span class="journey-step-num">5</span>
+          <span>Tạo HOT Lead sang Admin</span>
+        </div>
+      </div>
+
+      <div class="journey-prompt-chips">
+        <span class="prompt-chip-label">Thử nhanh câu hỏi mẫu:</span>
+        <button class="prompt-chip" onclick="window.openAiChat('Mình cao 1m70 nặng 64kg thì mặc áo polo size gì vừa ạ?')">
+          Tư vấn size: 1m70 64kg mặc polo size gì?
+        </button>
+        <button class="prompt-chip" onclick="window.openAiChat('Áo sơ mi linen cổ tàu có màu Be size L không shop?')">
+          Kiểm kho: Sơ mi linen màu Be size L còn không?
+        </button>
+        <button class="prompt-chip" onclick="window.openAiChat('Cho mình đặt 1 áo polo Đen size M về 123 Nguyễn Văn Linh Đà Nẵng, SĐT 0988776655')">
+          Chốt đơn: Gửi SĐT & địa chỉ lên đơn
+        </button>
       </div>
     </div>
 
     <!-- Catalog Section -->
     <div class="section-header">
       <div>
-        <h2 class="section-title">Sản Phẩm Nổi Bật Sẵn Kho</h2>
-        <div class="section-subtitle">Dữ liệu sản phẩm thật từ kho SQLite — AI không ảo giác giá hoặc màu sắc</div>
+        <h2 class="section-title">Sản Phẩm Đang Sẵn Hàng Tại Kho</h2>
+        <div class="section-subtitle">Dữ liệu thực tế đồng bộ từ kho sản phẩm — AI kiểm tra tồn kho chính xác theo SKU</div>
       </div>
     </div>
 
+    <!-- Product Grid -->
     <div class="product-grid">
-      <!-- Product 1: Polo Classic -->
+      <!-- Product 1: Classic Polo -->
       <div class="prod-card" id="polo">
         <div class="prod-media">
-          <span class="tag-sale">-30% SALE</span>
-          <span class="tag-stock">● Sẵn Kho: 50 chiếc</span>
-          <!-- Realistic Polo SVG Vector Graphic -->
+          <span class="tag-sale">-29% GIẢM</span>
+          <span class="tag-stock">Sẵn Kho: 50 chiếc</span>
           <svg class="fashion-art" viewBox="0 0 120 120" fill="none">
-            <path d="M35 25 L48 35 L60 30 L72 35 L85 25 L100 45 L85 52 L82 105 L38 105 L35 52 L20 45 Z" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
-            <path d="M48 35 L60 55 L72 35" stroke="#38bdf8" stroke-width="2" fill="#0f172a"/>
-            <line x1="60" y1="55" x2="60" y2="78" stroke="#38bdf8" stroke-width="2"/>
-            <circle cx="60" cy="62" r="1.5" fill="#38bdf8"/>
-            <circle cx="60" cy="70" r="1.5" fill="#38bdf8"/>
+            <path d="M35 32 L50 20 L70 20 L85 32 L95 48 L80 54 L76 42 L76 100 L44 100 L44 42 L40 54 L25 48 Z" fill="#1e293b" stroke="#465fff" stroke-width="1.8"/>
+            <path d="M50 20 L60 38 L70 20" stroke="#cbd5e1" stroke-width="1.5" fill="none"/>
+            <line x1="60" y1="38" x2="60" y2="62" stroke="#cbd5e1" stroke-width="1.5"/>
+            <circle cx="60" cy="44" r="1.5" fill="#cbd5e1"/>
+            <circle cx="60" cy="52" r="1.5" fill="#cbd5e1"/>
           </svg>
         </div>
         <div class="prod-body">
           <div class="prod-meta-row">
-            <span class="prod-cat">Thời Trang Nam</span>
-            <span class="prod-rating">★ 4.9 (142)</span>
+            <span class="prod-cat">Áo Polo Nam</span>
+            <span class="prod-rating">★ 4.9 (128)</span>
           </div>
           <h3 class="prod-title">Áo Polo Nam Classic</h3>
           <div class="prod-price-row">
             <span class="prod-price">250.000đ</span>
             <span class="prod-price-old">350.000đ</span>
           </div>
-          <p class="prod-desc">Chất liệu 100% cotton pique cá sấu co giãn 4 chiều, mềm mịn, thấm hút mồ hôi tối đa, form regular tôn dáng.</p>
+          <p class="prod-desc">Chất vải cá sấu cotton 100% thấm hút mồ hôi, co giãn 4 chiều, cổ áo bo dệt đứng form sang trọng.</p>
 
           <div class="option-group">
             <span class="option-label">Màu sắc: Đen / Trắng / Xanh Navy</span>
@@ -787,19 +840,19 @@
           <div class="option-group">
             <span class="option-label">Kích thước (Size):</span>
             <div class="size-wrap">
-              <span class="size-chip active" onclick="selectSize(this)">M</span>
-              <span class="size-chip" onclick="selectSize(this)">L</span>
-              <span class="size-chip" onclick="selectSize(this)">XL</span>
+              <span class="size-chip active" onclick="selectSize(this)">M (50-60kg)</span>
+              <span class="size-chip" onclick="selectSize(this)">L (60-70kg)</span>
+              <span class="size-chip" onclick="selectSize(this)">XL (70-82kg)</span>
             </div>
           </div>
 
           <div class="action-row">
             <button class="btn-ask-ai" onclick="window.openAiChat('Shop ơi tư vấn giúp mình mẫu Áo Polo Nam Classic nhé!')">
-              <svg style="width:16px;height:16px;fill:currentColor" viewBox="0 0 24 24"><path d="M12 2a2 2 0 0 1 2 2v2h4a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4V4a2 2 0 0 1 2-2z"/></svg>
-              <span>💬 Hỏi tư vấn mẫu này</span>
+              <svg style="width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              <span>Hỏi AI Tư Vấn Mẫu Này</span>
             </button>
             <button class="btn-add-cart" onclick="addToCart('Áo Polo Nam Classic (250.000đ)')">
-              <span>🛒 Thêm Vào Giỏ Hàng</span>
+              Thêm Vào Giỏ Hàng
             </button>
           </div>
         </div>
@@ -808,54 +861,53 @@
       <!-- Product 2: Linen Shirt -->
       <div class="prod-card" id="linen">
         <div class="prod-media">
-          <span class="tag-sale">-28% HOT</span>
-          <span class="tag-stock">● Sẵn Kho: 30 chiếc</span>
-          <!-- Realistic Linen Shirt SVG Vector Graphic -->
+          <span class="tag-sale">-20% HOT</span>
+          <span class="tag-stock">Sẵn Kho: 30 chiếc</span>
           <svg class="fashion-art" viewBox="0 0 120 120" fill="none">
-            <path d="M38 22 L50 32 L60 28 L70 32 L82 22 L102 46 L86 52 L84 108 L36 108 L34 52 L18 46 Z" fill="#334155" stroke="#a7f3d0" stroke-width="2"/>
-            <path d="M50 32 L60 48 L70 32" stroke="#a7f3d0" stroke-width="2" fill="#1e293b"/>
-            <line x1="60" y1="48" x2="60" y2="108" stroke="#a7f3d0" stroke-width="2"/>
-            <circle cx="60" cy="58" r="1.5" fill="#a7f3d0"/>
-            <circle cx="60" cy="72" r="1.5" fill="#a7f3d0"/>
-            <circle cx="60" cy="86" r="1.5" fill="#a7f3d0"/>
+            <path d="M34 28 L52 18 L68 18 L86 28 L98 44 L84 50 L78 38 L78 100 L42 100 L42 38 L36 50 L22 44 Z" fill="#334155" stroke="#465fff" stroke-width="1.8"/>
+            <path d="M52 18 Q60 26 68 18" stroke="#cbd5e1" stroke-width="1.5" fill="none"/>
+            <line x1="60" y1="24" x2="60" y2="100" stroke="#cbd5e1" stroke-width="1.5"/>
+            <circle cx="60" cy="38" r="1.5" fill="#cbd5e1"/>
+            <circle cx="60" cy="54" r="1.5" fill="#cbd5e1"/>
+            <circle cx="60" cy="70" r="1.5" fill="#cbd5e1"/>
           </svg>
         </div>
         <div class="prod-body">
           <div class="prod-meta-row">
-            <span class="prod-cat">Thời Trang Công Sở</span>
-            <span class="prod-rating">★ 4.8 (89)</span>
+            <span class="prod-cat">Áo Sơ Mi Nam</span>
+            <span class="prod-rating">★ 5.0 (94)</span>
           </div>
           <h3 class="prod-title">Áo Sơ Mi Linen Cổ Tàu</h3>
           <div class="prod-price-row">
             <span class="prod-price">320.000đ</span>
-            <span class="prod-price-old">450.000đ</span>
+            <span class="prod-price-old">400.000đ</span>
           </div>
-          <p class="prod-desc">Vải đũi linen sợi tự nhiên thoáng mát, cổ tàu thanh lịch, thiết kế tối giản chuẩn phong cách Scandinavian hiện đại.</p>
+          <p class="prod-desc">Chất linen tưng cao cấp thoáng mát, xử lý chống nhăn nhẹ, thiết kế cổ trụ hiện đại phong cách thanh lịch.</p>
 
           <div class="option-group">
-            <span class="option-label">Màu sắc: Trắng / Be / Xanh Rêu</span>
+            <span class="option-label">Màu sắc: Trắng / Be / Xanh Pastel</span>
             <div class="swatch-wrap">
-              <div class="color-dot active" style="background:#f8fafc;" title="Trắng" onclick="selectColor(this)"></div>
-              <div class="color-dot" style="background:#e2d9cc;" title="Be" onclick="selectColor(this)"></div>
-              <div class="color-dot" style="background:#3f4f44;" title="Xanh Rêu" onclick="selectColor(this)"></div>
+              <div class="color-dot active" style="background:#ffffff;" title="Trắng" onclick="selectColor(this)"></div>
+              <div class="color-dot" style="background:#e7dfd5;" title="Be" onclick="selectColor(this)"></div>
+              <div class="color-dot" style="background:#bfdbfe;" title="Xanh Pastel" onclick="selectColor(this)"></div>
             </div>
           </div>
 
           <div class="option-group">
             <span class="option-label">Kích thước (Size):</span>
             <div class="size-wrap">
-              <span class="size-chip active" onclick="selectSize(this)">L</span>
-              <span class="size-chip" onclick="selectSize(this)">XL</span>
+              <span class="size-chip active" onclick="selectSize(this)">L (60-70kg)</span>
+              <span class="size-chip" onclick="selectSize(this)">XL (70-80kg)</span>
             </div>
           </div>
 
           <div class="action-row">
             <button class="btn-ask-ai" onclick="window.openAiChat('Shop ơi tư vấn giúp mình mẫu Áo Sơ Mi Linen Cổ Tàu nhé!')">
-              <svg style="width:16px;height:16px;fill:currentColor" viewBox="0 0 24 24"><path d="M12 2a2 2 0 0 1 2 2v2h4a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4V4a2 2 0 0 1 2-2z"/></svg>
-              <span>💬 Hỏi tư vấn mẫu này</span>
+              <svg style="width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              <span>Hỏi AI Tư Vấn Mẫu Này</span>
             </button>
             <button class="btn-add-cart" onclick="addToCart('Áo Sơ Mi Linen Cổ Tàu (320.000đ)')">
-              <span>🛒 Thêm Vào Giỏ Hàng</span>
+              Thêm Vào Giỏ Hàng
             </button>
           </div>
         </div>
@@ -864,15 +916,12 @@
       <!-- Product 3: Kaki Shorts -->
       <div class="prod-card" id="kaki">
         <div class="prod-media">
-          <span class="tag-sale">-28% BESTSELLER</span>
-          <span class="tag-stock">● Sẵn Kho: 80 chiếc</span>
-          <!-- Realistic Shorts SVG Vector Graphic -->
+          <span class="tag-sale">-28% BÁN CHẠY</span>
+          <span class="tag-stock">Sẵn Kho: 80 chiếc</span>
           <svg class="fashion-art" viewBox="0 0 120 120" fill="none">
-            <path d="M28 30 L92 30 L88 88 L63 88 L60 52 L57 88 L32 88 Z" fill="#3f4f44" stroke="#fcd34d" stroke-width="2"/>
-            <rect x="28" y="30" width="64" height="10" fill="#2d3748" stroke="#fcd34d" stroke-width="1.5"/>
-            <line x1="60" y1="30" x2="60" y2="52" stroke="#fcd34d" stroke-width="1.5"/>
-            <line x1="38" y1="46" x2="48" y2="58" stroke="#fcd34d" stroke-width="1.5"/>
-            <line x1="82" y1="46" x2="72" y2="58" stroke="#fcd34d" stroke-width="1.5"/>
+            <path d="M28 30 L92 30 L88 88 L63 88 L60 52 L57 88 L32 88 Z" fill="#334155" stroke="#465fff" stroke-width="1.8"/>
+            <rect x="28" y="30" width="64" height="10" fill="#1e293b" stroke="#cbd5e1" stroke-width="1.2"/>
+            <line x1="60" y1="30" x2="60" y2="52" stroke="#cbd5e1" stroke-width="1.2"/>
           </svg>
         </div>
         <div class="prod-body">
@@ -908,13 +957,44 @@
 
           <div class="action-row">
             <button class="btn-ask-ai" onclick="window.openAiChat('Shop ơi tư vấn giúp mình mẫu Quần Short Kaki Co Giãn nhé!')">
-              <svg style="width:16px;height:16px;fill:currentColor" viewBox="0 0 24 24"><path d="M12 2a2 2 0 0 1 2 2v2h4a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4V4a2 2 0 0 1 2-2z"/></svg>
-              <span>💬 Hỏi tư vấn mẫu này</span>
+              <svg style="width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              <span>Hỏi AI Tư Vấn Mẫu Này</span>
             </button>
             <button class="btn-add-cart" onclick="addToCart('Quần Short Kaki Co Giãn (180.000đ)')">
-              <span>🛒 Thêm Vào Giỏ Hàng</span>
+              Thêm Vào Giỏ Hàng
             </button>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Trust Badges Strip -->
+    <div class="trust-strip">
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg style="width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        </div>
+        <div>
+          <div class="trust-title">Giao Hàng COD Toàn Quốc</div>
+          <div class="trust-sub">Đồng kiểm tra hàng trước khi thanh toán</div>
+        </div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg style="width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div>
+          <div class="trust-title">Đổi Trả Trong 7 Ngày</div>
+          <div class="trust-sub">Hỗ trợ đổi size miễn phí tận nhà</div>
+        </div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg style="width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <div>
+          <div class="trust-title">Kho Hàng Grounded 100%</div>
+          <div class="trust-sub">Cam kết đúng mẫu, đúng màu, đúng giá</div>
         </div>
       </div>
     </div>
@@ -924,17 +1004,12 @@
   <aside class="floating-dock">
     <a href="https://zalo.me" target="_blank" class="dock-btn zalo" title="Chat Zalo OA">
       <svg style="width:22px;height:22px;fill:#fff;" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-      <span class="dock-tooltip">Chat Zalo OA</span>
     </a>
-
     <a href="https://m.me" target="_blank" class="dock-btn messenger" title="Chat Facebook Messenger">
       <svg style="width:22px;height:22px;fill:#fff;" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-      <span class="dock-tooltip">Messenger</span>
     </a>
-
     <a href="tel:0988776655" class="dock-btn hotline" title="Hotline tư vấn">
       <svg style="width:20px;height:20px;fill:none;stroke:#fff;stroke-width:2.2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-      <span class="dock-tooltip">Hotline: 0988.776.655</span>
     </a>
   </aside>
 

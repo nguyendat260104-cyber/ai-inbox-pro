@@ -25,13 +25,27 @@ function getChannelLabel(channel) {
   return CHANNEL_LABELS[channel] || (channel ? channel.toUpperCase() : "WEB");
 }
 
+const TAB_BREADCRUMBS = {
+  "inbox": "Hộp Thư Đa Kênh",
+  "kanban": "Phễu Bán Hàng & Chuyển Đổi Lead",
+  "customers": "Danh Bạ Khách Hàng 360",
+  "products": "Kho Dữ Liệu Sản Phẩm (Grounded Catalog)",
+  "automations": "Quy Tắc Tự Động Hóa & AI Rules",
+  "staff": "Bảng Xếp Hạng & Tính Hoa Hồng Sale",
+  "settings": "Cấu Hình Kết Nối 6 Kênh & Webhooks"
+};
+
 function switchTab(tabId) {
   document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
+  document.querySelectorAll(".sidebar-btn").forEach(btn => btn.classList.remove("active"));
   document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
   document.querySelectorAll(".rail-btn").forEach(btn => btn.classList.remove("active"));
 
-  const targetBtn = Array.from(document.querySelectorAll(".tab-btn")).find(b => b.getAttribute("onclick") && b.getAttribute("onclick").includes(tabId));
+  const targetBtn = Array.from(document.querySelectorAll(".sidebar-btn, .tab-btn")).find(b => b.getAttribute("onclick") && b.getAttribute("onclick").includes(tabId));
   if (targetBtn) targetBtn.classList.add("active");
+
+  const sideBtn = document.getElementById(`sidebar-btn-${tabId}`);
+  if (sideBtn) sideBtn.classList.add("active");
 
   const railBtn = document.getElementById(`rail-btn-${tabId}`);
   if (railBtn) railBtn.classList.add("active");
@@ -39,9 +53,15 @@ function switchTab(tabId) {
   const targetContent = document.getElementById(`tab-${tabId}`);
   if (targetContent) targetContent.classList.add("active");
 
+  const breadcrumbEl = document.getElementById("current-section-breadcrumb");
+  if (breadcrumbEl && TAB_BREADCRUMBS[tabId]) {
+    breadcrumbEl.textContent = TAB_BREADCRUMBS[tabId];
+  }
+
   if (tabId === "kanban") loadKanban();
   if (tabId === "products") loadProducts();
   if (tabId === "staff") loadStaffMetrics();
+  if (tabId === "customers") loadCustomersTable();
 }
 
 async function loadMetrics() {
@@ -827,6 +847,92 @@ function escapeHtml(str) {
   return String(str).replace(/[&<>"']/g, function(m) {
     return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
   });
+}
+
+// Customer Directory Handling
+let allCustomersData = [];
+
+async function loadCustomersTable() {
+  const tbody = document.getElementById("customers-table-body");
+  if (!tbody) return;
+  try {
+    const res = await fetch("/api/dashboard/inbox");
+    if (!res.ok) return;
+    const data = await res.json();
+    allCustomersData = data.conversations || [];
+    renderCustomersTable(allCustomersData);
+  } catch (e) {
+    console.error("Failed to load customers table:", e);
+    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:20px; color:var(--text-muted);">Lỗi tải danh bạ khách hàng.</td></tr>';
+  }
+}
+
+function filterCustomerTable(query) {
+  const q = (query || "").toLowerCase().trim();
+  if (!q) {
+    renderCustomersTable(allCustomersData);
+    return;
+  }
+  const filtered = allCustomersData.filter(c => 
+    (c.customer_name || "").toLowerCase().includes(q) ||
+    (c.customer_phone || "").toLowerCase().includes(q) ||
+    (c.product_name || "").toLowerCase().includes(q)
+  );
+  renderCustomersTable(filtered);
+}
+
+function renderCustomersTable(list) {
+  const tbody = document.getElementById("customers-table-body");
+  if (!tbody) return;
+  if (!list || list.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:24px; color:var(--text-muted);">Không có khách hàng nào.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = list.map(c => `
+    <tr>
+      <td>
+        <div style="font-weight:700; color:var(--text-main); font-size:13.5px;">${escapeHtml(c.customer_name || 'Khách Vãng Lai')}</div>
+        <div style="font-size:11.5px; color:var(--text-muted);">Mã: ${escapeHtml(c.id.substring(0, 8))}</div>
+      </td>
+      <td>
+        <span style="font-family:var(--font-mono); font-weight:600; color:var(--primary);">${escapeHtml(c.customer_phone || 'Chưa cung cấp')}</span>
+      </td>
+      <td>
+        <span class="badge-channel channel-${c.channel || 'web_widget'}">${getChannelLabel(c.channel || 'web_widget')}</span>
+      </td>
+      <td>${escapeHtml(c.product_name || 'Chưa xác định')}</td>
+      <td>
+        <span style="font-weight:700; color:${(c.lead_score || 0) >= 70 ? 'var(--hot-dark)' : 'var(--text-main)'};">${c.lead_score || 0}/100</span>
+        <span style="font-size:11px; color:var(--text-muted);">(${escapeHtml(c.intent_label || 'COLD')})</span>
+      </td>
+      <td>
+        <span style="padding:2px 7px; border-radius:4px; font-size:11.5px; font-weight:600; background:var(--bg-subtle); border:1px solid var(--border-light); text-transform:uppercase;">${escapeHtml(c.lead_status || 'Mới nhận')}</span>
+      </td>
+      <td style="text-align:right;">
+        <button onclick="openChatFromDirectory('${c.id}')" class="btn-secondary" style="padding:4px 9px; font-size:12px;">Mở Chat</button>
+      </td>
+    </tr>
+  `).join("");
+}
+
+function openChatFromDirectory(convId) {
+  switchTab('inbox');
+  selectConversation(convId);
+}
+
+async function triggerManualFollowups() {
+  try {
+    const res = await fetch("/api/dashboard/followups/run", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ workspace_id: "ws-01", hours: 0, dry_run: false })
+    });
+    const data = await res.json();
+    alert(`Đã hoàn tất quét và gửi ${data.processed_count || 0} tin nhắn chăm sóc tự động cho khách hàng tồn đọng!`);
+  } catch (e) {
+    console.error("Followup batch error:", e);
+    alert("Có lỗi khi chạy tự động hóa chăm sóc khách hàng.");
+  }
 }
 
 // Global Keyboard Shortcut: Ctrl + K / Cmd + K to Search
