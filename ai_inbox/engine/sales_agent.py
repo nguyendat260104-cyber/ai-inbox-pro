@@ -126,7 +126,10 @@ class SalesAgent:
         new_score, intent_label, signals = self.scorer.analyze_message(customer_text, current_score)
 
         # Step 5: Human Handoff Decision
-        if intent_label == "HOT" or needs_handoff or "human_request" in signals:
+        # A high score signals priority, not completion.  Keep the bot in the
+        # slot-filling flow until delivery details are complete; a customer may
+        # always explicitly request a human sooner.
+        if needs_handoff or "human_request" in signals:
             needs_handoff = True
             conv_status = "assigned_human"
         else:

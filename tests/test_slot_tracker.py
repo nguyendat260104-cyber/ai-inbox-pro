@@ -9,6 +9,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(BASE_DIR))
 
 from ai_inbox.core.db import get_connection, init_db
+from ai_inbox.engine.sales_agent import SalesAgent
 from ai_inbox.engine.slot_tracker import MultiTurnSlotTracker
 
 
@@ -33,6 +34,11 @@ def seed(db_path: Path) -> None:
 PRODUCT = {
     "id": "polo", "sku": "POLO-01", "name": "Ao Polo", "sizes": ["M", "L", "XL"], "colors": ["Den", "Trang"],
 }
+
+
+class SilentNotifier:
+    def notify_hot_lead(self, _lead_info):
+        return False
 
 
 def test_four_turn_order_flow() -> None:
@@ -69,7 +75,21 @@ def test_rejects_unavailable_variants() -> None:
         assert state["color"] is None
 
 
+def test_hot_score_does_not_bypass_missing_order_slots() -> None:
+    """A HOT intent is prioritised, but it is not itself an order confirmation."""
+    with tempfile.TemporaryDirectory() as directory:
+        db_path = Path(directory) / "inbox.db"
+        seed(db_path)
+        agent = SalesAgent(db_path, notifier=SilentNotifier())
+        agent.handle_incoming_message("ws", "conv", "Toi muon mua Ao Polo")
+        response = agent.handle_incoming_message("ws", "conv", "size M mau Den 0912345678")
+        assert response["intent_label"] == "HOT"
+        assert response["human_handoff_triggered"] is False
+        assert response["conversation_status"] == "bot_handling"
+
+
 if __name__ == "__main__":
     test_four_turn_order_flow()
     test_rejects_unavailable_variants()
+    test_hot_score_does_not_bypass_missing_order_slots()
     print("slot tracker tests passed")
