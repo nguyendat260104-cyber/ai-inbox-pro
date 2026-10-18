@@ -1,0 +1,37 @@
+{
+  "id": "INBOX-20261019-015",
+  "type": "chatbot_experience_polish",
+  "executor": "antigravity",
+  "goal": "Professional mobile-first customer chatbot experience",
+  "context": "Lead feedback: the product is functional but the visible customer chatbot still feels like a prototype. Prioritize this after the active core conversation tasks and before landing-page marketing polish.",
+  "requirements": [
+    "Redesign the embeddable widget for premium mobile-first use: safe-area spacing, 44px minimum tap targets, full-width mobile sheet behavior, readable typography, and keyboard-safe composer.",
+    "Add concise quick actions for verified price, size/color, shipping, and human support; never fabricate product details or auto-send a message.",
+    "Present clear AI typing, delivery, and human-takeover states while continuing to accept customer messages after takeover.",
+    "Add focus states, Escape close, aria labels, reduced-motion support, and ensure no global CSS affects host websites.",
+    "Add product-card 'Hỏi tư vấn' CTA in the demo shop that opens the widget and prepares a grounded question."
+  ],
+  "deliverables": [
+    "ai_inbox/widget/chat_widget.js",
+    "ai_inbox/widget/chat_widget.css",
+    "ai_inbox/web/demo_shop.html",
+    "tests/test_ai_inbox_e2e.py"
+  ],
+  "acceptance_criteria": [
+    "Single-script embed remains dependency-free and host CSS-safe.",
+    "390px mobile layout has no horizontal overflow and supports keyboard/accessibility controls.",
+    "Demo CTA opens the chat without automatically sending content; Core and E2E suites pass."
+  ],
+  "priority": "critical",
+  "dependencies": ["INBOX-20261019-011", "INBOX-20261019-012"],
+  "suggested_branch": "task/INBOX-20261019-015",
+  "status": "queued",
+  "created_at": "2026-10-18T14:33:00+00:00",
+  "started_at": null,
+  "completed_at": null,
+  "result": null,
+  "artifacts": [],
+  "metrics": {
+    "lead_feedback": "professional-chatbot-first"
+  }
+}
