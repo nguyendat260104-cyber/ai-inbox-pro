@@ -378,8 +378,38 @@ def run_e2e():
         assert "starter" in plan_codes and "growth" in plan_codes and "pro" in plan_codes
         print("  ✅ Quota tracking and VietQR billing endpoints verified.")
 
+        # Test 16: Zalo Official Account (OA) Webhook & Ingestion
+        print("▶ Running Test 16: Zalo Official Account Webhook & Grounded Bot Reply...")
+        zalo_verif = urllib.request.Request(f"{BASE_URL}/api/webhooks/zalo?challenge=zalo_token_abc123")
+        with urllib.request.urlopen(zalo_verif) as z_resp:
+            assert z_resp.status == 200
+            assert z_resp.read().decode("utf-8") == "zalo_token_abc123"
+
+        zalo_payload = {
+            "event_name": "user_send_text",
+            "app_id": "app_9988",
+            "sender": {"id": "zalo_uid_7788"},
+            "recipient": {"id": "oa_3344"},
+            "message": {
+                "msg_id": "zmsg_001",
+                "text": "Shop ơi quần short kaki có màu Be size 31 không ạ?"
+            }
+        }
+        z_res = post_json("/api/webhooks/zalo", zalo_payload)
+        assert z_res.get("status") == "success"
+        ev = z_res.get("event", {})
+        assert ev.get("bot_replied") is True
+        assert "180.000" in ev.get("response", "") or "180,000" in ev.get("response", "")
+
+        # Verify conversation in dashboard inbox has channel 'zalo_oa'
+        inbox_data = get_json("/api/dashboard/inbox")
+        zalo_conv = next((c for c in inbox_data["conversations"] if c.get("channel") == "zalo_oa"), None)
+        assert zalo_conv is not None, "Zalo conversation must appear in Dashboard Inbox"
+        assert "7788" in zalo_conv["customer_name"]
+        print("  ✅ Zalo OA challenge verified and customer chat grounded reply delivered.")
+
         print("\n----------------------------------------------")
-        print("🎉 ALL 15 E2E INTEGRATION TESTS PASSED (100%)!")
+        print("🎉 ALL 16 E2E INTEGRATION TESTS PASSED (100%)!")
         print("----------------------------------------------")
 
     finally:

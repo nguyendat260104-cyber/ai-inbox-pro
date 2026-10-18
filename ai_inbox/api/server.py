@@ -24,6 +24,7 @@ sys.path.insert(0, str(BASE_DIR))
 from ai_inbox.core.db import get_connection, init_db, DB_FILE
 from ai_inbox.engine.sales_agent import SalesAgent
 from ai_inbox.adapters.facebook import FacebookAdapter
+from ai_inbox.adapters.zalo import ZaloAdapter
 from ai_inbox.api.billing import register_workspace, get_workspace_billing_info, PLANS
 
 class InboxRequestHandler(BaseHTTPRequestHandler):
@@ -80,6 +81,17 @@ class InboxRequestHandler(BaseHTTPRequestHandler):
         # Meta Webhook Verification (Facebook Messenger)
         if path == "/api/webhooks/facebook":
             adapter = FacebookAdapter()
+            code, challenge = adapter.verify_webhook(qs)
+            self.send_response(code)
+            self.send_header("Content-Type", "text/plain; charset=utf-8")
+            self.send_cors_headers()
+            self.end_headers()
+            self.wfile.write(challenge.encode("utf-8"))
+            return
+
+        # Zalo OA Webhook Verification
+        if path == "/api/webhooks/zalo":
+            adapter = ZaloAdapter()
             code, challenge = adapter.verify_webhook(qs)
             self.send_response(code)
             self.send_header("Content-Type", "text/plain; charset=utf-8")
@@ -379,6 +391,13 @@ class InboxRequestHandler(BaseHTTPRequestHandler):
                 getattr(self, "raw_request_body", b""), signature
             ):
                 return self.send_json(403, {"error": "Invalid or unconfigured Facebook webhook signature"})
+            result = adapter.handle_webhook_event(body, default_workspace_id=workspace_id)
+            return self.send_json(200, result)
+
+        # Zalo OA Webhook Ingestion
+        if path == "/api/webhooks/zalo":
+            workspace_id = qs.get("workspace_id", ["ws-01"])[0]
+            adapter = ZaloAdapter()
             result = adapter.handle_webhook_event(body, default_workspace_id=workspace_id)
             return self.send_json(200, result)
 
