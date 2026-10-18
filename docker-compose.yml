@@ -1,0 +1,30 @@
+services:
+  ai-inbox:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ai-inbox-platform
+    restart: unless-stopped
+    ports:
+      - "${PORT:-8080}:8080"
+    volumes:
+      - ./data:/app/data
+    environment:
+      - PORT=8080
+      - HOST=0.0.0.0
+      - APP_BASE_URL=${APP_BASE_URL:-http://localhost:8080}
+      - FB_VERIFY_TOKEN=${FB_VERIFY_TOKEN:-inbox_verify_token_secret}
+      - FB_PAGE_ACCESS_TOKEN=${FB_PAGE_ACCESS_TOKEN:-}
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN:-}
+      - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID:-}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/api/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"

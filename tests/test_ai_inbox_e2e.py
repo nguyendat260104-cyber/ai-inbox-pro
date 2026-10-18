@@ -10,6 +10,9 @@ import json
 import time
 import threading
 import tempfile
+import os
+import hmac
+import hashlib
 import urllib.request
 import urllib.error
 from pathlib import Path
@@ -33,12 +36,14 @@ from ai_inbox.api.server import InboxRequestHandler
 TEST_PORT = 8991
 BASE_URL = f"http://127.0.0.1:{TEST_PORT}"
 
-def post_json(path: str, data: dict) -> dict:
+def post_json(path: str, data: dict, extra_headers: dict | None = None) -> dict:
     url = f"{BASE_URL}{path}"
+    headers = {"Content-Type": "application/json"}
+    headers.update(extra_headers or {})
     req = urllib.request.Request(
         url,
         data=json.dumps(data).encode("utf-8"),
-        headers={"Content-Type": "application/json"},
+        headers=headers,
         method="POST"
     )
     with urllib.request.urlopen(req) as resp:
@@ -78,6 +83,8 @@ def run_e2e():
     temp_dir = tempfile.TemporaryDirectory(prefix="ai-inbox-e2e-")
     original_db_file = db_module.DB_FILE
     db_module.DB_FILE = Path(temp_dir.name) / "inbox-e2e.db"
+    os.environ["FB_VERIFY_TOKEN"] = "e2e-webhook-token"
+    os.environ["FB_APP_SECRET"] = "e2e-app-secret"
     init_db()
     seed_demo_data()
 
@@ -231,7 +238,7 @@ def run_e2e():
         # Test 11: Facebook Messenger Webhook & Ingestion
         print("▶ Running Test 11: Facebook Messenger Webhook & Ingestion...")
         # 11a: Verification challenge
-        verif_url = f"{BASE_URL}/api/webhooks/facebook?hub.mode=subscribe&hub.challenge=challenge_token_99&hub.verify_token=inbox_verify_token_secret"
+        verif_url = f"{BASE_URL}/api/webhooks/facebook?hub.mode=subscribe&hub.challenge=challenge_token_99&hub.verify_token=e2e-webhook-token"
         with urllib.request.urlopen(verif_url) as verif_resp:
             assert verif_resp.status == 200
             assert verif_resp.read().decode("utf-8") == "challenge_token_99"
@@ -263,7 +270,14 @@ def run_e2e():
                 }
             ]
         }
-        fb_res = post_json("/api/webhooks/facebook", fb_payload)
+        raw_fb_payload = json.dumps(fb_payload).encode("utf-8")
+        fb_signature = "sha256=" + hmac.new(
+            b"e2e-app-secret", raw_fb_payload, hashlib.sha256
+        ).hexdigest()
+        fb_res = post_json(
+            "/api/webhooks/facebook", fb_payload,
+            {"X-Hub-Signature-256": fb_signature}
+        )
         assert fb_res.get("status") == "success"
         assert fb_res.get("processed_count") == 1
         ev = fb_res["events"][0]
@@ -307,10 +321,16 @@ def run_e2e():
         audit_log = json.loads(cur.fetchone()["details_json"])
         assert audit_log.get("customer_phone") == "0988776655"
         conn.close()
-        print("  ✅ Phone auto-enrichment and Telegram alert verified in audit logs.")
+        # Test 13: Healthcheck API for Container & Uptime Monitoring
+        print("▶ Running Test 13: Production Healthcheck Endpoint...")
+        health = get_json("/api/health")
+        assert health.get("status") == "healthy"
+        assert health.get("database") == "connected"
+        assert health.get("service") == "ai-inbox-sales-platform"
+        print("  ✅ Healthcheck verified: service online and SQLite connected.")
 
         print("\n----------------------------------------------")
-        print("🎉 ALL 12 E2E INTEGRATION TESTS PASSED (100%)!")
+        print("🎉 ALL 13 E2E INTEGRATION TESTS PASSED (100%)!")
         print("----------------------------------------------")
 
     finally:

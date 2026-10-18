@@ -7,6 +7,7 @@ Dispatches real-time alerts to sales teams via Telegram Bot when high buying int
 import os
 import json
 import uuid
+import html
 import urllib.request
 import urllib.error
 from typing import Dict, Any, Optional, Callable
@@ -36,15 +37,15 @@ class TelegramNotifier:
 
     def format_hot_lead_message(self, lead_info: Dict[str, Any]) -> str:
         """Constructs human-friendly alert message with actionable closing links."""
-        customer_name = lead_info.get("customer_name") or "Khách hàng"
-        customer_phone = lead_info.get("customer_phone") or "Chưa cung cấp"
-        channel = lead_info.get("channel") or "web_widget"
+        customer_name = html.escape(str(lead_info.get("customer_name") or "Khách hàng"))
+        customer_phone = html.escape(str(lead_info.get("customer_phone") or "Chưa cung cấp"))
+        channel = html.escape(str(lead_info.get("channel") or "web_widget"))
         score = lead_info.get("score", 100)
-        product_name = lead_info.get("product_name") or "Sản phẩm tư vấn chung"
+        product_name = html.escape(str(lead_info.get("product_name") or "Sản phẩm tư vấn chung"))
         price_vnd = lead_info.get("price_vnd")
         price_str = f"{price_vnd:,}đ" if price_vnd else "Liên hệ"
-        customer_msg = lead_info.get("message_text", "")
-        conv_id = lead_info.get("conversation_id", "")
+        customer_msg = html.escape(str(lead_info.get("message_text", "")))
+        conv_id = str(lead_info.get("conversation_id", ""))
 
         deep_link = f"{self.base_url}/admin?conv={conv_id}"
 

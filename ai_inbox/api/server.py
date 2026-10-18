@@ -59,7 +59,9 @@ class InboxRequestHandler(BaseHTTPRequestHandler):
         if content_length > 1_000_000:
             raise ValueError("Request body is too large")
         if content_length > 0:
-            raw_body = self.rfile.read(content_length).decode("utf-8")
+            raw_bytes = self.rfile.read(content_length)
+            self.raw_request_body = raw_bytes
+            raw_body = raw_bytes.decode("utf-8")
             try:
                 body = json.loads(raw_body)
             except json.JSONDecodeError as exc:
@@ -84,6 +86,24 @@ class InboxRequestHandler(BaseHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(challenge.encode("utf-8"))
             return
+
+        # Health Check Route
+        if path == "/api/health":
+            try:
+                conn = get_connection()
+                cur = conn.cursor()
+                cur.execute("SELECT 1")
+                conn.close()
+                db_status = "connected"
+            except Exception as e:
+                db_status = f"error: {e}"
+
+            return self.send_json(200, {
+                "status": "healthy",
+                "service": "ai-inbox-sales-platform",
+                "database": db_status,
+                "timestamp": datetime.now(timezone.utc).isoformat()
+            })
 
         # 1. API: Widget Message History
         if path == "/api/widget/history":
@@ -340,6 +360,11 @@ class InboxRequestHandler(BaseHTTPRequestHandler):
         if path == "/api/webhooks/facebook":
             workspace_id = qs.get("workspace_id", ["ws-01"])[0]
             adapter = FacebookAdapter()
+            signature = self.headers.get("X-Hub-Signature-256", "")
+            if not adapter.verify_request_signature(
+                getattr(self, "raw_request_body", b""), signature
+            ):
+                return self.send_json(403, {"error": "Invalid or unconfigured Facebook webhook signature"})
             result = adapter.handle_webhook_event(body, default_workspace_id=workspace_id)
             return self.send_json(200, result)
 
@@ -612,14 +637,14 @@ class InboxRequestHandler(BaseHTTPRequestHandler):
         # Keep server log clean
         sys.stderr.write(f"[{self.log_date_time_string()}] {format % args}\n")
 
-def run_server(port: int = 8080):
+def run_server(host: str = "0.0.0.0", port: int = 8080):
     init_db()
-    server_address = ("127.0.0.1", port)
+    server_address = (host, port)
     httpd = ThreadingHTTPServer(server_address, InboxRequestHandler)
-    print(f"[AI Inbox] Running at http://127.0.0.1:{port}/")
-    print(f"  Admin Command Center: http://127.0.0.1:{port}/admin")
-    print(f"  Customer Demo Store: http://127.0.0.1:{port}/demo")
-    print(f"  Embeddable Widget:   http://127.0.0.1:{port}/widget/chat_widget.js")
+    print(f"[AI Inbox] Running at http://{host}:{port}/")
+    print(f"  Admin Command Center: http://{host}:{port}/admin")
+    print(f"  Customer Demo Store: http://{host}:{port}/demo")
+    print(f"  Embeddable Widget:   http://{host}:{port}/widget/chat_widget.js")
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:
@@ -628,4 +653,4 @@ def run_server(port: int = 8080):
         httpd.server_close()
 
 if __name__ == "__main__":
-    run_server(port=8080)
+    run_server(host="0.0.0.0", port=8080)

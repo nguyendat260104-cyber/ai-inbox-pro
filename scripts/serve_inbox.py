@@ -6,6 +6,7 @@ and serves the unified REST API, Admin Dashboard, and Demo Store.
 """
 
 import sys
+import os
 import argparse
 from pathlib import Path
 from datetime import datetime, timezone
@@ -75,12 +76,13 @@ def seed_demo_data():
 
 def main():
     parser = argparse.ArgumentParser(description="Start AI Inbox & Sales Management Platform.")
-    parser.add_argument("--port", type=int, default=8080, help="Server port (default: 8080)")
+    parser.add_argument("--host", type=str, default=os.getenv("HOST", "0.0.0.0"), help="Server host (default: 0.0.0.0)")
+    parser.add_argument("--port", type=int, default=int(os.getenv("PORT", 8080)), help="Server port (default: 8080)")
     args = parser.parse_args()
 
     init_db()
     seed_demo_data()
-    run_server(port=args.port)
+    run_server(host=args.host, port=args.port)
 
 if __name__ == "__main__":
     main()

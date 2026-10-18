@@ -7,6 +7,8 @@ Handles Meta Webhook Verification and bidirectional Messenger communication.
 import os
 import json
 import uuid
+import hmac
+import hashlib
 import urllib.request
 import urllib.error
 from typing import Dict, Any, Optional, Tuple, List, Callable
@@ -16,7 +18,10 @@ from pathlib import Path
 from ai_inbox.core.db import get_connection
 from ai_inbox.engine.sales_agent import SalesAgent
 
-DEFAULT_VERIFY_TOKEN = os.getenv("FB_VERIFY_TOKEN", "inbox_verify_token_secret")
+# External channels stay disabled unless their credentials are supplied by the
+# deployment environment. Never ship a usable/default verification secret.
+DEFAULT_VERIFY_TOKEN = os.getenv("FB_VERIFY_TOKEN", "")
+APP_SECRET = os.getenv("FB_APP_SECRET", "")
 PAGE_ACCESS_TOKEN = os.getenv("FB_PAGE_ACCESS_TOKEN", "")
 GRAPH_API_VERSION = "v19.0"
 
@@ -28,7 +33,8 @@ class FacebookAdapter:
         db_path: Optional[Path] = None,
         sender_fn: Optional[Callable[[str, str], bool]] = None
     ):
-        self.verify_token = verify_token or DEFAULT_VERIFY_TOKEN
+        self.verify_token = verify_token if verify_token is not None else os.getenv("FB_VERIFY_TOKEN", DEFAULT_VERIFY_TOKEN)
+        self.app_secret = os.getenv("FB_APP_SECRET", APP_SECRET)
         self.page_access_token = page_access_token or PAGE_ACCESS_TOKEN
         self.db_path = db_path
         self.sender_fn = sender_fn
@@ -42,9 +48,20 @@ class FacebookAdapter:
         token = params.get("hub.verify_token", [""])[0]
         challenge = params.get("hub.challenge", [""])[0]
 
-        if mode == "subscribe" and token == self.verify_token:
+        if not self.verify_token:
+            return 503, "Facebook webhook is not configured"
+        if mode == "subscribe" and hmac.compare_digest(token, self.verify_token):
             return 200, challenge
         return 403, "Verification failed: invalid token or mode"
+
+    def verify_request_signature(self, raw_body: bytes, signature: str) -> bool:
+        """Verify Meta's X-Hub-Signature-256 before accepting a live event."""
+        if not self.app_secret:
+            return False
+        expected = "sha256=" + hmac.new(
+            self.app_secret.encode("utf-8"), raw_body, hashlib.sha256
+        ).hexdigest()
+        return bool(signature) and hmac.compare_digest(signature, expected)
 
     def handle_webhook_event(self, payload: Dict[str, Any], default_workspace_id: str = "ws-01") -> Dict[str, Any]:
         """
