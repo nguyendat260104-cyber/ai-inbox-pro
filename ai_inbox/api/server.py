@@ -23,6 +23,7 @@ sys.path.insert(0, str(BASE_DIR))
 
 from ai_inbox.core.db import get_connection, init_db, DB_FILE
 from ai_inbox.engine.sales_agent import SalesAgent
+from ai_inbox.adapters.facebook import FacebookAdapter
 
 class InboxRequestHandler(BaseHTTPRequestHandler):
     VALID_LEAD_STAGES = {
@@ -72,6 +73,17 @@ class InboxRequestHandler(BaseHTTPRequestHandler):
         parsed = urlparse(self.path)
         path = parsed.path
         qs = parse_qs(parsed.query)
+
+        # Meta Webhook Verification (Facebook Messenger)
+        if path == "/api/webhooks/facebook":
+            adapter = FacebookAdapter()
+            code, challenge = adapter.verify_webhook(qs)
+            self.send_response(code)
+            self.send_header("Content-Type", "text/plain; charset=utf-8")
+            self.send_cors_headers()
+            self.end_headers()
+            self.wfile.write(challenge.encode("utf-8"))
+            return
 
         # 1. API: Widget Message History
         if path == "/api/widget/history":
@@ -318,10 +330,18 @@ class InboxRequestHandler(BaseHTTPRequestHandler):
     def do_POST(self):
         parsed = urlparse(self.path)
         path = parsed.path
+        qs = parse_qs(parsed.query)
         try:
             body = self.read_json_body()
         except (UnicodeDecodeError, ValueError) as exc:
             return self.send_json(400, {"error": str(exc)})
+
+        # Meta Messenger Webhook Ingestion
+        if path == "/api/webhooks/facebook":
+            workspace_id = qs.get("workspace_id", ["ws-01"])[0]
+            adapter = FacebookAdapter()
+            result = adapter.handle_webhook_event(body, default_workspace_id=workspace_id)
+            return self.send_json(200, result)
 
         # 1. API: Widget Customer Message
         if path == "/api/widget/message":
@@ -493,10 +513,17 @@ class InboxRequestHandler(BaseHTTPRequestHandler):
                 return self.send_json(400, {"error": "Product name and sku are required"})
             
             category = body.get("category", "Thời trang")
-            price_vnd = int(body.get("price_vnd", 0))
-            stock_qty = int(body.get("stock_quantity", 0))
+            try:
+                price_vnd = int(body.get("price_vnd", 0))
+                stock_qty = int(body.get("stock_quantity", 0))
+            except (TypeError, ValueError):
+                return self.send_json(400, {"error": "Price and stock must be integers"})
+            if price_vnd < 0 or stock_qty < 0:
+                return self.send_json(400, {"error": "Price and stock cannot be negative"})
             sizes = body.get("sizes", [])
             colors = body.get("colors", [])
+            if not isinstance(sizes, list) or not isinstance(colors, list):
+                return self.send_json(400, {"error": "Sizes and colors must be arrays"})
             description = body.get("description", "")
             shipping = body.get("shipping_policy", "Đồng giá ship 25k toàn quốc, miễn phí ship từ 2 chiếc.")
 
@@ -505,6 +532,17 @@ class InboxRequestHandler(BaseHTTPRequestHandler):
 
             conn = get_connection()
             cur = conn.cursor()
+            cur.execute("SELECT id FROM workspaces WHERE id = ?", (workspace_id,))
+            if not cur.fetchone():
+                conn.close()
+                return self.send_json(404, {"error": "Workspace not found"})
+            cur.execute(
+                "SELECT id FROM products WHERE workspace_id = ? AND LOWER(sku) = LOWER(?)",
+                (workspace_id, sku)
+            )
+            if cur.fetchone():
+                conn.close()
+                return self.send_json(409, {"error": "SKU already exists in this workspace"})
             cur.execute(
                 """INSERT INTO products (id, workspace_id, sku, name, category, price_vnd, stock_quantity, sizes_json, colors_json, description, shipping_policy, is_active, created_at)
                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, ?)""",
@@ -520,6 +558,9 @@ class InboxRequestHandler(BaseHTTPRequestHandler):
             conn = get_connection()
             cur = conn.cursor()
             cur.execute("UPDATE products SET is_active = 0 WHERE id = ?", (prod_id,))
+            if cur.rowcount == 0:
+                conn.close()
+                return self.send_json(404, {"error": "Product not found"})
             conn.commit()
             conn.close()
             return self.send_json(200, {"success": True, "product_id": prod_id, "status": "deleted"})

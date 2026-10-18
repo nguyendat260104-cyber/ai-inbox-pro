@@ -204,8 +204,81 @@ def run_e2e():
             assert "250000" in raw_csv or "Áo Polo" in raw_csv
         print("  ✅ Lead CSV export verified with UTF-8 BOM and valid header schema.")
 
+        # Test 10: Local product management contract
+        print("▶ Running Test 10: Product Management Validation...")
+        created = post_json("/api/dashboard/products", {
+            "workspace_id": "ws-01",
+            "sku": "E2E-PRODUCT",
+            "name": "Sản phẩm kiểm thử",
+            "price_vnd": 99000,
+            "stock_quantity": 2,
+            "sizes": [],
+            "colors": ["Đen"]
+        })
+        product_id = created["product_id"]
+        assert request_status("/api/dashboard/products", "POST", {
+            "workspace_id": "ws-01", "sku": "E2E-PRODUCT",
+            "name": "Trùng SKU", "price_vnd": 1
+        }) == 409
+        assert request_status(
+            f"/api/dashboard/products/{product_id}/delete", "POST", {}
+        ) == 200
+        assert request_status(
+            "/api/dashboard/products/not-found/delete", "POST", {}
+        ) == 404
+        print("  ✅ Product create, duplicate guard, and soft-delete verified.")
+
+        # Test 11: Facebook Messenger Webhook & Ingestion
+        print("▶ Running Test 11: Facebook Messenger Webhook & Ingestion...")
+        # 11a: Verification challenge
+        verif_url = f"{BASE_URL}/api/webhooks/facebook?hub.mode=subscribe&hub.challenge=challenge_token_99&hub.verify_token=inbox_verify_token_secret"
+        with urllib.request.urlopen(verif_url) as verif_resp:
+            assert verif_resp.status == 200
+            assert verif_resp.read().decode("utf-8") == "challenge_token_99"
+
+        # Invalid token rejected
+        bad_verif_req = urllib.request.Request(f"{BASE_URL}/api/webhooks/facebook?hub.mode=subscribe&hub.challenge=xyz&hub.verify_token=wrong")
+        try:
+            urllib.request.urlopen(bad_verif_req)
+            assert False, "Should have failed with 403"
+        except urllib.error.HTTPError as he:
+            assert he.code == 403
+
+        # 11b: Incoming message event ingestion
+        fb_payload = {
+            "object": "page",
+            "entry": [
+                {
+                    "id": "PAGE_1001",
+                    "messaging": [
+                        {
+                            "sender": {"id": "PSID_556677"},
+                            "recipient": {"id": "PAGE_1001"},
+                            "message": {
+                                "mid": "m_test_001",
+                                "text": "Shop ơi áo sơ mi linen còn size XL không?"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+        fb_res = post_json("/api/webhooks/facebook", fb_payload)
+        assert fb_res.get("status") == "success"
+        assert fb_res.get("processed_count") == 1
+        ev = fb_res["events"][0]
+        assert ev.get("bot_replied") is True
+        assert "320.000" in ev.get("response", "") or "320,000" in ev.get("response", "")
+        
+        # Verify conversation recorded in dashboard inbox under channel 'facebook_page'
+        inbox_data = get_json("/api/dashboard/inbox")
+        fb_conv = next((c for c in inbox_data["conversations"] if c.get("channel") == "facebook_page"), None)
+        assert fb_conv is not None, "Facebook conversation must be visible in Dashboard Inbox"
+        assert "5677" in fb_conv["customer_name"]
+        print("  ✅ Meta verification challenge passed & Facebook Messenger message ingested successfully.")
+
         print("\n----------------------------------------------")
-        print("🎉 ALL 9 E2E INTEGRATION TESTS PASSED (100%)!")
+        print("🎉 ALL 11 E2E INTEGRATION TESTS PASSED (100%)!")
         print("----------------------------------------------")
 
     finally:
