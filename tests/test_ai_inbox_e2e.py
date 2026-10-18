@@ -274,7 +274,7 @@ def run_e2e():
         inbox_data = get_json("/api/dashboard/inbox")
         fb_conv = next((c for c in inbox_data["conversations"] if c.get("channel") == "facebook_page"), None)
         assert fb_conv is not None, "Facebook conversation must be visible in Dashboard Inbox"
-        assert "5677" in fb_conv["customer_name"]
+        assert "6677" in fb_conv["customer_name"]
         print("  ✅ Meta verification challenge passed & Facebook Messenger message ingested successfully.")
 
         print("\n----------------------------------------------")

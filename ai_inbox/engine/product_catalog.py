@@ -29,20 +29,36 @@ class ProductCatalogEngine:
         row = cur.fetchone()
 
         if not row:
-            # Match keywords in product name or category
+            # Match keywords in product name or category with relevance scoring
             cur.execute(
                 "SELECT * FROM products WHERE workspace_id = ? AND is_active = 1",
                 (workspace_id,)
             )
             rows = cur.fetchall()
+            stopwords = {"shop", "ơi", "cho", "mình", "em", "hỏi", "có", "còn", "không", "bao", "nhiêu", "tiền", "giá", "size", "màu", "nhé", "nè", "ạ"}
+            q_tokens = set([w for w in clean_q.split() if len(w) > 1 and w not in stopwords])
+            scored_candidates = []
+
             for r in rows:
                 p_name = r["name"].lower()
                 p_cat = r["category"].lower()
-                # Check if query words intersect with product name
-                q_words = [w for w in clean_q.split() if len(w) > 1]
-                if any(w in p_name for w in q_words) or any(w in p_cat for w in q_words):
-                    row = r
-                    break
+                score = 0
+
+                if p_name in clean_q:
+                    score += 100
+                if p_cat in clean_q:
+                    score += 50
+
+                p_tokens = set([w for w in p_name.split() if len(w) > 1 and w not in stopwords])
+                overlap = q_tokens.intersection(p_tokens)
+                score += len(overlap) * 10
+
+                if score > 0:
+                    scored_candidates.append((score, r))
+
+            if scored_candidates:
+                scored_candidates.sort(key=lambda x: x[0], reverse=True)
+                row = scored_candidates[0][1]
 
         conn.close()
 
