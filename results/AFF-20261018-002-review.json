@@ -1,0 +1,36 @@
+{
+  "task_id": "AFF-20261018-002",
+  "executive_summary": "Completed affiliate readiness deep-dive on 6 priority and secondary offers. Make.com (98), Hostinger (97), ElevenLabs (97) validated as SCALE READY with viable Vietnam payouts (Wise, PayPal). 30 short-form video angles developed with complete compliance notes.",
+  "key_findings": [
+    "Make.com pays 35% recurring for 12 months exclusively via Wise (instant VND transfer to VN banks).",
+    "Hostinger pays 40-60% CPA via PayPal with 30-day holding period.",
+    "PartnerStack (ElevenLabs, ClickUp) offers low  withdrawal threshold to PayPal."
+  ],
+  "recommended_decision": "SCALE",
+  "confidence": 0.95,
+  "business_metrics": {},
+  "artifacts": [
+    "research/reports/20261018-deep-dive.md",
+    "research/products/20261018-affiliate-readiness.json"
+  ],
+  "sources": [
+    "https://www.make.com/en/affiliate-program",
+    "https://www.hostinger.com/affiliates",
+    "https://elevenlabs.io/affiliates",
+    "https://nordvpn.com/affiliate/",
+    "https://clickup.com/partners",
+    "https://www.grammarly.com/affiliates"
+  ],
+  "risks": [
+    "Strict trademark bidding prohibition across all 6 programs",
+    "Make.com requires minimum 3 unique paying users for automated payouts"
+  ],
+  "questions_for_lead": [
+    "Confirm whether to prioritize Make.com Telegram automation tutorial or Hostinger AI Builder video for initial recording.",
+    "Approve centralized link redirection scheme using config/links.json."
+  ],
+  "next_task_suggestions": [
+    "Claim AFF-20261018-003 for full creative asset drafting on Make.com",
+    "Deploy scripts/redirect_link.py and config/links.json for attribution management"
+  ]
+}

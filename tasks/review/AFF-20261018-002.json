@@ -33,11 +33,14 @@
     "AFF-20261018-001"
   ],
   "suggested_branch": "task/AFF-20261018-002",
-  "status": "queued",
+  "status": "review",
   "created_at": "2026-10-17T17:17:14.902081+00:00",
-  "started_at": null,
-  "completed_at": null,
-  "result": null,
-  "artifacts": [],
+  "started_at": "2026-10-18T03:47:03.144337+00:00",
+  "completed_at": "2026-10-18T03:49:21.960512+00:00",
+  "result": "results/AFF-20261018-002-review.json",
+  "artifacts": [
+    "research/reports/20261018-deep-dive.md",
+    "research/products/20261018-affiliate-readiness.json"
+  ],
   "metrics": {}
 }

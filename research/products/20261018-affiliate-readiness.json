@@ -1,0 +1,686 @@
+[
+  {
+    "offer_id": "AFF-OFFER-001",
+    "name": "Make.com",
+    "brand": "Celonis / Make",
+    "priority_tier": "priority",
+    "category": "SaaS & Workflow Automation / No-Code",
+    "official_affiliate_url": "https://www.make.com/en/affiliate-program",
+    "portal_platform": "In-house (Powered by Wise Payouts)",
+    "program_open_status": "Active & Publicly Open (Verified 2026)",
+    "vietnam_eligibility": {
+      "eligible": true,
+      "regional_restrictions": "None for standard promotion; global traffic accepted",
+      "vietnam_practicality_rating": "Excellent"
+    },
+    "approval_difficulty": {
+      "difficulty": "Low-Medium",
+      "approval_window": "24 to 48 hours",
+      "requirements": "Basic profile submission detailing promotional channels (website, YouTube, social communities)"
+    },
+    "payout_mechanics": {
+      "method": "Wise exclusively (Personal Wise account recommended)",
+      "minimum_threshold_usd": 100,
+      "validation_delay_days": 30,
+      "schedule": "Monthly upon reaching $100 balance",
+      "tax_kyc_needs": "Wise identity verification + standard partner profile tax details",
+      "vietnam_banking_viability": "Direct withdrawal from Wise to all major Vietnamese banks (Techcombank, Vietcombank, ACB, MB) in VND within minutes with low conversion fee"
+    },
+    "attribution_model": {
+      "cookie_duration_days": 90,
+      "attribution_type": "First-party referral link tracking",
+      "payout_condition": "Requires minimum 3 unique paying users to qualify for ongoing payout releases"
+    },
+    "commercial_terms": {
+      "commission_rate": "35% recurring commission on all subscription plan payments",
+      "duration": "12 months from user registration date",
+      "exclusions": "Extra operation add-on purchases excluded"
+    },
+    "compliance_and_restrictions": {
+      "trademark_bidding": "Strictly prohibited; cannot run search ads on 'Make', 'Make.com', or 'Integromat'",
+      "coupon_rules": "No unauthorized discount or fake coupon claims",
+      "disclosure_required": "Mandatory affiliate relationship disclosure on all tutorials and links",
+      "self_referral": "Prohibited"
+    },
+    "readiness_scoring": {
+      "program_open": 30,
+      "vietnam_eligible": 20,
+      "approval_difficulty": 13,
+      "payout_practicality": 15,
+      "commercial_terms_verified": 20,
+      "total_readiness_score": 98,
+      "scale_recommendation": "SCALE"
+    },
+    "personas": [
+      {
+        "persona_name": "Agency Operations Lead",
+        "pain_point": "Spending 15+ hours/week manually transferring Facebook Lead Ads data to CRM and Telegram",
+        "willingness_to_pay": "High ($16 - $29/mo for Pro plan)"
+      },
+      {
+        "persona_name": "No-Code Freelancer / Automation Builder",
+        "pain_point": "Zapier operations pricing is eating up project profit margins",
+        "willingness_to_pay": "Moderate ($9/mo Core plan to start)"
+      }
+    ],
+    "buyer_intent_keyword_clusters": [
+      "make com tutorial tieng viet",
+      "thay the zapier gia re",
+      "tu dong hoa gui lead telegram tu facebook ads",
+      "ket noi chatgpt voi google sheets make com",
+      "make com pricing review 2026"
+    ],
+    "short_form_angles": [
+      {
+        "angle_id": "MAKE-A1",
+        "hook": "Dừng ngay việc copy-paste lead từ Facebook Ads vào Google Sheets thủ công!",
+        "promise": "Tự động hóa 100% quy trình đổ lead vào Telegram trong 3 phút.",
+        "proof_demo": "Màn hình kéo thả webhook kết nối Facebook -> Make -> Telegram bot báo tin 'Ting ting'.",
+        "cta": "Tặng kịch bản blueprint Make.com có sẵn tại link bio: {{subid_link}}",
+        "compliance_note": "Ghi rõ liên kết đối tác chính thức của Make.com."
+      },
+      {
+        "angle_id": "MAKE-A2",
+        "hook": "Tại sao các Agency hàng đầu đang đồng loạt bỏ Zapier để chuyển sang Make.com?",
+        "promise": "Tiết kiệm 70% chi phí vận hành tự động hóa hàng tháng.",
+        "proof_demo": "Bảng so sánh chi phí 10.000 operations trên Zapier ($73) vs Make.com ($9).",
+        "cta": "Dùng thử Make.com gói miễn phí 1.000 ops qua link ở bio: {{subid_link}}",
+        "compliance_note": "Chỉ so sánh dữ liệu bảng giá công khai, không phóng đại."
+      },
+      {
+        "angle_id": "MAKE-A3",
+        "hook": "Xây dựng trợ lý AI tự động đọc hóa đơn và lưu sổ sách chỉ bằng Make + ChatGPT.",
+        "promise": "Xử lý hàng trăm file ảnh hóa đơn gửi qua email mà không cần kế toán nhập tay.",
+        "proof_demo": "Email nhận ảnh hóa đơn -> Make gọi GPT-4o trích xuất số tiền -> Ghi tự động 1 dòng vào Google Sheets.",
+        "cta": "Nhận sơ đồ kịch bản tự động hóa miễn phí ở link phần mô tả: {{subid_link}}",
+        "compliance_note": "Nêu rõ chi phí API ChatGPT tính riêng."
+      },
+      {
+        "angle_id": "MAKE-A4",
+        "hook": "3 tính năng đỉnh cao của Make.com mà 90% người mới không biết tận dụng.",
+        "promise": "Tối ưu số lượng operations để không bao giờ bị vượt hạn mức gói cước.",
+        "proof_demo": "Thao tác bật tính năng Router và Iterator gom nhóm dữ liệu trong 1 operation.",
+        "cta": "Link đăng ký tài khoản Make.com chính hãng tại bio: {{subid_link}}",
+        "compliance_note": "Kèm affiliate disclosure."
+      },
+      {
+        "angle_id": "MAKE-A5",
+        "hook": "Làm thế nào để tự động chăm sóc khách hàng bỏ quên giỏ hàng trên TikTok Shop?",
+        "promise": "Kéo lại 20% doanh thu bị bỏ lỡ tự động hoàn toàn.",
+        "proof_demo": "Sơ đồ webhook kích hoạt tin nhắn Zalo ZNS / SMS tự động sau 15 phút khách chưa checkout.",
+        "cta": "Bấm vào link bio để xem hướng dẫn cài đặt từng bước: {{subid_link}}",
+        "compliance_note": "Tuyên bố miễn trừ trách nhiệm về tỷ lệ chuyển đổi tùy thuộc ngành hàng."
+      }
+    ]
+  },
+  {
+    "offer_id": "AFF-OFFER-002",
+    "name": "Hostinger",
+    "brand": "Hostinger International Ltd.",
+    "priority_tier": "priority",
+    "category": "Web Hosting & Cloud VPS",
+    "official_affiliate_url": "https://www.hostinger.com/affiliates",
+    "portal_platform": "In-house Affiliate Portal & CJ Affiliate",
+    "program_open_status": "Active & Publicly Open (Verified 2026)",
+    "vietnam_eligibility": {
+      "eligible": true,
+      "regional_restrictions": "None; dedicated Vietnamese landing page and customer support",
+      "vietnam_practicality_rating": "Superior"
+    },
+    "approval_difficulty": {
+      "difficulty": "Low",
+      "approval_window": "Instant to 24 hours",
+      "requirements": "Simple website or social channel URL submission"
+    },
+    "payout_mechanics": {
+      "method": "PayPal ($100 min) or Direct Bank Wire ($500 min)",
+      "minimum_threshold_usd": 100,
+      "validation_delay_days": 30,
+      "schedule": "Monthly around the 20th of the subsequent month",
+      "tax_kyc_needs": "Standard invoice generation in portal + PayPal account verification",
+      "vietnam_banking_viability": "PayPal withdraws to any Vietnamese Visa/Mastercard/bank account within 2-4 business days"
+    },
+    "attribution_model": {
+      "cookie_duration_days": 30,
+      "attribution_type": "First-click / Last-click cookie attribution via affiliate tracking domain",
+      "payout_condition": "Customer remains active past 30-day money-back guarantee period"
+    },
+    "commercial_terms": {
+      "commission_rate": "40% to 60% CPA per qualifying initial sale",
+      "duration": "One-time per new customer registration",
+      "exclusions": "Domain renewals and standalone SSL purchases excluded"
+    },
+    "compliance_and_restrictions": {
+      "trademark_bidding": "Strictly banned; zero tolerance for Google/Bing Ads targeting 'Hostinger' keywords",
+      "coupon_rules": "Only coupons provided inside the affiliate dashboard are allowed",
+      "disclosure_required": "Must include affiliate disclosure statement on all review pages",
+      "self_referral": "Disallowed"
+    },
+    "readiness_scoring": {
+      "program_open": 30,
+      "vietnam_eligible": 20,
+      "approval_difficulty": 14,
+      "payout_practicality": 14,
+      "commercial_terms_verified": 19,
+      "total_readiness_score": 97,
+      "scale_recommendation": "SCALE"
+    },
+    "personas": [
+      {
+        "persona_name": "Sinh viên IT / Freelancer Web Designer",
+        "pain_point": "Cần hosting giá rẻ, giao diện cPanel/hPanel dễ dùng, có SSL miễn phí để demo dự án cho khách",
+        "willingness_to_pay": "Cao đối với gói Premium/Business ($2.99/mo)"
+      },
+      {
+        "persona_name": "Người xây dựng Affiliate Blog cá nhân",
+        "pain_point": "Không biết code web, cần công cụ kéo thả AI tạo website tự động trong 10 phút",
+        "willingness_to_pay": "Sẵn sàng thanh toán 1-2 năm để lấy miễn phí tên miền"
+      }
+    ],
+    "buyer_intent_keyword_clusters": [
+      "mua hosting gia re viet nam",
+      "ma giam gia hostinger 2026",
+      "danh gia hostinger co tot khong",
+      "cach tao web wordpress bang ai hostinger",
+      "vps gia re chay bot telegram hostinger"
+    ],
+    "short_form_angles": [
+      {
+        "angle_id": "HOST-A1",
+        "hook": "Tự tạo một trang web bán hàng chuẩn SEO trong 10 phút mà không cần biết 1 dòng code!",
+        "promise": "Dùng AI của Hostinger chỉ cần gõ tên thương hiệu là có ngay website hoàn chỉnh.",
+        "proof_demo": "Màn hình gõ mô tả 'Shop thời trang phong cách tối giản' -> AI tự tạo 5 trang web có sẵn giỏ hàng.",
+        "cta": "Nhận ưu đãi giảm giá và tặng tên miền miễn phí qua link bio: {{subid_link}}",
+        "compliance_note": "Kèm affiliate disclosure."
+      },
+      {
+        "angle_id": "HOST-A2",
+        "hook": "So sánh tốc độ Hostinger vs các hosting trong nước: Có thực sự chậm như lời đồn?",
+        "promise": "Kiểm chứng tốc độ load thực tế tại Hà Nội và TP.HCM qua mạng Viettel.",
+        "proof_demo": "Đo Speedtest & GTmetrix đạt điểm A (98%), thời gian phản hồi máy chủ dưới 0.6 giây.",
+        "cta": "Link kích hoạt mã giảm giá bổ sung tại bio: {{subid_link}}",
+        "compliance_note": "Dẫn link kết quả test thực tế."
+      },
+      {
+        "angle_id": "HOST-A3",
+        "hook": "Sai lầm khiến 90% người mới làm website bị mất tiền oan khi mua hosting.",
+        "promise": "Bí quyết chọn gói hosting tặng kèm tên miền + SSL miễn phí trọn đời.",
+        "proof_demo": "Chỉ ra sự chênh lệch chi phí khi mua lẻ từng dịch vụ vs mua trọn gói Hostinger Business.",
+        "cta": "Bấm vào link bio để nhận ưu đãi tiết kiệm nhất: {{subid_link}}",
+        "compliance_note": "Nêu rõ giá áp dụng cho kỳ hạn thanh toán dài hạn."
+      },
+      {
+        "angle_id": "HOST-A4",
+        "hook": "Cách thuê một chiếc máy chủ VPS cấu hình cao giá chỉ bằng 3 cốc cafe mỗi tháng.",
+        "promise": "Cài đặt VPS Linux chạy bot tự động 24/7 không lo sập nguồn.",
+        "proof_demo": "Giao diện hPanel 1-click cài đặt Ubuntu và Docker cực mượt.",
+        "cta": "Xem thông số chi tiết và mã giảm giá tại link: {{subid_link}}",
+        "compliance_note": "Yêu cầu kiến thức kỹ thuật cơ bản khi dùng VPS."
+      },
+      {
+        "angle_id": "HOST-A5",
+        "hook": "Chỉ với 75k/tháng: Làm thế nào mình xây dựng một trang blog kiếm tiền thụ động?",
+        "promise": "Lộ trình 3 bước từ chọn ngách đến cài đặt WordPress hoàn chỉnh.",
+        "proof_demo": "Cài đặt WordPress tự động qua giao diện tiếng Việt trong 60 giây.",
+        "cta": "Tặng bộ ebook checklist SEO cho người mới ở link bio: {{subid_link}}",
+        "compliance_note": "Không cam kết thu nhập cụ thể; kèm affiliate disclaimer."
+      }
+    ]
+  },
+  {
+    "offer_id": "AFF-OFFER-003",
+    "name": "ElevenLabs",
+    "brand": "ElevenLabs Inc.",
+    "priority_tier": "priority",
+    "category": "Voice AI & Speech Synthesis",
+    "official_affiliate_url": "https://elevenlabs.io/affiliates",
+    "portal_platform": "PartnerStack",
+    "program_open_status": "Active & Publicly Open (Verified 2026)",
+    "vietnam_eligibility": {
+      "eligible": true,
+      "regional_restrictions": "Global access; Vietnamese IP fully supported",
+      "vietnam_practicality_rating": "Excellent"
+    },
+    "approval_difficulty": {
+      "difficulty": "Low-Medium",
+      "approval_window": "24 to 48 hours on PartnerStack",
+      "requirements": "PartnerStack profile with basic description of YouTube/TikTok/blog channel"
+    },
+    "payout_mechanics": {
+      "method": "PayPal or Stripe via PartnerStack",
+      "minimum_threshold_usd": 10,
+      "validation_delay_days": 30,
+      "schedule": "Monthly through PartnerStack automated payout cycle",
+      "tax_kyc_needs": "PartnerStack W-8BEN electronic form (completed in 2 minutes)",
+      "vietnam_banking_viability": "PayPal withdraws to Vietnamese bank accounts with ease; low $10 minimum threshold prevents trapped funds"
+    },
+    "attribution_model": {
+      "cookie_duration_days": 90,
+      "attribution_type": "PartnerStack cookie tracking",
+      "payout_condition": "Customer remains active on Starter, Creator, Pro, or Scale plans"
+    },
+    "commercial_terms": {
+      "commission_rate": "22% recurring commission on Starter/Creator/Pro/Scale; 11% on Business",
+      "duration": "First 12 months of referred user payments",
+      "exclusions": "Custom enterprise plans excluded"
+    },
+    "compliance_and_restrictions": {
+      "trademark_bidding": "Prohibited on paid search ads",
+      "coupon_rules": "No false promotional claims or cash-back incentives",
+      "disclosure_required": "Mandatory affiliate disclosure; explicit compliance with ethical voice cloning guidelines",
+      "self_referral": "Strictly prohibited"
+    },
+    "readiness_scoring": {
+      "program_open": 30,
+      "vietnam_eligible": 20,
+      "approval_difficulty": 13,
+      "payout_practicality": 14,
+      "commercial_terms_verified": 20,
+      "total_readiness_score": 97,
+      "scale_recommendation": "SCALE"
+    },
+    "personas": [
+      {
+        "persona_name": "Faceless YouTube / TikTok Creator",
+        "pain_point": "Tự ti về giọng nói cá nhân hoặc không có mic thu âm chất lượng cao, cần giọng đọc truyền cảm để giữ chân người xem",
+        "willingness_to_pay": "Rất cao ($5 - $22/tháng)"
+      },
+      {
+        "persona_name": "Nhà sản xuất Podcast / Audio Book",
+        "pain_point": "Chi phí thuê diễn viên lồng tiếng quá đắt đỏ và tiến độ chậm",
+        "willingness_to_pay": "Cao ($22 - $99/tháng)"
+      }
+    ],
+    "buyer_intent_keyword_clusters": [
+      "giong doc ai elevenlabs tieng viet",
+      "clone giong noi bang ai mien phi",
+      "phan mem long tieng video youtube faceless",
+      "elevenlabs pricing ban quyen",
+      "so sanh elevenlabs vs capcut ai voice"
+    ],
+    "short_form_angles": [
+      {
+        "angle_id": "VOICE-A1",
+        "hook": "Cách tạo một giọng đọc AI truyền cảm 99% như người thật để làm video TikTok triệu view.",
+        "promise": "Không ai nhận ra đây là giọng nhân tạo nếu bạn biết chỉnh 3 thanh thông số này.",
+        "proof_demo": "Bật đoạn audio trước và sau khi tinh chỉnh Stability & Clarity trên ElevenLabs.",
+        "cta": "Test thử giọng đọc miễn phí tại link ở bio: {{subid_link}}",
+        "compliance_note": "Ghi rõ liên kết đối tác chính thức."
+      },
+      {
+        "angle_id": "VOICE-A2",
+        "hook": "So sánh giọng đọc CapCut AI vs ElevenLabs: Khác biệt đáng giá bao nhiêu?",
+        "promise": "Chỉ ra vì sao các kênh phim và tin tức lớn đều chấp nhận chi tiền cho ElevenLabs.",
+        "proof_demo": "Nghe thử cùng 1 đoạn văn bản trên 2 nền tảng: ElevenLabs có hơi thở và ngữ điệu tự nhiên vượt trội.",
+        "cta": "Trải nghiệm bản dùng thử 10.000 ký tự qua link mô tả: {{subid_link}}",
+        "compliance_note": "Đánh giá khách quan dựa trên audio thực tế."
+      },
+      {
+        "angle_id": "VOICE-A3",
+        "hook": "Bí mật đằng sau những kênh kể chuyện đêm muộn triệu view không bao giờ lộ mặt.",
+        "promise": "Quy trình kết hợp ChatGPT viết truyện + ElevenLabs đọc voice + CapCut chèn video b-roll.",
+        "proof_demo": "Thao tác trọn gói trong 5 phút xuất ra 1 video hoàn chỉnh.",
+        "cta": "Bấm vào link bio để bắt đầu tạo kênh Faceless của riêng bạn: {{subid_link}}",
+        "compliance_note": "Kèm affiliate disclosure."
+      },
+      {
+        "angle_id": "VOICE-A4",
+        "hook": "Cách nhân bản giọng nói của chính bạn bằng AI để xuất hàng trăm bài giảng không cần thu âm lại.",
+        "promise": "Tính năng Instant Voice Cloning chỉ cần 1 phút file ghi âm mẫu.",
+        "proof_demo": "Upload file ghi âm ngắn -> AI đọc ngay một đoạn văn mới bằng chính chất giọng của tác giả.",
+        "cta": "Xem hướng dẫn chi tiết và link công cụ tại bio: {{subid_link}}",
+        "compliance_note": "Cảnh báo chỉ clone giọng chính chủ, tuân thủ đạo đức AI."
+      },
+      {
+        "angle_id": "VOICE-A5",
+        "hook": "Tính năng dịch video đa ngôn ngữ giữ nguyên giọng nói của ElevenLabs xịn đến mức nào?",
+        "promise": "Nói tiếng Việt nhưng video tự động phát ra tiếng Anh, tiếng Nhật chuẩn khẩu âm bản xứ.",
+        "proof_demo": "Phát đoạn clip ngắn chuyển ngữ mượt mà.",
+        "cta": "Dùng thử tính năng AI Dubbing qua link đối tác: {{subid_link}}",
+        "compliance_note": "Kèm affiliate disclosure."
+      }
+    ]
+  },
+  {
+    "offer_id": "AFF-OFFER-004",
+    "name": "NordVPN",
+    "brand": "Nord Security",
+    "priority_tier": "secondary",
+    "category": "Cybersecurity & Privacy Infrastructure",
+    "official_affiliate_url": "https://nordvpn.com/affiliate/",
+    "portal_platform": "CJ Affiliate & In-house Portal",
+    "program_open_status": "Active & Publicly Open",
+    "vietnam_eligibility": {
+      "eligible": true,
+      "regional_restrictions": "Accepted, subject to local cyber advertising laws",
+      "vietnam_practicality_rating": "Very Good"
+    },
+    "approval_difficulty": {
+      "difficulty": "Medium",
+      "approval_window": "24 to 72 hours via CJ Affiliate",
+      "requirements": "Requires active content site or social profile with security/tech focus"
+    },
+    "payout_mechanics": {
+      "method": "PayPal or Direct Wire Transfer",
+      "minimum_threshold_usd": 100,
+      "validation_delay_days": 30,
+      "schedule": "Monthly",
+      "tax_kyc_needs": "CJ Affiliate W-8BEN electronic submission",
+      "vietnam_banking_viability": "Reliable payout via PayPal to Vietnamese cards"
+    },
+    "attribution_model": {
+      "cookie_duration_days": 30,
+      "attribution_type": "First-party affiliate cookie",
+      "payout_condition": "Subscription active beyond 30-day money-back guarantee"
+    },
+    "commercial_terms": {
+      "commission_rate": "40% to 100% on initial signup + 30% on renewal plans",
+      "duration": "Lifetime recurring on renewals while subscription persists",
+      "exclusions": "Chargebacks and fraudulent payments deducted"
+    },
+    "compliance_and_restrictions": {
+      "trademark_bidding": "Strictly forbidden on all search engines",
+      "coupon_rules": "Unauthorized coupons prohibited",
+      "disclosure_required": "Mandatory affiliate disclosure statement",
+      "self_referral": "Disallowed"
+    },
+    "readiness_scoring": {
+      "program_open": 30,
+      "vietnam_eligible": 18,
+      "approval_difficulty": 11,
+      "payout_practicality": 13,
+      "commercial_terms_verified": 18,
+      "total_readiness_score": 90,
+      "scale_recommendation": "TEST"
+    },
+    "personas": [
+      {
+        "persona_name": "Remote Worker / Digital Nomad",
+        "pain_point": "Thường xuyên làm việc tại quán cafe, lo lắng về bảo mật tài khoản ngân hàng và dữ liệu nhạy cảm",
+        "willingness_to_pay": "Sẵn sàng chi $3/tháng cho gói 2 năm"
+      },
+      {
+        "persona_name": "Người dùng AI / Tech Enthusiast",
+        "pain_point": "Bị chặn địa lý khi truy cập các nền tảng AI hoặc công cụ thanh toán quốc tế",
+        "willingness_to_pay": "Trung bình"
+      }
+    ],
+    "buyer_intent_keyword_clusters": [
+      "danh gia nordvpn 2026",
+      "cach doi ip sang my singapore",
+      "vpn tot nhat cho quan cafe",
+      "gia nordvpn 2 nam",
+      "nordvpn co an toan khong"
+    ],
+    "short_form_angles": [
+      {
+        "angle_id": "NORD-A1",
+        "hook": "Cảnh báo bảo mật: Nếu bạn đang dùng WiFi cafe mở không pass, dừng lại 30 giây!",
+        "promise": "Mã hóa toàn bộ dữ liệu chỉ bằng 1 cú nhấp chuột.",
+        "proof_demo": "Màn hình Wireshark quét gói tin mở vs màn hình bật NordVPN mã hóa AES-256.",
+        "cta": "Nhận ưu đãi 70% + 3 tháng miễn phí tại link bio: {{subid_link}}",
+        "compliance_note": "Kèm affiliate disclosure."
+      },
+      {
+        "angle_id": "NORD-A2",
+        "hook": "Bị báo lỗi 'Service not available in your region'? Đây là cách sửa dứt điểm.",
+        "promise": "Vượt rào cản địa lý vào mọi công cụ AI trong 2 giây.",
+        "proof_demo": "Bật server Singapore trên NordVPN và tải lại trang web load mượt mà.",
+        "cta": "Dùng thử 30 ngày hoàn tiền 100% tại link mô tả: {{subid_link}}",
+        "compliance_note": "Kèm affiliate disclosure."
+      },
+      {
+        "angle_id": "NORD-A3",
+        "hook": "Dùng VPN làm chậm mạng như rùa? Mình vừa test thực tế trên mạng Viettel.",
+        "promise": "Giao thức NordLynx giữ hơn 90% băng thông gốc.",
+        "proof_demo": "Đo Speedtest trực tiếp đạt 280 Mbps ping 25ms.",
+        "cta": "Xem bảng đo chi tiết tại link bio: {{subid_link}}",
+        "compliance_note": "Kết quả đo lường thực tế."
+      },
+      {
+        "angle_id": "NORD-A4",
+        "hook": "Bảo vệ ví Crypto và tài khoản thanh toán khi ra nước ngoài hoặc dùng mạng công cộng.",
+        "promise": "Ngăn chặn tấn công Man-in-the-Middle và rò rỉ DNS.",
+        "proof_demo": "Bật tính năng Kill Switch và Double VPN bảo mật 2 lớp.",
+        "cta": "Kích hoạt ưu đãi bảo mật tại bio: {{subid_link}}",
+        "compliance_note": "Không cam kết miễn nhiễm 100% với mã độc nếu người dùng tự ý click link lừa đảo."
+      },
+      {
+        "angle_id": "NORD-A5",
+        "hook": "Chỉ bằng 1 cốc trà sữa mỗi tháng: Bảo vệ cùng lúc 6 thiết bị từ điện thoại đến laptop.",
+        "promise": "Chia sẻ cho cả gia đình dùng chung 1 tài khoản.",
+        "proof_demo": "Đăng nhập cùng lúc trên iPhone, Macbook và máy tính bảng mượt mà.",
+        "cta": "Link đăng ký tài khoản chính hãng tại bio: {{subid_link}}",
+        "compliance_note": "Kèm affiliate disclosure."
+      }
+    ]
+  },
+  {
+    "offer_id": "AFF-OFFER-005",
+    "name": "Grammarly",
+    "brand": "Grammarly Inc.",
+    "priority_tier": "secondary",
+    "category": "Writing Assistant & AI Communications",
+    "official_affiliate_url": "https://www.grammarly.com/affiliates",
+    "portal_platform": "CJ Affiliate",
+    "program_open_status": "Active on CJ Affiliate",
+    "vietnam_eligibility": {
+      "eligible": true,
+      "regional_restrictions": "Accepted globally; massive userbase in Vietnam",
+      "vietnam_practicality_rating": "Good"
+    },
+    "approval_difficulty": {
+      "difficulty": "Medium",
+      "approval_window": "48 to 96 hours via CJ Affiliate",
+      "requirements": "Requires approved CJ Publisher account and active content source"
+    },
+    "payout_mechanics": {
+      "method": "Direct Deposit / Payoneer / Check via CJ",
+      "minimum_threshold_usd": 50,
+      "validation_delay_days": 30,
+      "schedule": "Monthly around the 20th",
+      "tax_kyc_needs": "CJ W-8BEN electronic form",
+      "vietnam_banking_viability": "Payoneer withdraws directly to Vietnamese banks in VND within 24h"
+    },
+    "attribution_model": {
+      "cookie_duration_days": 90,
+      "attribution_type": "First-party CJ tracking pixel",
+      "payout_condition": "Qualifying free registration or Premium subscription purchase"
+    },
+    "commercial_terms": {
+      "commission_rate": "$20 per Premium subscription sale; $0.20 per verified free registration",
+      "duration": "One-time CPA per qualified action",
+      "exclusions": "Invalid or fraudulent bot registrations disqualified"
+    },
+    "compliance_and_restrictions": {
+      "trademark_bidding": "Strictly prohibited",
+      "coupon_rules": "Only approved promotional links allowed",
+      "disclosure_required": "Mandatory affiliate disclosure",
+      "self_referral": "Prohibited"
+    },
+    "readiness_scoring": {
+      "program_open": 28,
+      "vietnam_eligible": 18,
+      "approval_difficulty": 10,
+      "payout_practicality": 13,
+      "commercial_terms_verified": 19,
+      "total_readiness_score": 88,
+      "scale_recommendation": "TEST"
+    },
+    "personas": [
+      {
+        "persona_name": "Nhân sự làm việc cho công ty đa quốc gia / Remote Worker",
+        "pain_point": "Sợ viết sai ngữ pháp hoặc tone giọng cộc cằn trong email gửi sếp và đối tác nước ngoài",
+        "willingness_to_pay": "Sẵn sàng chi cho bản Premium hoặc dùng tiện ích Free hàng ngày"
+      },
+      {
+        "persona_name": "Sinh viên ôn thi IELTS / Thạc sĩ",
+        "pain_point": "Bài viết lặp từ vựng cơ bản, cần công cụ nâng cấp từ đồng nghĩa học thuật và quét đạo văn",
+        "willingness_to_pay": "Cao đối với nhóm sinh viên chuẩn bị nộp luận văn"
+      }
+    ],
+    "buyer_intent_keyword_clusters": [
+      "tai grammarly mien phi cho chrome",
+      "gia grammarly premium 2026",
+      "sua loi tieng anh trong email",
+      "grammarly co sua duoc ielts khong",
+      "so sanh grammarly vs chatgpt"
+    ],
+    "short_form_angles": [
+      {
+        "angle_id": "GRAM-A1",
+        "hook": "Câu email tiếng Anh này có gì sai mà sếp nước ngoài lại cảm thấy khó chịu?",
+        "promise": "Nhận biết và sửa ngay ngữ điệu cộc cằn chỉ bằng 1 cú click.",
+        "proof_demo": "Tone detector chuyển từ cảnh báo đỏ 'Aggressive' sang xanh lá 'Polite & Confident'.",
+        "cta": "Cài đặt tiện ích mở rộng miễn phí tại link bio: {{subid_link}}",
+        "compliance_note": "Kèm affiliate disclosure."
+      },
+      {
+        "angle_id": "GRAM-A2",
+        "hook": "Bỏ ngay thói quen dùng đi dùng lại từ 'very' trong bài luận tiếng Anh!",
+        "promise": "Nâng cấp từ vựng band 6.0 lên 7.5+ chuẩn ngữ cảnh học thuật.",
+        "proof_demo": "Click đúp vào từ 'very big' -> Gợi ý thay thế 'substantial' tự động.",
+        "cta": "Tải công cụ chỉnh sửa văn phong tiếng Anh miễn phí ở bio: {{subid_link}}",
+        "compliance_note": "Kèm affiliate disclosure."
+      },
+      {
+        "angle_id": "GRAM-A3",
+        "hook": "Dùng ChatGPT viết bài xong, vì sao mình vẫn luôn phải mở Grammarly để quét lại?",
+        "promise": "Phát hiện những câu văn dài dòng và sửa lỗi trực tiếp ngay tại ô soạn thảo Gmail/Word.",
+        "proof_demo": "So sánh thao tác gõ trực tiếp có Grammarly sửa ngầm vs việc copy-paste qua lại tab ChatGPT.",
+        "cta": "Trải nghiệm tiện ích miễn phí tại bio: {{subid_link}}",
+        "compliance_note": "Đánh giá công tâm dựa trên workflow thực tế."
+      },
+      {
+        "angle_id": "GRAM-A4",
+        "hook": "Bí quyết kiểm tra đạo văn trước khi bấm nộp bài luận tốt nghiệp hoặc bài viết cho sếp.",
+        "promise": "Đối chiếu với hơn 16 tỷ trang web học thuật bảo vệ độ độc bản 100%.",
+        "proof_demo": "Màn hình quét báo cáo tỷ lệ trùng lặp 0% và danh sách trích dẫn chuẩn.",
+        "cta": "Link nhận tài khoản ưu đãi sinh viên tại bio: {{subid_link}}",
+        "compliance_note": "Kèm affiliate disclosure."
+      },
+      {
+        "angle_id": "GRAM-A5",
+        "hook": "Một lỗi chính tả ngớ ngẩn trong CV có thể khiến bạn mất cơ hội việc làm ngàn đô.",
+        "promise": "Tự động rà soát từng dấu phẩy, mạo từ và giới từ tiếng Anh chuẩn xác.",
+        "proof_demo": "Màn hình Word được Grammarly sửa lỗi chính tả theo thời gian thực.",
+        "cta": "Bảo vệ CV xin việc của bạn ngay hôm nay tại link bio: {{subid_link}}",
+        "compliance_note": "Kèm affiliate disclosure."
+      }
+    ]
+  },
+  {
+    "offer_id": "AFF-OFFER-006",
+    "name": "ClickUp",
+    "brand": "ClickUp Inc.",
+    "priority_tier": "secondary",
+    "category": "Project Management & Team Collaboration",
+    "official_affiliate_url": "https://clickup.com/partners",
+    "portal_platform": "PartnerStack",
+    "program_open_status": "Active on PartnerStack",
+    "vietnam_eligibility": {
+      "eligible": true,
+      "regional_restrictions": "Worldwide acceptance including Vietnam",
+      "vietnam_practicality_rating": "Very Good"
+    },
+    "approval_difficulty": {
+      "difficulty": "Low-Medium",
+      "approval_window": "24 to 48 hours",
+      "requirements": "Basic business/freelance profile explaining agency or productivity audience"
+    },
+    "payout_mechanics": {
+      "method": "PayPal or Stripe via PartnerStack",
+      "minimum_threshold_usd": 10,
+      "validation_delay_days": 30,
+      "schedule": "Monthly",
+      "tax_kyc_needs": "Standard PartnerStack electronic tax form",
+      "vietnam_banking_viability": "PayPal withdraws directly to Vietnamese banks with low $10 minimum threshold"
+    },
+    "attribution_model": {
+      "cookie_duration_days": 90,
+      "attribution_type": "PartnerStack referral tracking",
+      "payout_condition": "Customer subscribes to paid Unlimited, Business, or Enterprise workspace"
+    },
+    "commercial_terms": {
+      "commission_rate": "Up to 20% commission on referred subscriptions",
+      "duration": "First 12 months of payments",
+      "exclusions": "Free plan usage without paid upgrade generates zero commission"
+    },
+    "compliance_and_restrictions": {
+      "trademark_bidding": "Prohibited on paid search terms",
+      "coupon_rules": "No unauthorized discount codes",
+      "disclosure_required": "Standard FTC/local affiliate disclosure",
+      "self_referral": "Disallowed"
+    },
+    "readiness_scoring": {
+      "program_open": 30,
+      "vietnam_eligible": 20,
+      "approval_difficulty": 12,
+      "payout_practicality": 14,
+      "commercial_terms_verified": 18,
+      "total_readiness_score": 94,
+      "scale_recommendation": "TEST"
+    },
+    "personas": [
+      {
+        "persona_name": "Agency Founder / Software Team Lead",
+        "pain_point": "Việc trễ hạn liên tục vì thảo luận bị trôi trong group chat Zalo/Slack, không có biểu đồ Gantt phụ thuộc",
+        "willingness_to_pay": "Sẵn sàng chi $7 - $12/user/tháng để chuẩn hóa quy trình"
+      },
+      {
+        "persona_name": "Freelancer quản lý cùng lúc 5 khách hàng",
+        "pain_point": "Cần cổng theo dõi tiến độ riêng biệt cho khách mà không để lộ chi phí và ghi chú nội bộ",
+        "willingness_to_pay": "Sẵn sàng nâng cấp gói Unlimited"
+      }
+    ],
+    "buyer_intent_keyword_clusters": [
+      "phan mem quan ly du an clickup",
+      "clickup vs notion cho agency",
+      "cach dung clickup brain ai",
+      "bang gia clickup 2026",
+      "template quan ly cong viec agile clickup"
+    ],
+    "short_form_angles": [
+      {
+        "angle_id": "CLICK-A1",
+        "hook": "Team bạn có đang bị: Họp thì nhiều, việc thì trễ, mà group chat thì loạn xạ?",
+        "promise": "Quy tụ toàn bộ công việc, tài liệu và tiến độ vào một màn hình duy nhất.",
+        "proof_demo": "Màn hình Kanban Board kết hợp Gantt chart tự động cập nhật tiến độ dự án.",
+        "cta": "Dùng thử ClickUp miễn phí trọn đời tại link bio: {{subid_link}}",
+        "compliance_note": "Kèm affiliate disclosure."
+      },
+      {
+        "angle_id": "CLICK-A2",
+        "hook": "Tại sao các Agency chuyên nghiệp đang chuyển hết từ Notion sang ClickUp?",
+        "promise": "Khả năng phân quyền khách hàng và đo lường thời lượng nhân sự (Time Tracking) vượt trội.",
+        "proof_demo": "Mở tính năng Workload view thấy rõ ai đang rảnh để giao việc.",
+        "cta": "Trải nghiệm ClickUp bản Free qua link mô tả: {{subid_link}}",
+        "compliance_note": "So sánh tính năng khách quan."
+      },
+      {
+        "angle_id": "CLICK-A3",
+        "hook": "Đừng mất 2 tiếng mỗi tối thứ Sáu để ngồi viết báo cáo tiến độ tuần nữa!",
+        "promise": "ClickUp Brain AI tự động quét 50 task và xuất báo cáo trong 3 giây.",
+        "proof_demo": "Gõ lệnh gọi AI tóm tắt dự án xuất hiện văn bản báo cáo hoàn chỉnh.",
+        "cta": "Link đăng ký tài khoản trải nghiệm tại bio: {{subid_link}}",
+        "compliance_note": "Kèm affiliate disclosure."
+      },
+      {
+        "angle_id": "CLICK-A4",
+        "hook": "Cách tạo một cổng theo dõi tiến độ cực chuyên nghiệp cho khách hàng mà không lo lộ giá vốn.",
+        "promise": "Phân quyền Guest Access miễn phí cho khách xem đúng việc cần duyệt.",
+        "proof_demo": "Thao tác mời khách hàng vào xem List dự án riêng tư chỉ trong 2 cú click.",
+        "cta": "Xem hướng dẫn setup và nhận template tại bio: {{subid_link}}",
+        "compliance_note": "Kèm affiliate disclosure."
+      },
+      {
+        "angle_id": "CLICK-A5",
+        "hook": "Một app thay thế cả Trello, Slack, Google Docs và Notion: Có thật không?",
+        "promise": "Tối ưu hóa không gian làm việc số cho doanh nghiệp vừa và nhỏ.",
+        "proof_demo": "Mở cùng lúc Task, Docs, Whiteboard và Chat ngay bên trong ClickUp 3.0.",
+        "cta": "Đăng ký tài khoản miễn phí không cần thẻ tín dụng tại: {{subid_link}}",
+        "compliance_note": "Kèm affiliate disclosure."
+      }
+    ]
+  }
+]

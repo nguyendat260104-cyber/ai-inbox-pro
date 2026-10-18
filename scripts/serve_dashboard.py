@@ -155,6 +155,16 @@ class DashboardRequestHandler(BaseHTTPRequestHandler):
             except Exception:
                 pass
 
+        # 9. Tracking links
+        tracking_links = {}
+        links_cfg_path = config_dir / "links.json"
+        if links_cfg_path.exists():
+            try:
+                with open(links_cfg_path, "r", encoding="utf-8") as f:
+                    tracking_links = json.load(f)
+            except Exception:
+                pass
+
         return {
             "status": "healthy",
             "counts": {s: len(tasks_by_status[s]) for s in statuses},
@@ -168,8 +178,9 @@ class DashboardRequestHandler(BaseHTTPRequestHandler):
                 "scoring": scoring_cfg
             },
             "latest_report": latest_report,
-            "latest_research": latest_research
-            ,"revenue_activation": activation_summary(
+            "latest_research": latest_research,
+            "tracking_links": tracking_links,
+            "revenue_activation": activation_summary(
                 accounts_cfg.get("accounts", []), campaigns_cfg.get("campaigns", [])
             )
         }
@@ -177,6 +188,40 @@ class DashboardRequestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         base_dir = get_base_dir()
         dashboard_dir = base_dir / "dashboard"
+
+        # Handle /go/<slug> 302 redirects
+        req_path = self.path.split("?")[0]
+        if req_path.startswith("/go/"):
+            slug = req_path[4:].strip("/").lower()
+            query_params = {}
+            if "?" in self.path:
+                from urllib.parse import parse_qs, urlparse
+                qs = parse_qs(urlparse(self.path).query)
+                query_params = {k: v[0] for k, v in qs.items() if v}
+            
+            try:
+                from redirect_link import resolve_redirect
+                dest = resolve_redirect(
+                    slug=slug,
+                    subid=query_params.get("subid"),
+                    channel=query_params.get("utm_source") or query_params.get("channel"),
+                    base_dir=base_dir
+                )
+            except Exception:
+                dest = None
+
+            if dest:
+                self.send_response(302)
+                self.send_header("Location", dest)
+                self.send_header("Access-Control-Allow-Origin", "*")
+                self.end_headers()
+                return
+            else:
+                self.send_response(404)
+                self.send_header("Content-Type", "text/plain; charset=utf-8")
+                self.end_headers()
+                self.wfile.write(f"Affiliate tracking slug '{slug}' not found in config/links.json".encode("utf-8"))
+                return
 
         # API endpoint
         if self.path == "/api/data" or self.path == "/api/status":

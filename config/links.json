@@ -1,0 +1,77 @@
+{
+  "base_redirect_domain": "localhost:8000/go",
+  "links": {
+    "make": {
+      "name": "Make.com",
+      "category": "Workflow Automation",
+      "destination_url": "https://www.make.com/en/register",
+      "affiliate_param": "ref",
+      "affiliate_id": "needs_verification",
+      "subid_param": "subid",
+      "target_subid": "tiktok_organic",
+      "clicks_total": 1,
+      "last_clicked_at": "2026-10-18T03:51:40.676292+00:00",
+      "notes": "Main automation offer. 35% recurring 12 months via Wise."
+    },
+    "hostinger": {
+      "name": "Hostinger",
+      "category": "Web Hosting & Cloud VPS",
+      "destination_url": "https://www.hostinger.com/web-hosting",
+      "affiliate_param": "REFERRALCODE",
+      "affiliate_id": "needs_verification",
+      "subid_param": "subid",
+      "target_subid": "youtube_shorts",
+      "clicks_total": 0,
+      "last_clicked_at": null,
+      "notes": "Hosting offer. 40-60% CPA via PayPal."
+    },
+    "elevenlabs": {
+      "name": "ElevenLabs",
+      "category": "Voice AI & Speech Synthesis",
+      "destination_url": "https://elevenlabs.io",
+      "affiliate_param": "from",
+      "affiliate_id": "needs_verification",
+      "subid_param": "subid",
+      "target_subid": "tiktok_studygram",
+      "clicks_total": 0,
+      "last_clicked_at": null,
+      "notes": "Voice AI offer. 22% recurring via PartnerStack."
+    },
+    "nordvpn": {
+      "name": "NordVPN",
+      "category": "Cybersecurity & VPN",
+      "destination_url": "https://nordvpn.com/order",
+      "affiliate_param": "aff",
+      "affiliate_id": "needs_verification",
+      "subid_param": "subid",
+      "target_subid": "cafe_wifi_angle",
+      "clicks_total": 0,
+      "last_clicked_at": null,
+      "notes": "VPN security offer. 40-100% CPA + 30% renewal."
+    },
+    "clickup": {
+      "name": "ClickUp",
+      "category": "Project Management",
+      "destination_url": "https://clickup.com/signup",
+      "affiliate_param": "ref",
+      "affiliate_id": "needs_verification",
+      "subid_param": "subid",
+      "target_subid": "agency_chat_chaos",
+      "clicks_total": 0,
+      "last_clicked_at": null,
+      "notes": "Agency project management offer. 20% 1st year via PartnerStack."
+    },
+    "grammarly": {
+      "name": "Grammarly",
+      "category": "AI Writing & Communications",
+      "destination_url": "https://www.grammarly.com",
+      "affiliate_param": "affcode",
+      "affiliate_id": "needs_verification",
+      "subid_param": "subid",
+      "target_subid": "rude_email_angle",
+      "clicks_total": 0,
+      "last_clicked_at": null,
+      "notes": "Writing assistant offer. $20 sale / $0.20 free install via CJ."
+    }
+  }
+}
