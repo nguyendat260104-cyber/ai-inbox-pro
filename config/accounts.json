@@ -5,10 +5,10 @@
     {
       "platform": "shopee",
       "market": "VN",
-      "status": "user_confirmation_required",
-      "payout_status": "user_confirmation_required",
+      "status": "approved",
+      "payout_status": "needs_user_setup",
       "affiliate_id": null,
-      "notes": "Do not store login, password, bank or tax data here."
+      "notes": "Dashboard access confirmed 2026-10-18; Shopee requests payment setup. Do not store login, password, bank or tax data here."
     },
     {
       "platform": "lazada",
