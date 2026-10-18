@@ -835,6 +835,7 @@ def run_server(host: str = "0.0.0.0", port: int = 8080):
     print(f"[AI Inbox] Running at http://{host}:{port}/")
     print(f"  Admin Command Center: http://{host}:{port}/admin")
     print(f"  Customer Demo Store: http://{host}:{port}/demo")
+    print(f"  B2B Sales Landing:   http://{host}:{port}/landing")
     print(f"  Embeddable Widget:   http://{host}:{port}/widget/chat_widget.js")
     try:
         httpd.serve_forever()
