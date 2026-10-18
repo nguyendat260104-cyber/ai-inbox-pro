@@ -1,0 +1,33 @@
+{
+  "task_id": "AFF-20261018-003",
+  "executive_summary": "Crafted production-ready multi-channel content assets for Make.com, Hostinger, and ElevenLabs. Includes 3 high-retention short-form video scripts and 3 comprehensive tutorial posts with FTC-compliant disclosures and parameterized tracking links.",
+  "key_findings": [
+    "Created 3 video scripts with full timing, visual cues, 15 hooks, and 9 CTAs",
+    "Created 3 long-form tutorial and community review posts",
+    "Integrated mandatory affiliate disclosures and subid tracking links"
+  ],
+  "recommended_decision": "TEST",
+  "confidence": 0.95,
+  "business_metrics": {},
+  "artifacts": [
+    "content/scripts/20261018-product-script.md",
+    "content/posts/20261018-product-post.md"
+  ],
+  "sources": [
+    "https://www.make.com/en/affiliate-program",
+    "https://www.hostinger.com/affiliates",
+    "https://elevenlabs.io"
+  ],
+  "risks": [
+    "Creator accounts and real affiliate IDs need to be entered in config/links.json prior to publishing",
+    "Bio hub required for TikTok accounts under 1,000 followers"
+  ],
+  "questions_for_lead": [
+    "Approve Make.com as the first video campaign candidate?",
+    "Should we generate graphic slide assets for the Make.com tutorial?"
+  ],
+  "next_task_suggestions": [
+    "AFF-20261018-004: Metrics and integrity check",
+    "Generate carousel slide graphics for Make.com workflow"
+  ]
+}

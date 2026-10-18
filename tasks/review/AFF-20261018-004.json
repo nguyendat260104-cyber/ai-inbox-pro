@@ -21,11 +21,13 @@
   "priority": "medium",
   "dependencies": [],
   "suggested_branch": "task/AFF-20261018-004",
-  "status": "queued",
+  "status": "review",
   "created_at": "2026-10-17T17:17:14.903586+00:00",
-  "started_at": null,
-  "completed_at": null,
-  "result": null,
-  "artifacts": [],
+  "started_at": "2026-10-18T03:54:26.711957+00:00",
+  "completed_at": "2026-10-18T03:54:53.293172+00:00",
+  "result": "results/AFF-20261018-004-review.json",
+  "artifacts": [
+    "results/20261018-maintenance-log.json"
+  ],
   "metrics": {}
 }

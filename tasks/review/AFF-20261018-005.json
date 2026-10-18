@@ -23,11 +23,14 @@
     "AFF-20261018-004"
   ],
   "suggested_branch": "task/AFF-20261018-005",
-  "status": "queued",
+  "status": "review",
   "created_at": "2026-10-17T17:23:04.310581+00:00",
-  "started_at": null,
-  "completed_at": null,
-  "result": null,
-  "artifacts": [],
+  "started_at": "2026-10-18T03:55:17.171012+00:00",
+  "completed_at": "2026-10-18T03:55:31.521424+00:00",
+  "result": "results/AFF-20261018-005-review.json",
+  "artifacts": [
+    "metrics/daily/20261018-report.json",
+    "metrics/daily/20261018-report.md"
+  ],
   "metrics": {}
 }
