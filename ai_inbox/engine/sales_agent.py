@@ -18,12 +18,14 @@ from pathlib import Path
 from ai_inbox.core.db import get_connection
 from ai_inbox.engine.product_catalog import ProductCatalogEngine
 from ai_inbox.engine.lead_scorer import LeadScorer
+from ai_inbox.engine.notifier import TelegramNotifier
 
 class SalesAgent:
-    def __init__(self, db_path: Optional[Path] = None):
+    def __init__(self, db_path: Optional[Path] = None, notifier: Optional[TelegramNotifier] = None):
         self.db_path = db_path
         self.catalog = ProductCatalogEngine(db_path=db_path)
         self.scorer = LeadScorer()
+        self.notifier = notifier or TelegramNotifier(db_path=db_path)
 
     def handle_incoming_message(
         self,
@@ -132,8 +134,37 @@ class SalesAgent:
             (bot_msg_id, conversation_id, bot_reply, intent_label, now_iso)
         )
 
+        # Detect and enrich customer phone number
+        phone_match = re.search(r"(0\d{9}|0\d{8})", customer_text)
+        detected_phone = phone_match.group(1) if phone_match else None
+        
+        cur.execute("SELECT name, phone FROM customers WHERE id = ?", (customer_id,))
+        cust_row = cur.fetchone()
+        cust_name = cust_row["name"] if cust_row else "Khách hàng"
+        cust_phone = cust_row["phone"] if (cust_row and cust_row["phone"]) else detected_phone
+
+        if detected_phone and cust_row and not cust_row["phone"]:
+            cur.execute("UPDATE customers SET phone = ?, updated_at = ? WHERE id = ?", (detected_phone, now_iso, customer_id))
+
         conn.commit()
         conn.close()
+
+        # Dispatch Alert for HOT Leads (Score >= 75, HOT label, handoff, or phone provided)
+        alert_sent = False
+        if needs_handoff or intent_label == "HOT" or new_score >= 75 or detected_phone:
+            lead_info = {
+                "workspace_id": workspace_id,
+                "conversation_id": conversation_id,
+                "customer_name": cust_name,
+                "customer_phone": cust_phone,
+                "channel": conv["channel"],
+                "score": new_score,
+                "intent_label": intent_label,
+                "product_name": product["name"] if product else None,
+                "price_vnd": product["price_vnd"] if product else None,
+                "message_text": customer_text
+            }
+            alert_sent = self.notifier.notify_hot_lead(lead_info)
 
         return {
             "bot_replied": True,
@@ -143,7 +174,8 @@ class SalesAgent:
             "intent_label": intent_label,
             "signals": signals,
             "human_handoff_triggered": needs_handoff,
-            "conversation_status": conv_status
+            "conversation_status": conv_status,
+            "alert_sent": alert_sent
         }
 
     def _compose_response(self, text: str, product: Optional[Dict[str, Any]]) -> Tuple[str, bool]:

@@ -277,8 +277,40 @@ def run_e2e():
         assert "6677" in fb_conv["customer_name"]
         print("  ✅ Meta verification challenge passed & Facebook Messenger message ingested successfully.")
 
+        # Test 12: Telegram HOT Lead Alert & Customer Phone Enrichment
+        print("▶ Running Test 12: Telegram Alert Dispatcher & Phone Auto-Enrichment...")
+        phone_inquiry = post_json("/api/widget/message", {
+            "workspace_id": "ws-01",
+            "customer_text": "SĐT của mình là 0988776655, gọi tư vấn size áo sơ mi giúp mình nhé!",
+            "customer_name": "Anh Hoàng Khách VIP"
+        })
+        assert phone_inquiry.get("alert_sent") is True, "Must dispatch alert when phone number provided"
+        new_conv_id = phone_inquiry["conversation_id"]
+
+        # Verify customer in DB was enriched with phone number
+        conn = db_module.get_connection()
+        cur = conn.cursor()
+        cur.execute("""
+            SELECT c.phone, l.score, l.intent_label
+            FROM customers c
+            JOIN conversations conv ON conv.customer_id = c.id
+            JOIN leads l ON l.conversation_id = conv.id
+            WHERE conv.id = ?
+        """, (new_conv_id,))
+        enriched_row = cur.fetchone()
+        assert enriched_row is not None
+        assert enriched_row["phone"] == "0988776655", "Phone must be auto-saved to customer profile"
+        assert enriched_row["intent_label"] == "HOT" or enriched_row["score"] >= 75
+
+        # Verify activity_logs audit
+        cur.execute("SELECT details_json FROM activity_logs WHERE event_type = 'telegram_hot_lead_alert' ORDER BY timestamp DESC LIMIT 1")
+        audit_log = json.loads(cur.fetchone()["details_json"])
+        assert audit_log.get("customer_phone") == "0988776655"
+        conn.close()
+        print("  ✅ Phone auto-enrichment and Telegram alert verified in audit logs.")
+
         print("\n----------------------------------------------")
-        print("🎉 ALL 11 E2E INTEGRATION TESTS PASSED (100%)!")
+        print("🎉 ALL 12 E2E INTEGRATION TESTS PASSED (100%)!")
         print("----------------------------------------------")
 
     finally:
