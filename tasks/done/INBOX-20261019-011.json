@@ -22,7 +22,7 @@
   "priority": "critical",
   "dependencies": [],
   "suggested_branch": "task/INBOX-20261019-011",
-  "status": "review",
+  "status": "done",
   "created_at": "2026-10-18T14:29:09.696200+00:00",
   "started_at": "2026-10-18T15:09:49.471318+00:00",
   "completed_at": "2026-10-18T15:13:01.660476+00:00",
@@ -32,5 +32,10 @@
     "ai_inbox/engine/product_catalog.py",
     "tests/test_semantic_matcher.py"
   ],
-  "metrics": {}
+  "metrics": {
+    "lead_decision": "approved_local_core",
+    "semantic_cases_passed": 7,
+    "core_tests_passed": 4,
+    "e2e_tests_passed": 24
+  }
 }

@@ -5,7 +5,7 @@
     "7 focused semantic cases pass",
     "Core 4/4 and E2E 24/24 pass"
   ],
-  "recommended_decision": "TEST",
+  "recommended_decision": "APPROVED_LOCAL_CORE",
   "confidence": 0.92,
   "business_metrics": {},
   "artifacts": [
