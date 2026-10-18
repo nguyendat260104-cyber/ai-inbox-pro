@@ -1,0 +1,39 @@
+{
+  "id": "AFF-20261018-007",
+  "type": "content_production",
+  "executor": "antigravity",
+  "goal": "Draft and package Sprint 1 short-form assets for the three marketplace campaign briefs.",
+  "context": "Drafts only. Use verified product facts after link import; no public posting, ads, fake reviews, or unsupported claims.",
+  "requirements": [
+    "Create 5 variants per campaign",
+    "Include affiliate disclosure",
+    "Include CTA and tracking placeholder",
+    "Keep claims tied to listing evidence"
+  ],
+  "deliverables": [
+    "content/scripts/marketplace-sprint-1/",
+    "results/AFF-20261018-007-review.json"
+  ],
+  "acceptance_criteria": [
+    "Each campaign has five draft variants",
+    "Every draft includes disclosure and human-review CTA",
+    "No unsupported product or commission claims"
+  ],
+  "priority": "high",
+  "dependencies": [
+    "AFF-20261018-006"
+  ],
+  "suggested_branch": "task/AFF-20261018-007",
+  "status": "review",
+  "created_at": "2026-10-18T00:00:00+00:00",
+  "started_at": "2026-10-18T03:59:54.789197+00:00",
+  "completed_at": "2026-10-18T04:00:46.238150+00:00",
+  "result": "results/AFF-20261018-007-review.json",
+  "artifacts": [
+    "content/scripts/marketplace-sprint-1/SHP-HOME-01.md",
+    "content/scripts/marketplace-sprint-1/SHP-TECH-01.md",
+    "content/scripts/marketplace-sprint-1/LAZ-HOME-01.md",
+    "content/scripts/marketplace-sprint-1/INDEX.md"
+  ],
+  "metrics": {}
+}

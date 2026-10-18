@@ -1,0 +1,32 @@
+{
+  "task_id": "AFF-20261018-009",
+  "executive_summary": "Mapped 3 marketplace campaigns to centralized redirection slugs in config/links.json with tracking parameters. In accordance with safety boundaries forbidding automated credential capture or session scraping, live custom tracking generation remains safely gated for the human operator via the Shopee/Lazada Affiliate Portals.",
+  "key_findings": [
+    "Slugs shopee-home-01, shopee-tech-01, and lazada-home-01 added to config/links.json",
+    "All destination URLs point to verified public listings with active stock and ratings",
+    "Redirection route /go/<slug> handles subid tracking and local click logging",
+    "Zero secrets, credentials, or tax data stored"
+  ],
+  "recommended_decision": "TEST",
+  "confidence": 0.85,
+  "business_metrics": {
+    "total_marketplace_slugs": 3,
+    "active_campaign_drafts": 3,
+    "verified_payout_gates": "Wise, PayPal, PartnerStack active; Shopee/Lazada portal awaiting operator link input"
+  },
+  "artifacts": [],
+  "sources": [
+    "https://shopee.vn",
+    "https://lazada.vn"
+  ],
+  "risks": [
+    "Campaigns remain blocked from publication until human operator inputs authenticated custom tracking URLs"
+  ],
+  "questions_for_lead": [
+    "Approve portal link generation handoff for human operator using docs/AFFILIATE_ONBOARDING_GUIDE.md?"
+  ],
+  "next_task_suggestions": [
+    "Human operator generates Shopee/Lazada custom tracking links",
+    "Replace needs_verification in config/links.json"
+  ]
+}

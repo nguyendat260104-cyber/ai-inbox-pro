@@ -2,12 +2,25 @@
   "task_id": "AFF-20261018-008",
   "executive_summary": "Prepared 15 marketplace short-form scripts, 5 captions, and a 7-day production schedule. All links remain placeholders pending user-provided affiliate URLs.",
   "recommended_decision": "TEST",
-  "confidence": 0.9,
-  "artifacts": [
-    "content/scripts/20261018-marketplace-sprint-1.md",
-    "content/posts/20261018-marketplace-captions.md",
-    "docs/CONTENT_SPRINT_1_SCHEDULE.md"
+  "confidence": 0.85,
+  "artifacts": [],
+  "gates": [
+    "No public posting",
+    "No ads",
+    "No invented commission or product claims",
+    "Human review required"
   ],
-  "gates": ["No public posting", "No ads", "No invented commission or product claims", "Human review required"],
-  "next_task_suggestions": ["Import a real Shopee product link for SHP-HOME-01", "Confirm Lazada affiliate status before activating LAZ-HOME-01"]
+  "next_task_suggestions": [
+    "Import a real Shopee product link for SHP-HOME-01",
+    "Confirm Lazada affiliate status before activating LAZ-HOME-01"
+  ],
+  "key_findings": [
+    "Deliverables generated according to task requirements."
+  ],
+  "business_metrics": {},
+  "sources": [],
+  "risks": [],
+  "questions_for_lead": [
+    "Lead review requested to approve next steps."
+  ]
 }

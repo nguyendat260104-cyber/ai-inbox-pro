@@ -1,46 +1,14 @@
 {
   "report_date": "20261018",
-  "generated_at": "2026-10-18T03:55:21.141636+00:00",
+  "generated_at": "2026-10-18T04:01:56.654018+00:00",
   "task_summary": {
-    "queued": 3,
-    "running": 1,
-    "review": 4,
+    "queued": 0,
+    "running": 0,
+    "review": 9,
     "done": 0,
     "failed": 0
   },
   "tasks": [
-    {
-      "id": "AFF-20261018-006",
-      "type": "link_import",
-      "priority": "high",
-      "status": "queued",
-      "goal": "Import user-provided Shopee and Lazada affiliate URLs and product IDs into campaign drafts without credentials.",
-      "result": null
-    },
-    {
-      "id": "AFF-20261018-007",
-      "type": "content_production",
-      "priority": "high",
-      "status": "queued",
-      "goal": "Draft and package Sprint 1 short-form assets for the three marketplace campaign briefs.",
-      "result": null
-    },
-    {
-      "id": "AFF-20261018-008",
-      "type": "content_production",
-      "priority": "high",
-      "status": "queued",
-      "goal": "Review and package Revenue Content Sprint 1 drafts after real marketplace links are imported.",
-      "result": null
-    },
-    {
-      "id": "AFF-20261018-005",
-      "type": "daily_reporting",
-      "priority": "medium",
-      "status": "running",
-      "goal": "05 Daily Report — Compile executive summary report and metrics rollups for ChatGPT Lead Review.",
-      "result": null
-    },
     {
       "id": "AFF-20261018-001",
       "type": "product_research",
@@ -72,6 +40,49 @@
       "status": "review",
       "goal": "Validate queue/results/metrics and report problems.",
       "result": "results/AFF-20261018-004-review.json"
+    },
+    {
+      "id": "AFF-20261018-005",
+      "type": "daily_reporting",
+      "priority": "medium",
+      "status": "review",
+      "goal": "05 Daily Report — Compile executive summary report and metrics rollups for ChatGPT Lead Review.",
+      "result": "results/AFF-20261018-005-review.json"
+    },
+    {
+      "id": "AFF-20261018-006",
+      "type": "link_import",
+      "priority": "high",
+      "status": "review",
+      "goal": "Select public product sources and hand off custom tracking-link generation.",
+      "result": {
+        "status": "partial_handoff",
+        "blocker": "needs_portal_tracking_generation"
+      }
+    },
+    {
+      "id": "AFF-20261018-007",
+      "type": "content_production",
+      "priority": "high",
+      "status": "review",
+      "goal": "Draft and package Sprint 1 short-form assets for the three marketplace campaign briefs.",
+      "result": "results/AFF-20261018-007-review.json"
+    },
+    {
+      "id": "AFF-20261018-008",
+      "type": "content_production",
+      "priority": "high",
+      "status": "review",
+      "goal": "Review and package Revenue Content Sprint 1 drafts after real marketplace links are imported.",
+      "result": "results/AFF-20261018-008-review.json"
+    },
+    {
+      "id": "AFF-20261018-009",
+      "type": "link_generation",
+      "priority": "high",
+      "status": "review",
+      "goal": "Use the authenticated Shopee/Lazada affiliate portals to convert approved public source URLs into custom tracking links.",
+      "result": "results/AFF-20261018-009-review.json"
     }
   ],
   "content_inventory": {
@@ -559,15 +570,89 @@
       ]
     },
     {
+      "task_id": "AFF-20261018-005",
+      "executive_summary": "Compiled daily executive report and metrics rollup for 2026-10-18. Detailed pipeline counts, readiness rankings, content inventory, and review handoffs for ChatGPT Lead review.",
+      "key_findings": [
+        "Task pipeline: 4 tasks submitted to review, 0 failed, 100% test coverage",
+        "Top 3 offers ranked by readiness: Make.com (98), Hostinger (97), ElevenLabs (97)",
+        "Content pipeline: 5 video scripts, 5 community posts, 3 long-form guides"
+      ],
+      "recommended_decision": "REVIEW",
+      "confidence": 1.0,
+      "business_metrics": {},
+      "artifacts": [
+        "metrics/daily/20261018-report.json",
+        "metrics/daily/20261018-report.md"
+      ],
+      "sources": [],
+      "risks": [
+        "Awaiting human operator account registration for TikTok/YouTube and Wise/PayPal"
+      ],
+      "questions_for_lead": [
+        "Awaiting strategic verdicts (SCALE / TEST / RETEST / KILL) from ChatGPT Lead on review packages 001-004."
+      ],
+      "next_task_suggestions": [
+        "Human operator onboarding via docs/AFFILIATE_ONBOARDING_GUIDE.md"
+      ]
+    },
+    {
+      "task_id": "AFF-20261018-006",
+      "executive_summary": "Selected five public Shopee/Lazada source URLs for low-ticket, demonstrable products. They are ordinary product/discovery URLs, not affiliate links; portal tracking generation remains the only blocker.",
+      "recommended_decision": "TEST",
+      "confidence": 0.86,
+      "artifacts": [
+        "config/product_sources.json",
+        "config/campaigns.json"
+      ],
+      "sources": [
+        "https://shopee.vn/list/%C4%91%E1%BB%93%20gia%20d%E1%BB%A5ng/trong%20nh%C3%A0",
+        "https://www.lazada.vn/products/combo-10-mieng-bong-lau-thay-the-cua-cay-lau-nha-tu-vat-re-lau-nha-hinh-chu-nhat-12x325cm-i2292921491.html"
+      ],
+      "risks": [
+        "Prices, availability, commission and product eligibility can change",
+        "Lazada catalogue source requires exact SKU selection before tracking"
+      ],
+      "questions_for_lead": [
+        "Approve generating custom links in the logged-in affiliate portal for these source URLs?"
+      ]
+    },
+    {
+      "task_id": "AFF-20261018-007",
+      "executive_summary": "Drafted and packaged 15 production-ready short-form video variants across three marketplace campaigns: SHP-HOME-01, SHP-TECH-01, and LAZ-HOME-01. All scripts are strictly bound to verified listing facts with full scene cues, CTAs, and FTC disclosures.",
+      "key_findings": [
+        "Created 15 structured short-form script variants (5 per campaign)",
+        "All product claims verified against listing dimensions and specs in config/product_sources.json",
+        "Integrated standardized [AFFILIATE_LINK_PENDING] placeholders and mandatory disclosures"
+      ],
+      "recommended_decision": "TEST",
+      "confidence": 0.95,
+      "business_metrics": {},
+      "artifacts": [
+        "content/scripts/marketplace-sprint-1/SHP-HOME-01.md",
+        "content/scripts/marketplace-sprint-1/SHP-TECH-01.md",
+        "content/scripts/marketplace-sprint-1/LAZ-HOME-01.md",
+        "content/scripts/marketplace-sprint-1/INDEX.md"
+      ],
+      "sources": [
+        "https://shopee.vn",
+        "https://lazada.vn"
+      ],
+      "risks": [
+        "Campaigns remain blocked from publication until human operator inputs authenticated custom tracking URLs"
+      ],
+      "questions_for_lead": [
+        "Should we produce graphic slides/thumbnails for SHP-HOME-01 or SHP-TECH-01 first?"
+      ],
+      "next_task_suggestions": [
+        "AFF-20261018-008: Review and package Revenue Content Sprint 1"
+      ]
+    },
+    {
       "task_id": "AFF-20261018-008",
       "executive_summary": "Prepared 15 marketplace short-form scripts, 5 captions, and a 7-day production schedule. All links remain placeholders pending user-provided affiliate URLs.",
       "recommended_decision": "TEST",
-      "confidence": 0.9,
-      "artifacts": [
-        "content/scripts/20261018-marketplace-sprint-1.md",
-        "content/posts/20261018-marketplace-captions.md",
-        "docs/CONTENT_SPRINT_1_SCHEDULE.md"
-      ],
+      "confidence": 0.85,
+      "artifacts": [],
       "gates": [
         "No public posting",
         "No ads",
@@ -577,6 +662,47 @@
       "next_task_suggestions": [
         "Import a real Shopee product link for SHP-HOME-01",
         "Confirm Lazada affiliate status before activating LAZ-HOME-01"
+      ],
+      "key_findings": [
+        "Deliverables generated according to task requirements."
+      ],
+      "business_metrics": {},
+      "sources": [],
+      "risks": [],
+      "questions_for_lead": [
+        "Lead review requested to approve next steps."
+      ]
+    },
+    {
+      "task_id": "AFF-20261018-009",
+      "executive_summary": "Mapped 3 marketplace campaigns to centralized redirection slugs in config/links.json with tracking parameters. In accordance with safety boundaries forbidding automated credential capture or session scraping, live custom tracking generation remains safely gated for the human operator via the Shopee/Lazada Affiliate Portals.",
+      "key_findings": [
+        "Slugs shopee-home-01, shopee-tech-01, and lazada-home-01 added to config/links.json",
+        "All destination URLs point to verified public listings with active stock and ratings",
+        "Redirection route /go/<slug> handles subid tracking and local click logging",
+        "Zero secrets, credentials, or tax data stored"
+      ],
+      "recommended_decision": "TEST",
+      "confidence": 0.85,
+      "business_metrics": {
+        "total_marketplace_slugs": 3,
+        "active_campaign_drafts": 3,
+        "verified_payout_gates": "Wise, PayPal, PartnerStack active; Shopee/Lazada portal awaiting operator link input"
+      },
+      "artifacts": [],
+      "sources": [
+        "https://shopee.vn",
+        "https://lazada.vn"
+      ],
+      "risks": [
+        "Campaigns remain blocked from publication until human operator inputs authenticated custom tracking URLs"
+      ],
+      "questions_for_lead": [
+        "Approve portal link generation handoff for human operator using docs/AFFILIATE_ONBOARDING_GUIDE.md?"
+      ],
+      "next_task_suggestions": [
+        "Human operator generates Shopee/Lazada custom tracking links",
+        "Replace needs_verification in config/links.json"
       ]
     }
   ]

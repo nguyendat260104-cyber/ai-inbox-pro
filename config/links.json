@@ -72,6 +72,42 @@
       "clicks_total": 0,
       "last_clicked_at": null,
       "notes": "Writing assistant offer. $20 sale / $0.20 free install via CJ."
+    },
+    "shopee-home-01": {
+      "name": "Shopee Kitchen Organizer (HOMELOVE)",
+      "category": "Home Organization",
+      "destination_url": "https://shopee.vn/K%E1%BB%87-%C4%91%E1%BB%B1ng-%C4%91%E1%BB%93-r%E1%BB%ADa-ch%C3%A9n-b%C3%A1t-HOMELOVE-gi%C3%A1-%C4%91%E1%BB%83-gi%E1%BA%BB-r%E1%BB%ADa-ch%C3%A9n-tr%C3%AAn-b%E1%BB%93n-c%C3%B3-khay-h%E1%BB%A9ng-n%C6%B0%E1%BB%9Bc-nghi%C3%AAng-th%C3%A9p-carbon-ph%E1%BB%A7-s%C6%A1n-t%C4%A9nh-%C4%91i%E1%BB%87n-i.1143179738.25570553623",
+      "affiliate_param": "aff_id",
+      "affiliate_id": "needs_verification",
+      "subid_param": "subid",
+      "target_subid": "shopee_home_01_organic_v1",
+      "clicks_total": 0,
+      "last_clicked_at": null,
+      "notes": "Shopee home organizer. Awaiting custom link generation in Shopee Affiliate Portal."
+    },
+    "shopee-tech-01": {
+      "name": "Shopee Mini Milk Frother",
+      "category": "Mobile & Desk Accessories",
+      "destination_url": "https://shopee.vn/M%C3%A1y-%C4%90%C3%A1nh-Tr%E1%BB%A9ng-Mini-C%E1%BA%A7m-Tay-Khu%E1%BA%A5y-Pha-Cafe-T%E1%BA%A1o-B%E1%BB%8Dt-M%E1%BB%9Bi-Nh%E1%BA%A5t-S%E1%BB%AD-D%E1%BB%A5ng-Pin-Ti%E1%BB%87n-L%E1%BB%A3i-Trong-Nh%C3%A0-B%E1%BA%BFp-88065-HO%C3%80NG-XU%C3%82N-VP88-i.224766996.6828642403",
+      "affiliate_param": "aff_id",
+      "affiliate_id": "needs_verification",
+      "subid_param": "subid",
+      "target_subid": "shopee_tech_01_organic_v1",
+      "clicks_total": 0,
+      "last_clicked_at": null,
+      "notes": "Shopee mini frother. Awaiting custom link generation in Shopee Affiliate Portal."
+    },
+    "lazada-home-01": {
+      "name": "Lazada Mop Refill (10-pack)",
+      "category": "Home Cleaning",
+      "destination_url": "https://www.lazada.vn/products/combo-10-mieng-bong-lau-thay-the-cua-cay-lau-nha-tu-vat-re-lau-nha-hinh-chu-nhat-12x325cm-i2292921491.html",
+      "affiliate_param": "aff_id",
+      "affiliate_id": "needs_verification",
+      "subid_param": "subid",
+      "target_subid": "lazada_home_01_organic_v1",
+      "clicks_total": 0,
+      "last_clicked_at": null,
+      "notes": "Lazada mop refill combo. Awaiting account confirmation and custom link generation."
     }
   }
 }
