@@ -47,6 +47,7 @@ from serve_dashboard import run_server
 from readiness import calculate_readiness, apply_readiness_gate
 from revenue_activation import validate_campaign_activation, campaign_preparation_status
 from lead_review import rank_campaigns
+from provider_api import validate_provider_metadata, validate_api_campaign, build_link_request, apply_link_response
 
 def test_13_revenue_activation_gate():
     print("▶ Running Test 13: Revenue Activation Gate...")
@@ -95,6 +96,21 @@ def test_15_daily_lead_review_ranking():
     assert ranked[0]["observed_conversion_rate"] == 2 / 60
     assert ranked[1]["lead_review_gate"] == "BLOCKED"
     print("  ✅ Daily review prioritizes verified links and observed evidence without inventing commission.")
+    return True
+
+def test_16_provider_api_authorization_gate():
+    print("▶ Running Test 16: Provider API Authorization Gate...")
+    provider = {"platform": "shopee", "authorization_state": "user_authorization_required", "api_base_url": None, "credential_ref": None}
+    assert not validate_provider_metadata(provider).ready
+    campaign = {"campaign_id": "SHP-HOME-01", "product_id": "p1", "affiliate_url": "https://shopee.vn/x", "tracking_id": "t1"}
+    assert not validate_api_campaign(campaign, provider).ready
+    ready_provider = {**provider, "authorization_state": "api_ready", "api_base_url": "https://api.example.invalid"}
+    assert validate_api_campaign(campaign, ready_provider).ready
+    request = build_link_request(campaign)
+    assert request["tracking_id"] == "t1" and "token" not in request
+    updated = apply_link_response(campaign, {"affiliate_url": "https://shopee.vn/aff/x", "product_id": "p1"})
+    assert updated["link_source"] == "official_api"
+    print("  ✅ Unauthorized providers are blocked and API payloads remain non-secret.")
     return True
 
 # 1. Create Task Test
@@ -393,7 +409,8 @@ def main():
         ("12. Affiliate Readiness Gate", test_12_affiliate_readiness_gate),
         ("13. Revenue Activation Gate", test_13_revenue_activation_gate),
         ("14. Campaign Preparation", test_14_campaign_preparation_allows_pending_payout),
-        ("15. Daily Lead Review", test_15_daily_lead_review_ranking)
+        ("15. Daily Lead Review", test_15_daily_lead_review_ranking),
+        ("16. Provider API Gate", test_16_provider_api_authorization_gate)
     ]
 
     all_passed = True
@@ -412,7 +429,7 @@ def main():
     print("----------------------------------------------")
 
     if all_passed:
-        print("🎉 ALL 15 TESTS PASSED!")
+        print("🎉 ALL 16 TESTS PASSED!")
         sys.exit(0)
     else:
         print("💥 SOME TESTS FAILED.")

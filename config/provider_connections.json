@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0",
+  "policy": "Metadata only. Never store API keys, OAuth tokens, cookies, passwords, bank or tax data.",
+  "providers": [
+    {
+      "platform": "shopee",
+      "api_name": "Shopee Open Platform",
+      "docs_url": "https://open.shopee.com/",
+      "api_base_url": null,
+      "authorization_state": "user_authorization_required",
+      "credential_ref": null,
+      "scopes": ["affiliate_link_generation", "affiliate_metrics_read"],
+      "last_verified_at": null,
+      "notes": "Requires a user-authorized partner/app setup; portal fallback is blocked when anti-bot/CAPTCHA is encountered."
+    },
+    {
+      "platform": "lazada",
+      "api_name": "Lazada Open Platform",
+      "docs_url": "https://open.lazada.com/",
+      "api_base_url": null,
+      "authorization_state": "user_authorization_required",
+      "credential_ref": null,
+      "scopes": ["affiliate_link_generation", "affiliate_metrics_read"],
+      "last_verified_at": null,
+      "notes": "Requires a user-authorized app setup; no login scraping or CAPTCHA automation."
+    }
+  ]
+}
