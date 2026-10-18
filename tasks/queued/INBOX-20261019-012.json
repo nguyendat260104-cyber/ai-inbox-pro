@@ -1,0 +1,31 @@
+{
+  "id": "INBOX-20261019-012",
+  "type": "core_engine",
+  "executor": "codex",
+  "goal": "Advanced Conversational State Machine & Multi-Turn Slot Filling Engine",
+  "context": "Track sales negotiation slots (product_sku, size, color, quantity, shipping_address, phone_number) across multiple chat turns. When customer provides partial info, bot intelligently probes for the next missing slot before triggering human handoff when ready to close.",
+  "requirements": [
+    "Build MultiTurnSlotTracker persisting state in conversation context",
+    "Extract and validate size, color, quantity, and address slots from Vietnamese chat",
+    "Guide SalesAgent to ask specifically for the next unfilled required slot",
+    "Trigger HOT handoff once core order slots are fulfilled"
+  ],
+  "deliverables": [
+    "ai_inbox/engine/slot_tracker.py",
+    "ai_inbox/engine/sales_agent.py",
+    "tests/test_slot_tracker.py"
+  ],
+  "acceptance_criteria": [
+    "Validates 3-turn and 4-turn multi-turn ordering flow where bot systematically collects missing slots and triggers order confirmation handoff"
+  ],
+  "priority": "critical",
+  "dependencies": [],
+  "suggested_branch": "task/INBOX-20261019-012",
+  "status": "queued",
+  "created_at": "2026-10-18T14:29:16.646122+00:00",
+  "started_at": null,
+  "completed_at": null,
+  "result": null,
+  "artifacts": [],
+  "metrics": {}
+}

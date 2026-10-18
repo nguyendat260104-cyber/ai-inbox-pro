@@ -1,0 +1,31 @@
+{
+  "id": "INBOX-20261019-013",
+  "type": "core_security",
+  "executor": "codex",
+  "goal": "Webhook Signature Security, Rate Limiter & Event Deduplication Middleware",
+  "context": "Protect webhooks and widget ingestion against replay attacks, duplicate delivery spikes, and flood attempts from malicious or unstable external network retries.",
+  "requirements": [
+    "Build LRU event deduplication cache backed by SQLite activity logs",
+    "Implement token-bucket rate limiter per IP / workspace",
+    "Enforce HMAC-SHA256 signature verification helper for Meta and Zalo payloads",
+    "Wrap HTTP handler endpoints in ai_inbox/api/server.py cleanly"
+  ],
+  "deliverables": [
+    "ai_inbox/core/middleware.py",
+    "ai_inbox/api/server.py",
+    "tests/test_middleware.py"
+  ],
+  "acceptance_criteria": [
+    "Deduplicates duplicate webhook message IDs within 10-minute window, blocks flood rate limit violations with 429 Too Many Requests"
+  ],
+  "priority": "high",
+  "dependencies": [],
+  "suggested_branch": "task/INBOX-20261019-013",
+  "status": "queued",
+  "created_at": "2026-10-18T14:29:23.061914+00:00",
+  "started_at": null,
+  "completed_at": null,
+  "result": null,
+  "artifacts": [],
+  "metrics": {}
+}

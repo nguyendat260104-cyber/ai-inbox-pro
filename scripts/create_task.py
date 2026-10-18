@@ -146,6 +146,7 @@ def main():
     parser.add_argument("--acceptance-criteria", nargs="*", help="List of acceptance criteria")
     parser.add_argument("--dependencies", nargs="*", help="List of dependent task IDs")
     parser.add_argument("--template", help="Path to template JSON file")
+    parser.add_argument("--executor", default="antigravity", help="Target executor ('codex' or 'antigravity')")
 
     args = parser.parse_args()
 
@@ -160,7 +161,8 @@ def main():
             acceptance_criteria=args.acceptance_criteria,
             priority=args.priority,
             dependencies=args.dependencies,
-            template_path=args.template
+            template_path=args.template,
+            executor=args.executor
         )
         print(f"✅ Created task: {path.name} in {path.parent}")
     except Exception as e:

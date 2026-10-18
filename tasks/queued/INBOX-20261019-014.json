@@ -1,0 +1,31 @@
+{
+  "id": "INBOX-20261019-014",
+  "type": "core_security",
+  "executor": "codex",
+  "goal": "Multi-Tenant Role-Based Access Control (RBAC) & API Token Authentication",
+  "context": "Enforce strict cryptographic workspace tenant isolation and staff permissions (admin, manager, sales_rep) to prevent cross-workspace data leakage and unauthorized catalog or billing mutations.",
+  "requirements": [
+    "Build token-based session authenticator (Bearer token & secure HTTP headers)",
+    "Implement RBAC decorator or enforcement checks for dashboard endpoints",
+    "Isolate product CRUD, billing settings, and lead exports to authorized roles",
+    "Enforce 403 Forbidden on tenant cross-access attempts"
+  ],
+  "deliverables": [
+    "ai_inbox/core/auth.py",
+    "ai_inbox/api/server.py",
+    "tests/test_auth_rbac.py"
+  ],
+  "acceptance_criteria": [
+    "Rejects unauthorized tenant access with 403 Forbidden and permits authorized staff operations with valid token"
+  ],
+  "priority": "high",
+  "dependencies": [],
+  "suggested_branch": "task/INBOX-20261019-014",
+  "status": "queued",
+  "created_at": "2026-10-18T14:29:28.697069+00:00",
+  "started_at": null,
+  "completed_at": null,
+  "result": null,
+  "artifacts": [],
+  "metrics": {}
+}
