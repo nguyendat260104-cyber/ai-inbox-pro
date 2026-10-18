@@ -46,6 +46,7 @@ from daily_report import generate_daily_report
 from serve_dashboard import run_server
 from readiness import calculate_readiness, apply_readiness_gate
 from revenue_activation import validate_campaign_activation, campaign_preparation_status
+from lead_review import rank_campaigns
 
 def test_13_revenue_activation_gate():
     print("▶ Running Test 13: Revenue Activation Gate...")
@@ -77,6 +78,22 @@ def test_14_campaign_preparation_allows_pending_payout():
     assert not missing["prep_ready"]
     assert "needs_user_affiliate_link" in missing["blockers"]
     print("  ✅ Preparation is allowed with payout pending, while missing user links remain blocked.")
+    return True
+
+def test_15_daily_lead_review_ranking():
+    print("▶ Running Test 15: Daily Lead Review Ranking...")
+    ranked = rank_campaigns(
+        [
+            {"campaign_id": "A", "platform": "shopee", "affiliate_url": "https://shopee.vn/x", "metrics": {"clicks": 60, "orders": 2}},
+            {"campaign_id": "B", "platform": "lazada", "affiliate_url": None, "metrics": {"clicks": 0, "orders": 0}},
+        ],
+        [{"platform": "shopee", "status": "approved"}, {"platform": "lazada", "status": "user_confirmation_required"}],
+    )
+    assert ranked[0]["campaign_id"] == "A"
+    assert ranked[0]["lead_review_gate"] == "TEST_WITH_EVIDENCE"
+    assert ranked[0]["observed_conversion_rate"] == 2 / 60
+    assert ranked[1]["lead_review_gate"] == "PREP_ONLY"
+    print("  ✅ Daily review prioritizes verified links and observed evidence without inventing commission.")
     return True
 
 # 1. Create Task Test
@@ -374,7 +391,8 @@ def main():
         ("11. Daily Report Generation", test_11_daily_report_generation),
         ("12. Affiliate Readiness Gate", test_12_affiliate_readiness_gate),
         ("13. Revenue Activation Gate", test_13_revenue_activation_gate),
-        ("14. Campaign Preparation", test_14_campaign_preparation_allows_pending_payout)
+        ("14. Campaign Preparation", test_14_campaign_preparation_allows_pending_payout),
+        ("15. Daily Lead Review", test_15_daily_lead_review_ranking)
     ]
 
     all_passed = True
@@ -393,7 +411,7 @@ def main():
     print("----------------------------------------------")
 
     if all_passed:
-        print("🎉 ALL 14 TESTS PASSED!")
+        print("🎉 ALL 15 TESTS PASSED!")
         sys.exit(0)
     else:
         print("💥 SOME TESTS FAILED.")
