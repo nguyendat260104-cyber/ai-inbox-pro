@@ -1,0 +1,30 @@
+{
+  "id": "INBOX-20261019-009",
+  "type": "analytics",
+  "executor": "antigravity",
+  "goal": "Staff Performance & Commission Analytics Dashboard",
+  "context": "Provide shop owners visibility into closing ratios, revenue per sales rep, and missed inquiries",
+  "requirements": [
+    "Aggregate closed won deals and revenue per staff ID",
+    "Calculate closing rate and average response time per agent",
+    "Add Staff Leaderboard tab in Admin Command Center"
+  ],
+  "deliverables": [
+    "ai_inbox/api/server.py",
+    "ai_inbox/web/app.js",
+    "ai_inbox/web/index.html"
+  ],
+  "acceptance_criteria": [
+    "Dashboard displays staff leaderboard with deals closed, revenue generated, and closing percentage"
+  ],
+  "priority": "medium",
+  "dependencies": [],
+  "suggested_branch": "task/INBOX-20261019-009",
+  "status": "queued",
+  "created_at": "2026-10-18T14:22:23.220902+00:00",
+  "started_at": null,
+  "completed_at": null,
+  "result": null,
+  "artifacts": [],
+  "metrics": {}
+}

@@ -1,0 +1,29 @@
+{
+  "id": "INBOX-20261019-008",
+  "type": "lead_management",
+  "executor": "antigravity",
+  "goal": "Automated Follow-up & Re-engagement Scheduler Engine",
+  "context": "Automatically identify stalled leads and queue gentle re-engagement follow-up reminders",
+  "requirements": [
+    "Query stalled conversations >24h without customer response",
+    "Generate personalized re-engagement suggestions",
+    "API endpoint to trigger follow-up batch"
+  ],
+  "deliverables": [
+    "ai_inbox/engine/followup_scheduler.py",
+    "ai_inbox/api/server.py"
+  ],
+  "acceptance_criteria": [
+    "Identifies idle leads and dispatches or queues follow-up tasks into activity_logs"
+  ],
+  "priority": "high",
+  "dependencies": [],
+  "suggested_branch": "task/INBOX-20261019-008",
+  "status": "queued",
+  "created_at": "2026-10-18T14:22:19.126044+00:00",
+  "started_at": null,
+  "completed_at": null,
+  "result": null,
+  "artifacts": [],
+  "metrics": {}
+}

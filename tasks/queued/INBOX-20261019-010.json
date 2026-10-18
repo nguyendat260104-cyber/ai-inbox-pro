@@ -1,0 +1,30 @@
+{
+  "id": "INBOX-20261019-010",
+  "type": "marketing_asset",
+  "executor": "antigravity",
+  "goal": "B2B SaaS Landing Page & Demo Showcase for Client Acquisition",
+  "context": "Modern, high-converting Vietnamese landing page to showcase and sell the AI Inbox platform to shop owners & agencies",
+  "requirements": [
+    "Design clean Vietnamese B2B hero section with value proposition",
+    "Interactive demo preview of 5-step Sales AI vs. normal chatbots",
+    "Pricing table with VietQR 1-click subscription registration",
+    "Mobile responsive styling"
+  ],
+  "deliverables": [
+    "ai_inbox/web/landing.html",
+    "ai_inbox/web/landing.css"
+  ],
+  "acceptance_criteria": [
+    "Renderable standalone landing page with interactive demo and registration call-to-action"
+  ],
+  "priority": "high",
+  "dependencies": [],
+  "suggested_branch": "task/INBOX-20261019-010",
+  "status": "queued",
+  "created_at": "2026-10-18T14:22:27.885799+00:00",
+  "started_at": null,
+  "completed_at": null,
+  "result": null,
+  "artifacts": [],
+  "metrics": {}
+}
