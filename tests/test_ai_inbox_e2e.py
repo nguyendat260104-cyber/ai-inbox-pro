@@ -408,8 +408,34 @@ def run_e2e():
         assert "7788" in zalo_conv["customer_name"]
         print("  ✅ Zalo OA challenge verified and customer chat grounded reply delivered.")
 
+        # Test 17: Automated Follow-up & Re-engagement Scheduler
+        print("▶ Running Test 17: Follow-up & Re-engagement Scheduler...")
+        # Query stalled leads (with hours=0 so recent leads qualify)
+        stalled_res = get_json("/api/dashboard/followups/stalled?workspace_id=ws-01&hours=0")
+        assert stalled_res.get("count", 0) >= 1, "Should identify at least 1 open lead for follow-up"
+        sample_item = stalled_res["stalled_leads"][0]
+        assert "suggested_followup" in sample_item
+        assert len(sample_item["suggested_followup"]) > 20
+        assert "tư vấn" in sample_item["suggested_followup"] or "Dạ" in sample_item["suggested_followup"]
+
+        # Run follow-up batch
+        run_res = post_json("/api/dashboard/followups/run", {
+            "workspace_id": "ws-01",
+            "hours": 0,
+            "dry_run": False
+        })
+        assert run_res.get("processed_count", 0) >= 1
+        
+        # Verify persistence in activity_logs
+        conn = db_module.get_connection()
+        cur = conn.cursor()
+        cur.execute("SELECT COUNT(*) AS cnt FROM activity_logs WHERE event_type = 'lead_followup_reminder'")
+        assert cur.fetchone()["cnt"] >= 1, "Must record follow-up events in audit log"
+        conn.close()
+        print(f"  ✅ Identified {stalled_res['count']} stalled lead(s) and queued personalized follow-up reminders.")
+
         print("\n----------------------------------------------")
-        print("🎉 ALL 16 E2E INTEGRATION TESTS PASSED (100%)!")
+        print("🎉 ALL 17 E2E INTEGRATION TESTS PASSED (100%)!")
         print("----------------------------------------------")
 
     finally:

@@ -26,6 +26,7 @@ from ai_inbox.engine.sales_agent import SalesAgent
 from ai_inbox.adapters.facebook import FacebookAdapter
 from ai_inbox.adapters.zalo import ZaloAdapter
 from ai_inbox.api.billing import register_workspace, get_workspace_billing_info, PLANS
+from ai_inbox.engine.followup_scheduler import FollowupScheduler
 
 class InboxRequestHandler(BaseHTTPRequestHandler):
     VALID_LEAD_STAGES = {
@@ -130,6 +131,17 @@ class InboxRequestHandler(BaseHTTPRequestHandler):
         # Subscription Plans List
         if path == "/api/billing/plans":
             return self.send_json(200, {"plans": list(PLANS.values())})
+
+        # Follow-up Stalled Leads List
+        if path == "/api/dashboard/followups/stalled":
+            workspace_id = qs.get("workspace_id", ["ws-01"])[0]
+            try:
+                hours = float(qs.get("hours", ["24"])[0])
+            except ValueError:
+                return self.send_json(400, {"error": "Invalid hours parameter"})
+            scheduler = FollowupScheduler()
+            stalled = scheduler.find_stalled_leads(workspace_id=workspace_id, threshold_hours=hours)
+            return self.send_json(200, {"stalled_leads": stalled, "count": len(stalled), "threshold_hours": hours})
 
         # 1. API: Widget Message History
         if path == "/api/widget/history":
@@ -422,6 +434,15 @@ class InboxRequestHandler(BaseHTTPRequestHandler):
                 err_msg = str(ve)
                 status_code = 409 if "already taken" in err_msg else 400
                 return self.send_json(status_code, {"error": err_msg})
+
+        # Follow-up Batch Processing Route
+        if path == "/api/dashboard/followups/run":
+            workspace_id = body.get("workspace_id", "ws-01")
+            hours = float(body.get("hours", 24))
+            dry_run = bool(body.get("dry_run", False))
+            scheduler = FollowupScheduler()
+            result = scheduler.process_followups(workspace_id=workspace_id, threshold_hours=hours, dry_run=dry_run)
+            return self.send_json(200, result)
 
         # 1. API: Widget Customer Message
         if path == "/api/widget/message":
