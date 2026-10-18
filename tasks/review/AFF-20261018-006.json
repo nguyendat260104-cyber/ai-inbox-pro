@@ -1,0 +1,23 @@
+{
+  "id": "AFF-20261018-006",
+  "type": "link_import",
+  "executor": "antigravity",
+  "goal": "Select public product sources and hand off custom tracking-link generation.",
+  "context": "Public source URLs are not affiliate links. Generate custom links only in the logged-in portal; never scrape sessions or invent commission.",
+  "requirements": ["Select 3-5 valid HTTPS source URLs", "Document selection reason", "Preserve tracking IDs", "Mark payout status separately", "Keep campaigns blocked until custom links exist"],
+  "deliverables": ["config/product_sources.json", "config/campaigns.json", "results/AFF-20261018-006-review.json"],
+  "acceptance_criteria": ["All source URLs are valid HTTPS URLs", "Each source has a reason and campaign mapping", "No credentials, tax data, commission or fake affiliate link stored", "Custom tracking generation remains an explicit portal handoff"],
+  "priority": "high",
+  "dependencies": ["AFF-20261018-002"],
+  "suggested_branch": "task/AFF-20261018-006",
+  "status": "review",
+  "created_at": "2026-10-18T00:00:00+00:00",
+  "started_at": "2026-10-18T00:00:00+00:00",
+  "completed_at": null,
+  "result": {"status": "partial_handoff", "blocker": "needs_portal_tracking_generation"},
+  "artifacts": ["config/product_sources.json", "config/campaigns.json"],
+  "metrics": {},
+  "review_status": "partial_handoff",
+  "blockers": ["Custom affiliate tracking URLs must be generated in the authenticated Shopee/Lazada portal."],
+  "next_action": "Use the logged-in affiliate portal to convert each exact product source into a tracking link and record product ID/commission shown by the portal."
+}

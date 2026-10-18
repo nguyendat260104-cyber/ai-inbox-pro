@@ -84,15 +84,16 @@ def test_15_daily_lead_review_ranking():
     print("▶ Running Test 15: Daily Lead Review Ranking...")
     ranked = rank_campaigns(
         [
-            {"campaign_id": "A", "platform": "shopee", "affiliate_url": "https://shopee.vn/x", "metrics": {"clicks": 60, "orders": 2}},
+            {"campaign_id": "A", "platform": "shopee", "affiliate_url": "https://shopee.vn/x", "commission_source": "portal_pending", "demand_evidence_points": 20, "purchase_ease_points": 15, "content_fit_points": 15, "compliance_points": 10, "metrics": {"clicks": 60, "orders": 2}},
             {"campaign_id": "B", "platform": "lazada", "affiliate_url": None, "metrics": {"clicks": 0, "orders": 0}},
         ],
         [{"platform": "shopee", "status": "approved"}, {"platform": "lazada", "status": "user_confirmation_required"}],
     )
     assert ranked[0]["campaign_id"] == "A"
     assert ranked[0]["lead_review_gate"] == "TEST_WITH_EVIDENCE"
+    assert ranked[0]["lead_review_score"] >= 60
     assert ranked[0]["observed_conversion_rate"] == 2 / 60
-    assert ranked[1]["lead_review_gate"] == "PREP_ONLY"
+    assert ranked[1]["lead_review_gate"] == "BLOCKED"
     print("  ✅ Daily review prioritizes verified links and observed evidence without inventing commission.")
     return True
 

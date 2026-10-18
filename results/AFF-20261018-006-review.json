@@ -1,0 +1,13 @@
+{
+  "task_id": "AFF-20261018-006",
+  "executive_summary": "Selected five public Shopee/Lazada source URLs for low-ticket, demonstrable products. They are ordinary product/discovery URLs, not affiliate links; portal tracking generation remains the only blocker.",
+  "recommended_decision": "TEST",
+  "confidence": 0.86,
+  "artifacts": ["config/product_sources.json", "config/campaigns.json"],
+  "sources": [
+    "https://shopee.vn/list/%C4%91%E1%BB%93%20gia%20d%E1%BB%A5ng/trong%20nh%C3%A0",
+    "https://www.lazada.vn/products/combo-10-mieng-bong-lau-thay-the-cua-cay-lau-nha-tu-vat-re-lau-nha-hinh-chu-nhat-12x325cm-i2292921491.html"
+  ],
+  "risks": ["Prices, availability, commission and product eligibility can change", "Lazada catalogue source requires exact SKU selection before tracking"],
+  "questions_for_lead": ["Approve generating custom links in the logged-in affiliate portal for these source URLs?"]
+}

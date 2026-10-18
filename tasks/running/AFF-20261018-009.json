@@ -1,0 +1,37 @@
+{
+  "id": "AFF-20261018-009",
+  "type": "link_generation",
+  "executor": "antigravity",
+  "goal": "Use the authenticated Shopee/Lazada affiliate portals to convert approved public source URLs into custom tracking links.",
+  "context": "The source manifest contains public URLs only. User has authorized portal management, but credentials and tax data must never be stored or logged.",
+  "requirements": [
+    "Open each source in the correct affiliate portal",
+    "Generate custom link with existing tracking ID",
+    "Record only non-secret URL/product ID/commission evidence",
+    "Leave payout status separate",
+    "Do not publish content"
+  ],
+  "deliverables": [
+    "config/campaigns.json",
+    "config/links.json",
+    "results/AFF-20261018-009-review.json"
+  ],
+  "acceptance_criteria": [
+    "Every active candidate has a valid HTTPS affiliate URL",
+    "Commission field is sourced or marked needs_verification",
+    "Missing/blocked candidates remain blocked",
+    "No credentials, tax data or secrets committed"
+  ],
+  "priority": "high",
+  "dependencies": [
+    "AFF-20261018-006"
+  ],
+  "suggested_branch": "task/AFF-20261018-009",
+  "status": "running",
+  "created_at": "2026-10-18T00:00:00+00:00",
+  "started_at": "2026-10-18T03:59:34.514687+00:00",
+  "completed_at": null,
+  "result": null,
+  "artifacts": [],
+  "metrics": {}
+}
