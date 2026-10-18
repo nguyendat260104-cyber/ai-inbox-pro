@@ -20,28 +20,76 @@ DEFAULT_ACCOUNT_NO = os.getenv("VIETQR_ACCOUNT_NO", "0988888888")
 DEFAULT_ACCOUNT_NAME = os.getenv("VIETQR_ACCOUNT_NAME", "AI INBOX PLATFORM VIET NAM")
 
 PLANS: Dict[str, Dict[str, Any]] = {
+    "trial": {
+        "code": "trial",
+        "name": "Dùng Thử Miễn Phí 14 Ngày (Trial)",
+        "price_vnd": 0,
+        "monthly_conv_quota": 300,
+        "max_staff_seats": 2,
+        "channels": ["web_widget", "facebook_page", "zalo_oa", "tiktok_shop", "shopee", "lazada"],
+        "description": "Trải nghiệm đầy đủ tính năng AI Inbox và kết nối 6 kênh miễn phí trong 14 ngày, không cần thẻ tín dụng."
+    },
+    "facebook_only": {
+        "code": "facebook_only",
+        "name": "Chatbot Chuyên Facebook & Instagram",
+        "price_vnd": 199000,
+        "monthly_conv_quota": 1000,
+        "max_staff_seats": 2,
+        "channels": ["facebook_page"],
+        "description": "Tối ưu cho shop bán hàng qua Fanpage & Instagram: tự rep tin nhắn, ẩn bình luận chống cướp khách."
+    },
+    "zalo_only": {
+        "code": "zalo_only",
+        "name": "Chatbot Chuyên Zalo OA",
+        "price_vnd": 199000,
+        "monthly_conv_quota": 1000,
+        "max_staff_seats": 2,
+        "channels": ["zalo_oa"],
+        "description": "Dành cho shop bán hàng và chăm sóc khách hàng qua Zalo Official Account chính thức."
+    },
+    "ecommerce_only": {
+        "code": "ecommerce_only",
+        "name": "Chatbot Sàn TMĐT (TikTok + Shopee + Lazada)",
+        "price_vnd": 299000,
+        "monthly_conv_quota": 2000,
+        "max_staff_seats": 3,
+        "channels": ["tiktok_shop", "shopee", "lazada"],
+        "description": "Duy trì tỷ lệ phản hồi chat 100%, tự động tư vấn giỏ hàng livestream và chốt đơn sàn TMĐT."
+    },
+    "web_only": {
+        "code": "web_only",
+        "name": "Chatbot Website Livechat D2C",
+        "price_vnd": 199000,
+        "monthly_conv_quota": 1000,
+        "max_staff_seats": 2,
+        "channels": ["web_widget"],
+        "description": "Nhúng 1 dòng mã vào website WordPress, Haravan, Shopify. Tư vấn size và thu thập SĐT tự động."
+    },
     "starter": {
         "code": "starter",
-        "name": "Gói Khởi Nghiệp (Starter)",
+        "name": "Gói Khởi Nghiệp (Starter Đa Kênh)",
         "price_vnd": 299000,
         "monthly_conv_quota": 500,
         "max_staff_seats": 2,
+        "channels": ["web_widget", "facebook_page"],
         "description": "Dành cho shop online nhỏ, 1-2 nhân viên xử lý đến 500 khách/tháng."
     },
     "growth": {
         "code": "growth",
-        "name": "Gói Tăng Trưởng (Growth)",
+        "name": "Gói Tăng Trưởng (Growth Đa Kênh)",
         "price_vnd": 599000,
         "monthly_conv_quota": 2000,
         "max_staff_seats": 5,
+        "channels": ["web_widget", "facebook_page", "zalo_oa", "tiktok_shop", "shopee", "lazada"],
         "description": "Dành cho shop vừa chạy ads FB & Web, 5 nhân viên, đến 2.000 khách/tháng."
     },
     "pro": {
         "code": "pro",
-        "name": "Gói Chuyên Nghiệp (Pro)",
+        "name": "Gói Chuyên Nghiệp (Pro Toàn Diện)",
         "price_vnd": 999000,
         "monthly_conv_quota": 10000,
         "max_staff_seats": 15,
+        "channels": ["web_widget", "facebook_page", "zalo_oa", "tiktok_shop", "shopee", "lazada"],
         "description": "Dành cho Brand / Agency nhiều nhân sự, hỗ trợ đa kênh toàn diện."
     }
 }

@@ -166,7 +166,12 @@ class InboxRequestHandler(BaseHTTPRequestHandler):
 
         # Subscription Plans List
         if path == "/api/billing/plans":
-            return self.send_json(200, {"plans": list(PLANS.values())})
+            include_all = qs.get("all", ["false"])[0].lower() in ("true", "1")
+            if include_all:
+                return self.send_json(200, {"plans": list(PLANS.values())})
+            core_codes = ["starter", "growth", "pro"]
+            core_plans = [PLANS[c] for c in core_codes if c in PLANS]
+            return self.send_json(200, {"plans": core_plans, "modular_plans": list(PLANS.values())})
 
         # Follow-up Stalled Leads List
         if path == "/api/dashboard/followups/stalled":

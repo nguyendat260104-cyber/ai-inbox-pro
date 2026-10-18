@@ -788,14 +788,14 @@ async function loadStaffMetrics() {
     tbody.innerHTML = leaderboard.map((s, idx) => `
       <tr style="border-bottom:1px solid var(--border-light); transition:background 0.15s;">
         <td style="padding:16px 18px;">
-          <div style="font-weight:700; font-size:15px; color:#0f172a;">${idx === 0 ? "🥇 " : (idx === 1 ? "🥈 " : (idx === 2 ? "🥉 " : ""))}${escapeHtml(s.name)}</div>
+          <div style="font-weight:700; font-size:15px; color:var(--text-main);">${idx === 0 ? "🥇 " : (idx === 1 ? "🥈 " : (idx === 2 ? "🥉 " : ""))}${escapeHtml(s.name)}</div>
           <div style="font-size:13px; color:var(--text-muted); margin-top:2px;">${escapeHtml(s.email)}</div>
         </td>
-        <td style="padding:16px 18px;"><span class="badge" style="background:#e0f2fe; color:#0369a1; font-weight:700; padding:4px 10px; border-radius:6px; font-size:12.5px;">${escapeHtml(s.role)}</span></td>
-        <td style="padding:16px 18px; text-align:center; font-weight:700; font-size:14.5px;">${s.assigned_leads}</td>
+        <td style="padding:16px 18px;"><span class="badge" style="background:var(--primary-light); color:var(--primary); font-weight:700; padding:4px 10px; border-radius:6px; font-size:12.5px;">${escapeHtml(s.role)}</span></td>
+        <td style="padding:16px 18px; text-align:center; font-weight:700; font-size:14.5px; color:var(--text-main);">${s.assigned_leads}</td>
         <td style="padding:16px 18px; text-align:center; color:#16a34a; font-weight:800; font-size:15px;">${s.won_deals}</td>
-        <td style="padding:16px 18px; text-align:center; font-weight:700; font-size:14.5px;">${s.closing_rate_pct}%</td>
-        <td style="padding:16px 18px; text-align:right; font-weight:800; font-size:15px; color:#0f172a;">${(s.won_revenue_vnd || 0).toLocaleString()}đ</td>
+        <td style="padding:16px 18px; text-align:center; font-weight:700; font-size:14.5px; color:var(--text-main);">${s.closing_rate_pct}%</td>
+        <td style="padding:16px 18px; text-align:right; font-weight:800; font-size:15px; color:var(--text-main);">${(s.won_revenue_vnd || 0).toLocaleString()}đ</td>
         <td style="padding:16px 18px; text-align:right; font-weight:800; font-size:15px; color:var(--primary);">${(s.estimated_commission_vnd || 0).toLocaleString()}đ</td>
       </tr>
     `).join("");
@@ -804,6 +804,23 @@ async function loadStaffMetrics() {
     tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:20px; color:#ef4444;">Lỗi khi tải bảng xếp hạng nhân viên.</td></tr>';
   }
 }
+
+function toggleAdminTheme() {
+  const current = document.documentElement.getAttribute("data-theme") || "light";
+  const next = current === "light" ? "dark" : "light";
+  document.documentElement.setAttribute("data-theme", next);
+  localStorage.setItem("admin_theme", next);
+  const icon = document.getElementById("admin-theme-icon");
+  if (icon) icon.textContent = next === "dark" ? "☀️" : "🌙";
+}
+
+// Initialize admin theme
+(function initAdminTheme() {
+  const saved = localStorage.getItem("admin_theme") || "light";
+  document.documentElement.setAttribute("data-theme", saved);
+  const icon = document.getElementById("admin-theme-icon");
+  if (icon) icon.textContent = saved === "dark" ? "☀️" : "🌙";
+})();
 
 function escapeHtml(str) {
   if (!str) return "";

@@ -1,159 +1,566 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Fashion Young Studio - Demo Storefront</title>
+  <title>Fashion Young Studio — Demo Storefront & AI Sales Assistant</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap">
   <style>
+    :root {
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      /* Light Mode */
+      --bg-base: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-card: #ffffff;
+      --bg-subtle: #f1f5f9;
+      --border-subtle: #e2e8f0;
+      --border-mid: #cbd5e1;
+      --text-main: #0f172a;
+      --text-secondary: #334155;
+      --text-muted: #64748b;
+      --primary: #059669;
+      --primary-hover: #047857;
+      --primary-light: #ecfdf5;
+      --primary-border: #a7f3d0;
+      --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.05);
+      --shadow-card: 0 4px 20px -2px rgba(15, 23, 42, 0.06), 0 2px 6px -1px rgba(15, 23, 42, 0.03);
+      --shadow-hover: 0 16px 36px -4px rgba(15, 23, 42, 0.12);
+    }
+
+    [data-theme="dark"] {
+      --bg-base: #090d16;
+      --bg-surface: #0f1627;
+      --bg-card: #131c33;
+      --bg-subtle: #1a2540;
+      --border-subtle: #1e293b;
+      --border-mid: #334155;
+      --text-main: #f8fafc;
+      --text-secondary: #cbd5e1;
+      --text-muted: #94a3b8;
+      --primary: #10b981;
+      --primary-hover: #059669;
+      --primary-light: rgba(16, 185, 129, 0.15);
+      --primary-border: rgba(16, 185, 129, 0.3);
+      --shadow-card: 0 4px 20px -2px rgba(0, 0, 0, 0.5), 0 0 0 1px #1e293b;
+      --shadow-hover: 0 16px 36px -4px rgba(0, 0, 0, 0.7), 0 0 0 1px #334155;
+    }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: #fdfdfd;
-      color: #1e293b;
+      font-family: var(--font-sans);
+      background: var(--bg-base);
+      color: var(--text-main);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+      transition: background 0.2s, color 0.2s;
     }
+
+    /* Top Announcement */
+    .announcement-bar {
+      background: linear-gradient(90deg, #059669 0%, #0d9488 100%);
+      color: #ffffff;
+      font-size: 12.5px;
+      font-weight: 700;
+      text-align: center;
+      padding: 8px 16px;
+      letter-spacing: 0.02em;
+    }
+
+    /* Header */
     header {
-      background: #fff;
-      border-bottom: 1px solid #e2e8f0;
-      padding: 16px 24px;
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border-subtle);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .header-container {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 14px 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
+      gap: 16px;
     }
+
     .logo {
       font-size: 19px;
       font-weight: 800;
-      color: #059669;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    .logo-badge {
+      background: var(--primary);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 3px 7px;
+      border-radius: 6px;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      transition: color 0.15s;
+    }
+
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--primary);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-theme-toggle {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-mid);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 16px;
+      color: var(--text-main);
+      transition: all 0.15s;
+    }
+
+    .btn-admin-link {
+      background: var(--primary-light);
+      color: var(--primary);
+      border: 1px solid var(--primary-border);
+      padding: 8px 16px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+
+    .btn-admin-link:hover {
+      background: var(--primary);
+      color: #ffffff;
+    }
+
+    .cart-btn {
+      position: relative;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-mid);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--text-main);
+    }
+
+    .cart-badge {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      background: #ef4444;
+      color: #ffffff;
+      font-size: 10.5px;
+      font-weight: 800;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Hero Banner */
+    .hero-banner {
+      background: linear-gradient(135deg, rgba(5, 150, 105, 0.12) 0%, rgba(13, 148, 136, 0.08) 100%);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 50px 24px;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--primary-light);
+      border: 1px solid var(--primary-border);
+      color: var(--primary);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .hero-banner h1 {
+      font-size: clamp(26px, 4vw, 36px);
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-banner p {
+      font-size: 15.5px;
+      color: var(--text-secondary);
+      max-width: 680px;
+      margin: 0 auto 20px;
+      line-height: 1.6;
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 36px 24px 90px;
+    }
+
+    /* Instruction Guide Card */
+    .instruction-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--primary-border);
+      border-left: 4px solid var(--primary);
+      border-radius: 14px;
+      padding: 22px 26px;
+      margin-bottom: 36px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .instruction-card h3 {
+      color: var(--primary);
+      font-size: 16px;
+      font-weight: 800;
+      margin-bottom: 12px;
       display: flex;
       align-items: center;
       gap: 8px;
     }
-    .banner {
-      background: linear-gradient(135deg, #059669, #047857);
-      color: #fff;
-      padding: 44px 20px;
-      text-align: center;
-      border-radius: 0 0 20px 20px;
-      margin-bottom: 32px;
-    }
-    .banner h1 {
-      font-size: 28px;
-      margin-bottom: 10px;
-      letter-spacing: -0.02em;
-    }
-    .banner p {
-      font-size: 15px;
-      opacity: 0.95;
-      max-width: 620px;
-      margin: 0 auto;
-    }
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 16px 80px;
-    }
-    .instruction-card {
-      background: #ecfdf5;
-      border: 1px solid #a7f3d0;
-      border-radius: 14px;
-      padding: 18px 20px;
-      margin-bottom: 28px;
-      font-size: 13.5px;
-    }
-    .instruction-card h3 {
-      color: #065f46;
-      margin-bottom: 8px;
-      font-size: 15px;
-    }
-    .instruction-card ul {
-      margin-left: 20px;
-    }
-    .instruction-card li {
-      margin-bottom: 6px;
-    }
-    .product-grid {
+
+    .instruction-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
+      gap: 16px;
     }
+
+    .instruction-item {
+      background: var(--bg-subtle);
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-size: 13.5px;
+      color: var(--text-secondary);
+    }
+
+    .instruction-item strong {
+      color: var(--text-main);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    /* Section Heading */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 24px;
+    }
+
+    .section-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .section-subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* Product Grid */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 28px;
+    }
+
     .prod-card {
-      background: #fff;
-      border: 1px solid #e2e8f0;
-      border-radius: 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 18px;
       overflow: hidden;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.03);
-      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: var(--shadow-card);
+      transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
       display: flex;
       flex-direction: column;
+      position: relative;
     }
+
     .prod-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--primary-border);
     }
-    .prod-img {
-      height: 200px;
-      background: #f1f5f9;
+
+    /* Modern Fashion SVG Mockup Showcase */
+    .prod-media {
+      height: 260px;
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 52px;
+      position: relative;
+      overflow: hidden;
     }
+
+    .prod-card:nth-child(1) .prod-media {
+      background: linear-gradient(135deg, #182238 0%, #0a1122 100%);
+    }
+
+    .prod-card:nth-child(2) .prod-media {
+      background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+    }
+
+    .prod-card:nth-child(3) .prod-media {
+      background: linear-gradient(135deg, #2b3a32 0%, #15221b 100%);
+    }
+
+    .fashion-art {
+      width: 140px;
+      height: 140px;
+      filter: drop-shadow(0 14px 20px rgba(0, 0, 0, 0.4));
+      transition: transform 0.3s;
+    }
+
+    .prod-card:hover .fashion-art {
+      transform: scale(1.08);
+    }
+
+    .tag-sale {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: #ef4444;
+      color: #fff;
+      font-size: 11.5px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 8px;
+      text-transform: uppercase;
+      box-shadow: 0 4px 10px rgba(239, 68, 68, 0.4);
+    }
+
+    .tag-stock {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(8px);
+      color: #10b981;
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
     .prod-body {
-      padding: 18px;
+      padding: 22px;
       flex: 1;
       display: flex;
       flex-direction: column;
     }
-    .prod-cat {
-      font-size: 11.5px;
-      color: #64748b;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-    .prod-title {
-      font-size: 17px;
-      font-weight: 700;
-      margin: 4px 0 6px;
-      color: #0f172a;
-    }
-    .prod-price {
-      font-size: 20px;
-      font-weight: 800;
-      color: #059669;
-      margin-bottom: 8px;
-    }
-    .prod-desc {
-      font-size: 13px;
-      color: #64748b;
-      margin-bottom: 14px;
-      flex: 1;
-    }
-    .badge-wrap {
+
+    .prod-meta-row {
       display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .prod-cat {
+      font-size: 12px;
+      color: var(--primary);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .prod-rating {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #f59e0b;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .prod-title {
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      color: var(--text-main);
+      line-height: 1.35;
+    }
+
+    .prod-price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .prod-price {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .prod-price-old {
+      font-size: 14px;
+      color: var(--text-muted);
+      text-decoration: line-through;
+    }
+
+    .prod-desc {
+      font-size: 13.5px;
+      color: var(--text-secondary);
       margin-bottom: 16px;
+      line-height: 1.5;
     }
-    .badge {
-      display: inline-block;
-      padding: 3px 8px;
+
+    /* Swatches & Options */
+    .option-group {
+      margin-bottom: 14px;
+    }
+
+    .option-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .swatch-wrap {
+      display: flex;
+      gap: 8px;
+    }
+
+    .color-dot {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 2px solid var(--border-mid);
+      cursor: pointer;
+      transition: transform 0.15s, border-color 0.15s;
+    }
+
+    .color-dot:hover, .color-dot.active {
+      transform: scale(1.2);
+      border-color: var(--primary);
+    }
+
+    .size-wrap {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .size-chip {
+      padding: 4px 10px;
       border-radius: 6px;
-      font-size: 11.5px;
-      font-weight: 600;
-      background: #f1f5f9;
-      color: #475569;
+      font-size: 12px;
+      font-weight: 700;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.15s;
     }
+
+    .size-chip:hover, .size-chip.active {
+      background: var(--primary-light);
+      border-color: var(--primary-border);
+      color: var(--primary);
+    }
+
+    /* Actions */
+    .action-row {
+      margin-top: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
     .btn-ask-ai {
       width: 100%;
       min-height: 44px;
-      background: #ecfdf5;
-      color: #047857;
-      border: 1px solid #a7f3d0;
-      border-radius: 10px;
+      background: var(--primary-light);
+      color: var(--primary);
+      border: 1px solid var(--primary-border);
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.15s;
+    }
+
+    .btn-ask-ai:hover {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+      box-shadow: 0 4px 12px rgba(5, 150, 105, 0.25);
+    }
+
+    .btn-ask-ai:focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+    }
+
+    .btn-add-cart {
+      width: 100%;
+      min-height: 42px;
+      background: var(--bg-subtle);
+      color: var(--text-main);
+      border: 1px solid var(--border-mid);
+      border-radius: 12px;
+      font-family: inherit;
       font-size: 13.5px;
       font-weight: 700;
       cursor: pointer;
@@ -163,107 +570,421 @@
       gap: 6px;
       transition: all 0.15s;
     }
-    .btn-ask-ai:hover {
-      background: #059669;
-      color: #ffffff;
-      border-color: #059669;
-    }
-    .btn-ask-ai:focus-visible {
-      outline: 2px solid #059669;
-      outline-offset: 2px;
+
+    .btn-add-cart:hover {
+      background: var(--border-mid);
     }
 
-    @media (max-width: 600px) {
-      header { padding: 14px 16px; }
-      .banner { padding: 32px 16px; border-radius: 0 0 16px 16px; }
-      .banner h1 { font-size: 23px; }
-      .container { padding: 0 12px 60px; }
+    /* Floating Omnichannel Contact Dock */
+    .floating-dock {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 999;
+    }
+
+    .dock-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.25);
+      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s;
+      position: relative;
+      text-decoration: none;
+    }
+
+    .dock-btn:hover {
+      transform: scale(1.12);
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.35);
+    }
+
+    .dock-btn.zalo { background: #0068ff; }
+    .dock-btn.messenger { background: #0084ff; }
+    .dock-btn.hotline { background: #10b981; }
+
+    .dock-tooltip {
+      position: absolute;
+      right: 60px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #0f172a;
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+
+    .dock-btn:hover .dock-tooltip {
+      opacity: 1;
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 90px;
+      left: 50%;
+      transform: translateX(-50%) translateY(30px);
+      background: var(--text-main);
+      color: var(--bg-surface);
+      font-size: 14px;
+      font-weight: 700;
+      padding: 12px 24px;
+      border-radius: 30px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+      z-index: 1000;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    @media (max-width: 768px) {
+      .header-container { padding: 12px 16px; }
+      .nav-links { display: none; }
+      .hero-banner { padding: 36px 16px; }
+      .container { padding: 20px 16px 80px; }
       .product-grid { grid-template-columns: 1fr; }
+      .floating-dock { right: 16px; bottom: 16px; }
     }
   </style>
 </head>
 <body>
+  <!-- Top Announcement Bar -->
+  <div class="announcement-bar">
+    🚚 MIỄN PHÍ VẬN CHUYỂN TOÀN QUỐC CHO ĐƠN TỪ 2 SẢN PHẨM • ĐỔI TRẢ TRONG 15 NGÀY
+  </div>
+
+  <!-- Header -->
   <header>
-    <div class="logo"><span>👕</span> FASHION YOUNG STUDIO</div>
-    <div>
-      <a href="/admin" target="_blank" style="color:#059669; font-weight:700; font-size:13.5px; text-decoration:none; display:inline-flex; align-items:center; gap:4px;">
-        👉 Mở Admin Command Center (Hộp Thư & CRM) ↗
+    <div class="header-container">
+      <a href="/demo" class="logo">
+        <svg style="width:24px;height:24px;fill:var(--primary);" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        <span>FASHION YOUNG STUDIO</span>
+        <span class="logo-badge">Demo</span>
       </a>
+
+      <nav class="nav-links">
+        <a href="#polo" class="active">Áo Polo Nam</a>
+        <a href="#linen">Sơ Mi Linen</a>
+        <a href="#kaki">Quần Short Kaki</a>
+        <a href="/landing" target="_blank">Giới Thiệu SaaS ↗</a>
+      </nav>
+
+      <div class="header-actions">
+        <!-- Theme Toggle -->
+        <button class="btn-theme-toggle" id="theme-btn" onclick="toggleTheme()" title="Chế độ Sáng / Tối">
+          <span id="theme-icon">🌙</span>
+        </button>
+
+        <a href="/admin" target="_blank" class="btn-admin-link">
+          <span>⚡ Bàn Làm Việc CRM</span>
+          <svg style="width:14px;height:14px;fill:currentColor" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+
+        <div class="cart-btn" onclick="showToast('Giỏ hàng hiện có 1 sản phẩm đang chờ chốt!')" title="Giỏ Hàng">
+          <svg style="width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          <span class="cart-badge" id="cart-count">1</span>
+        </div>
+      </div>
     </div>
   </header>
 
-  <div class="banner">
-    <h1>Bộ Sưu Tập Thời Trang Trẻ 2026</h1>
-    <p>Trang bán hàng demo tích hợp Chatbot AI bán hàng & hệ thống CRM quản lý Lead thông minh.</p>
+  <!-- Hero Collection Banner -->
+  <div class="hero-banner">
+    <div class="hero-badge">
+      <span>🤖 TÍCH HỢP TRỢ LÝ AI BÁN HÀNG TỰ ĐỘNG 2026</span>
+    </div>
+    <h1>Bộ Sưu Tập Thời Trang Trẻ — Xu Hướng Mới</h1>
+    <p>Trang bán hàng thời trang thực tế kết nối hệ thống AI tư vấn bảng size theo chiều cao, cân nặng, tự động tra cứu tồn kho thật và chốt đơn ngay lập tức.</p>
   </div>
 
+  <!-- Store Container -->
   <div class="container">
+    <!-- Instruction Guide -->
     <div class="instruction-card">
-      <h3>💡 Hướng Dẫn Thử Nghiệm Chatbot & Bán Hàng Tự Động:</h3>
-      <ul>
-        <li><strong>Cách 1</strong>: Bấm nút <strong>"💬 Hỏi tư vấn mẫu này"</strong> dưới bất kỳ sản phẩm nào để mở chatbot và hỏi thông tin.</li>
-        <li><strong>Cách 2</strong>: Bấm vào <strong>nút tròn chat xanh ở góc phải</strong> để bắt đầu trò chuyện tự do.</li>
-        <li><strong>Thử hỏi size & cân nặng</strong>: <em>"Mình cao 1m70 nặng 64kg mặc size gì vừa?"</em> ➔ AI tự động tư vấn size chuẩn form.</li>
-        <li><strong>Thử đặt hàng</strong>: <em>"Cho mình 1 áo màu Đen size M nhé, ship về 123 Nguyễn Văn Linh Đà Nẵng."</em> ➔ Kích hoạt <strong>HOT Lead</strong> và chuông báo sang Telegram.</li>
-      </ul>
+      <h3>
+        <svg style="width:18px;height:18px;fill:currentColor" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 15h-2v-6h2zm0-8h-2V7h2z"/></svg>
+        <span>Hướng Dẫn Trải Nghiệm Khả Năng AI & Tiếp Quản Bán Hàng:</span>
+      </h3>
+      <div class="instruction-grid">
+        <div class="instruction-item">
+          <strong>1. Tư Vấn Chi Tiết Sản Phẩm</strong>
+          Bấm nút <em>"💬 Hỏi tư vấn mẫu này"</em> dưới thẻ bất kỳ hoặc nút chat tròn góc phải để AI báo giá và kiểm tra kho thật.
+        </div>
+        <div class="instruction-item">
+          <strong>2. Thử Nhập Chiều Cao & Cân Nặng</strong>
+          Nhắn: <em>"Mình cao 1m70 nặng 64kg mặc size gì vừa?"</em> ➔ AI sẽ đề xuất size L chuẩn form mà không cần hỏi nhân viên.
+        </div>
+        <div class="instruction-item">
+          <strong>3. Kích Hoạt HOT Lead & Chốt Đơn</strong>
+          Nhắn: <em>"Cho mình 1 áo màu Đen size M nhé, ship về 123 Nguyễn Văn Linh Đà Nẵng"</em> ➔ Chuông báo Telegram nổ và CRM nhận đơn.
+        </div>
+      </div>
+    </div>
+
+    <!-- Catalog Section -->
+    <div class="section-header">
+      <div>
+        <h2 class="section-title">Sản Phẩm Nổi Bật Sẵn Kho</h2>
+        <div class="section-subtitle">Dữ liệu sản phẩm thật từ kho SQLite — AI không ảo giác giá hoặc màu sắc</div>
+      </div>
     </div>
 
     <div class="product-grid">
-      <!-- Product 1 -->
-      <div class="prod-card">
-        <div class="prod-img">👕</div>
+      <!-- Product 1: Polo Classic -->
+      <div class="prod-card" id="polo">
+        <div class="prod-media">
+          <span class="tag-sale">-30% SALE</span>
+          <span class="tag-stock">● Sẵn Kho: 50 chiếc</span>
+          <!-- Realistic Polo SVG Vector Graphic -->
+          <svg class="fashion-art" viewBox="0 0 120 120" fill="none">
+            <path d="M35 25 L48 35 L60 30 L72 35 L85 25 L100 45 L85 52 L82 105 L38 105 L35 52 L20 45 Z" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+            <path d="M48 35 L60 55 L72 35" stroke="#38bdf8" stroke-width="2" fill="#0f172a"/>
+            <line x1="60" y1="55" x2="60" y2="78" stroke="#38bdf8" stroke-width="2"/>
+            <circle cx="60" cy="62" r="1.5" fill="#38bdf8"/>
+            <circle cx="60" cy="70" r="1.5" fill="#38bdf8"/>
+          </svg>
+        </div>
         <div class="prod-body">
-          <div class="prod-cat">Thời Trang Nam</div>
-          <div class="prod-title">Áo Polo Nam Classic</div>
-          <div class="prod-price">250.000đ</div>
-          <div class="prod-desc">Chất liệu cotton 100% mềm mịn, thoáng mát, form regular fit chuẩn Hàn Quốc.</div>
-          <div class="badge-wrap">
-            <span class="badge">Size: M, L, XL</span>
-            <span class="badge">Màu: Đen, Trắng, Xanh Navy</span>
+          <div class="prod-meta-row">
+            <span class="prod-cat">Thời Trang Nam</span>
+            <span class="prod-rating">★ 4.9 (142)</span>
           </div>
-          <button class="btn-ask-ai" onclick="window.openAiChat('Shop ơi tư vấn giúp mình mẫu Áo Polo Nam Classic nhé!')">
-            💬 Hỏi tư vấn mẫu này
-          </button>
+          <h3 class="prod-title">Áo Polo Nam Classic</h3>
+          <div class="prod-price-row">
+            <span class="prod-price">250.000đ</span>
+            <span class="prod-price-old">350.000đ</span>
+          </div>
+          <p class="prod-desc">Chất liệu 100% cotton pique cá sấu co giãn 4 chiều, mềm mịn, thấm hút mồ hôi tối đa, form regular tôn dáng.</p>
+
+          <div class="option-group">
+            <span class="option-label">Màu sắc: Đen / Trắng / Xanh Navy</span>
+            <div class="swatch-wrap">
+              <div class="color-dot active" style="background:#0f172a;" title="Đen" onclick="selectColor(this)"></div>
+              <div class="color-dot" style="background:#f8fafc;" title="Trắng" onclick="selectColor(this)"></div>
+              <div class="color-dot" style="background:#1e3a8a;" title="Xanh Navy" onclick="selectColor(this)"></div>
+            </div>
+          </div>
+
+          <div class="option-group">
+            <span class="option-label">Kích thước (Size):</span>
+            <div class="size-wrap">
+              <span class="size-chip active" onclick="selectSize(this)">M</span>
+              <span class="size-chip" onclick="selectSize(this)">L</span>
+              <span class="size-chip" onclick="selectSize(this)">XL</span>
+            </div>
+          </div>
+
+          <div class="action-row">
+            <button class="btn-ask-ai" onclick="window.openAiChat('Shop ơi tư vấn giúp mình mẫu Áo Polo Nam Classic nhé!')">
+              <svg style="width:16px;height:16px;fill:currentColor" viewBox="0 0 24 24"><path d="M12 2a2 2 0 0 1 2 2v2h4a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4V4a2 2 0 0 1 2-2z"/></svg>
+              <span>💬 Hỏi tư vấn mẫu này</span>
+            </button>
+            <button class="btn-add-cart" onclick="addToCart('Áo Polo Nam Classic (250.000đ)')">
+              <span>🛒 Thêm Vào Giỏ Hàng</span>
+            </button>
+          </div>
         </div>
       </div>
 
-      <!-- Product 2 -->
-      <div class="prod-card">
-        <div class="prod-img">👔</div>
+      <!-- Product 2: Linen Shirt -->
+      <div class="prod-card" id="linen">
+        <div class="prod-media">
+          <span class="tag-sale">-28% HOT</span>
+          <span class="tag-stock">● Sẵn Kho: 30 chiếc</span>
+          <!-- Realistic Linen Shirt SVG Vector Graphic -->
+          <svg class="fashion-art" viewBox="0 0 120 120" fill="none">
+            <path d="M38 22 L50 32 L60 28 L70 32 L82 22 L102 46 L86 52 L84 108 L36 108 L34 52 L18 46 Z" fill="#334155" stroke="#a7f3d0" stroke-width="2"/>
+            <path d="M50 32 L60 48 L70 32" stroke="#a7f3d0" stroke-width="2" fill="#1e293b"/>
+            <line x1="60" y1="48" x2="60" y2="108" stroke="#a7f3d0" stroke-width="2"/>
+            <circle cx="60" cy="58" r="1.5" fill="#a7f3d0"/>
+            <circle cx="60" cy="72" r="1.5" fill="#a7f3d0"/>
+            <circle cx="60" cy="86" r="1.5" fill="#a7f3d0"/>
+          </svg>
+        </div>
         <div class="prod-body">
-          <div class="prod-cat">Thời Trang Công Sở</div>
-          <div class="prod-title">Áo Sơ Mi Linen Cổ Tàu</div>
-          <div class="prod-price">320.000đ</div>
-          <div class="prod-desc">Vải đũi linen tự nhiên thấm hút mồ hôi cực tốt, phong cách lịch lãm, tinh tế.</div>
-          <div class="badge-wrap">
-            <span class="badge">Size: L, XL</span>
-            <span class="badge">Màu: Trắng, Be, Xanh Rêu</span>
+          <div class="prod-meta-row">
+            <span class="prod-cat">Thời Trang Công Sở</span>
+            <span class="prod-rating">★ 4.8 (89)</span>
           </div>
-          <button class="btn-ask-ai" onclick="window.openAiChat('Shop ơi tư vấn giúp mình mẫu Áo Sơ Mi Linen Cổ Tàu nhé!')">
-            💬 Hỏi tư vấn mẫu này
-          </button>
+          <h3 class="prod-title">Áo Sơ Mi Linen Cổ Tàu</h3>
+          <div class="prod-price-row">
+            <span class="prod-price">320.000đ</span>
+            <span class="prod-price-old">450.000đ</span>
+          </div>
+          <p class="prod-desc">Vải đũi linen sợi tự nhiên thoáng mát, cổ tàu thanh lịch, thiết kế tối giản chuẩn phong cách Scandinavian hiện đại.</p>
+
+          <div class="option-group">
+            <span class="option-label">Màu sắc: Trắng / Be / Xanh Rêu</span>
+            <div class="swatch-wrap">
+              <div class="color-dot active" style="background:#f8fafc;" title="Trắng" onclick="selectColor(this)"></div>
+              <div class="color-dot" style="background:#e2d9cc;" title="Be" onclick="selectColor(this)"></div>
+              <div class="color-dot" style="background:#3f4f44;" title="Xanh Rêu" onclick="selectColor(this)"></div>
+            </div>
+          </div>
+
+          <div class="option-group">
+            <span class="option-label">Kích thước (Size):</span>
+            <div class="size-wrap">
+              <span class="size-chip active" onclick="selectSize(this)">L</span>
+              <span class="size-chip" onclick="selectSize(this)">XL</span>
+            </div>
+          </div>
+
+          <div class="action-row">
+            <button class="btn-ask-ai" onclick="window.openAiChat('Shop ơi tư vấn giúp mình mẫu Áo Sơ Mi Linen Cổ Tàu nhé!')">
+              <svg style="width:16px;height:16px;fill:currentColor" viewBox="0 0 24 24"><path d="M12 2a2 2 0 0 1 2 2v2h4a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4V4a2 2 0 0 1 2-2z"/></svg>
+              <span>💬 Hỏi tư vấn mẫu này</span>
+            </button>
+            <button class="btn-add-cart" onclick="addToCart('Áo Sơ Mi Linen Cổ Tàu (320.000đ)')">
+              <span>🛒 Thêm Vào Giỏ Hàng</span>
+            </button>
+          </div>
         </div>
       </div>
 
-      <!-- Product 3 -->
-      <div class="prod-card">
-        <div class="prod-img">🩳</div>
+      <!-- Product 3: Kaki Shorts -->
+      <div class="prod-card" id="kaki">
+        <div class="prod-media">
+          <span class="tag-sale">-28% BESTSELLER</span>
+          <span class="tag-stock">● Sẵn Kho: 80 chiếc</span>
+          <!-- Realistic Shorts SVG Vector Graphic -->
+          <svg class="fashion-art" viewBox="0 0 120 120" fill="none">
+            <path d="M28 30 L92 30 L88 88 L63 88 L60 52 L57 88 L32 88 Z" fill="#3f4f44" stroke="#fcd34d" stroke-width="2"/>
+            <rect x="28" y="30" width="64" height="10" fill="#2d3748" stroke="#fcd34d" stroke-width="1.5"/>
+            <line x1="60" y1="30" x2="60" y2="52" stroke="#fcd34d" stroke-width="1.5"/>
+            <line x1="38" y1="46" x2="48" y2="58" stroke="#fcd34d" stroke-width="1.5"/>
+            <line x1="82" y1="46" x2="72" y2="58" stroke="#fcd34d" stroke-width="1.5"/>
+          </svg>
+        </div>
         <div class="prod-body">
-          <div class="prod-cat">Quần Nam</div>
-          <div class="prod-title">Quần Short Kaki Co Giãn</div>
-          <div class="prod-price">180.000đ</div>
-          <div class="prod-desc">Quần short kaki năng động, lưng chun co giãn thoải mái cho ngày hè.</div>
-          <div class="badge-wrap">
-            <span class="badge">Size: 29, 30, 31, 32</span>
-            <span class="badge">Màu: Đen, Ghi, Be</span>
+          <div class="prod-meta-row">
+            <span class="prod-cat">Quần Nam Dạo Phố</span>
+            <span class="prod-rating">★ 4.9 (215)</span>
           </div>
-          <button class="btn-ask-ai" onclick="window.openAiChat('Shop ơi tư vấn giúp mình mẫu Quần Short Kaki Co Giãn nhé!')">
-            💬 Hỏi tư vấn mẫu này
-          </button>
+          <h3 class="prod-title">Quần Short Kaki Co Giãn</h3>
+          <div class="prod-price-row">
+            <span class="prod-price">180.000đ</span>
+            <span class="prod-price-old">250.000đ</span>
+          </div>
+          <p class="prod-desc">Chất vải kaki thun co giãn 4 chiều mềm mịn, lưng chun kèm khuy cài lịch sự, độ dài ngang gối năng động.</p>
+
+          <div class="option-group">
+            <span class="option-label">Màu sắc: Đen / Ghi / Be</span>
+            <div class="swatch-wrap">
+              <div class="color-dot active" style="background:#0f172a;" title="Đen" onclick="selectColor(this)"></div>
+              <div class="color-dot" style="background:#64748b;" title="Ghi" onclick="selectColor(this)"></div>
+              <div class="color-dot" style="background:#d4c5b3;" title="Be" onclick="selectColor(this)"></div>
+            </div>
+          </div>
+
+          <div class="option-group">
+            <span class="option-label">Kích thước (Size):</span>
+            <div class="size-wrap">
+              <span class="size-chip active" onclick="selectSize(this)">29</span>
+              <span class="size-chip" onclick="selectSize(this)">30</span>
+              <span class="size-chip" onclick="selectSize(this)">31</span>
+              <span class="size-chip" onclick="selectSize(this)">32</span>
+            </div>
+          </div>
+
+          <div class="action-row">
+            <button class="btn-ask-ai" onclick="window.openAiChat('Shop ơi tư vấn giúp mình mẫu Quần Short Kaki Co Giãn nhé!')">
+              <svg style="width:16px;height:16px;fill:currentColor" viewBox="0 0 24 24"><path d="M12 2a2 2 0 0 1 2 2v2h4a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4V4a2 2 0 0 1 2-2z"/></svg>
+              <span>💬 Hỏi tư vấn mẫu này</span>
+            </button>
+            <button class="btn-add-cart" onclick="addToCart('Quần Short Kaki Co Giãn (180.000đ)')">
+              <span>🛒 Thêm Vào Giỏ Hàng</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- Floating Omnichannel Contact Dock -->
+  <aside class="floating-dock">
+    <a href="https://zalo.me" target="_blank" class="dock-btn zalo" title="Chat Zalo OA">
+      <svg style="width:22px;height:22px;fill:#fff;" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <span class="dock-tooltip">Chat Zalo OA</span>
+    </a>
+
+    <a href="https://m.me" target="_blank" class="dock-btn messenger" title="Chat Facebook Messenger">
+      <svg style="width:22px;height:22px;fill:#fff;" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+      <span class="dock-tooltip">Messenger</span>
+    </a>
+
+    <a href="tel:0988776655" class="dock-btn hotline" title="Hotline tư vấn">
+      <svg style="width:20px;height:20px;fill:none;stroke:#fff;stroke-width:2.2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      <span class="dock-tooltip">Hotline: 0988.776.655</span>
+    </a>
+  </aside>
+
+  <!-- Interactive Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // Theme Toggle Functionality
+    function toggleTheme() {
+      const html = document.documentElement;
+      const current = html.getAttribute("data-theme") || "light";
+      const next = current === "light" ? "dark" : "light";
+      html.setAttribute("data-theme", next);
+      localStorage.setItem("demo_theme", next);
+      document.getElementById("theme-icon").textContent = next === "dark" ? "☀️" : "🌙";
+    }
+
+    // Initialize Theme
+    const savedTheme = localStorage.getItem("demo_theme") || "light";
+    document.documentElement.setAttribute("data-theme", savedTheme);
+    document.getElementById("theme-icon").textContent = savedTheme === "dark" ? "☀️" : "🌙";
+
+    // Color Swatch Selection
+    function selectColor(el) {
+      el.parentElement.querySelectorAll(".color-dot").forEach(d => d.classList.remove("active"));
+      el.classList.add("active");
+    }
+
+    // Size Chip Selection
+    function selectSize(el) {
+      el.parentElement.querySelectorAll(".size-chip").forEach(s => s.classList.remove("active"));
+      el.classList.add("active");
+    }
+
+    // Cart Interactivity
+    let cartTotal = 1;
+    function addToCart(itemTitle) {
+      cartTotal++;
+      document.getElementById("cart-count").textContent = cartTotal;
+      showToast(`Đã thêm "${itemTitle}" vào giỏ hàng thành công!`);
+    }
+
+    // Show Toast
+    function showToast(msg) {
+      const t = document.getElementById("toast");
+      t.textContent = msg;
+      t.classList.add("show");
+      setTimeout(() => t.classList.remove("show"), 2800);
+    }
+  </script>
 
   <!-- EMBEDDABLE AI CHAT WIDGET -->
   <script src="/widget/chat_widget.js"></script>

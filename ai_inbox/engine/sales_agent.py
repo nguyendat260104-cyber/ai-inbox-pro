@@ -20,12 +20,14 @@ from ai_inbox.engine.product_catalog import ProductCatalogEngine
 from ai_inbox.engine.lead_scorer import LeadScorer
 from ai_inbox.engine.notifier import TelegramNotifier
 from ai_inbox.engine.slot_tracker import MultiTurnSlotTracker
+from ai_inbox.engine.intent_classifier import IntentClassifier
 
 class SalesAgent:
     def __init__(self, db_path: Optional[Path] = None, notifier: Optional[TelegramNotifier] = None):
         self.db_path = db_path
         self.catalog = ProductCatalogEngine(db_path=db_path)
         self.scorer = LeadScorer()
+        self.classifier = IntentClassifier()
         self.notifier = notifier or TelegramNotifier(db_path=db_path)
         self.slot_tracker = MultiTurnSlotTracker(db_path=db_path)
 
@@ -122,8 +124,9 @@ class SalesAgent:
                 bot_reply = self.slot_tracker.next_question(slot_state, product) or bot_reply
                 needs_handoff = False
 
-        # Step 4: Score Intent
+        # Step 4: Score Intent & Classify Intent Category
         new_score, intent_label, signals = self.scorer.analyze_message(customer_text, current_score)
+        intent_res = self.classifier.classify(customer_text)
 
         # Step 5: Human Handoff Decision
         # A high score signals priority, not completion.  Keep the bot in the
@@ -209,6 +212,7 @@ class SalesAgent:
             "lead_id": lead_id,
             "score": new_score,
             "intent_label": intent_label,
+            "intent_details": intent_res.to_dict(),
             "signals": signals,
             "human_handoff_triggered": needs_handoff,
             "conversation_status": conv_status,
