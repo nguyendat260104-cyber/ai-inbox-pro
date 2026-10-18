@@ -20,6 +20,7 @@
       <button class="tab-btn active" onclick="switchTab('inbox')">📥 Hộp Thư (Inbox)</button>
       <button class="tab-btn" onclick="switchTab('kanban')">📊 Phễu Bán Hàng (Kanban)</button>
       <button class="tab-btn" onclick="switchTab('products')">📦 Kho Sản Phẩm</button>
+      <button class="tab-btn" onclick="switchTab('staff')">👥 Đội Ngũ & Hoa Hồng</button>
       <button class="tab-btn" onclick="switchTab('metrics')">📈 Báo Cáo Hiệu Suất</button>
       <a href="/demo" target="_blank" class="tab-btn" style="text-decoration:none; background:#f1f5f9; color:#0f172a;">🏪 Mở Demo Store ↗</a>
     </nav>
@@ -138,6 +139,37 @@
         <p style="color:var(--text-muted); font-size:13.5px; line-height:1.6;">
           Hệ thống theo dõi chặt chẽ: Tốc độ phản hồi của AI (trung bình 0.45s), số lượng Lead HOT được phát hiện, và tỷ lệ chốt đơn của đội ngũ nhân viên sale sau khi can thiệp.
         </p>
+      </div>
+    </section>
+
+    <!-- Tab 5: Staff Performance & Commission -->
+    <section id="tab-staff" class="tab-content">
+      <div style="background:#fff; border:1px solid var(--border); border-radius:12px; padding:24px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+          <div>
+            <h2 style="font-size:16px; font-weight:700;">Bảng Xếp Hạng & Hoa Hồng Nhân Viên Bán Hàng</h2>
+            <p style="font-size:13px; color:var(--text-muted); margin-top:4px;">Theo dõi số lead được phân công, tỷ lệ chốt đơn (Won), doanh thu và hoa hồng tạm tính (5%).</p>
+          </div>
+          <button class="tab-btn" style="background:var(--primary); color:#fff; font-weight:600;" onclick="loadStaffMetrics()">🔄 Cập nhật</button>
+        </div>
+        <div style="overflow-x:auto;">
+          <table style="width:100%; border-collapse:collapse; text-align:left; font-size:13.5px;">
+            <thead>
+              <tr style="border-bottom:2px solid var(--border); color:var(--text-muted); font-size:12.5px;">
+                <th style="padding:10px 12px;">Nhân viên</th>
+                <th style="padding:10px 12px;">Vai trò</th>
+                <th style="padding:10px 12px; text-align:center;">Lead phân công</th>
+                <th style="padding:10px 12px; text-align:center;">Đơn chốt (Won)</th>
+                <th style="padding:10px 12px; text-align:center;">Tỷ lệ chốt</th>
+                <th style="padding:10px 12px; text-align:right;">Doanh thu</th>
+                <th style="padding:10px 12px; text-align:right;">Hoa hồng tạm tính</th>
+              </tr>
+            </thead>
+            <tbody id="staff-leaderboard-body">
+              <tr><td colspan="7" style="text-align:center; padding:24px; color:var(--text-muted);">Đang tải bảng xếp hạng...</td></tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </section>
 

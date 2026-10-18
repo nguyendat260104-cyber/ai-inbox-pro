@@ -382,6 +382,58 @@ class InboxRequestHandler(BaseHTTPRequestHandler):
                 "avg_ai_response_time_sec": round(avg_response_seconds or 0.0, 3)
             })
 
+        # 7. API: Staff Performance & Commission Analytics
+        if path == "/api/dashboard/staff/metrics":
+            workspace_id = qs.get("workspace_id", ["ws-01"])[0]
+            conn = get_connection()
+            cur = conn.cursor()
+            cur.execute(
+                "SELECT id, name, email, role FROM staff WHERE workspace_id = ? AND is_active = 1",
+                (workspace_id,)
+            )
+            staff_rows = cur.fetchall()
+            leaderboard = []
+
+            for s in staff_rows:
+                s_id = s["id"]
+                cur.execute(
+                    "SELECT COUNT(*) AS total_leads FROM leads WHERE assigned_staff_id = ?",
+                    (s_id,)
+                )
+                assigned_leads = cur.fetchone()["total_leads"] or 0
+
+                cur.execute(
+                    """SELECT COUNT(*) AS won_deals, SUM(estimated_value_vnd) AS won_rev
+                       FROM leads WHERE assigned_staff_id = ? AND status = 'won'""",
+                    (s_id,)
+                )
+                w_row = cur.fetchone()
+                won_deals = w_row["won_deals"] or 0
+                won_revenue = w_row["won_rev"] or 0
+
+                closing_rate = round(won_deals / assigned_leads * 100, 1) if assigned_leads > 0 else 0.0
+                commission_est = int(won_revenue * 0.05)
+
+                leaderboard.append({
+                    "staff_id": s_id,
+                    "name": s["name"],
+                    "email": s["email"],
+                    "role": s["role"],
+                    "assigned_leads": assigned_leads,
+                    "won_deals": won_deals,
+                    "won_revenue_vnd": won_revenue,
+                    "closing_rate_pct": closing_rate,
+                    "estimated_commission_vnd": commission_est
+                })
+
+            leaderboard.sort(key=lambda x: x["won_revenue_vnd"], reverse=True)
+            conn.close()
+            return self.send_json(200, {
+                "workspace_id": workspace_id,
+                "staff_count": len(leaderboard),
+                "leaderboard": leaderboard
+            })
+
         # Static File Serving (Widget, Admin Web, Demo Shop)
         self.serve_static(path)
 

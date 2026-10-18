@@ -434,8 +434,20 @@ def run_e2e():
         conn.close()
         print(f"  ✅ Identified {stalled_res['count']} stalled lead(s) and queued personalized follow-up reminders.")
 
+        # Test 18: Staff Performance & Commission Analytics
+        print("▶ Running Test 18: Staff Performance & Commission Leaderboard...")
+        staff_metrics = get_json("/api/dashboard/staff/metrics?workspace_id=ws-01")
+        assert staff_metrics.get("staff_count", 0) >= 1
+        tuan_rep = next((s for s in staff_metrics["leaderboard"] if "Tuấn" in s["name"]), None)
+        assert tuan_rep is not None, "Staff member Tuấn Sale must be in leaderboard"
+        assert tuan_rep["won_deals"] >= 1
+        assert tuan_rep["won_revenue_vnd"] >= 250000
+        assert tuan_rep["closing_rate_pct"] > 0
+        assert tuan_rep["estimated_commission_vnd"] == int(tuan_rep["won_revenue_vnd"] * 0.05)
+        print(f"  ✅ Staff leaderboard verified: {tuan_rep['name']} closed {tuan_rep['won_deals']} deal(s) (Revenue: {tuan_rep['won_revenue_vnd']:,}đ, Commission: {tuan_rep['estimated_commission_vnd']:,}đ).")
+
         print("\n----------------------------------------------")
-        print("🎉 ALL 17 E2E INTEGRATION TESTS PASSED (100%)!")
+        print("🎉 ALL 18 E2E INTEGRATION TESTS PASSED (100%)!")
         print("----------------------------------------------")
 
     finally:

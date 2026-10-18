@@ -17,6 +17,7 @@ function switchTab(tabId) {
 
   if (tabId === "kanban") loadKanban();
   if (tabId === "products") loadProducts();
+  if (tabId === "staff") loadStaffMetrics();
 }
 
 async function loadMetrics() {
@@ -371,6 +372,38 @@ async function deleteProduct(productId) {
     }
   } catch (err) {
     console.error("Delete product error:", err);
+  }
+}
+
+async function loadStaffMetrics() {
+  const tbody = document.getElementById("staff-leaderboard-body");
+  if (!tbody) return;
+  try {
+    const res = await fetch("/api/dashboard/staff/metrics");
+    if (!res.ok) return;
+    const data = await res.json();
+    const leaderboard = data.leaderboard || [];
+    if (leaderboard.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:20px; color:#94a3b8;">Chưa có nhân viên nào trong workspace.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = leaderboard.map((s, idx) => `
+      <tr style="border-bottom:1px solid #f1f5f9;">
+        <td style="padding:12px;">
+          <div style="font-weight:600; color:#0f172a;">${idx === 0 ? "🥇 " : (idx === 1 ? "🥈 " : (idx === 2 ? "🥉 " : ""))}${escapeHtml(s.name)}</div>
+          <div style="font-size:12px; color:#64748b;">${escapeHtml(s.email)}</div>
+        </td>
+        <td style="padding:12px;"><span class="badge" style="background:#e0f2fe; color:#0369a1;">${escapeHtml(s.role)}</span></td>
+        <td style="padding:12px; text-align:center; font-weight:600;">${s.assigned_leads}</td>
+        <td style="padding:12px; text-align:center; color:#16a34a; font-weight:700;">${s.won_deals}</td>
+        <td style="padding:12px; text-align:center; font-weight:600;">${s.closing_rate_pct}%</td>
+        <td style="padding:12px; text-align:right; font-weight:700; color:#0f172a;">${(s.won_revenue_vnd || 0).toLocaleString()}đ</td>
+        <td style="padding:12px; text-align:right; font-weight:700; color:#2563eb;">${(s.estimated_commission_vnd || 0).toLocaleString()}đ</td>
+      </tr>
+    `).join("");
+  } catch (err) {
+    console.error("Load staff metrics error:", err);
+    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:20px; color:#ef4444;">Lỗi khi tải bảng xếp hạng nhân viên.</td></tr>';
   }
 }
 
