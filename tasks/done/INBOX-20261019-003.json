@@ -20,7 +20,7 @@
   "priority": "critical",
   "dependencies": [],
   "suggested_branch": "task/INBOX-20261019-003",
-  "status": "review",
+  "status": "done",
   "created_at": "2026-10-18T14:07:51.387636+00:00",
   "started_at": "2026-10-18T14:11:40.329114+00:00",
   "completed_at": "2026-10-18T14:14:52.340497+00:00",
@@ -31,5 +31,8 @@
     "ai_inbox/engine/product_catalog.py",
     "tests/test_ai_inbox_e2e.py"
   ],
-  "metrics": {}
+  "metrics": {
+    "lead_decision": "approved_local_connector",
+    "verification": "E2E pass with Meta challenge and signed webhook payload"
+  }
 }

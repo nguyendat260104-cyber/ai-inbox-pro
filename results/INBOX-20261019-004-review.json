@@ -4,8 +4,8 @@
   "key_findings": [
     "Deliverables generated according to task requirements."
   ],
-  "recommended_decision": "SCALE",
-  "confidence": 1.0,
+  "recommended_decision": "APPROVED_LOCAL_ALERTING",
+  "confidence": 0.9,
   "business_metrics": {},
   "artifacts": [
     "ai_inbox/engine/notifier.py",
@@ -13,9 +13,11 @@
     "tests/test_ai_inbox_e2e.py"
   ],
   "sources": [],
-  "risks": [],
+  "risks": [
+    "Telegram stays in mock/audit mode until TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID are configured by the deployment owner."
+  ],
   "questions_for_lead": [
-    "Lead review requested to approve next steps."
+    "Approved for local alerting. Live Telegram delivery remains unverified and must be configured through environment variables."
   ],
   "next_task_suggestions": [
     "Proceed to content or deep evaluation upon approval."

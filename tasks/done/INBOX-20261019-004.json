@@ -19,7 +19,7 @@
   "priority": "high",
   "dependencies": [],
   "suggested_branch": "task/INBOX-20261019-004",
-  "status": "review",
+  "status": "done",
   "created_at": "2026-10-18T14:07:55.181174+00:00",
   "started_at": "2026-10-18T14:15:04.739127+00:00",
   "completed_at": "2026-10-18T14:16:46.807501+00:00",
@@ -29,5 +29,8 @@
     "ai_inbox/engine/sales_agent.py",
     "tests/test_ai_inbox_e2e.py"
   ],
-  "metrics": {}
+  "metrics": {
+    "lead_decision": "approved_local_alerting",
+    "verification": "E2E pass with mock delivery and persisted audit log"
+  }
 }
