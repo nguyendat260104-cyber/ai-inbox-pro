@@ -1,0 +1,50 @@
+{
+  "id": "INBOX-20261019-019",
+  "type": "frontend_design_system",
+  "executor": "antigravity",
+  "goal": "Quiet Enterprise SaaS UI Redesign (Landing, Admin Command Center, Demo Storefront)",
+  "context": "Complete overhaul of the 3 web surfaces away from AI-template aesthetics to a refined, quiet enterprise SaaS design system with indigo #465FFF brand, WCAG AA contrast, 8px grid, single consolidated sidebar in Admin, 5-stage guided journey in Demo, and 5-step selling story in Landing.",
+  "requirements": [
+    "Design tokens: Base #F8FAFC, Surface #FFFFFF, Ink #0F172A, Brand Indigo #465FFF, Success Teal #10B981, 8px grid",
+    "Admin Command Center: Single 240px sidebar with 7 views, header without duplicate tabs, compact metrics, 280px/1fr/320px 3-pane layout",
+    "Demo Storefront: Strip AI 2026 banner and instruction block, add subtle 5-step guided journey strip with 3 prompt chips, realistic boutique fashion shop",
+    "Landing Page: Slim 4-item navbar + 1 CTA, 5-step selling storyline, 1200px product proof canvas, modular plan pricing, instant VietQR registration",
+    "All 24/24 E2E integration tests passing without breaking any assertion"
+  ],
+  "deliverables": [
+    "ai_inbox/web/style.css",
+    "ai_inbox/web/index.html",
+    "ai_inbox/web/app.js",
+    "ai_inbox/web/demo_shop.html",
+    "ai_inbox/web/landing.css",
+    "ai_inbox/web/landing.html"
+  ],
+  "acceptance_criteria": [
+    "Passes all 24/24 E2E integration tests; eliminates all AI-template gimmicks; enforces WCAG AA contrast and quiet enterprise SaaS aesthetic."
+  ],
+  "priority": "critical",
+  "dependencies": [],
+  "status": "review",
+  "created_at": "2026-10-18T16:00:00Z",
+  "started_at": "2026-10-18T16:15:00Z",
+  "completed_at": "2026-10-18T23:50:00Z",
+  "result": {
+    "status": "completed",
+    "tests_passed": 24,
+    "tests_total": 24,
+    "pass_rate_pct": 100.0
+  },
+  "artifacts": [
+    "ai_inbox/web/style.css",
+    "ai_inbox/web/index.html",
+    "ai_inbox/web/app.js",
+    "ai_inbox/web/demo_shop.html",
+    "ai_inbox/web/landing.css",
+    "ai_inbox/web/landing.html"
+  ],
+  "metrics": {
+    "contrast_wcag": "AA_pass",
+    "desktop_viewport": "1200px_max",
+    "e2e_pass_rate": 1.0
+  }
+}
