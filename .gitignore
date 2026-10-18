@@ -19,3 +19,8 @@ desktop.ini
 # Logs and runtime locks
 *.log
 *.pid
+
+# Local Databases
+*.db
+*.sqlite3
+data/

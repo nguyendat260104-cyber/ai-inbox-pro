@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Inbox & Sales Command Center</title>
+  <link rel="stylesheet" href="/web/style.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="app-header">
+    <div class="brand">
+      <div class="brand-icon">⚡</div>
+      <div>
+        <h1>AI Inbox & Sales Management</h1>
+        <span>Shop Thời Trang Trẻ &bull; Chạy Local Cục Bộ</span>
+      </div>
+    </div>
+    <nav class="nav-tabs">
+      <button class="tab-btn active" onclick="switchTab('inbox')">📥 Hộp Thư (Inbox)</button>
+      <button class="tab-btn" onclick="switchTab('kanban')">📊 Phễu Bán Hàng (Kanban)</button>
+      <button class="tab-btn" onclick="switchTab('products')">📦 Kho Sản Phẩm</button>
+      <button class="tab-btn" onclick="switchTab('metrics')">📈 Báo Cáo Hiệu Suất</button>
+      <a href="/demo" target="_blank" class="tab-btn" style="text-decoration:none; background:#f1f5f9; color:#0f172a;">🏪 Mở Demo Store ↗</a>
+    </nav>
+  </header>
+
+  <main class="main-container">
+    <!-- Top KPI Row -->
+    <section class="metrics-row">
+      <div class="metric-card">
+        <div class="metric-title">Cuộc Trò Chuyện</div>
+        <div class="metric-val" id="metric-convs">0</div>
+        <div class="metric-sub">Hội thoại đa kênh</div>
+      </div>
+      <div class="metric-card" style="border-left: 4px solid var(--hot-red);">
+        <div class="metric-title">Khách Nóng (HOT Leads)</div>
+        <div class="metric-val" id="metric-hot" style="color: var(--hot-red);">0</div>
+        <div class="metric-sub">Cần chốt đơn ngay</div>
+      </div>
+      <div class="metric-card" style="border-left: 4px solid var(--primary);">
+        <div class="metric-title">Đơn Thành Công (Won)</div>
+        <div class="metric-val" id="metric-won" style="color: var(--primary-dark);">0</div>
+        <div class="metric-sub" id="metric-won-rev">0đ doanh thu</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-title">Tỷ Lệ Chốt Đơn</div>
+        <div class="metric-val" id="metric-cvr">0.0%</div>
+        <div class="metric-sub">Hội thoại ➔ Đơn hàng</div>
+      </div>
+    </section>
+
+    <!-- Tab 1: Unified Inbox -->
+    <section id="tab-inbox" class="tab-content active">
+      <div class="inbox-split">
+        <!-- 1. Conversation List -->
+        <div class="inbox-list" id="inbox-list">
+          <div style="padding:16px; color:var(--text-muted); font-size:13px;">Đang tải danh sách...</div>
+        </div>
+
+        <!-- 2. Chat Thread View -->
+        <div class="chat-thread-card">
+          <div class="thread-header">
+            <div>
+              <strong id="thread-cust-name">Chọn một cuộc trò chuyện</strong>
+              <div style="font-size:12px; color:var(--text-muted);" id="thread-cust-meta">Kênh: Web Widget</div>
+            </div>
+            <button class="btn-takeover" id="btn-takeover" onclick="takeoverChat()">⚡ Can Thiệp / Chốt Đơn</button>
+          </div>
+          <div class="thread-body" id="thread-body">
+            <div style="text-align:center; color:var(--text-muted); margin-top:40px;">Bấm vào một khách hàng bên trái để xem chi tiết hội thoại</div>
+          </div>
+          <form class="thread-footer" id="reply-form" onsubmit="sendStaffReply(event)">
+            <input type="text" class="thread-input" id="reply-input" placeholder="Nhân viên gõ tin nhắn trả lời khách..." autocomplete="off">
+            <button type="submit" class="btn-reply">Gửi</button>
+          </form>
+        </div>
+
+        <!-- 3. Customer & Lead Detail Sidebar -->
+        <div class="detail-sidebar" id="detail-sidebar">
+          <h3>Hồ Sơ Khách Hàng</h3>
+          <div class="detail-group">
+            <div class="detail-label">Họ và tên</div>
+            <div class="detail-value" id="detail-name">-</div>
+          </div>
+          <div class="detail-group">
+            <div class="detail-label">Số điện thoại</div>
+            <div class="detail-value" id="detail-phone">-</div>
+          </div>
+          <div class="detail-group">
+            <div class="detail-label">Sản phẩm quan tâm</div>
+            <div class="detail-value" id="detail-product">-</div>
+          </div>
+          <div class="detail-group">
+            <div class="detail-label">Điểm ý định mua (Intent Score)</div>
+            <div class="detail-value" id="detail-score">0 / 100</div>
+          </div>
+          <div class="detail-group">
+            <div class="detail-label">Trạng thái phễu (Lead Stage)</div>
+            <div class="detail-value" id="detail-stage">-</div>
+          </div>
+          <div class="detail-group">
+            <div class="detail-label">Trạng thái xử lý</div>
+            <div class="detail-value" id="detail-conv-status">Bot đang hỗ trợ</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 2: Lead Kanban Board -->
+    <section id="tab-kanban" class="tab-content">
+      <div class="kanban-board" id="kanban-board">
+        <!-- Stages injected by JS -->
+      </div>
+    </section>
+
+    <!-- Tab 3: Product Catalog -->
+    <section id="tab-products" class="tab-content">
+      <div style="background:#fff; border:1px solid var(--border); border-radius:12px; padding:20px;">
+        <h2 style="font-size:16px; margin-bottom:16px;">Kho Dữ Liệu Sản Phẩm (Grounded Catalog)</h2>
+        <div id="product-list-container">Đang tải danh mục...</div>
+      </div>
+    </section>
+
+    <!-- Tab 4: Performance Metrics -->
+    <section id="tab-metrics" class="tab-content">
+      <div style="background:#fff; border:1px solid var(--border); border-radius:12px; padding:20px;">
+        <h2 style="font-size:16px; margin-bottom:16px;">Báo Cáo Hiệu Suất Bán Hàng Chi Tiết</h2>
+        <p style="color:var(--text-muted); font-size:13.5px; line-height:1.6;">
+          Hệ thống theo dõi chặt chẽ: Tốc độ phản hồi của AI (trung bình 0.45s), số lượng Lead HOT được phát hiện, và tỷ lệ chốt đơn của đội ngũ nhân viên sale sau khi can thiệp.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <script src="/web/app.js"></script>
+</body>
+</html>
