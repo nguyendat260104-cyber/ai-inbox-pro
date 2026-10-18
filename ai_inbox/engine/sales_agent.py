@@ -19,6 +19,7 @@ from ai_inbox.core.db import get_connection
 from ai_inbox.engine.product_catalog import ProductCatalogEngine
 from ai_inbox.engine.lead_scorer import LeadScorer
 from ai_inbox.engine.notifier import TelegramNotifier
+from ai_inbox.engine.slot_tracker import MultiTurnSlotTracker
 
 class SalesAgent:
     def __init__(self, db_path: Optional[Path] = None, notifier: Optional[TelegramNotifier] = None):
@@ -26,6 +27,7 @@ class SalesAgent:
         self.catalog = ProductCatalogEngine(db_path=db_path)
         self.scorer = LeadScorer()
         self.notifier = notifier or TelegramNotifier(db_path=db_path)
+        self.slot_tracker = MultiTurnSlotTracker(db_path=db_path)
 
     def handle_incoming_message(
         self,
@@ -60,6 +62,9 @@ class SalesAgent:
         lead = cur.fetchone()
         current_score = lead["score"] if lead else 0
         customer_id = conv["customer_id"]
+        cur.execute("SELECT name, phone FROM customers WHERE id = ?", (customer_id,))
+        customer_row = cur.fetchone()
+        known_phone = customer_row["phone"] if customer_row and customer_row["phone"] else None
 
         # Save incoming customer message
         msg_id = str(uuid.uuid4())
@@ -85,8 +90,37 @@ class SalesAgent:
                     "shipping_policy": p_row["shipping_policy"]
                 }
 
-        # Step 3: Probe Needs & Compose Grounded Response
+        # Release the message insert before the tracker opens its short-lived
+        # SQLite transaction (separate connection by design).
+        conn.commit()
+
+        # Step 3: persist facts across turns before deciding an order is ready.
+        slot_state = self.slot_tracker.update_from_message(
+            workspace_id, conversation_id, customer_text, product, known_phone
+        )
+        order_missing = self.slot_tracker.missing_slots(slot_state)
+        # Address and validated product choices are the minimum information for
+        # a human closer to confirm a delivery.  Phone remains tracked and is
+        # requested by the bot when the customer has not yet entered ordering.
+        core_order_missing = [slot for slot in order_missing if slot != "phone_number"]
+        order_ready = bool(slot_state.get("product_sku")) and not core_order_missing
+        order_flow = any(token in customer_text.lower() for token in (
+            "mua", "đặt", "lấy", "chốt", "gửi về", "ship về", "địa chỉ", "số điện thoại"
+        )) or bool(slot_state.get("quantity") or slot_state.get("shipping_address"))
+
         bot_reply, needs_handoff = self._compose_response(customer_text, product)
+        if product and order_flow:
+            if order_ready:
+                bot_reply = (
+                    f"Dạ em đã ghi nhận {slot_state['quantity']} {product['name']}"
+                    f"{(' size ' + slot_state['size']) if slot_state.get('size') else ''}"
+                    f"{(' màu ' + slot_state['color']) if slot_state.get('color') else ''}. "
+                    "Em đang chuyển nhân viên xác nhận đơn và phí giao hàng với mình ạ."
+                )
+                needs_handoff = True
+            else:
+                bot_reply = self.slot_tracker.next_question(slot_state, product) or bot_reply
+                needs_handoff = False
 
         # Step 4: Score Intent
         new_score, intent_label, signals = self.scorer.analyze_message(customer_text, current_score)

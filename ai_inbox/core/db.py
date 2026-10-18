@@ -98,6 +98,25 @@ def init_db(db_path: Optional[Path] = None) -> None:
         FOREIGN KEY (assigned_staff_id) REFERENCES staff(id) ON DELETE SET NULL
     );
 
+    -- 5b. Order details collected by the AI across chat turns.  Keeping this
+    -- separate from conversations makes the state explicit and avoids storing
+    -- personal delivery data in message parsing scratch space.
+    CREATE TABLE IF NOT EXISTS conversation_slots (
+        conversation_id TEXT PRIMARY KEY,
+        workspace_id TEXT NOT NULL,
+        product_id TEXT,
+        product_sku TEXT,
+        size TEXT,
+        color TEXT,
+        quantity INTEGER,
+        shipping_address TEXT,
+        phone_number TEXT,
+        updated_at TEXT NOT NULL,
+        FOREIGN KEY (conversation_id) REFERENCES conversations(id) ON DELETE CASCADE,
+        FOREIGN KEY (workspace_id) REFERENCES workspaces(id) ON DELETE CASCADE,
+        FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE SET NULL
+    );
+
     -- 6. Messages
     CREATE TABLE IF NOT EXISTS messages (
         id TEXT PRIMARY KEY,
