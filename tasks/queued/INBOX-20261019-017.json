@@ -1,0 +1,32 @@
+{
+  "id": "INBOX-20261019-017",
+  "type": "core_engine",
+  "executor": "codex",
+  "goal": "Multi-Class Customer Intent & Sentiment Classifier with Buying Urgency Detection",
+  "context": "Codex backend strength: develop an algorithmic multi-class intent and sentiment classifier in pure standard library. Categorize inquiries into: PRICE_CHECK, SIZING_CONSULT, STOCK_INQUIRY, SHIPPING_POLICY, COMPLAINT, BARGAIN_REQUEST, and READY_TO_ORDER. Output structured intent probability vectors and urgency scores (0-100) to feed CRM routing and prioritize leads in inbox.",
+  "requirements": [
+    "Build rule-and-keyword based IntentClassifier with Vietnamese morphology support",
+    "Identify 7 distinct intent classes and buyer sentiment (positive, neutral, negative/impatient)",
+    "Calculate buying urgency score (0-100) based on inquiry specificity, phone presence, and buying verbs",
+    "Expose clean Python class IntentClassifier in ai_inbox/engine/intent_classifier.py",
+    "Integrate into SalesAgent and Lead pipeline",
+    "Write comprehensive unit test suite in tests/test_intent_classifier.py with >= 15 realistic Vietnamese customer utterances"
+  ],
+  "deliverables": [
+    "ai_inbox/engine/intent_classifier.py",
+    "tests/test_intent_classifier.py"
+  ],
+  "acceptance_criteria": [
+    "Correctly classifies all 7 intent types across 15+ test phrases with zero external dependencies and 100% test pass rate."
+  ],
+  "priority": "critical",
+  "dependencies": [],
+  "suggested_branch": "task/INBOX-20261019-017",
+  "status": "queued",
+  "created_at": "2026-10-18T14:55:00+00:00",
+  "started_at": null,
+  "completed_at": null,
+  "result": null,
+  "artifacts": [],
+  "metrics": {}
+}

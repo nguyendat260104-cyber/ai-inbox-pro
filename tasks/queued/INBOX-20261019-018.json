@@ -1,0 +1,32 @@
+{
+  "id": "INBOX-20261019-018",
+  "type": "core_engine",
+  "executor": "codex",
+  "goal": "Order Drafting & Automated Stock Reservation / Locking Engine",
+  "context": "Codex backend strength: develop atomic inventory soft-locking and order drafting. When a customer confirms size/color and provides contact info, temporarily reserve the SKU stock for 15 minutes to prevent overselling across 6 channels. If staff confirms deal WON, convert draft to persistent order; if abandoned or expired, release reserved inventory back to available stock.",
+  "requirements": [
+    "Design schema and migrations for orders and inventory_locks tables in SQLite",
+    "Implement StockReservationManager with reserve_stock(sku, qty, timeout_minutes=15)",
+    "Implement release_expired_locks() and confirm_order_purchase(order_id)",
+    "Calculate item subtotal, shipping fee discounts (e.g. freeship from 2 items), and final order total VND",
+    "Expose REST API endpoints /api/dashboard/orders/draft and /api/dashboard/orders/confirm in server.py",
+    "Write atomic concurrency test suite in tests/test_inventory_reservation.py"
+  ],
+  "deliverables": [
+    "ai_inbox/engine/inventory_manager.py",
+    "tests/test_inventory_reservation.py"
+  ],
+  "acceptance_criteria": [
+    "Atomic reservation prevents double-booking; auto-releases expired locks; converts draft to final order upon closing; 100% test pass rate."
+  ],
+  "priority": "high",
+  "dependencies": ["INBOX-20261019-012"],
+  "suggested_branch": "task/INBOX-20261019-018",
+  "status": "queued",
+  "created_at": "2026-10-18T14:56:00+00:00",
+  "started_at": null,
+  "completed_at": null,
+  "result": null,
+  "artifacts": [],
+  "metrics": {}
+}

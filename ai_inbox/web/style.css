@@ -1,40 +1,68 @@
 /* ==========================================================================
-   AI Inbox & Sales Management Platform - Enterprise Omnichannel Design System
-   Modern, Ultra-responsive, High-converting SaaS Theme
+   AI Inbox & Sales Command Center — Enterprise SaaS Design System
+   Modern, spacious, high-contrast, professional typography (Plus Jakarta Sans)
+   Zero cramped fonts. Human-grade aesthetic (Linear / Intercom level).
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap');
 
 :root {
+  --font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Theme Palette */
+  --bg-app: #f8fafc;
+  --card-bg: #ffffff;
+  --card-hover: #fcfdfe;
+
+  --text-main: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --text-subtle: #94a3b8;
+
+  --border-light: #e2e8f0;
+  --border-subtle: #f1f5f9;
+  --border-focus: #6366f1;
+
   --primary: #4f46e5;
   --primary-hover: #4338ca;
   --primary-light: #eef2ff;
-  --primary-gradient: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  --primary-border: #c7d2fe;
 
-  --bg: #f8fafc;
-  --card-bg: #ffffff;
-  --text-main: #0f172a;
-  --text-muted: #64748b;
-  --border: #e2e8f0;
-  --border-focus: #818cf8;
+  --emerald: #10b981;
+  --emerald-light: #ecfdf5;
+  --emerald-border: #a7f3d0;
+  --emerald-text: #065f46;
 
   --hot-red: #ef4444;
-  --hot-glow: rgba(239, 68, 68, 0.25);
-  --warm-orange: #f59e0b;
+  --hot-light: #fef2f2;
+  --hot-border: #fecaca;
+  --hot-glow: rgba(239, 68, 68, 0.2);
+
+  --warm-amber: #f59e0b;
+  --warm-light: #fffbeb;
+  --warm-border: #fde68a;
+
   --cold-blue: #3b82f6;
-  --success-green: #10b981;
+  --cold-light: #eff6ff;
 
-  /* Omnichannel Channel Brand Colors */
-  --channel-web: #6366f1;
-  --channel-fb: #1877f2;
-  --channel-zalo: #0068ff;
-  --channel-tiktok: #0f172a;
-  --channel-shopee: #ee4d2d;
-  --channel-lazada: #0f146d;
+  /* Omnichannel Channel Brand Tags */
+  --ch-web-bg: #e0e7ff; --ch-web-text: #3730a3;
+  --ch-fb-bg: #dbeafe; --ch-fb-text: #1e40af;
+  --ch-zalo-bg: #e0f2fe; --ch-zalo-text: #0369a1;
+  --ch-tiktok-bg: #0f172a; --ch-tiktok-text: #ffffff;
+  --ch-shopee-bg: #ffedd5; --ch-shopee-text: #c2410c;
+  --ch-lazada-bg: #ede9fe; --ch-lazada-text: #5b21b6;
 
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+  /* Shadows */
+  --shadow-sm: 0 1px 3px 0 rgba(15, 23, 42, 0.05);
+  --shadow-card: 0 2px 6px -1px rgba(15, 23, 42, 0.06), 0 1px 4px -1px rgba(15, 23, 42, 0.04);
+  --shadow-elevated: 0 10px 25px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -2px rgba(15, 23, 42, 0.03);
+
+  --radius-xl: 16px;
+  --radius-lg: 12px;
+  --radius-md: 8px;
+  --radius-sm: 6px;
 }
 
 * {
@@ -44,20 +72,23 @@
 }
 
 body {
-  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background-color: var(--bg);
+  font-family: var(--font-family);
+  background-color: var(--bg-app);
   color: var(--text-main);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Header */
+/* --------------------------------------------------------------------------
+   App Header & Navigation Tabs
+   -------------------------------------------------------------------------- */
 .app-header {
   background: #ffffff;
-  border-bottom: 1px solid var(--border);
-  padding: 12px 28px;
+  border-bottom: 1px solid var(--border-light);
+  padding: 14px 32px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -70,68 +101,74 @@ body {
 .brand {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
 }
 
 .brand-icon {
-  width: 38px;
-  height: 38px;
-  background: var(--primary-gradient);
-  border-radius: 10px;
+  width: 42px;
+  height: 42px;
+  background: linear-gradient(135deg, var(--primary), #6366f1);
+  border-radius: 11px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #fff;
-  font-size: 20px;
-  box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3);
+  font-size: 22px;
+  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.3);
 }
 
 .brand h1 {
-  font-size: 17px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.025em;
   color: #0f172a;
 }
 
 .brand span {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text-muted);
+  font-weight: 500;
 }
 
 .nav-tabs {
   display: flex;
-  gap: 6px;
+  gap: 8px;
   align-items: center;
 }
 
 .tab-btn {
   background: none;
-  border: none;
-  padding: 8px 14px;
-  font-size: 13.5px;
-  font-weight: 500;
+  border: 1px solid transparent;
+  padding: 9px 16px;
+  font-size: 14px;
+  font-weight: 600;
   color: var(--text-muted);
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   cursor: pointer;
   transition: all 0.15s ease-in-out;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .tab-btn:hover {
-  background: #f1f5f9;
+  background: var(--bg-app);
   color: var(--text-main);
 }
 
 .tab-btn.active {
   background: var(--primary-light);
   color: var(--primary);
-  font-weight: 600;
+  border-color: var(--primary-border);
 }
 
-/* Main Container */
+/* --------------------------------------------------------------------------
+   Main Container
+   -------------------------------------------------------------------------- */
 .main-container {
   flex: 1;
-  padding: 20px 28px;
-  max-width: 1600px;
+  padding: 22px 32px 32px;
+  max-width: 1720px;
   width: 100%;
   margin: 0 auto;
 }
@@ -144,106 +181,117 @@ body {
   display: block;
 }
 
-/* Top Metrics Row */
+/* --------------------------------------------------------------------------
+   Top Metrics KPI Row (Generous typography)
+   -------------------------------------------------------------------------- */
 .metrics-row {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 16px;
-  margin-bottom: 20px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-bottom: 22px;
 }
 
 .metric-card {
   background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 16px 20px;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 18px 22px;
   box-shadow: var(--shadow-sm);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.15s, box-shadow 0.15s;
 }
 
 .metric-card:hover {
   transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-card);
 }
 
+.metric-card.accent-hot { border-left: 5px solid var(--hot-red); }
+.metric-card.accent-won { border-left: 5px solid var(--emerald); }
+.metric-card.accent-primary { border-left: 5px solid var(--primary); }
+
 .metric-title {
-  font-size: 12.5px;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 700;
   color: var(--text-muted);
-  margin-bottom: 6px;
   text-transform: uppercase;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
 }
 
 .metric-val {
-  font-size: 26px;
+  font-size: 32px;
   font-weight: 800;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
+  color: #0f172a;
 }
 
 .metric-sub {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text-muted);
   margin-top: 4px;
 }
 
-/* ==========================================================================
-   Tab 1: Unified Omnichannel Inbox
-   ========================================================================== */
+/* --------------------------------------------------------------------------
+   Tab 1: Unified Omnichannel Inbox (Spacious 3-Column Split)
+   -------------------------------------------------------------------------- */
 .inbox-split {
   display: grid;
-  grid-template-columns: 340px 1fr 320px;
-  gap: 16px;
-  height: calc(100vh - 210px);
-  min-height: 560px;
+  grid-template-columns: 380px 1fr 370px;
+  gap: 20px;
+  height: calc(100vh - 240px);
+  min-height: 640px;
 }
 
-/* 1. Left Inbox List */
+/* 1. Left Conversation List */
 .inbox-sidebar {
   background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: 12px;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-card);
 }
 
 .inbox-filter-bar {
-  padding: 12px 14px;
-  border-bottom: 1px solid var(--border);
+  padding: 16px;
+  border-bottom: 1px solid var(--border-light);
   background: #ffffff;
 }
 
 .search-box {
   position: relative;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .search-box input {
   width: 100%;
-  padding: 8px 12px 8px 32px;
-  font-size: 13px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
+  padding: 10px 14px 10px 38px;
+  font-size: 14px;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
   background: #f8fafc;
   outline: none;
   font-family: inherit;
-  transition: border 0.15s ease;
+  transition: all 0.15s;
 }
 
 .search-box input:focus {
-  border-color: var(--border-focus);
+  border-color: var(--primary);
   background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
 }
 
 .search-box .search-icon {
   position: absolute;
-  left: 10px;
+  left: 12px;
   top: 50%;
   transform: translateY(-50%);
   color: var(--text-muted);
-  font-size: 13px;
+  font-size: 15px;
 }
 
 .channel-pill-scroll {
@@ -251,21 +299,13 @@ body {
   gap: 6px;
   overflow-x: auto;
   padding-bottom: 4px;
-}
-
-.channel-pill-scroll::-webkit-scrollbar {
-  height: 3px;
-}
-
-.channel-pill-scroll::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 3px;
+  scrollbar-width: thin;
 }
 
 .channel-pill {
-  padding: 4px 10px;
-  font-size: 11.5px;
-  font-weight: 600;
+  padding: 6px 12px;
+  font-size: 12.5px;
+  font-weight: 700;
   border-radius: 20px;
   background: #f1f5f9;
   color: var(--text-muted);
@@ -291,8 +331,8 @@ body {
 }
 
 .inbox-item {
-  padding: 13px 16px;
-  border-bottom: 1px solid var(--border);
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--border-subtle);
   cursor: pointer;
   transition: all 0.15s ease;
   position: relative;
@@ -304,89 +344,90 @@ body {
 
 .inbox-item.active {
   background: #eef2ff;
-  border-left: 3px solid var(--primary);
+  border-left: 4px solid var(--primary);
 }
 
 .inbox-item-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 4px;
+  margin-bottom: 5px;
 }
 
 .inbox-cust-name {
   font-weight: 700;
-  font-size: 13.5px;
+  font-size: 15px;
   color: #0f172a;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
 }
 
 .badge-channel {
-  font-size: 10.5px;
+  font-size: 12px;
   font-weight: 700;
-  padding: 2px 6px;
+  padding: 3px 8px;
   border-radius: 4px;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
 }
-
-.channel-web_widget { background: #e0e7ff; color: var(--channel-web); }
-.channel-facebook_page { background: #dbeafe; color: var(--channel-fb); }
-.channel-zalo_oa { background: #e0f2fe; color: var(--channel-zalo); }
-.channel-tiktok_shop { background: #f1f5f9; color: var(--channel-tiktok); border: 1px solid #cbd5e1; }
-.channel-shopee { background: #ffedd5; color: var(--channel-shopee); }
-.channel-lazada { background: #ede9fe; color: var(--channel-lazada); }
+.channel-web_widget { background: var(--ch-web-bg); color: var(--ch-web-text); }
+.channel-facebook_page { background: var(--ch-fb-bg); color: var(--ch-fb-text); }
+.channel-zalo_oa { background: var(--ch-zalo-bg); color: var(--ch-zalo-text); }
+.channel-tiktok_shop { background: var(--ch-tiktok-bg); color: var(--ch-tiktok-text); }
+.channel-shopee { background: var(--ch-shopee-bg); color: var(--ch-shopee-text); }
+.channel-lazada { background: var(--ch-lazada-bg); color: var(--ch-lazada-text); }
 
 .badge-hot {
-  background: #fee2e2;
+  background: var(--hot-light);
   color: var(--hot-red);
-  font-size: 11px;
-  font-weight: 700;
-  padding: 2px 7px;
+  border: 1px solid var(--hot-border);
+  font-size: 12.5px;
+  font-weight: 800;
+  padding: 3px 9px;
   border-radius: 4px;
-  box-shadow: 0 0 8px var(--hot-glow);
-  animation: pulseHot 2s infinite;
-}
-
-@keyframes pulseHot {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
+  animation: pulseBadge 2s infinite;
 }
 
 .badge-warm {
-  background: #fef3c7;
-  color: var(--warm-orange);
-  font-size: 11px;
-  font-weight: 600;
-  padding: 2px 6px;
+  background: var(--warm-light);
+  color: #b45309;
+  border: 1px solid var(--warm-border);
+  font-size: 12.5px;
+  font-weight: 700;
+  padding: 3px 9px;
   border-radius: 4px;
 }
 
+@keyframes pulseBadge {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.04); }
+}
+
 .inbox-last-msg {
-  font-size: 12.5px;
-  color: var(--text-muted);
+  font-size: 13.5px;
+  color: var(--text-secondary);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin-top: 2px;
+  margin-top: 3px;
+  font-weight: 500;
 }
 
-/* 2. Center Chat Thread */
+/* 2. Center Chat Thread Card */
 .chat-thread-card {
   background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: 12px;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-card);
 }
 
 .thread-header {
-  padding: 12px 20px;
-  border-bottom: 1px solid var(--border);
+  padding: 16px 22px;
+  border-bottom: 1px solid var(--border-light);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -396,70 +437,78 @@ body {
 .thread-cust-profile {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
 }
 
 .thread-avatar {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   background: #f1f5f9;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 700;
-  font-size: 16px;
+  font-weight: 800;
+  font-size: 18px;
   color: var(--primary);
-  border: 2px solid #e2e8f0;
+  border: 2px solid var(--border-light);
 }
 
-.thread-status-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--success-green);
-  display: inline-block;
-  margin-right: 4px;
+.thread-cust-title {
+  font-size: 17px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.thread-cust-meta {
+  font-size: 13px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 3px;
 }
 
 .btn-takeover {
   background: var(--hot-red);
-  color: #fff;
+  color: #ffffff;
   border: none;
-  border-radius: 8px;
-  padding: 8px 15px;
-  font-size: 12.5px;
-  font-weight: 600;
+  border-radius: var(--radius-md);
+  padding: 9px 18px;
+  font-size: 13.5px;
+  font-weight: 700;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   transition: all 0.15s;
+  box-shadow: 0 2px 8px var(--hot-glow);
 }
 
 .btn-takeover:hover {
   background: #dc2626;
-  box-shadow: 0 4px 10px rgba(220, 38, 38, 0.3);
+  transform: translateY(-1px);
 }
 
 .btn-takeover.active-staff {
-  background: #10b981;
+  background: var(--emerald);
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
 }
 
 .thread-body {
   flex: 1;
-  padding: 20px;
+  padding: 22px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 16px;
   background: #f8fafc;
 }
 
 .msg-row {
   display: flex;
   flex-direction: column;
-  max-width: 75%;
+  max-width: 80%;
 }
 
 .msg-row.customer {
@@ -471,39 +520,41 @@ body {
 }
 
 .msg-bubble {
-  padding: 10px 15px;
-  border-radius: 12px;
-  font-size: 13.5px;
-  line-height: 1.5;
+  padding: 12px 18px;
+  border-radius: 14px;
+  font-size: 14.5px;
+  line-height: 1.55;
   box-shadow: var(--shadow-sm);
+  word-break: break-word;
 }
 
 .msg-row.customer .msg-bubble {
   background: #ffffff;
   color: #0f172a;
-  border: 1px solid var(--border);
-  border-bottom-left-radius: 2px;
+  border: 1px solid var(--border-light);
+  border-bottom-left-radius: 3px;
 }
 
 .msg-row.bot .msg-bubble {
-  background: #f1f5f9;
+  background: #ffffff;
   color: #0f172a;
   border: 1px solid #cbd5e1;
-  border-bottom-right-radius: 2px;
+  border-left: 4px solid var(--primary);
+  border-bottom-right-radius: 3px;
 }
 
 .msg-row.staff .msg-bubble {
   background: var(--primary);
   color: #ffffff;
-  border-bottom-right-radius: 2px;
+  border-bottom-right-radius: 3px;
 }
 
 .msg-meta {
-  font-size: 11px;
+  font-size: 12px;
   color: var(--text-muted);
-  margin-top: 3px;
+  margin-top: 4px;
   display: flex;
-  gap: 6px;
+  gap: 8px;
   align-items: center;
 }
 
@@ -511,66 +562,87 @@ body {
   justify-content: flex-end;
 }
 
-/* Quick Response Suggestions Bar */
-.quick-replies-bar {
-  padding: 8px 16px;
+/* Smart Copilot Suggestions Bar */
+.copilot-action-bar {
   background: #ffffff;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--border-light);
+  padding: 10px 18px;
   display: flex;
-  gap: 6px;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.copilot-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.copilot-chips-wrap {
+  display: flex;
+  gap: 8px;
   overflow-x: auto;
+  scrollbar-width: none;
 }
 
 .quick-chip {
-  padding: 5px 11px;
-  font-size: 12px;
-  font-weight: 500;
+  padding: 7px 15px;
+  font-size: 13.5px;
+  font-weight: 600;
   background: #f8fafc;
   color: #334155;
-  border: 1px solid var(--border);
-  border-radius: 16px;
+  border: 1px solid var(--border-light);
+  border-radius: 20px;
   cursor: pointer;
   white-space: nowrap;
   transition: all 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .quick-chip:hover {
-  background: #eef2ff;
-  border-color: var(--primary-light);
+  background: var(--primary-light);
+  border-color: var(--primary-border);
   color: var(--primary);
 }
 
 .thread-footer {
-  padding: 12px 16px;
+  padding: 14px 20px;
   background: #ffffff;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--border-light);
   display: flex;
-  gap: 10px;
+  gap: 12px;
 }
 
 .thread-input {
   flex: 1;
-  padding: 10px 14px;
-  font-size: 13.5px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
+  padding: 12px 18px;
+  font-size: 14.5px;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
   outline: none;
   font-family: inherit;
+  transition: border-color 0.15s, box-shadow 0.15s;
 }
 
 .thread-input:focus {
-  border-color: var(--border-focus);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
 }
 
 .btn-reply {
   background: var(--primary);
-  color: #fff;
+  color: #ffffff;
   border: none;
-  border-radius: 8px;
-  padding: 0 18px;
-  font-weight: 600;
+  border-radius: var(--radius-md);
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 700;
   cursor: pointer;
-  font-size: 13px;
   transition: background 0.15s;
 }
 
@@ -578,127 +650,244 @@ body {
   background: var(--primary-hover);
 }
 
-/* 3. Right Sidebar: Customer 360 & Quick Closing */
+/* 3. Right Customer 360 & Order Closing Panel */
 .detail-sidebar {
   background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 18px;
-  overflow-y: auto;
-  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 22px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 18px;
+  overflow-y: auto;
+  box-shadow: var(--shadow-card);
 }
 
 .detail-section-title {
-  font-size: 12.5px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: var(--text-muted);
-  border-bottom: 1px solid var(--border);
-  padding-bottom: 8px;
+  font-size: 16px;
+  font-weight: 800;
+  color: #0f172a;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-light);
 }
 
 .detail-group {
-  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .detail-label {
-  font-size: 11.5px;
+  font-size: 12px;
+  font-weight: 700;
   color: var(--text-muted);
-  margin-bottom: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .detail-value {
-  font-size: 13.5px;
-  font-weight: 600;
+  font-size: 15px;
+  font-weight: 700;
   color: #0f172a;
 }
 
 .score-gauge-wrap {
+  width: 100%;
+  height: 8px;
   background: #f1f5f9;
-  border-radius: 8px;
-  height: 10px;
-  overflow: hidden;
+  border-radius: 4px;
   margin-top: 6px;
+  overflow: hidden;
 }
 
 .score-gauge-fill {
   height: 100%;
-  border-radius: 8px;
+  border-radius: 4px;
   transition: width 0.3s ease;
 }
 
-.quick-order-card {
+/* Order Draft & Closing Box */
+.order-draft-card {
   background: #f8fafc;
-  border: 1px dashed #cbd5e1;
-  border-radius: 10px;
-  padding: 12px;
-  margin-top: 8px;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.order-draft-header {
+  font-size: 13.5px;
+  font-weight: 800;
+  color: #0f172a;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.order-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13.5px;
+  color: var(--text-secondary);
+}
+
+.order-row.total {
+  font-size: 15px;
+  font-weight: 800;
+  color: #0f172a;
+  border-top: 1px dashed var(--border-light);
+  padding-top: 8px;
 }
 
 .btn-quick-close {
   width: 100%;
-  background: #10b981;
+  background: linear-gradient(135deg, var(--emerald), #059669);
   color: #ffffff;
   border: none;
-  border-radius: 8px;
-  padding: 10px;
-  font-weight: 700;
-  font-size: 13px;
+  border-radius: var(--radius-md);
+  padding: 12px;
+  font-size: 14.5px;
+  font-weight: 800;
   cursor: pointer;
-  margin-top: 10px;
-  transition: all 0.15s;
+  transition: transform 0.15s, box-shadow 0.15s;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+  margin-top: 6px;
 }
 
 .btn-quick-close:hover {
-  background: #059669;
-  box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
 }
 
-/* ==========================================================================
-   Kanban & Catalog Tables
-   ========================================================================== */
+/* --------------------------------------------------------------------------
+   Tab 2: Lead Kanban Board
+   -------------------------------------------------------------------------- */
 .kanban-board {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(7, minmax(260px, 1fr));
   gap: 16px;
-  align-items: start;
+  overflow-x: auto;
+  padding-bottom: 20px;
+  min-height: calc(100vh - 240px);
 }
 
-.kanban-column {
+.kanban-col {
   background: #f1f5f9;
-  border-radius: 12px;
-  padding: 14px;
-  min-height: 400px;
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  min-height: 500px;
+  border: 1px solid var(--border-light);
 }
 
 .kanban-col-header {
-  font-size: 13px;
-  font-weight: 700;
-  margin-bottom: 12px;
+  padding: 14px 16px;
+  font-size: 13.5px;
+  font-weight: 800;
+  color: #0f172a;
+  border-bottom: 1px solid var(--border-light);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: #334155;
-}
-
-.kanban-card {
   background: #ffffff;
-  border-radius: 8px;
-  padding: 12px;
-  margin-bottom: 10px;
-  box-shadow: var(--shadow-sm);
-  border: 1px solid var(--border);
-  transition: all 0.15s ease;
+  border-top-left-radius: var(--radius-lg);
+  border-top-right-radius: var(--radius-lg);
 }
 
-.kanban-card:hover {
-  box-shadow: var(--shadow-md);
+.kanban-cards {
+  flex: 1;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+}
+
+.lead-card {
+  background: #ffffff;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  box-shadow: var(--shadow-sm);
+  cursor: grab;
+  transition: all 0.15s;
+}
+
+.lead-card:hover {
   transform: translateY(-2px);
+  box-shadow: var(--shadow-card);
+  border-color: var(--border-focus);
+}
+
+.lead-name {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.lead-prod {
+  font-size: 13px;
+  color: var(--primary);
+  font-weight: 600;
+  margin: 4px 0 8px;
+}
+
+.lead-meta {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* --------------------------------------------------------------------------
+   Tab 3: Product Catalog Table
+   -------------------------------------------------------------------------- */
+.product-table th {
+  padding: 12px 14px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.product-table td {
+  padding: 14px;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   Tab 5: Staff Performance Leaderboard Table
+   -------------------------------------------------------------------------- */
+.staff-table th {
+  padding: 14px 16px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.staff-table td {
+  padding: 16px;
+  font-size: 14.5px;
+  color: #0f172a;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1280px) {
+  .inbox-split {
+    grid-template-columns: 340px 1fr 320px;
+  }
+}
+
+@media (max-width: 900px) {
+  .metrics-row { grid-template-columns: 1fr 1fr; }
+  .inbox-split { grid-template-columns: 1fr; height: auto; }
+  .detail-sidebar { display: none; }
 }

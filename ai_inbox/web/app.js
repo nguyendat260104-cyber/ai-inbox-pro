@@ -125,9 +125,9 @@ function renderInboxList(convs) {
         ${badgeHtml}
       </div>
       <div class="inbox-last-msg">${escapeHtml(c.product_name ? 'Quan tâm: ' + c.product_name : 'Đang trao đổi...')}${c.customer_phone ? ' • ' + escapeHtml(c.customer_phone) : ''}</div>
-      <div style="font-size:11px; color:var(--text-muted); margin-top:5px; display:flex; justify-content:space-between; align-items:center;">
-        <span>${isStaff ? '<span style="color:var(--primary); font-weight:600;">👨‍💼 Nhân viên tiếp quản</span>' : '🤖 AI Trợ lý tự động'}</span>
-        <span style="font-size:10.5px; opacity:0.8;">${formatTimestamp(c.last_message_at)}</span>
+      <div style="font-size:13px; color:var(--text-muted); margin-top:6px; display:flex; justify-content:space-between; align-items:center;">
+        <span>${isStaff ? '<span style="color:var(--primary); font-weight:700;">👨‍💼 Nhân viên tiếp quản</span>' : '🤖 AI Trợ lý tự động'}</span>
+        <span style="font-size:12.5px; opacity:0.9; font-weight:500;">${formatTimestamp(c.last_message_at)}</span>
       </div>
     `;
     container.appendChild(item);
@@ -164,7 +164,10 @@ async function selectConversation(convId) {
     // 1. Update Header
     const channelName = getChannelLabel(conv ? conv.channel : "web_widget");
     document.getElementById("thread-cust-name").textContent = conv ? (conv.customer_name || "Khách Hàng") : "Khách Hàng";
-    document.getElementById("thread-cust-meta").textContent = `Kênh: ${channelName} • Trạng thái: ${conv ? (conv.status === 'assigned_human' ? 'Nhân viên tiếp quản' : 'Bot AI đang xử lý') : ''}`;
+    const metaEl = document.getElementById("thread-cust-meta-text") || document.getElementById("thread-cust-meta");
+    if (metaEl) {
+      metaEl.textContent = `Kênh: ${channelName} • Trạng thái: ${conv ? (conv.status === 'assigned_human' ? 'Nhân viên tiếp quản' : 'Bot AI đang xử lý') : ''}`;
+    }
 
     const takeoverBtn = document.getElementById("btn-takeover");
     if (takeoverBtn) {
@@ -177,7 +180,22 @@ async function selectConversation(convId) {
       }
     }
 
-    // 2. Update Customer 360 Sidebar
+    // Copilot Smart Intent Badge
+    const copilotBadge = document.getElementById("copilot-intent-badge");
+    if (copilotBadge) {
+      if (conv && conv.intent_label === "HOT") {
+        copilotBadge.textContent = "🔥 Khách Cực Nóng (Có SĐT / Sẵn Sàng Chốt Đơn)";
+        copilotBadge.style.color = "var(--hot-red)";
+      } else if (conv && conv.intent_label === "WARM") {
+        copilotBadge.textContent = "⚡ Khách Cân Nhắc (Cần Tư Vấn Size & Màu)";
+        copilotBadge.style.color = "var(--warm-amber)";
+      } else {
+        copilotBadge.textContent = "💬 Khách Hỏi Thông Tin Ban Đầu";
+        copilotBadge.style.color = "var(--text-muted)";
+      }
+    }
+
+    // 2. Update Customer 360 Sidebar & Order Draft Card
     const channelBadge = document.getElementById("detail-channel-badge");
     if (channelBadge && conv) {
       channelBadge.textContent = channelName;
@@ -188,6 +206,19 @@ async function selectConversation(convId) {
     document.getElementById("detail-phone").textContent = conv ? (conv.customer_phone || 'Chưa cung cấp') : '-';
     document.getElementById("detail-product").textContent = conv ? (conv.product_name ? `${conv.product_name} (${(conv.product_price || 0).toLocaleString()}đ)` : 'Chưa xác định') : '-';
     
+    // Order Draft Summary calculation
+    const prodPrice = conv ? (conv.product_price || 0) : 0;
+    const shipFee = prodPrice > 0 ? 25000 : 0;
+    const totalAmount = prodPrice + shipFee;
+    const draftNameEl = document.getElementById("draft-prod-name");
+    const draftPriceEl = document.getElementById("draft-prod-price");
+    const draftShipEl = document.getElementById("draft-ship-fee");
+    const draftTotalEl = document.getElementById("draft-total-amount");
+    if (draftNameEl) draftNameEl.textContent = conv && conv.product_name ? conv.product_name : "Chưa chọn mẫu";
+    if (draftPriceEl) draftPriceEl.textContent = `${prodPrice.toLocaleString()}đ`;
+    if (draftShipEl) draftShipEl.textContent = `${shipFee.toLocaleString()}đ`;
+    if (draftTotalEl) draftTotalEl.textContent = `${totalAmount.toLocaleString()}đ`;
+
     const scoreVal = conv ? (conv.lead_score || 0) : 0;
     const intentLabel = conv ? (conv.intent_label || 'COLD') : 'COLD';
     document.getElementById("detail-score").textContent = `${scoreVal} / 100 (${intentLabel})`;
@@ -199,7 +230,7 @@ async function selectConversation(convId) {
       if (scoreVal >= 70) {
         gaugeFill.style.background = "var(--hot-red)";
       } else if (scoreVal >= 40) {
-        gaugeFill.style.background = "var(--warm-orange)";
+        gaugeFill.style.background = "var(--warm-amber)";
       } else {
         gaugeFill.style.background = "var(--cold-blue)";
       }
@@ -209,6 +240,53 @@ async function selectConversation(convId) {
     const stageSelect = document.getElementById("detail-stage-select");
     if (stageSelect && conv) {
       stageSelect.value = conv.lead_status || "new";
+    }
+
+    // Dynamic Context-Aware Copilot Action Chips
+    const copilotChipsWrap = document.querySelector(".copilot-chips-wrap");
+    if (copilotChipsWrap) {
+      const lastCust = [...messages].reverse().find(m => m.sender_type === "customer");
+      const lastText = (lastCust ? lastCust.content : "").toLowerCase();
+      let chipsHtml = "";
+
+      if (lastText.includes("size") || lastText.includes("nặng") || lastText.includes("cao") || lastText.includes("kg") || lastText.includes("vừa")) {
+        chipsHtml += `
+          <button class="quick-chip" onclick="insertQuickReply('Dạ với chiều cao và cân nặng của bạn, bên em tư vấn bạn mặc size L là vừa vặn, chuẩn form và tôn dáng nhất ạ!')">
+            📏 Gợi ý size L chuẩn form
+          </button>
+          <button class="quick-chip" onclick="insertQuickReply('Dạ mẫu này form chuẩn ôm vừa, bạn cho mình xin thêm số đo chiều cao và cân nặng để em chọn size chính xác nhé!')">
+            📏 Hỏi chiều cao / cân nặng
+          </button>
+        `;
+      }
+
+      if (lastText.includes("ship") || lastText.includes("địa chỉ") || lastText.includes("sđt") || lastText.includes("đà nẵng") || lastText.includes("hà nội") || lastText.includes("hcm") || lastText.includes("giao")) {
+        chipsHtml += `
+          <button class="quick-chip" onclick="insertQuickReply('Dạ em đã ghi nhận địa chỉ nhận hàng. Đơn hàng trị giá ${(totalAmount || 275000).toLocaleString()}đ (gồm 25k ship) sẽ được chuyển phát nhanh và giao trong 2-3 ngày ạ!')">
+            📦 Xác nhận lên đơn & giao hàng
+          </button>
+          <button class="quick-chip" onclick="insertQuickReply('Dạ bên em áp dụng chính sách FREESHIP toàn quốc cho mọi đơn hàng từ 2 sản phẩm trở lên. Bạn có muốn chọn thêm 1 mẫu để được miễn phí ship không ạ?')">
+            🚚 Báo ưu đãi Freeship 2 chiếc
+          </button>
+        `;
+      }
+
+      // High-conversion standard chips
+      chipsHtml += `
+        <button class="quick-chip" onclick="insertQuickReply('Dạ mẫu này bên em đang có sẵn đủ size M, L, XL ạ. Bạn cho mình xin chiều cao và cân nặng để em chọn size chuẩn form và tôn dáng nhất nhé!')">
+          📏 Tư vấn chọn size
+        </button>
+        <button class="quick-chip" onclick="insertQuickReply('Dạ mình cho em xin Số Điện Thoại và Địa Chỉ nhận hàng để em lên đơn giữ hàng và gửi mã vận đơn cho mình ngay nhé!')">
+          📦 Xin SĐT & Địa chỉ ship
+        </button>
+        <button class="quick-chip" onclick="insertQuickReply('Dạ em đã kiểm tra kho và giữ đúng mẫu này cho mình rồi ạ. Anh/chị yên tâm nhé!')">
+          ✅ Xác nhận giữ hàng tại kho
+        </button>
+        <button class="quick-chip" onclick="insertQuickReply('Dạ bên em áp dụng chính sách đồng giá ship 25k toàn quốc và MIỄN PHÍ VẬN CHUYỂN cho mọi đơn hàng từ 2 sản phẩm trở lên ạ!')">
+          🚚 Báo phí ship & Freeship
+        </button>
+      `;
+      copilotChipsWrap.innerHTML = chipsHtml;
     }
 
     // 3. Render Messages in Thread Body
@@ -228,12 +306,12 @@ async function selectConversation(convId) {
 
         msgEl.innerHTML = `
           <div class="msg-bubble">
-            <div style="font-size:11px; font-weight:700; margin-bottom:3px; opacity:0.85;">${escapeHtml(senderTitle)}</div>
+            <div style="font-size:13px; font-weight:700; margin-bottom:4px; opacity:0.9;">${escapeHtml(senderTitle)}</div>
             <div>${escapeHtml(m.content)}</div>
           </div>
           <div class="msg-meta">
-            <span>${formatTimestamp(m.timestamp)}</span>
-            ${m.intent ? `<span style="font-size:10px; background:#e2e8f0; padding:1px 4px; border-radius:3px;">${escapeHtml(m.intent)}</span>` : ''}
+            <span style="font-size:12.5px;">${formatTimestamp(m.timestamp)}</span>
+            ${m.intent ? `<span style="font-size:12px; background:#e2e8f0; padding:2px 6px; border-radius:4px; font-weight:600;">${escapeHtml(m.intent)}</span>` : ''}
           </div>
         `;
         body.appendChild(msgEl);
@@ -377,7 +455,7 @@ async function loadKanban() {
       col.innerHTML = `
         <div class="kanban-col-header">
           <span>${stageTitles[st]}</span>
-          <span style="background:#e2e8f0; padding:2px 6px; border-radius:10px; font-size:11px;">${cards.length}</span>
+          <span style="background:#e2e8f0; padding:2px 8px; border-radius:10px; font-size:12.5px; font-weight:700;">${cards.length}</span>
         </div>
         <div class="kanban-cards" id="col-${st}"></div>
       `;
@@ -406,15 +484,15 @@ async function loadKanban() {
             <span>SĐT: ${escapeHtml(c.customer_phone || '-')}</span>
             <strong>${(c.estimated_value_vnd || 0).toLocaleString()}đ</strong>
           </div>
-          <div style="margin-top:8px; display:flex; justify-content:space-between; align-items:center;">
-            <select style="font-size:11px; padding:2px 4px; border-radius:4px;" onchange="moveLeadStage('${c.id}', this.value)">
-              <option value="new" ${c.status === 'new' ? 'selected' : ''}>Mới</option>
-              <option value="ai_qualified" ${c.status === 'ai_qualified' ? 'selected' : ''}>AI Qualified</option>
-              <option value="assigned" ${c.status === 'assigned' ? 'selected' : ''}>Giao Sale</option>
-              <option value="contacted" ${c.status === 'contacted' ? 'selected' : ''}>Đang gọi</option>
-              <option value="negotiating" ${c.status === 'negotiating' ? 'selected' : ''}>Thương lượng</option>
-              <option value="won" ${c.status === 'won' ? 'selected' : ''}>Chốt Won 🏆</option>
-              <option value="lost" ${c.status === 'lost' ? 'selected' : ''}>Thất bại</option>
+          <div style="margin-top:10px; display:flex; justify-content:space-between; align-items:center;">
+            <select style="font-size:13px; font-weight:600; padding:4px 8px; border-radius:6px; border:1px solid var(--border-light); background:#f8fafc; cursor:pointer;" onchange="moveLeadStage('${c.id}', this.value)">
+              <option value="new" ${c.status === 'new' ? 'selected' : ''}>1. Mới Nhận</option>
+              <option value="ai_qualified" ${c.status === 'ai_qualified' ? 'selected' : ''}>2. AI Qualified</option>
+              <option value="assigned" ${c.status === 'assigned' ? 'selected' : ''}>3. Giao Sale</option>
+              <option value="contacted" ${c.status === 'contacted' ? 'selected' : ''}>4. Đang gọi</option>
+              <option value="negotiating" ${c.status === 'negotiating' ? 'selected' : ''}>5. Thương lượng</option>
+              <option value="won" ${c.status === 'won' ? 'selected' : ''}>6. Chốt Won 🏆</option>
+              <option value="lost" ${c.status === 'lost' ? 'selected' : ''}>7. Thất bại</option>
             </select>
           </div>
         `;
@@ -469,17 +547,17 @@ async function loadProducts() {
     }
 
     let html = `
-      <table style="width:100%; border-collapse:collapse; font-size:13.5px;">
+      <table style="width:100%; border-collapse:collapse; font-size:14px;">
         <thead>
-          <tr style="text-align:left; border-bottom:2px solid var(--border);">
-            <th style="padding:8px;">SKU</th>
-            <th style="padding:8px;">Tên Sản Phẩm</th>
-            <th style="padding:8px;">Giá Bán</th>
-            <th style="padding:8px;">Tồn Kho</th>
-            <th style="padding:8px;">Size Có Sẵn</th>
-            <th style="padding:8px;">Màu Sắc</th>
-            <th style="padding:8px;">Chính Sách Giao Hàng</th>
-            <th style="padding:8px; text-align:center;">Thao Tác</th>
+          <tr style="text-align:left; border-bottom:2px solid var(--border-light); background:#f8fafc;">
+            <th style="padding:14px 16px; font-size:13px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Mã SKU</th>
+            <th style="padding:14px 16px; font-size:13px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Tên Sản Phẩm</th>
+            <th style="padding:14px 16px; font-size:13px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Giá Bán</th>
+            <th style="padding:14px 16px; font-size:13px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Tồn Kho</th>
+            <th style="padding:14px 16px; font-size:13px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Size Có Sẵn</th>
+            <th style="padding:14px 16px; font-size:13px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Màu Sắc</th>
+            <th style="padding:14px 16px; font-size:13px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Chính Sách Giao Hàng</th>
+            <th style="padding:14px 16px; font-size:13px; font-weight:700; color:var(--text-muted); text-transform:uppercase; text-align:center;">Thao Tác</th>
           </tr>
         </thead>
         <tbody>
@@ -487,16 +565,16 @@ async function loadProducts() {
 
     products.forEach(p => {
       html += `
-        <tr style="border-bottom:1px solid var(--border);">
-          <td style="padding:8px; font-weight:600;">${escapeHtml(p.sku)}</td>
-          <td style="padding:8px; color:var(--primary-dark); font-weight:600;">${escapeHtml(p.name)}</td>
-          <td style="padding:8px;">${(p.price_vnd || 0).toLocaleString()}đ</td>
-          <td style="padding:8px; font-weight:600;">${p.stock_quantity} cái</td>
-          <td style="padding:8px;">${escapeHtml((p.sizes || []).join(', '))}</td>
-          <td style="padding:8px;">${escapeHtml((p.colors || []).join(', '))}</td>
-          <td style="padding:8px; font-size:12px; color:var(--text-muted);">${escapeHtml(p.shipping_policy || '-')}</td>
-          <td style="padding:8px; text-align:center;">
-            <button onclick="deleteProduct('${p.id}')" style="background:#fee2e2; color:#ef4444; border:none; padding:4px 8px; border-radius:4px; font-size:11px; cursor:pointer;">Xóa</button>
+        <tr style="border-bottom:1px solid var(--border-light); transition:background 0.15s;">
+          <td style="padding:14px 16px; font-weight:700; font-family:var(--font-mono); font-size:13.5px; color:#0f172a;">${escapeHtml(p.sku)}</td>
+          <td style="padding:14px 16px; color:var(--primary); font-weight:700; font-size:14.5px;">${escapeHtml(p.name)}</td>
+          <td style="padding:14px 16px; font-weight:700; font-size:14px; color:#0f172a;">${(p.price_vnd || 0).toLocaleString()}đ</td>
+          <td style="padding:14px 16px; font-weight:700; font-size:14px; color:${p.stock_quantity > 0 ? '#059669' : '#dc2626'};">${p.stock_quantity} cái</td>
+          <td style="padding:14px 16px; font-size:13.5px;">${escapeHtml((p.sizes || []).join(', '))}</td>
+          <td style="padding:14px 16px; font-size:13.5px;">${escapeHtml((p.colors || []).join(', '))}</td>
+          <td style="padding:14px 16px; font-size:13px; color:var(--text-muted);">${escapeHtml(p.shipping_policy || '-')}</td>
+          <td style="padding:14px 16px; text-align:center;">
+            <button onclick="deleteProduct('${p.id}')" style="background:#fee2e2; color:#ef4444; border:none; padding:6px 14px; border-radius:6px; font-size:12.5px; font-weight:700; cursor:pointer;">Xóa</button>
           </td>
         </tr>
       `;
@@ -581,17 +659,17 @@ async function loadStaffMetrics() {
       return;
     }
     tbody.innerHTML = leaderboard.map((s, idx) => `
-      <tr style="border-bottom:1px solid #f1f5f9;">
-        <td style="padding:12px;">
-          <div style="font-weight:600; color:#0f172a;">${idx === 0 ? "🥇 " : (idx === 1 ? "🥈 " : (idx === 2 ? "🥉 " : ""))}${escapeHtml(s.name)}</div>
-          <div style="font-size:12px; color:#64748b;">${escapeHtml(s.email)}</div>
+      <tr style="border-bottom:1px solid var(--border-light); transition:background 0.15s;">
+        <td style="padding:16px 18px;">
+          <div style="font-weight:700; font-size:15px; color:#0f172a;">${idx === 0 ? "🥇 " : (idx === 1 ? "🥈 " : (idx === 2 ? "🥉 " : ""))}${escapeHtml(s.name)}</div>
+          <div style="font-size:13px; color:var(--text-muted); margin-top:2px;">${escapeHtml(s.email)}</div>
         </td>
-        <td style="padding:12px;"><span class="badge" style="background:#e0f2fe; color:#0369a1;">${escapeHtml(s.role)}</span></td>
-        <td style="padding:12px; text-align:center; font-weight:600;">${s.assigned_leads}</td>
-        <td style="padding:12px; text-align:center; color:#16a34a; font-weight:700;">${s.won_deals}</td>
-        <td style="padding:12px; text-align:center; font-weight:600;">${s.closing_rate_pct}%</td>
-        <td style="padding:12px; text-align:right; font-weight:700; color:#0f172a;">${(s.won_revenue_vnd || 0).toLocaleString()}đ</td>
-        <td style="padding:12px; text-align:right; font-weight:700; color:#2563eb;">${(s.estimated_commission_vnd || 0).toLocaleString()}đ</td>
+        <td style="padding:16px 18px;"><span class="badge" style="background:#e0f2fe; color:#0369a1; font-weight:700; padding:4px 10px; border-radius:6px; font-size:12.5px;">${escapeHtml(s.role)}</span></td>
+        <td style="padding:16px 18px; text-align:center; font-weight:700; font-size:14.5px;">${s.assigned_leads}</td>
+        <td style="padding:16px 18px; text-align:center; color:#16a34a; font-weight:800; font-size:15px;">${s.won_deals}</td>
+        <td style="padding:16px 18px; text-align:center; font-weight:700; font-size:14.5px;">${s.closing_rate_pct}%</td>
+        <td style="padding:16px 18px; text-align:right; font-weight:800; font-size:15px; color:#0f172a;">${(s.won_revenue_vnd || 0).toLocaleString()}đ</td>
+        <td style="padding:16px 18px; text-align:right; font-weight:800; font-size:15px; color:var(--primary);">${(s.estimated_commission_vnd || 0).toLocaleString()}đ</td>
       </tr>
     `).join("");
   } catch (err) {

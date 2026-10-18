@@ -1,0 +1,48 @@
+{
+  "id": "INBOX-20261019-016",
+  "type": "design_and_content_overhaul",
+  "executor": "antigravity",
+  "goal": "Revamp B2B SaaS Landing Page into a World-Class, Human-Grade Product Showcase and Overhaul Admin Command Center",
+  "context": "User feedback: the current landing page and admin dashboard look like generic AI-generated templates with cramped fonts and lack visual elegance. Overhauled into Stripe/Linear and Bizfly BizChatAI grade designs with bespoke SVG iconography, Bento grids, interactive simulator, ROI calculator, and dynamic context-aware AI copilot.",
+  "requirements": [
+    "Eliminate AI-cliché visual tropes: remove excessive emojis, tacky neon blobs, and generic cards.",
+    "Adopt top-tier design system: refined typography, Bento grid layout, realistic device mockups, subtle border glows, and clean SVG icons.",
+    "Embed interactive Live Product Simulation right on the landing page allowing visitors to test conversational shopping without leaving.",
+    "Build an interactive ROI / Savings Calculator with range sliders for daily chat volume and staff headcount.",
+    "Detail authentic Vietnamese business case studies and social proof (Hanoi fashion, HCMC footwear, agency multi-shop management).",
+    "Add comprehensive FAQ addressing Zalo/Facebook policy compliance, setup time, data isolation, and future POS/ERP integrations.",
+    "Polish VietQR registration modal with instant QR rendering and copyable bank account credentials.",
+    "Overhaul Admin Command Center with 14.5px+ readable typography, spacious 3-column split, dynamic context copilot chips, and Order Draft summary card."
+  ],
+  "deliverables": [
+    "ai_inbox/web/landing.html",
+    "ai_inbox/web/landing.css",
+    "ai_inbox/web/index.html",
+    "ai_inbox/web/style.css",
+    "ai_inbox/web/app.js",
+    "tests/test_ai_inbox_e2e.py"
+  ],
+  "acceptance_criteria": [
+    "Landing page delivers premium aesthetic without AI-generated look; interactive simulator and ROI calculator operate smoothly; admin typography is spacious and legible; all 24 E2E tests pass."
+  ],
+  "priority": "critical",
+  "dependencies": [],
+  "suggested_branch": "task/INBOX-20261019-016",
+  "status": "review",
+  "created_at": "2026-10-18T14:52:00+00:00",
+  "started_at": "2026-10-18T14:52:10+00:00",
+  "completed_at": "2026-10-18T15:05:00+00:00",
+  "result": {
+    "status": "success",
+    "review_package": "results/INBOX-20261019-016-review.json",
+    "e2e_pass_count": 24,
+    "e2e_total_count": 24
+  },
+  "artifacts": [
+    "results/INBOX-20261019-016-review.json"
+  ],
+  "metrics": {
+    "user_feedback": "resolved",
+    "pass_rate_pct": 100.0
+  }
+}

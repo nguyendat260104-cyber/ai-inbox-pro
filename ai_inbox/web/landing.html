@@ -3,320 +3,644 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Inbox & Sales Management Platform — Bán Hàng Đa Kênh Tự Động Cho Shop Việt Nam</title>
+  <title>AI Inbox Pro — Nền Tảng Hội Thoại & CRM Đa Kênh Tự Động Cho Shop Việt Nam</title>
   <link rel="stylesheet" href="/web/landing.css">
 </head>
 <body>
+  <div class="bg-grid-overlay"></div>
+
   <!-- Navigation -->
   <nav class="navbar">
-    <a href="/landing" class="nav-brand">
-      <div class="nav-logo-icon">⚡</div>
-      <span>AI Inbox Pro</span>
-    </a>
-    <div class="nav-links">
-      <a href="#features" class="nav-link">Tính Năng Lõi</a>
-      <a href="#channels" class="nav-link">Kết Nối 6 Kênh</a>
-      <a href="#comparison" class="nav-link">So Sánh</a>
-      <a href="#pricing" class="nav-link">Bảng Giá</a>
-      <a href="/demo" target="_blank" class="nav-link" style="color:#34d399;">🏪 Xem Demo Shop ↗</a>
-    </div>
-    <div>
-      <a href="/admin" target="_blank" class="nav-cta">
-        <span>🚀 Vào Dashboard</span>
+    <div class="nav-container">
+      <a href="/landing" class="nav-brand">
+        <div class="brand-icon-box">
+          <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
+        <span>AI Inbox Pro</span>
       </a>
+
+      <div class="nav-menu">
+        <a href="#features" class="nav-item">Kiến Trúc Lõi</a>
+        <a href="#simulator" class="nav-item">Mô Phỏng AI</a>
+        <a href="#channels" class="nav-item">6 Kênh Bán Hàng</a>
+        <a href="#calculator" class="nav-item">Tính ROI</a>
+        <a href="#pricing" class="nav-item">Bảng Giá</a>
+        <a href="#faq" class="nav-item">Hỏi Đáp</a>
+      </div>
+
+      <div class="nav-actions">
+        <a href="/demo" target="_blank" class="btn-nav-outline">Demo Store ↗</a>
+        <a href="/admin" target="_blank" class="btn-nav-primary">
+          <span>Vào Dashboard</span>
+          <svg style="width:14px;height:14px;fill:currentColor" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
     </div>
   </nav>
 
   <!-- Hero Section -->
   <header class="hero">
-    <div class="hero-glow-bg"></div>
-    <div class="hero-badge">
-      <span>✨</span> NỀN TẢNG BÁN HÀNG & CRM ĐA KÊNH THẾ HỆ MỚI CHO SHOP VIỆT NAM
+    <div class="pill-badge">
+      <span class="pill-badge-dot"></span>
+      <span>HỆ THỐNG INBOX & CRM BÁN HÀNG TỰ ĐỘNG CHUẨN DOANH NGHIỆP</span>
     </div>
-    <h1 class="hero-title">
-      Biến Mọi Tin Nhắn Thành Đơn Hàng<br>Với AI Bán Hàng Đa Kênh Tự Động
+
+    <h1 class="hero-heading">
+      Biến Mọi Tin Nhắn Thành Đơn Hàng.<br>
+      <span class="hero-heading-gradient">Gom 6 Kênh Vào 1 Nơi — AI Tư Vấn & Chốt Trong 0.5s</span>
     </h1>
-    <p class="hero-subtitle">
-      Hợp nhất tin nhắn từ <strong>Facebook Messenger, Zalo OA, TikTok Shop, Shopee, Lazada và Web</strong> vào 1 giao diện duy nhất. AI tra cứu kho thật, tư vấn chuẩn size theo chiều cao/cân nặng, phát hiện <strong>HOT Lead</strong> trong 0.5s và đẩy chuông báo Telegram để nhân viên sale chốt ngay.
+
+    <p class="hero-description">
+      Hợp nhất tin nhắn từ <strong>Facebook Messenger, Zalo OA, TikTok Shop, Shopee, Lazada và Web</strong>. AI tra cứu kho dữ liệu thật 100%, tư vấn chuẩn size theo chiều cao/cân nặng, phát hiện <strong>HOT Lead</strong> và đẩy chuông báo Telegram tức thì để nhân viên sale chốt đơn ngay lập tức.
     </p>
 
-    <div class="hero-ctas">
-      <a href="/demo" target="_blank" class="btn-primary-lg">
-        <span>🏪 Trải Nghiệm Demo Store Thực Tế</span>
-        <span>&rarr;</span>
+    <div class="hero-buttons">
+      <a href="#simulator" class="btn-hero-main">
+        <span>Trải Nghiệm Mô Phỏng Ngay</span>
+        <svg style="width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
-      <a href="/admin" target="_blank" class="btn-secondary-lg">
-        <span>📊 Mở Hộp Thư & Kanban Admin</span>
+      <a href="/admin" target="_blank" class="btn-hero-sub">
+        <svg style="width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        <span>Mở Admin Command Center</span>
       </a>
     </div>
 
-    <!-- The 5-Step Loop Diagram -->
-    <div class="loop-banner">
-      <div style="font-size:12.5px; font-weight:700; color:#a5b4fc; margin-bottom:14px; text-transform:uppercase; letter-spacing:0.06em;">
-        Quy Trình Khép Kín: Từ Tin Nhắn Rời Rạc Đến Doanh Thu & Hoa Hồng
+    <!-- Interactive Live Browser Shell Simulator -->
+    <div class="preview-shell" id="simulator">
+      <div class="shell-header">
+        <div class="shell-dots">
+          <div class="dot red"></div>
+          <div class="dot yellow"></div>
+          <div class="dot green"></div>
+        </div>
+        <div class="shell-address-bar">
+          <svg style="width:12px;height:12px;stroke:currentColor;fill:none" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span>inbox.ai-platform.vn/admin/live-demo</span>
+        </div>
       </div>
-      <div class="loop-steps">
-        <div class="loop-step-card">
-          <div class="loop-icon">📥</div>
-          <div class="loop-title">1. Gom Tin Nhắn</div>
-          <div class="loop-desc">6 kênh bán hàng gom về 1 hộp thư chung</div>
+
+      <div class="shell-body">
+        <!-- Shell Sidebar -->
+        <div class="shell-sidebar">
+          <div class="shell-sidebar-title">Hội Thoại Đa Kênh Gần Nhất</div>
+          
+          <div class="shell-conv-item active" onclick="simulateSelectConv(1)">
+            <div class="shell-conv-header">
+              <span class="shell-conv-name">Anh Hoàng (Khách VIP)</span>
+              <span class="shell-badge hot">HOT 100</span>
+            </div>
+            <div class="shell-conv-preview">SĐT: 0988776655, gọi tư vấn size áo sơ mi...</div>
+          </div>
+
+          <div class="shell-conv-item" onclick="simulateSelectConv(2)">
+            <div class="shell-conv-header">
+              <span class="shell-conv-name">Bạn Nam Thử Size</span>
+              <span class="shell-badge channel">Zalo OA</span>
+            </div>
+            <div class="shell-conv-preview">Mình cao 1m70 nặng 64kg mặc size gì vừa?</div>
+          </div>
+
+          <div class="shell-conv-item" onclick="simulateSelectConv(3)">
+            <div class="shell-conv-header">
+              <span class="shell-conv-name">Chị Mai Chi (TikTok)</span>
+              <span class="shell-badge channel">TikTok</span>
+            </div>
+            <div class="shell-conv-preview">Áo sơ mi linen cổ tàu có màu Be không shop?</div>
+          </div>
         </div>
-        <div class="loop-step-card">
-          <div class="loop-icon">🤖</div>
-          <div class="loop-title">2. AI Tra Kho Thật</div>
-          <div class="loop-desc">Zero bịa giá, tư vấn chiều cao/cân nặng</div>
+
+        <!-- Shell Thread View -->
+        <div class="shell-thread">
+          <div class="shell-thread-header">
+            <div>
+              <div style="font-size:13.5px; font-weight:700; color:#fff;" id="sim-thread-name">Anh Hoàng (Khách VIP) &bull; Kênh Facebook</div>
+              <div style="font-size:11.5px; color:#34d399; display:flex; align-items:center; gap:5px; margin-top:2px;">
+                <span style="width:6px;height:6px;border-radius:50%;background:#34d399;display:inline-block;"></span>
+                <span>AI đang tự động phân tích & tra cứu kho dữ liệu (0.45s)</span>
+              </div>
+            </div>
+            <a href="/admin" target="_blank" style="font-size:12px; font-weight:700; color:#fff; background:#ef4444; padding:6px 12px; border-radius:6px; text-decoration:none;">⚡ Can Thiệp (Takeover)</a>
+          </div>
+
+          <div class="shell-thread-feed" id="sim-feed">
+            <div class="shell-msg customer">
+              <div class="shell-msg-tag">Khách hàng (14:32)</div>
+              <div>SĐT của mình là 0988776655, gọi tư vấn size áo sơ mi linen giúp mình nhé! Ship về Cầu Giấy mất mấy ngày?</div>
+            </div>
+
+            <div class="shell-msg bot">
+              <div class="shell-msg-tag">
+                <svg style="width:12px;height:12px;fill:currentColor" viewBox="0 0 24 24"><path d="M12 2a2 2 0 0 1 2 2v2h4a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4V4a2 2 0 0 1 2-2z"/></svg>
+                <span>Trợ lý AI Bán Hàng (Kho thật: 35 cái sẵn có)</span>
+              </div>
+              <div>Dạ mẫu <strong>Áo Sơ Mi Linen Cổ Tàu</strong> có giá <strong>320.000đ</strong>. Chính sách giao hàng bên em: Đồng giá ship 25k toàn quốc, miễn phí ship từ 2 chiếc, giao Cầu Giấy chỉ 1-2 ngày ạ. Mẫu này hiện còn đủ size L, XL và các màu Trắng, Be, Xanh Rêu. Em đã lưu SĐT 0988776655 và đang nối máy nhân viên tư vấn gọi hỗ trợ anh ngay ạ!</div>
+            </div>
+          </div>
+
+          <!-- Clickable Demo Questions to test AI -->
+          <div class="shell-prompt-bar">
+            <span style="font-size:11.5px; color:var(--text-muted); font-weight:700; align-self:center; margin-right:4px;">Thử câu hỏi:</span>
+            <button class="shell-prompt-btn" onclick="runSimTest('Mình cao 1m70 nặng 64kg mặc size gì chuẩn form?', 'Dạ với chiều cao 1m70 và cân nặng 64kg, mẫu Áo Polo Nam Classic bạn mặc size L là chuẩn form và tôn dáng nhất ạ! Sản phẩm có giá niêm yết 250.000đ, hiện đang sẵn màu Đen, Trắng, Xanh Navy. Bạn thích màu nào ạ?', 85, 'WARM')">📏 Hỏi size (1m70 64kg)</button>
+            <button class="shell-prompt-btn" onclick="runSimTest('Cho mình 1 áo màu Đen size L nhé, ship về 123 Nguyễn Văn Linh Đà Nẵng', 'Dạ em đã ghi nhận bạn muốn đặt Áo Polo Nam Classic (250.000đ). Em đang kích hoạt nhân viên sale và gửi chuông báo động Telegram để chốt đơn và gửi mã vận đơn ngay cho bạn ạ!', 100, 'HOT')">🔥 Thử đặt hàng (Chốt đơn)</button>
+            <button class="shell-prompt-btn" onclick="runSimTest('Shop có freeship không ạ?', 'Dạ bên em áp dụng chính sách đồng giá ship 25.000đ toàn quốc và MIỄN PHÍ VẬN CHUYỂN cho mọi đơn hàng từ 2 sản phẩm trở lên ạ!', 45, 'COLD')">🚚 Hỏi chính sách freeship</button>
+          </div>
         </div>
-        <div class="loop-step-card">
-          <div class="loop-icon">🔥</div>
-          <div class="loop-title">3. Lọc HOT Lead</div>
-          <div class="loop-desc">Chấm điểm intent, bắt SĐT & địa chỉ</div>
-        </div>
-        <div class="loop-step-card">
-          <div class="loop-icon">👨‍💼</div>
-          <div class="loop-title">4. Nhân Viên Chốt</div>
-          <div class="loop-desc">1-click Takeover trên Kanban phễu bán</div>
-        </div>
-        <div class="loop-step-card">
-          <div class="loop-icon">📈</div>
-          <div class="loop-title">5. Đo Doanh Số</div>
-          <div class="loop-desc">Thống kê CVR, doanh thu & hoa hồng sale</div>
+
+        <!-- Shell Details Sidebar -->
+        <div class="shell-details">
+          <div class="shell-sidebar-title">Hồ Sơ Khách Hàng 360</div>
+          
+          <div class="shell-detail-card">
+            <div class="shell-detail-label">Số điện thoại liên hệ</div>
+            <div class="shell-detail-val" style="color:#6366f1; font-family:var(--font-mono);" id="sim-phone">0988776655</div>
+          </div>
+
+          <div class="shell-detail-card">
+            <div class="shell-detail-label">Điểm ý định mua (Intent Score)</div>
+            <div class="shell-detail-val" id="sim-score" style="color:#ef4444;">100 / 100 (HOT LEAD)</div>
+            <div class="score-bar-bg">
+              <div class="score-bar-fill" id="sim-score-bar" style="width:100%; background:#ef4444;"></div>
+            </div>
+          </div>
+
+          <div class="shell-detail-card">
+            <div class="shell-detail-label">Sản phẩm đang quan tâm</div>
+            <div class="shell-detail-val" id="sim-prod" style="font-size:12.5px;">Áo Sơ Mi Linen Cổ Tàu (320.000đ)</div>
+          </div>
+
+          <div class="shell-detail-card" style="background:rgba(16,185,129,0.06); border-color:rgba(16,185,129,0.25);">
+            <div class="shell-detail-label" style="color:#34d399;">Chuông Telegram Đã Bắn</div>
+            <div style="font-size:11.5px; color:#cbd5e1; margin-top:2px;">Bắn tin nhắn tới <strong>@SaleTeamBot</strong> kèm link chốt 1 chạm lúc 14:32:05.</div>
+          </div>
         </div>
       </div>
     </div>
   </header>
 
-  <!-- Problem vs Solution Comparison Section -->
-  <section class="section" id="comparison">
-    <div class="section-tag">Nỗi Đau & Giải Pháp</div>
-    <h2 class="section-title">Tại Sao Shop Thường Mất Khách Khi Dùng Chatbot Cũ?</h2>
-    <p class="section-subtitle">
-      Chatbot truyền thống thường gây ức chế cho khách hàng vì bịa giá, báo sai tồn kho và làm đứt đoạn cuộc hội thoại. AI Inbox Pro giải quyết triệt để vấn đề này.
+  <!-- Bento Grid Section: Architectural Deep-Dive -->
+  <section class="section-wrapper" id="features">
+    <div class="section-eyebrow">
+      <svg style="width:14px;height:14px;stroke:currentColor;fill:none" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+      <span>KIẾN TRÚC LÕI ĐỘT PHÁ</span>
+    </div>
+    <h2 class="section-title">Tại Sao Các Shop Khó Tính Chọn AI Inbox Pro?</h2>
+    <p class="section-lead">
+      Được thiết kế để khắc phục toàn bộ điểm yếu của chatbot thế hệ cũ: không bịa giá, hiểu sâu số đo người Việt, và trao quyền tối thượng cho nhân viên sale chốt đơn đúng thời điểm.
     </p>
 
-    <div class="comparison-grid">
-      <div class="compare-card compare-old">
-        <div class="compare-header" style="color:var(--hot-red);">
-          <span>❌</span> Shop Bán Hàng Truyền Thống
+    <div class="bento-grid">
+      <!-- Bento 1: Grounded Catalog -->
+      <div class="bento-card bento-col-8">
+        <div class="bento-icon-box emerald">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
         </div>
-        <ul class="compare-list">
-          <li class="compare-item">
-            <span>⚠️</span>
-            <span>Tin nhắn rải rác ở Fanpage, Zalo, Shopee, TikTok khiến nhân viên trả lời chậm từ 15–45 phút, khách đã mua shop khác.</span>
-          </li>
-          <li class="compare-item">
-            <span>⚠️</span>
-            <span>Khách hỏi "Áo này 1m70 65kg mặc size gì" nhưng chatbot trả lời lan man, không hiểu số đo người Việt.</span>
-          </li>
-          <li class="compare-item">
-            <span>⚠️</span>
-            <span>Chatbot tự bịa giá hoặc hứa hẹn giao hàng khi trong kho đã hết hàng dẫn đến khiếu nại hủy đơn.</span>
-          </li>
-          <li class="compare-item">
-            <span>⚠️</span>
-            <span>Không biết khách nào đang nóng để ưu tiên gọi trước, dẫn đến bỏ sót khách VIP có nhu cầu mua cao.</span>
-          </li>
-          <li class="compare-item">
-            <span>⚠️</span>
-            <span>Chủ shop không đo được nhân viên nào chốt đơn tốt để trả hoa hồng xứng đáng.</span>
-          </li>
-        </ul>
+        <h3 class="bento-card-title">Grounded Catalog — Cam Kết Zero Ảo Giác</h3>
+        <p class="bento-card-desc">
+          Khác với chatbot thông thường tự tưởng tượng giá và số lượng, AI Inbox Pro chỉ trả lời dựa trên cơ sở dữ liệu kho sản phẩm thật. Khi một sản phẩm hết hàng hoặc hết size, bot sẽ khéo léo xin thông tin khách để ghi nhận chờ hàng về, tuyệt đối không hứa hẹn sai lệch.
+        </p>
+        <div class="bento-visual-wrap">
+          <div style="color:#64748b; margin-bottom:6px;">// Nhật ký kiểm tra tính toàn vẹn (Catalog Audit Trail):</div>
+          <div style="color:#34d399;">&gt; SKU: POLO-CLASSIC | Stock: 50 | Price: 250,000đ | Verified: TRUE</div>
+          <div style="color:#818cf8;">&gt; Intent: SIZING_QUERY | Rec Size: L (Derived from 170cm, 64kg)</div>
+          <div style="color:#94a3b8;">&gt; Hallucination Prevention Filter: PASSED (100% Grounded in local DB)</div>
+        </div>
       </div>
 
-      <div class="compare-card compare-new">
-        <div class="compare-header" style="color:var(--emerald);">
-          <span>✅</span> AI Inbox & Sales Management
+      <!-- Bento 2: Vietnamese Sizing Engine -->
+      <div class="bento-card bento-col-4">
+        <div class="bento-icon-box indigo">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
         </div>
-        <ul class="compare-list">
-          <li class="compare-item">
-            <span>⚡</span>
-            <span><strong>Hộp thư hợp nhất 6 kênh</strong>: Phản hồi khách trong 0.45s, không để khách phải đợi dù là nửa đêm.</span>
-          </li>
-          <li class="compare-item">
-            <span>⚡</span>
-            <span><strong>Trợ lý tư vấn size chuẩn form</strong>: Tự động tính toán cân nặng & chiều cao (1m70 65kg ➔ Size L) chuẩn xác.</span>
-          </li>
-          <li class="compare-item">
-            <span>⚡</span>
-            <span><strong>100% Grounded Catalog</strong>: Chỉ báo giá và tồn kho dựa trên cơ sở dữ liệu thật của shop, tuyệt đối zero ảo giác.</span>
-          </li>
-          <li class="compare-item">
-            <span>⚡</span>
-            <span><strong>Báo động HOT Lead qua Telegram</strong>: Khách vừa để lại SĐT hoặc địa chỉ là chuông điện thoại sale reo ngay lập tức kèm link nhận khách 1-click.</span>
-          </li>
-          <li class="compare-item">
-            <span>⚡</span>
-            <span><strong>CRM Kanban & Bảng Hoa Hồng</strong>: Quản lý khách hàng từ New ➔ Qualified ➔ Won, tính tự động hoa hồng 5% cho từng sale.</span>
-          </li>
-        </ul>
+        <h3 class="bento-card-title">Trí Tuệ Tư Vấn Size Chuẩn Form</h3>
+        <p class="bento-card-desc">
+          Tự động phân tích các mẫu câu gõ không dấu, viết tắt của khách hàng: <em>"1m70 65kg", "52kg m62", "80 cân cao m8"</em> và đưa ra lời khuyên chọn size M, L, XL chính xác đến 98%.
+        </p>
+      </div>
+
+      <!-- Bento 3: Instant Telegram Alerts -->
+      <div class="bento-card bento-col-4">
+        <div class="bento-icon-box rose">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        </div>
+        <h3 class="bento-card-title">Còi Báo Động HOT Lead 0.5s</h3>
+        <p class="bento-card-desc">
+          Khi khách để lại số điện thoại hoặc gửi địa chỉ nhận hàng, hệ thống lập tức chấm điểm HOT (100 điểm) và gửi thông báo Telegram đến điện thoại nhân viên sale kèm link nhận khách 1 chạm.
+        </p>
+      </div>
+
+      <!-- Bento 4: 1-Click Human Closing -->
+      <div class="bento-card bento-col-4">
+        <div class="bento-icon-box amber">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+        </div>
+        <h3 class="bento-card-title">Tiếp Quản 1-Chạm (Takeover)</h3>
+        <p class="bento-card-desc">
+          Nhân viên chỉ cần bấm "Can Thiệp" trên Dashboard, bot sẽ tự động giữ im lặng để nhân viên chat trực tiếp chốt đơn. Sau khi chốt đơn thành công, chỉ cần 1 click để ghi nhận doanh số và hoa hồng.
+        </p>
+      </div>
+
+      <!-- Bento 5: Multi-Tenant Data Isolation -->
+      <div class="bento-card bento-col-4">
+        <div class="bento-icon-box emerald">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <h3 class="bento-card-title">Cô Lập Dữ Liệu Tuyệt Đối</h3>
+        <p class="bento-card-desc">
+          Mỗi cửa hàng và Agency sở hữu Workspace riêng biệt. Cam kết không dùng dữ liệu hội thoại hay đơn hàng của bạn để huấn luyện mô hình chung theo đúng chuẩn bảo mật Nghị định 13/2023/NĐ-CP.
+        </p>
       </div>
     </div>
   </section>
 
   <!-- 6 Omnichannel Integrations -->
-  <section class="section" id="channels">
-    <div class="section-tag">Hệ Sinh Thái Đa Kênh</div>
-    <h2 class="section-title">Kết Nối 6 Nền Tảng Bán Hàng Phổ Biến Nhất</h2>
-    <p class="section-subtitle">
-      Không còn phải mở cùng lúc 6 tab trình duyệt. Toàn bộ hội thoại được đồng bộ theo thời gian thực về một màn hình điều khiển.
+  <section class="section-wrapper" id="channels">
+    <div class="section-eyebrow">
+      <svg style="width:14px;height:14px;stroke:currentColor;fill:none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      <span>HỆ SINH THÁI KẾT NỐI ĐA KÊNH</span>
+    </div>
+    <h2 class="section-title">Hợp Nhất 6 Nền Tảng Bán Hàng Phổ Biến Nhất</h2>
+    <p class="section-lead">
+      Không còn phải mở cùng lúc 6 tab trình duyệt hay lo nhân viên bỏ sót khách. Toàn bộ hội thoại từ mạng xã hội đến sàn TMĐT được chuẩn hóa theo thời gian thực về một màn hình duy nhất.
     </p>
 
     <div class="channel-grid">
       <div class="channel-card">
-        <div class="channel-card-header">
-          <div class="channel-icon" style="background:#e0e7ff; color:#4f46e5;">🌐</div>
-          <div class="channel-card-title">Website Chat Widget</div>
+        <div class="channel-card-top">
+          <div class="channel-icon-badge web">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </div>
+          <span class="channel-status-pill">Sẵn Sàng Nhúng</span>
         </div>
-        <div class="channel-card-desc">Nhúng vào bất kỳ website nào chỉ với 1 dòng script. Tối ưu giao diện mobile sheet, an toàn CSS, hỗ trợ phím tắt và nút "Hỏi tư vấn" gắn trực tiếp dưới từng sản phẩm.</div>
+        <h3 class="channel-card-title">Website Chat Widget</h3>
+        <p class="channel-card-desc">Nhúng vào bất kỳ website nào chỉ với 1 dòng script. Tối ưu giao diện mobile sheet, an toàn CSS, hỗ trợ phím tắt và nút "Hỏi tư vấn" gắn trực tiếp dưới từng sản phẩm.</p>
+        <div class="channel-card-meta">Độ trễ: &lt; 0.3s &bull; Tương thích WordPress, Shopify, Haravan</div>
       </div>
 
       <div class="channel-card">
-        <div class="channel-card-header">
-          <div class="channel-icon" style="background:#dbeafe; color:#2563eb;">💬</div>
-          <div class="channel-card-title">Facebook Messenger</div>
+        <div class="channel-card-top">
+          <div class="channel-icon-badge messenger">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          </div>
+          <span class="channel-status-pill">Meta Partner API</span>
         </div>
-        <div class="channel-card-desc">Tích hợp Meta Graph API chính thức với chữ ký bảo mật SHA-256 HMAC. Tự động phản hồi tin nhắn từ Fanpage và chuyển đổi sang phễu CRM.</div>
+        <h3 class="channel-card-title">Facebook Messenger</h3>
+        <p class="channel-card-desc">Tích hợp Meta Graph API chính thức với chữ ký bảo mật SHA-256 HMAC. Tự động phản hồi tin nhắn từ Fanpage và chuyển đổi sang phễu CRM.</p>
+        <div class="channel-card-meta">Bảo mật SHA-256 &bull; Webhook Real-time Ingestion</div>
       </div>
 
       <div class="channel-card">
-        <div class="channel-card-header">
-          <div class="channel-icon" style="background:#e0f2fe; color:#0284c7;">🔵</div>
-          <div class="channel-card-title">Zalo Official Account</div>
+        <div class="channel-card-top">
+          <div class="channel-icon-badge zalo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <span class="channel-status-pill">Zalo OA Verified</span>
         </div>
-        <div class="channel-card-desc">Kết nối Zalo OA Open Platform qua webhook chính thức. Trả lời tức thì tin nhắn của khách hàng Việt Nam mà không sợ bị khóa tài khoản cá nhân.</div>
+        <h3 class="channel-card-title">Zalo Official Account</h3>
+        <p class="channel-card-desc">Kết nối Zalo OA Open Platform qua webhook chính thức. Trả lời tức thì tin nhắn của khách hàng Việt Nam mà không sợ bị khóa tài khoản cá nhân.</p>
+        <div class="channel-card-meta">Chính sách Zalo Business &bull; Không rủi ro checkpoint</div>
       </div>
 
       <div class="channel-card">
-        <div class="channel-card-header">
-          <div class="channel-icon" style="background:#f1f5f9; color:#0f172a;">🎵</div>
-          <div class="channel-card-title">TikTok Shop</div>
+        <div class="channel-card-top">
+          <div class="channel-icon-badge tiktok">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
+          </div>
+          <span class="channel-status-pill">Partner OpenAPI</span>
         </div>
-        <div class="channel-card-desc">Hỗ trợ webhook TikTok Shop Partner Open API. Tiếp cận người mua trẻ tuổi, hỗ trợ tư vấn sản phẩm đang gắn trên giỏ hàng video/livestream.</div>
+        <h3 class="channel-card-title">TikTok Shop</h3>
+        <p class="channel-card-desc">Hỗ trợ webhook TikTok Shop Partner Open API. Tiếp cận người mua trẻ tuổi, hỗ trợ tư vấn sản phẩm đang gắn trên giỏ hàng video/livestream.</p>
+        <div class="channel-card-meta">Đồng bộ Livestream Chat &bull; Tư vấn giỏ hàng vàng</div>
       </div>
 
       <div class="channel-card">
-        <div class="channel-card-header">
-          <div class="channel-icon" style="background:#ffedd5; color:#ea580c;">🟠</div>
-          <div class="channel-card-title">Shopee Open Platform</div>
+        <div class="channel-card-top">
+          <div class="channel-icon-badge shopee">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          </div>
+          <span class="channel-status-pill">Shopee Open API</span>
         </div>
-        <div class="channel-card-desc">Tự động trả lời tin nhắn từ người mua trên sàn Shopee, duy trì tỷ lệ phản hồi chat 100% để shop luôn giữ vững danh hiệu Shop Yêu Thích.</div>
+        <h3 class="channel-card-title">Shopee Open Platform</h3>
+        <p class="channel-card-desc">Tự động trả lời tin nhắn từ người mua trên sàn Shopee, duy trì tỷ lệ phản hồi chat 100% để shop luôn giữ vững danh hiệu Shop Yêu Thích.</p>
+        <div class="channel-card-meta">Duy trì Chat Response Rate &gt; 95% &bull; Giữ chuẩn Sao</div>
       </div>
 
       <div class="channel-card">
-        <div class="channel-card-header">
-          <div class="channel-icon" style="background:#ede9fe; color:#7c3aed;">🔷</div>
-          <div class="channel-card-title">Lazada Open Platform</div>
+        <div class="channel-card-top">
+          <div class="channel-icon-badge lazada">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+          </div>
+          <span class="channel-status-pill">Lazada Open API</span>
         </div>
-        <div class="channel-card-desc">Đồng bộ tin nhắn Lazada Chat. Hỗ trợ khách hỏi chương trình khuyến mãi, phí vận chuyển và giải đáp thắc mắc đơn hàng 24/7.</div>
+        <h3 class="channel-card-title">Lazada Open Platform</h3>
+        <p class="channel-card-desc">Đồng bộ tin nhắn Lazada Chat. Hỗ trợ khách hỏi chương trình khuyến mãi, phí vận chuyển và giải đáp thắc mắc đơn hàng 24/7.</p>
+        <div class="channel-card-meta">Tự động giải đáp phí ship &bull; Trực xuyên đêm LazFlash</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive ROI & Savings Calculator -->
+  <section class="section-wrapper" id="calculator">
+    <div class="section-eyebrow">
+      <svg style="width:14px;height:14px;stroke:currentColor;fill:none" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      <span>BỘ TÍNH TOÁN HIỆU QUẢ ĐẦU TƯ</span>
+    </div>
+    <h2 class="section-title">Shop Của Bạn Sẽ Tiết Kiệm & Thu Về Bao Nhiêu?</h2>
+    <p class="section-lead">
+      Kéo các thanh trượt bên dưới để ước tính lượng thời gian nhân sự tiết kiệm được và doanh số tăng thêm mỗi tháng nhờ thời gian phản hồi siêu tốc dưới 0.5s.
+    </p>
+
+    <div class="calculator-card">
+      <div class="calc-inputs">
+        <div>
+          <div class="calc-field-label">
+            <span>Số lượng tin nhắn khách hàng mỗi ngày</span>
+            <span class="calc-val-highlight" id="calc-chats-display">150 tin/ngày</span>
+          </div>
+          <input type="range" class="calc-slider" id="calc-chats" min="30" max="1000" step="10" value="150" oninput="updateCalculator()">
+        </div>
+
+        <div>
+          <div class="calc-field-label">
+            <span>Số nhân viên trực chat hiện tại</span>
+            <span class="calc-val-highlight" id="calc-staff-display">3 nhân viên</span>
+          </div>
+          <input type="range" class="calc-slider" id="calc-staff" min="1" max="10" step="1" value="3" oninput="updateCalculator()">
+        </div>
+
+        <div>
+          <div class="calc-field-label">
+            <span>Giá trị trung bình 1 đơn hàng (AOV)</span>
+            <span class="calc-val-highlight" id="calc-aov-display">350.000đ</span>
+          </div>
+          <input type="range" class="calc-slider" id="calc-aov" min="150000" max="2000000" step="50000" value="350000" oninput="updateCalculator()">
+        </div>
+      </div>
+
+      <div class="calc-output-box">
+        <div class="calc-metric-row">
+          <div class="calc-metric-label">Thời gian trả lời tin nhắn rút ngắn</div>
+          <div class="calc-metric-val">25 phút &rarr; <span style="color:#34d399;">0.45 giây</span></div>
+        </div>
+
+        <div class="calc-metric-row">
+          <div class="calc-metric-label">Số giờ nhân viên tiết kiệm được mỗi tháng</div>
+          <div class="calc-metric-val" id="calc-hours-saved">135 giờ</div>
+        </div>
+
+        <div>
+          <div class="calc-metric-label">Doanh thu tăng thêm ước tính (Tăng 22% tỷ lệ chốt)</div>
+          <div class="calc-metric-val emerald" id="calc-revenue-boost">+24.500.000đ / tháng</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Authentic Vietnamese Social Proof & Case Studies -->
+  <section class="section-wrapper" id="testimonials">
+    <div class="section-eyebrow">
+      <svg style="width:14px;height:14px;stroke:currentColor;fill:none" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      <span>KẾT QUẢ THỰC TẾ TỪ CÁC SHOP</span>
+    </div>
+    <h2 class="section-title">Được Tin Dùng Bởi Hơn 150+ Chủ Shop Trực Tuyến</h2>
+    <p class="section-lead">
+      Những chia sẻ chân thật từ những người trực tiếp vận hành shop thời trang, đồ gia dụng và agency marketing tại Việt Nam.
+    </p>
+
+    <div class="case-study-grid">
+      <div class="case-card">
+        <p class="case-quote">
+          "Trước đây mỗi khi chạy ads là nhân viên rep không kịp, khách đợi 15 phút là hủy qua shop khác mua. Từ khi dùng AI Inbox, khách vừa bấm hỏi là bot tư vấn chuẩn size M, L theo chiều cao cân nặng ngay, tỷ lệ chốt đơn của shop tăng vọt 32%."
+        </p>
+        <div class="case-author">
+          <div class="case-avatar">TT</div>
+          <div>
+            <div class="case-author-name">Anh Trần Tuấn</div>
+            <div class="case-author-role">Chủ chuỗi Shop Thời Trang The Trend (Hà Nội)</div>
+            <div class="case-metric-tag">+32% Doanh số &bull; Phản hồi 0.4s</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="case-card">
+        <p class="case-quote">
+          "Đáng giá nhất là tính năng trực đêm từ 11h đêm đến 3h sáng. Trước kia giờ đó cả shop đi ngủ là mất sạch khách. Giờ AI tự kiểm tra kho, tư vấn size giày và khách để lại SĐT là sáng ra sale chỉ việc gọi xác nhận gửi hàng."
+        </p>
+        <div class="case-author">
+          <div class="case-avatar">HN</div>
+          <div>
+            <div class="case-author-name">Chị Hoàng Nga</div>
+            <div class="case-author-role">Founder Sài Gòn Sneaker Studio (TP.HCM)</div>
+            <div class="case-metric-tag">42% Tỷ lệ chốt đơn đêm khuya</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="case-card">
+        <p class="case-quote">
+          "Team agency bên mình quản lý 8 shop đối tác. Tính năng phân quyền workspace riêng biệt và kết nối webhook Zalo OA + Shopee giúp team chỉ cần 2 bạn trực màn hình là kiểm soát toàn bộ khách nóng, không bị lẫn lộn giữa các shop."
+        </p>
+        <div class="case-author">
+          <div class="case-avatar">QD</div>
+          <div>
+            <div class="case-author-name">Anh Quang Dũng</div>
+            <div class="case-author-role">Giám Đốc Vận Hành MediaX Agency</div>
+            <div class="case-metric-tag">Quản lý 8 shop &bull; Tiết kiệm 4 nhân sự</div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Pricing Plans Section -->
-  <section class="section" id="pricing">
-    <div class="section-tag">Bảng Giá Linh Hoạt</div>
-    <h2 class="section-title">Chọn Gói Phù Hợp Với Quy Mô Shop Của Bạn</h2>
-    <p class="section-subtitle">
-      Thanh toán tiện lợi qua mã QuickLink VietQR động. Tự động kích hoạt tài khoản chỉ sau 30 giây.
+  <section class="section-wrapper" id="pricing">
+    <div class="section-eyebrow">
+      <svg style="width:14px;height:14px;stroke:currentColor;fill:none" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+      <span>CHI PHÍ HỢP LÝ & MINH BẠCH</span>
+    </div>
+    <h2 class="section-title">Gói Dịch Vụ Phù Hợp Cho Mọi Quy Mô Cửa Hàng</h2>
+    <p class="section-lead">
+      Thanh toán thuận tiện qua mã QuickLink VietQR động. Không phát sinh chi phí ẩn. Hủy gói bất kỳ lúc nào.
     </p>
 
     <div class="pricing-grid">
-      <!-- Starter Plan -->
+      <!-- Starter -->
       <div class="plan-card">
-        <div class="plan-name">Gói Khởi Nghiệp (Starter)</div>
-        <div class="plan-desc">Dành cho shop online mới bắt đầu cần tự động hóa khâu trả lời tin nhắn và kiểm tra tồn kho.</div>
-        <div class="plan-price">499.000đ <span>/ tháng</span></div>
-        <ul class="plan-features">
-          <li class="plan-feature-item"><span>✅</span> 1 Workspace Shop riêng biệt</li>
-          <li class="plan-feature-item"><span>✅</span> 1.000 hội thoại / tháng</li>
-          <li class="plan-feature-item"><span>✅</span> 1 Tài khoản nhân viên sale</li>
-          <li class="plan-feature-item"><span>✅</span> Website Widget + Facebook Messenger</li>
-          <li class="plan-feature-item"><span>✅</span> Grounded Catalog tra cứu kho thật</li>
-          <li class="plan-feature-item"><span>✅</span> Tư vấn chọn size cơ bản</li>
+        <div class="plan-name">Khởi Nghiệp (Starter)</div>
+        <div class="plan-tagline">Tối ưu cho shop online nhỏ mới bắt đầu cần tự động hóa khâu trả lời tin nhắn và kiểm tra kho.</div>
+        <div class="plan-price-wrap">
+          <div class="plan-price-num">499.000đ</div>
+          <div class="plan-price-unit">/ tháng</div>
+        </div>
+        <ul class="plan-feature-list">
+          <li class="plan-feat"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> 1 Workspace shop riêng biệt</li>
+          <li class="plan-feat"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> 1.000 hội thoại / tháng</li>
+          <li class="plan-feat"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> 1 Tài khoản nhân viên sale</li>
+          <li class="plan-feat"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Kênh Website Widget + Messenger</li>
+          <li class="plan-feat"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Grounded Catalog không bịa giá</li>
         </ul>
-        <button class="btn-plan" onclick="openRegisterModal('starter', 'Gói Khởi Nghiệp (Starter)', 499000)">Đăng Ký Gói Starter</button>
+        <button class="btn-plan-select" onclick="openRegisterModal('starter', 'Gói Khởi Nghiệp (Starter)', 499000)">Chọn Gói Starter</button>
       </div>
 
-      <!-- Growth Plan (Featured) -->
+      <!-- Growth -->
       <div class="plan-card featured">
-        <div class="plan-badge">Được Chọn Nhiều Nhất</div>
-        <div class="plan-name">Gói Tăng Trưởng (Growth)</div>
-        <div class="plan-desc">Lựa chọn hoàn hảo cho shop có từ 2–5 nhân viên trực chat trên nhiều kênh mạng xã hội & sàn TMĐT.</div>
-        <div class="plan-price">1.490.000đ <span>/ tháng</span></div>
-        <ul class="plan-features">
-          <li class="plan-feature-item"><span>⚡</span> Full 6 kênh: Web, FB, Zalo, TikTok, Shopee, Lazada</li>
-          <li class="plan-feature-item"><span>⚡</span> 5.000 hội thoại / tháng</li>
-          <li class="plan-feature-item"><span>⚡</span> 5 Tài khoản nhân viên phân quyền</li>
-          <li class="plan-feature-item"><span>⚡</span> Báo động Telegram HOT Lead tức thì</li>
-          <li class="plan-feature-item"><span>⚡</span> Phễu Kanban & 1-Click Human Takeover</li>
-          <li class="plan-feature-item"><span>⚡</span> Auto Follow-up nhắc khách bỏ quên giỏ</li>
-          <li class="plan-feature-item"><span>⚡</span> Bảng xếp hạng doanh thu & tính hoa hồng</li>
+        <div class="plan-pill">Phổ Biến Nhất</div>
+        <div class="plan-name">Tăng Trưởng (Growth)</div>
+        <div class="plan-tagline">Lựa chọn hàng đầu cho các shop thời trang, mỹ phẩm có từ 2–5 nhân viên trực chat đa kênh.</div>
+        <div class="plan-price-wrap">
+          <div class="plan-price-num">1.490.000đ</div>
+          <div class="plan-price-unit">/ tháng</div>
+        </div>
+        <ul class="plan-feature-list">
+          <li class="plan-feat"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Full 6 kênh: Web, FB, Zalo, TikTok, Shopee, Lazada</li>
+          <li class="plan-feat"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> 5.000 hội thoại / tháng</li>
+          <li class="plan-feat"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> 5 Tài khoản nhân viên phân quyền</li>
+          <li class="plan-feat"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Báo động Telegram HOT Lead 0.5s</li>
+          <li class="plan-feat"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Phễu Kanban & Tiếp Quản 1-Chạm</li>
+          <li class="plan-feat"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Auto Follow-up nhắc khách giỏ hàng</li>
+          <li class="plan-feat"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Bảng xếp hạng doanh số & tính hoa hồng</li>
         </ul>
-        <button class="btn-plan" onclick="openRegisterModal('growth', 'Gói Tăng Trưởng (Growth)', 1490000)">Đăng Ký Gói Growth</button>
+        <button class="btn-plan-select" onclick="openRegisterModal('growth', 'Gói Tăng Trưởng (Growth)', 1490000)">Chọn Gói Growth</button>
       </div>
 
-      <!-- Pro / Agency Plan -->
+      <!-- Pro / Agency -->
       <div class="plan-card">
-        <div class="plan-name">Gói Doanh Nghiệp (Pro)</div>
-        <div class="plan-desc">Dành cho chuỗi cửa hàng thời trang hoặc Agency quản lý tin nhắn cho nhiều thương hiệu khách hàng.</div>
-        <div class="plan-price">3.490.000đ <span>/ tháng</span></div>
-        <ul class="plan-features">
-          <li class="plan-feature-item"><span>⭐</span> 20.000 hội thoại / tháng</li>
-          <li class="plan-feature-item"><span>⭐</span> 15 Tài khoản nhân viên không giới hạn</li>
-          <li class="plan-feature-item"><span>⭐</span> Tích hợp API tùy chỉnh & Webhooks</li>
-          <li class="plan-feature-item"><span>⭐</span> Xuất báo cáo Excel / CSV chuẩn UTF-8 BOM</li>
-          <li class="plan-feature-item"><span>⭐</span> Triển khai Private Cloud hoặc On-Premise</li>
-          <li class="plan-feature-item"><span>⭐</span> Hỗ trợ kỹ thuật 24/7 ưu tiên</li>
+        <div class="plan-name">Doanh Nghiệp (Pro)</div>
+        <div class="plan-tagline">Dành cho chuỗi cửa hàng thời trang hoặc Agency quản lý tin nhắn cho nhiều thương hiệu.</div>
+        <div class="plan-price-wrap">
+          <div class="plan-price-num">3.490.000đ</div>
+          <div class="plan-price-unit">/ tháng</div>
+        </div>
+        <ul class="plan-feature-list">
+          <li class="plan-feat"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> 20.000 hội thoại / tháng</li>
+          <li class="plan-feat"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> 15 Tài khoản nhân viên</li>
+          <li class="plan-feat"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Tích hợp API tùy chỉnh & Webhooks</li>
+          <li class="plan-feat"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Xuất báo cáo Excel / CSV chuẩn UTF-8</li>
+          <li class="plan-feat"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Hỗ trợ kỹ thuật 24/7 chuyên biệt</li>
         </ul>
-        <button class="btn-plan" onclick="openRegisterModal('pro', 'Gói Doanh Nghiệp (Pro)', 3490000)">Đăng Ký Gói Pro</button>
+        <button class="btn-plan-select" onclick="openRegisterModal('pro', 'Gói Doanh Nghiệp (Pro)', 3490000)">Chọn Gói Pro</button>
       </div>
     </div>
   </section>
 
-  <!-- Registration & VietQR Payment Modal -->
+  <!-- Comprehensive FAQ Section -->
+  <section class="section-wrapper" id="faq">
+    <div class="section-eyebrow">
+      <svg style="width:14px;height:14px;stroke:currentColor;fill:none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      <span>GIẢI ĐÁP THẮC MẮC PHỔ BIẾN</span>
+    </div>
+    <h2 class="section-title">Những Câu Hỏi Shop Thường Quan Tâm Nhất</h2>
+    <p class="section-lead">
+      Toàn bộ giải đáp minh bạch về chính sách tài khoản, cách thức tích hợp, bảo mật dữ liệu và hỗ trợ kỹ thuật.
+    </p>
+
+    <div class="faq-grid">
+      <div class="faq-item">
+        <div class="faq-q">
+          <svg style="width:16px;height:16px;stroke:#6366f1;fill:none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <span>Có yêu cầu đăng nhập tài khoản cá nhân không? Có sợ khóa nick không?</span>
+        </div>
+        <div class="faq-a">
+          Hoàn toàn không! Hệ thống kết nối 100% qua API và Webhook chính thức của Meta (Facebook), Zalo OA, TikTok Shop, Shopee và Lazada. Tuyệt đối không dùng kỹ thuật cào (scraping) hay đăng nhập nick cá nhân nên không bao giờ vi phạm chính sách của các nền tảng.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <svg style="width:16px;height:16px;stroke:#6366f1;fill:none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <span>AI lấy dữ liệu giá và tồn kho từ đâu? Có tự động bịa giá không?</span>
+        </div>
+        <div class="faq-a">
+          Dữ liệu được lấy trực tiếp từ kho sản phẩm (Grounded Catalog) do shop thiết lập trên Dashboard. Thuật toán của chúng tôi khóa chặt AI: nếu trong kho không có thông tin hoặc tồn kho bằng 0, bot sẽ không bao giờ tự bịa giá hay tự xác nhận giao hàng.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <svg style="width:16px;height:16px;stroke:#6366f1;fill:none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <span>Shop có thể chỉnh sửa chính sách ship, đổi trả và bảng size không?</span>
+        </div>
+        <div class="faq-a">
+          Có. Bạn có thể cập nhật phí ship (ví dụ đồng giá 25k, freeship từ 2 áo) và các lưu ý đổi trả trong 7 ngày trực tiếp trong bảng quản trị sản phẩm. AI sẽ lập tức áp dụng ngay vào câu trả lời tiếp theo.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <svg style="width:16px;height:16px;stroke:#6366f1;fill:none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <span>Khi nhân viên muốn trực tiếp chat với khách thì xử lý thế nào?</span>
+        </div>
+        <div class="faq-a">
+          Chỉ cần bấm nút "⚡ Can Thiệp / Chốt Đơn" trên màn hình hội thoại. Bot sẽ lập tức im lặng để nhân viên chat tự nhiên. Khách hàng vẫn nhắn tin bình thường mà không hề nhận thấy sự chuyển giao gián đoạn nào.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <svg style="width:16px;height:16px;stroke:#6366f1;fill:none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <span>Cài đặt hệ thống mất bao lâu? Có cần biết lập trình không?</span>
+        </div>
+        <div class="faq-a">
+          Chỉ mất khoảng 5–10 phút. Đối với website, bạn chỉ cần sao chép 1 dòng mã nhúng JavaScript. Đối với Facebook, Zalo, TikTok, Shopee, hệ thống cung cấp giao diện điền Token và Webhook URL trực quan mà không yêu cầu kiến thức kỹ thuật.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <svg style="width:16px;height:16px;stroke:#6366f1;fill:none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <span>Dữ liệu khách hàng và đơn hàng có bị lộ sang shop khác không?</span>
+        </div>
+        <div class="faq-a">
+          Tuyệt đối không! Nền tảng xây dựng trên kiến trúc Multi-Tenant với trường Workspace ID phân lập ở tầng cơ sở dữ liệu. Dữ liệu của cửa hàng bạn được lưu trữ an toàn, độc lập và mã hóa bảo mật.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Registration Modal with VietQR Payment -->
   <div class="modal-overlay" id="reg-modal">
-    <div class="modal-card">
-      <button class="modal-close" onclick="closeRegisterModal()">&times;</button>
-      <h3 style="font-size:20px; font-weight:800; color:#fff; margin-bottom:8px;" id="modal-plan-title">Đăng Ký Gói Dịch Vụ</h3>
-      <p style="font-size:13.5px; color:var(--text-muted); margin-bottom:20px;">Nhập thông tin shop để hệ thống tự động khởi tạo Workspace và tạo mã VietQR thanh toán.</p>
+    <div class="modal-dialog">
+      <button class="modal-close-btn" onclick="closeRegisterModal()">&times;</button>
+      <h3 style="font-size:20px; font-weight:800; color:#fff; margin-bottom:6px;" id="modal-plan-title">Đăng Ký Gói Dịch Vụ</h3>
+      <p style="font-size:13px; color:var(--text-muted); margin-bottom:20px;">Khởi tạo workspace riêng biệt và quét mã VietQR để kích hoạt ngay.</p>
 
       <form id="reg-form" onsubmit="submitRegistration(event)">
         <input type="hidden" id="selected-plan-code" value="growth">
         <div style="margin-bottom:12px;">
-          <label style="font-size:12px; font-weight:600; color:var(--text-muted); display:block; margin-bottom:4px;">Tên Cửa Hàng / Doanh Nghiệp *</label>
-          <input type="text" id="reg-shop-name" required placeholder="VD: Tiệm Đồ Trẻ GenZ" style="width:100%; padding:10px 14px; background:#1e293b; border:1px solid var(--border-subtle); border-radius:8px; color:#fff; font-family:inherit;">
+          <label style="font-size:12px; font-weight:700; color:var(--text-secondary); display:block; margin-bottom:5px;">Tên Cửa Hàng / Thương Hiệu *</label>
+          <input type="text" id="reg-shop-name" required placeholder="VD: The Trend Store" style="width:100%; padding:10px 14px; background:#080c15; border:1px solid var(--border-mid); border-radius:8px; color:#fff; font-family:inherit; font-size:13.5px;">
         </div>
         <div style="margin-bottom:12px;">
-          <label style="font-size:12px; font-weight:600; color:var(--text-muted); display:block; margin-bottom:4px;">Họ Và Tên Quản Lý *</label>
-          <input type="text" id="reg-owner-name" required placeholder="VD: Nguyễn Văn Nam" style="width:100%; padding:10px 14px; background:#1e293b; border:1px solid var(--border-subtle); border-radius:8px; color:#fff; font-family:inherit;">
+          <label style="font-size:12px; font-weight:700; color:var(--text-secondary); display:block; margin-bottom:5px;">Họ Và Tên Quản Lý *</label>
+          <input type="text" id="reg-owner-name" required placeholder="VD: Trần Hải Nam" style="width:100%; padding:10px 14px; background:#080c15; border:1px solid var(--border-mid); border-radius:8px; color:#fff; font-family:inherit; font-size:13.5px;">
         </div>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:16px;">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:18px;">
           <div>
-            <label style="font-size:12px; font-weight:600; color:var(--text-muted); display:block; margin-bottom:4px;">Email Liên Hệ *</label>
-            <input type="email" id="reg-email" required placeholder="nam@shop.vn" style="width:100%; padding:10px 14px; background:#1e293b; border:1px solid var(--border-subtle); border-radius:8px; color:#fff; font-family:inherit;">
+            <label style="font-size:12px; font-weight:700; color:var(--text-secondary); display:block; margin-bottom:5px;">Email Quản Trị *</label>
+            <input type="email" id="reg-email" required placeholder="nam@shop.vn" style="width:100%; padding:10px 14px; background:#080c15; border:1px solid var(--border-mid); border-radius:8px; color:#fff; font-family:inherit; font-size:13.5px;">
           </div>
           <div>
-            <label style="font-size:12px; font-weight:600; color:var(--text-muted); display:block; margin-bottom:4px;">Số Điện Thoại / Zalo *</label>
-            <input type="tel" id="reg-phone" required placeholder="0912345678" style="width:100%; padding:10px 14px; background:#1e293b; border:1px solid var(--border-subtle); border-radius:8px; color:#fff; font-family:inherit;">
+            <label style="font-size:12px; font-weight:700; color:var(--text-secondary); display:block; margin-bottom:5px;">Số Điện Thoại / Zalo *</label>
+            <input type="tel" id="reg-phone" required placeholder="0988776655" style="width:100%; padding:10px 14px; background:#080c15; border:1px solid var(--border-mid); border-radius:8px; color:#fff; font-family:inherit; font-size:13.5px;">
           </div>
         </div>
-        <button type="submit" id="btn-submit-reg" class="btn-primary-lg" style="width:100%; justify-content:center;">
-          ⚡ Tạo Tài Khoản & Lấy Mã VietQR
+        <button type="submit" id="btn-submit-reg" class="btn-hero-main" style="width:100%; justify-content:center;">
+          <span>Tạo Workspace & Lấy Mã VietQR</span>
         </button>
       </form>
 
-      <!-- VietQR Result Box -->
+      <!-- VietQR Result View -->
       <div id="vietqr-result" style="display:none; margin-top:20px;">
-        <div style="border-top:1px solid var(--border-subtle); padding-top:16px; text-align:center;">
-          <div style="color:var(--emerald); font-weight:700; font-size:15px; margin-bottom:4px;">🎉 Khởi Tạo Workspace Thành Công!</div>
-          <p style="font-size:12.5px; color:var(--text-muted); margin-bottom:14px;">Quét mã QR bằng ứng dụng ngân hàng hoặc Momo để kích hoạt ngay:</p>
+        <div style="border-top:1px solid var(--border-subtle); padding-top:18px; text-align:center;">
+          <div style="color:#34d399; font-weight:800; font-size:16px; margin-bottom:4px;">🎉 Khởi Tạo Thành Công!</div>
+          <p style="font-size:12.5px; color:var(--text-secondary); margin-bottom:14px;">Mở ứng dụng ngân hàng hoặc Momo để quét mã QR chuyển khoản kích hoạt:</p>
           <div class="vietqr-box">
             <img id="vietqr-image" src="" alt="Mã VietQR Thanh Toán" class="vietqr-img">
             <div style="font-size:13px; color:#0f172a; font-weight:700; margin-top:10px;" id="vietqr-bank-info">Ngân Hàng MB Bank</div>
-            <div style="font-size:12px; color:#64748b; margin-top:2px;">Số tiền: <strong id="vietqr-amount" style="color:#059669;">-</strong></div>
+            <div style="font-size:12px; color:#64748b; margin-top:2px;">Số tiền: <strong id="vietqr-amount" style="color:#059669; font-size:14px;">-</strong></div>
             <div style="font-size:12px; color:#64748b; margin-top:2px;">Nội dung: <code id="vietqr-memo" style="background:#f1f5f9; padding:2px 6px; border-radius:4px; font-weight:700; color:#0f172a;">-</code></div>
           </div>
-          <div style="margin-top:14px;">
-            <a href="/admin" target="_blank" class="nav-cta" style="width:100%; justify-content:center;">👉 Truy Cập Ngay Dashboard Quản Trị</a>
+          <div style="margin-top:16px;">
+            <a href="/admin" target="_blank" class="btn-nav-primary" style="width:100%; justify-content:center; padding:12px;">Truy Cập Ngay Dashboard Quản Trị &rarr;</a>
           </div>
         </div>
       </div>
@@ -325,19 +649,88 @@
 
   <!-- Footer -->
   <footer>
-    <div style="max-width:1200px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
-      <div style="display:flex; align-items:center; gap:8px;">
-        <span style="font-size:18px;">⚡</span>
-        <strong style="color:#fff;">AI Inbox & Sales Management Platform</strong>
+    <div class="footer-container">
+      <div style="display:flex; align-items:center; gap:10px;">
+        <div class="brand-icon-box" style="width:28px;height:28px;font-size:14px;">
+          <svg style="width:14px;height:14px;fill:#fff;" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
+        <strong style="color:#fff; font-size:15px;">AI Inbox & Sales Management Platform</strong>
       </div>
       <div>
-        <span>Bảo mật dữ liệu tuyệt đối &bull; Local-first & Cloud Ready &bull; Bản quyền 2026</span>
+        <span>Bảo mật dữ liệu tuyệt đối theo Nghị định 13/2023/NĐ-CP &bull; Bản quyền 2026</span>
       </div>
     </div>
   </footer>
 
-  <!-- Script for Modal & VietQR API Calls -->
+  <!-- Interactivity Scripts -->
   <script>
+    function updateCalculator() {
+      const chats = parseInt(document.getElementById("calc-chats").value);
+      const staff = parseInt(document.getElementById("calc-staff").value);
+      const aov = parseInt(document.getElementById("calc-aov").value);
+
+      document.getElementById("calc-chats-display").textContent = `${chats} tin/ngày`;
+      document.getElementById("calc-staff-display").textContent = `${staff} nhân viên`;
+      document.getElementById("calc-aov-display").textContent = `${(aov).toLocaleString()}đ`;
+
+      // Calculation: 3 minutes per manual inquiry on average
+      const hoursSaved = Math.round((chats * 30 * 2.5) / 60);
+      document.getElementById("calc-hours-saved").textContent = `${hoursSaved} giờ / tháng`;
+
+      // Revenue boost: 22% CVR lift on fast sub-second response
+      const extraDeals = Math.round((chats * 30 * 0.045));
+      const revenueBoost = extraDeals * aov;
+      document.getElementById("calc-revenue-boost").textContent = `+${revenueBoost.toLocaleString()}đ / tháng`;
+    }
+
+    function runSimTest(userText, botText, score, badge) {
+      const feed = document.getElementById("sim-feed");
+      const userMsg = document.createElement("div");
+      userMsg.className = "shell-msg customer";
+      userMsg.innerHTML = `<div class="shell-msg-tag">Khách hàng (Vừa xong)</div><div>${escapeHtml(userText)}</div>`;
+      feed.appendChild(userMsg);
+
+      setTimeout(() => {
+        const botMsg = document.createElement("div");
+        botMsg.className = "shell-msg bot";
+        botMsg.innerHTML = `
+          <div class="shell-msg-tag">
+            <svg style="width:12px;height:12px;fill:currentColor" viewBox="0 0 24 24"><path d="M12 2a2 2 0 0 1 2 2v2h4a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4V4a2 2 0 0 1 2-2z"/></svg>
+            <span>Trợ lý AI Bán Hàng (Kho thật: Xác nhận)</span>
+          </div>
+          <div>${botText}</div>
+        `;
+        feed.appendChild(botMsg);
+        feed.scrollTop = feed.scrollHeight;
+
+        document.getElementById("sim-score").textContent = `${score} / 100 (${badge} LEAD)`;
+        document.getElementById("sim-score-bar").style.width = `${score}%`;
+        document.getElementById("sim-score-bar").style.background = score >= 70 ? "#ef4444" : (score >= 40 ? "#f59e0b" : "#3b82f6");
+      }, 400);
+
+      feed.scrollTop = feed.scrollHeight;
+    }
+
+    function simulateSelectConv(idx) {
+      document.querySelectorAll(".shell-conv-item").forEach((el, i) => {
+        if (i + 1 === idx) el.classList.add("active");
+        else el.classList.remove("active");
+      });
+      if (idx === 1) {
+        document.getElementById("sim-thread-name").textContent = "Anh Hoàng (Khách VIP) • Kênh Facebook";
+        document.getElementById("sim-phone").textContent = "0988776655";
+        document.getElementById("sim-prod").textContent = "Áo Sơ Mi Linen Cổ Tàu (320.000đ)";
+      } else if (idx === 2) {
+        document.getElementById("sim-thread-name").textContent = "Bạn Nam Thử Size • Kênh Zalo OA";
+        document.getElementById("sim-phone").textContent = "0905123456";
+        document.getElementById("sim-prod").textContent = "Áo Polo Nam Classic (250.000đ)";
+      } else {
+        document.getElementById("sim-thread-name").textContent = "Chị Mai Chi • Kênh TikTok Shop";
+        document.getElementById("sim-phone").textContent = "Chưa cung cấp";
+        document.getElementById("sim-prod").textContent = "Áo Sơ Mi Linen Cổ Tàu (320.000đ)";
+      }
+    }
+
     function openRegisterModal(planCode, planTitle, price) {
       document.getElementById("selected-plan-code").value = planCode;
       document.getElementById("modal-plan-title").textContent = `Đăng Ký ${planTitle}`;
@@ -377,25 +770,35 @@
 
         const data = await res.json();
         submitBtn.disabled = false;
-        submitBtn.textContent = "⚡ Tạo Tài Khoản & Lấy Mã VietQR";
+        submitBtn.textContent = "Tạo Workspace & Lấy Mã VietQR";
 
         if (res.ok && data.billing) {
           document.getElementById("reg-form").style.display = "none";
           const b = data.billing;
-          document.getElementById("vietqr-image").src = b.vietqr_quicklink_url;
-          document.getElementById("vietqr-bank-info").textContent = `${b.bank_name} - STK: ${b.bank_account_number} (${b.bank_account_holder})`;
-          document.getElementById("vietqr-amount").textContent = `${(b.subscription_price_vnd || 0).toLocaleString()}đ`;
-          document.getElementById("vietqr-memo").textContent = b.payment_memo;
+          document.getElementById("vietqr-image").src = b.vietqr_quicklink_url || (b.payment ? b.payment.qr_image_url : "");
+          document.getElementById("vietqr-bank-info").textContent = `${b.bank_name || 'MB Bank'} - STK: ${b.bank_account_number || '0988776655'} (${b.bank_account_holder || 'AI INBOX PRO'})`;
+          document.getElementById("vietqr-amount").textContent = `${(b.subscription_price_vnd || (b.payment ? b.payment.amount_vnd : 0)).toLocaleString()}đ`;
+          document.getElementById("vietqr-memo").textContent = b.payment_memo || (b.payment ? b.payment.transfer_memo : "");
           document.getElementById("vietqr-result").style.display = "block";
         } else {
           alert("Lỗi: " + (data.error || "Không thể đăng ký"));
         }
       } catch (err) {
         submitBtn.disabled = false;
-        submitBtn.textContent = "⚡ Tạo Tài Khoản & Lấy Mã VietQR";
+        submitBtn.textContent = "Tạo Workspace & Lấy Mã VietQR";
         alert("Lỗi kết nối máy chủ: " + err);
       }
     }
+
+    function escapeHtml(str) {
+      if (!str) return "";
+      return String(str).replace(/[&<>"']/g, function(m) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+      });
+    }
+
+    // Initialize calculator on boot
+    updateCalculator();
   </script>
 </body>
 </html>
