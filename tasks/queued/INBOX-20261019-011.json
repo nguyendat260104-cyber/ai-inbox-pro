@@ -1,0 +1,32 @@
+{
+  "id": "INBOX-20261019-011",
+  "type": "core_engine",
+  "executor": "codex",
+  "goal": "Semantic & Fuzzy Product Retrieval Engine with Typo Tolerance & Accent Normalization",
+  "context": "Customers in Vietnam often type queries without accents, with typos, or using regional synonyms. Build a zero-hallucination semantic search engine using pure standard library algorithms (n-gram, Levenshtein, diacritic stripping, synonym map) that accurately maps messy inquiries to verified database products.",
+  "requirements": [
+    "Implement Vietnamese diacritic normalization and accent stripping",
+    "Implement Levenshtein edit distance and n-gram similarity scoring",
+    "Implement regional synonym mappings (e.g. ao phong <-> ao polo, ao thun; quan sooc <-> quan short)",
+    "Integrate into ProductCatalogEngine.find_product_by_query",
+    "Guarantee zero price/stock hallucination"
+  ],
+  "deliverables": [
+    "ai_inbox/engine/semantic_matcher.py",
+    "ai_inbox/engine/product_catalog.py",
+    "tests/test_semantic_matcher.py"
+  ],
+  "acceptance_criteria": [
+    "Passes accent-free queries, typo queries (e.g. 'plolo', 'somi'), and synonym queries with 100% test accuracy matching correct grounded SKUs"
+  ],
+  "priority": "critical",
+  "dependencies": [],
+  "suggested_branch": "task/INBOX-20261019-011",
+  "status": "queued",
+  "created_at": "2026-10-18T14:29:09.696200+00:00",
+  "started_at": null,
+  "completed_at": null,
+  "result": null,
+  "artifacts": [],
+  "metrics": {}
+}
