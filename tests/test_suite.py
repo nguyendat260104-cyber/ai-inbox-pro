@@ -45,7 +45,7 @@ from daily_tasks import generate_daily_tasks, get_existing_tasks_for_date
 from daily_report import generate_daily_report
 from serve_dashboard import run_server
 from readiness import calculate_readiness, apply_readiness_gate
-from revenue_activation import validate_campaign_activation
+from revenue_activation import validate_campaign_activation, campaign_preparation_status
 
 def test_13_revenue_activation_gate():
     print("▶ Running Test 13: Revenue Activation Gate...")
@@ -60,6 +60,23 @@ def test_13_revenue_activation_gate():
     )
     assert ready.ready
     print("  ✅ Campaigns are blocked until account, payout, link, and tracking are verified.")
+    return True
+
+def test_14_campaign_preparation_allows_pending_payout():
+    print("▶ Running Test 14: Campaign Preparation with Pending Payout...")
+    result = campaign_preparation_status(
+        {"campaign_id": "SHOPEE-HOME-01", "platform": "shopee", "tracking_id": "shopee-home-01-organic-v1", "product_id": "p1", "affiliate_url": "https://shopee.vn/x"},
+        [{"platform": "shopee", "status": "approved", "payout_status": "needs_user_setup"}],
+    )
+    assert result["prep_ready"]
+    assert result["payout_pending"]
+    missing = campaign_preparation_status(
+        {"campaign_id": "SHOPEE-HOME-01", "platform": "shopee", "tracking_id": "shopee-home-01-organic-v1", "product_id": None, "affiliate_url": None},
+        [{"platform": "shopee", "status": "approved", "payout_status": "needs_user_setup"}],
+    )
+    assert not missing["prep_ready"]
+    assert "needs_user_affiliate_link" in missing["blockers"]
+    print("  ✅ Preparation is allowed with payout pending, while missing user links remain blocked.")
     return True
 
 # 1. Create Task Test
@@ -356,7 +373,8 @@ def main():
         ("10. Dashboard Startup", test_10_dashboard_startup),
         ("11. Daily Report Generation", test_11_daily_report_generation),
         ("12. Affiliate Readiness Gate", test_12_affiliate_readiness_gate),
-        ("13. Revenue Activation Gate", test_13_revenue_activation_gate)
+        ("13. Revenue Activation Gate", test_13_revenue_activation_gate),
+        ("14. Campaign Preparation", test_14_campaign_preparation_allows_pending_payout)
     ]
 
     all_passed = True
@@ -375,7 +393,7 @@ def main():
     print("----------------------------------------------")
 
     if all_passed:
-        print("🎉 ALL 13 TESTS PASSED!")
+        print("🎉 ALL 14 TESTS PASSED!")
         sys.exit(0)
     else:
         print("💥 SOME TESTS FAILED.")

@@ -1,4 +1,41 @@
 {
   "schema_version": "1.0",
-  "campaigns": []
+  "campaigns": [
+    {
+      "campaign_id": "SHOPEE-HOME-01",
+      "platform": "shopee",
+      "category": "home_organization",
+      "product_id": null,
+      "affiliate_url": null,
+      "tracking_id": "shopee-home-01-organic-v1",
+      "commission": "needs_verification",
+      "status": "prep_blocked_needs_user_link",
+      "publish_mode": "human_review",
+      "metrics": {"clicks": null, "orders": null, "confirmed_commission_vnd": null}
+    },
+    {
+      "campaign_id": "SHOPEE-TECH-01",
+      "platform": "shopee",
+      "category": "mobile_accessories",
+      "product_id": null,
+      "affiliate_url": null,
+      "tracking_id": "shopee-tech-01-organic-v1",
+      "commission": "needs_verification",
+      "status": "prep_blocked_needs_user_link",
+      "publish_mode": "human_review",
+      "metrics": {"clicks": null, "orders": null, "confirmed_commission_vnd": null}
+    },
+    {
+      "campaign_id": "LAZADA-HOME-01",
+      "platform": "lazada",
+      "category": "home_organization",
+      "product_id": null,
+      "affiliate_url": null,
+      "tracking_id": "lazada-home-01-organic-v1",
+      "commission": "needs_verification",
+      "status": "prep_blocked_needs_account_and_link",
+      "publish_mode": "human_review",
+      "metrics": {"clicks": null, "orders": null, "confirmed_commission_vnd": null}
+    }
+  ]
 }

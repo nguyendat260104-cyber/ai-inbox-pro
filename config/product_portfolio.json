@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0",
+  "last_reviewed": "2026-10-18",
+  "selection_policy": {
+    "goal": "low_ticket_high_intent",
+    "rules": [
+      "Prefer products that solve an obvious daily problem and can be demonstrated in under 30 seconds.",
+      "Do not record commission, product URL, or product ID until copied from the user's approved affiliate portal.",
+      "No campaign may be published automatically."
+    ]
+  },
+  "platforms": [
+    {
+      "platform": "shopee",
+      "account_status": "approved",
+      "payout_status": "needs_user_setup",
+      "portfolio": [
+        {"slot": "SHOPEE-HOME-01", "category": "home_organization", "product_type": "storage_or_cleaning_gadget", "price_band_vnd": "50000-300000", "commission": "needs_verification", "affiliate_url": null, "product_id": null, "status": "needs_user_link"},
+        {"slot": "SHOPEE-TECH-01", "category": "mobile_accessories", "product_type": "charger_cable_or_stand", "price_band_vnd": "50000-500000", "commission": "needs_verification", "affiliate_url": null, "product_id": null, "status": "needs_user_link"},
+        {"slot": "SHOPEE-BEAUTY-01", "category": "personal_care", "product_type": "everyday_personal_care_item", "price_band_vnd": "50000-400000", "commission": "needs_verification", "affiliate_url": null, "product_id": null, "status": "needs_user_link"}
+      ]
+    },
+    {
+      "platform": "lazada",
+      "account_status": "user_confirmation_required",
+      "payout_status": "user_confirmation_required",
+      "portfolio": [
+        {"slot": "LAZADA-HOME-01", "category": "home_organization", "product_type": "storage_or_cleaning_gadget", "price_band_vnd": "50000-300000", "commission": "needs_verification", "affiliate_url": null, "product_id": null, "status": "needs_account_and_link"},
+        {"slot": "LAZADA-TECH-01", "category": "mobile_accessories", "product_type": "charger_cable_or_stand", "price_band_vnd": "50000-500000", "commission": "needs_verification", "affiliate_url": null, "product_id": null, "status": "needs_account_and_link"}
+      ]
+    }
+  ]
+}
