@@ -970,8 +970,9 @@ body {
   padding: 8px 18px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 14px;
+  justify-content: flex-start;
+  gap: 10px;
+  flex-wrap: wrap;
   font-size: 12.5px;
 }
 
@@ -979,6 +980,8 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
+  flex: 1 1 235px;
+  min-width: 0;
 }
 
 .ai-sparkle-pill {
@@ -1021,6 +1024,21 @@ body {
   border-radius: 4px;
   background: var(--emerald-light);
   color: var(--emerald-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 170px;
+}
+
+.ai-insights-banner > div:last-child {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+#ai-size-advice {
+  display: none;
 }
 
 .ai-summary-card {

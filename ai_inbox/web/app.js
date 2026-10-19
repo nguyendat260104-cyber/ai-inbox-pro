@@ -91,6 +91,10 @@ async function loadInbox() {
     const data = await res.json();
     currentConversations = data.conversations || [];
     filterAndRenderConversations();
+    if (!activeConvId && currentConversations.length > 0) {
+      const defaultConversation = currentConversations.find(conversation => conversation.intent_label === "HOT") || currentConversations[0];
+      selectConversation(defaultConversation.id);
+    }
   } catch (e) {
     console.error("Failed to load inbox:", e);
   }
@@ -166,7 +170,7 @@ function renderInboxList(convs) {
 
     const isHot = c.intent_label === "HOT";
     const isWarm = c.intent_label === "WARM";
-    const badgeHtml = isHot ? '<span class="badge-hot">🔥 HOT</span>' : (isWarm ? '<span class="badge-warm">⚡ WARM</span>' : '');
+    const badgeHtml = isHot ? '<span class="badge-hot">HOT</span>' : (isWarm ? '<span class="badge-warm">WARM</span>' : '');
 
     const channel = c.channel || 'web_widget';
     let channelIconLetter = 'W';
@@ -192,7 +196,7 @@ function renderInboxList(convs) {
         </div>
         <div class="inbox-last-msg">${escapeHtml(c.product_name ? 'Quan tâm: ' + c.product_name : 'Đang trao đổi...')}${c.customer_phone ? ' • ' + escapeHtml(c.customer_phone) : ''}</div>
         <div style="font-size:12px; color:var(--text-muted); margin-top:5px; display:flex; justify-content:space-between; align-items:center;">
-          <span>${isStaff ? '<span style="color:var(--primary); font-weight:700;">👨‍💼 Nhân viên tiếp quản</span>' : '🤖 AI Trợ lý tự động'}</span>
+          <span>${isStaff ? '<span style="color:var(--primary); font-weight:700;">Nhân viên tiếp quản</span>' : 'AI đang tư vấn'}</span>
           <span style="font-size:11.5px; opacity:0.9; font-weight:500;">${formatTimestamp(c.last_message_at)}</span>
         </div>
       </div>
@@ -240,10 +244,10 @@ async function selectConversation(convId) {
     if (takeoverBtn) {
       if (conv && conv.status === "assigned_human") {
         takeoverBtn.className = "btn-takeover active-staff";
-        takeoverBtn.textContent = "✅ Đang Tiếp Quản";
+        takeoverBtn.textContent = "Đang tiếp quản";
       } else {
         takeoverBtn.className = "btn-takeover";
-        takeoverBtn.textContent = "⚡ Can Thiệp / Chốt Đơn";
+        takeoverBtn.textContent = "Can thiệp / chốt đơn";
       }
     }
 
@@ -251,13 +255,13 @@ async function selectConversation(convId) {
     const copilotBadge = document.getElementById("copilot-intent-badge");
     if (copilotBadge) {
       if (conv && conv.intent_label === "HOT") {
-        copilotBadge.textContent = "🔥 Khách Cực Nóng (Có SĐT / Sẵn Sàng Chốt Đơn)";
+        copilotBadge.textContent = "Ưu tiên cao · sẵn sàng chốt đơn";
         copilotBadge.style.color = "var(--hot-red)";
       } else if (conv && conv.intent_label === "WARM") {
-        copilotBadge.textContent = "⚡ Khách Cân Nhắc (Cần Tư Vấn Size & Màu)";
+        copilotBadge.textContent = "Cần tư vấn size và màu";
         copilotBadge.style.color = "var(--warm-amber)";
       } else {
-        copilotBadge.textContent = "💬 Khách Hỏi Thông Tin Ban Đầu";
+        copilotBadge.textContent = "Đang tìm hiểu sản phẩm";
         copilotBadge.style.color = "var(--text-muted)";
       }
     }
@@ -369,10 +373,10 @@ async function selectConversation(convId) {
       if (lastText.includes("size") || lastText.includes("nặng") || lastText.includes("cao") || lastText.includes("kg") || lastText.includes("vừa")) {
         chipsHtml += `
           <button class="quick-chip" onclick="insertQuickReply('Dạ với chiều cao và cân nặng của bạn, bên em tư vấn bạn mặc size L là vừa vặn, chuẩn form và tôn dáng nhất ạ!')">
-            📏 Gợi ý size L chuẩn form
+            Gợi ý size L chuẩn form
           </button>
           <button class="quick-chip" onclick="insertQuickReply('Dạ mẫu này form chuẩn ôm vừa, bạn cho mình xin thêm số đo chiều cao và cân nặng để em chọn size chính xác nhé!')">
-            📏 Hỏi chiều cao / cân nặng
+            Hỏi chiều cao / cân nặng
           </button>
         `;
       }
@@ -380,10 +384,10 @@ async function selectConversation(convId) {
       if (lastText.includes("ship") || lastText.includes("địa chỉ") || lastText.includes("sđt") || lastText.includes("đà nẵng") || lastText.includes("hà nội") || lastText.includes("hcm") || lastText.includes("giao")) {
         chipsHtml += `
           <button class="quick-chip" onclick="insertQuickReply('Dạ em đã ghi nhận địa chỉ nhận hàng. Đơn hàng trị giá ${(totalAmount || 275000).toLocaleString()}đ (gồm ${currentShippingFee.toLocaleString()}đ ship) sẽ được chuyển phát nhanh và giao trong 2-3 ngày ạ!')">
-            📦 Xác nhận lên đơn & giao hàng
+            Xác nhận lên đơn & giao hàng
           </button>
           <button class="quick-chip" onclick="insertQuickReply('Dạ bên em áp dụng chính sách FREESHIP toàn quốc cho mọi đơn hàng từ 2 sản phẩm trở lên. Bạn có muốn chọn thêm 1 mẫu để được miễn phí ship không ạ?')">
-            🚚 Báo ưu đãi Freeship 2 chiếc
+            Báo ưu đãi Freeship 2 sản phẩm
           </button>
         `;
       }
@@ -391,16 +395,16 @@ async function selectConversation(convId) {
       // High-conversion standard chips
       chipsHtml += `
         <button class="quick-chip" onclick="insertQuickReply('Dạ mẫu này bên em đang có sẵn đủ size M, L, XL ạ. Bạn cho mình xin chiều cao và cân nặng để em chọn size chuẩn form và tôn dáng nhất nhé!')">
-          📏 Tư vấn chọn size
+          Tư vấn chọn size
         </button>
         <button class="quick-chip" onclick="insertQuickReply('Dạ mình cho em xin Số Điện Thoại và Địa Chỉ nhận hàng để em lên đơn giữ hàng và gửi mã vận đơn cho mình ngay nhé!')">
-          📦 Xin SĐT & Địa chỉ ship
+          Xin SĐT & địa chỉ giao hàng
         </button>
         <button class="quick-chip" onclick="insertQuickReply('Dạ em đã kiểm tra kho và giữ đúng mẫu này cho mình rồi ạ. Anh/chị yên tâm nhé!')">
-          ✅ Xác nhận giữ hàng tại kho
+          Xác nhận giữ hàng tại kho
         </button>
         <button class="quick-chip" onclick="insertQuickReply('Dạ bên em áp dụng chính sách đồng giá ship 25k toàn quốc và MIỄN PHÍ VẬN CHUYỂN cho mọi đơn hàng từ 2 sản phẩm trở lên ạ!')">
-          🚚 Báo phí ship & Freeship
+          Báo phí ship & freeship
         </button>
       `;
       copilotChipsWrap.innerHTML = chipsHtml;
@@ -417,8 +421,8 @@ async function selectConversation(convId) {
         msgEl.className = `msg-row ${m.sender_type}`;
 
         const senderTitle = m.sender_name || (
-          m.sender_type === 'bot' ? '🤖 Trợ lý AI Bán Hàng (Kho thật)' :
-          (m.sender_type === 'staff' ? '👨‍💼 Nhân viên Sale' : '👤 Khách hàng')
+          m.sender_type === 'bot' ? 'Trợ lý AI · Đã đối chiếu kho' :
+          (m.sender_type === 'staff' ? 'Nhân viên tư vấn' : 'Khách hàng')
         );
 
         msgEl.innerHTML = `

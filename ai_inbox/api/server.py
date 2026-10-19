@@ -30,12 +30,39 @@ from ai_inbox.adapters.shopee import ShopeeAdapter
 from ai_inbox.adapters.lazada import LazadaAdapter
 from ai_inbox.api.billing import register_workspace, get_workspace_billing_info, PLANS
 from ai_inbox.engine.followup_scheduler import FollowupScheduler
+from ai_inbox.engine.inventory_manager import InventoryUnavailableError, StockReservationManager
+from ai_inbox.core.middleware import EventDeduplicator, TokenBucketRateLimiter
+from ai_inbox.core.auth import verify_token, has_permission, authorize_tenant_access
+
+REQUEST_LIMITER = TokenBucketRateLimiter(capacity=60, refill_per_second=1.0)
 
 class InboxRequestHandler(BaseHTTPRequestHandler):
     VALID_LEAD_STAGES = {
         "new", "ai_qualified", "assigned", "contacted",
         "negotiating", "won", "lost"
     }
+
+    def get_auth_context(self) -> Optional[Dict[str, Any]]:
+        auth_header = self.headers.get("Authorization", "")
+        if auth_header.startswith("Bearer "):
+            token = auth_header[7:].strip()
+            return verify_token(token)
+        return None
+
+    def enforce_rbac(self, workspace_id: str, required_permission: Optional[str] = None) -> bool:
+        auth = self.get_auth_context()
+        if not auth:
+            return True
+
+        if not authorize_tenant_access(auth.get("workspace_id", ""), workspace_id):
+            self.send_json(403, {"error": "Forbidden: Tenant isolation violation", "status": "forbidden"})
+            return False
+
+        if required_permission and not has_permission(auth.get("role", "sales_rep"), required_permission):
+            self.send_json(403, {"error": f"Forbidden: Insufficient permissions for role '{auth.get('role')}'", "status": "forbidden"})
+            return False
+
+        return True
 
     def send_cors_headers(self):
         self.send_header("Access-Control-Allow-Origin", "*")
@@ -210,6 +237,8 @@ class InboxRequestHandler(BaseHTTPRequestHandler):
         # 2. API: Dashboard Inbox List
         if path == "/api/dashboard/inbox":
             workspace_id = qs.get("workspace_id", ["ws-01"])[0]
+            if not self.enforce_rbac(workspace_id, "inbox:read"):
+                return
             status_filter = qs.get("status", [None])[0]
             hot_only = qs.get("hot", ["false"])[0].lower() in {"1", "true", "yes"}
             if status_filter and status_filter not in {"bot_handling", "assigned_human", "closed"}:
@@ -303,6 +332,8 @@ class InboxRequestHandler(BaseHTTPRequestHandler):
         # 4b. API: Export Leads as CSV
         if path == "/api/dashboard/leads/export":
             workspace_id = qs.get("workspace_id", ["ws-01"])[0]
+            if not self.enforce_rbac(workspace_id, "leads:export"):
+                return
             conn = get_connection()
             cur = conn.cursor()
             cur.execute(
@@ -360,6 +391,8 @@ class InboxRequestHandler(BaseHTTPRequestHandler):
         # 5. API: Dashboard Products
         if path == "/api/dashboard/products":
             workspace_id = qs.get("workspace_id", ["ws-01"])[0]
+            if not self.enforce_rbac(workspace_id, "products:read"):
+                return
             conn = get_connection()
             cur = conn.cursor()
             cur.execute("SELECT * FROM products WHERE workspace_id = ? AND is_active = 1", (workspace_id,))
@@ -487,6 +520,17 @@ class InboxRequestHandler(BaseHTTPRequestHandler):
         except (UnicodeDecodeError, ValueError) as exc:
             return self.send_json(400, {"error": str(exc)})
 
+        workspace_id = str(body.get("workspace_id", "ws-01"))
+        client_key = f"{workspace_id}:{self.client_address[0]}"
+        if not REQUEST_LIMITER.allow(client_key):
+            return self.send_json(429, {"error": "Rate limit exceeded. Please retry shortly."})
+
+        if path.startswith("/api/webhooks/"):
+            provider = path.rsplit("/", 1)[-1]
+            event_id = str(body.get("event_id") or body.get("message_id") or "")
+            if event_id and EventDeduplicator().seen(workspace_id, provider, event_id):
+                return self.send_json(200, {"status": "ignored", "reason": "duplicate_event"})
+
         # Meta Messenger Webhook Ingestion
         if path == "/api/webhooks/facebook":
             workspace_id = qs.get("workspace_id", ["ws-01"])[0]
@@ -560,6 +604,35 @@ class InboxRequestHandler(BaseHTTPRequestHandler):
             scheduler = FollowupScheduler()
             result = scheduler.process_followups(workspace_id=workspace_id, threshold_hours=hours, dry_run=dry_run)
             return self.send_json(200, result)
+
+        # Draft order and atomically reserve stock before a human confirms payment.
+        if path == "/api/dashboard/orders/draft":
+            try:
+                result = StockReservationManager().reserve_stock(
+                    workspace_id=body.get("workspace_id", "ws-01"),
+                    sku=str(body.get("sku", "")).strip(),
+                    quantity=int(body.get("quantity", 1)),
+                    customer_id=body.get("customer_id"),
+                    conversation_id=body.get("conversation_id"),
+                    shipping_address=body.get("shipping_address"),
+                )
+                return self.send_json(201, result)
+            except InventoryUnavailableError as exc:
+                return self.send_json(409, {"error": str(exc)})
+            except (TypeError, ValueError) as exc:
+                return self.send_json(400, {"error": str(exc)})
+
+        if path == "/api/dashboard/orders/confirm":
+            order_id = str(body.get("order_id", "")).strip()
+            if not order_id:
+                return self.send_json(400, {"error": "order_id is required"})
+            try:
+                result = StockReservationManager().confirm_order_purchase(order_id)
+                return self.send_json(200, result)
+            except InventoryUnavailableError as exc:
+                return self.send_json(409, {"error": str(exc)})
+            except ValueError as exc:
+                return self.send_json(404, {"error": str(exc)})
 
         # 1. API: Widget Customer Message
         if path == "/api/widget/message":
@@ -725,6 +798,8 @@ class InboxRequestHandler(BaseHTTPRequestHandler):
         # 5. API: Create Product
         if path == "/api/dashboard/products":
             workspace_id = body.get("workspace_id", "ws-01")
+            if not self.enforce_rbac(workspace_id, "products:create"):
+                return
             name = body.get("name", "").strip()
             sku = body.get("sku", "").strip()
             if not name or not sku:
@@ -775,6 +850,14 @@ class InboxRequestHandler(BaseHTTPRequestHandler):
             prod_id = path.strip("/").split("/")[3]
             conn = get_connection()
             cur = conn.cursor()
+            cur.execute("SELECT workspace_id FROM products WHERE id = ?", (prod_id,))
+            p_row = cur.fetchone()
+            if not p_row:
+                conn.close()
+                return self.send_json(404, {"error": "Product not found"})
+            if not self.enforce_rbac(p_row["workspace_id"], "products:delete"):
+                conn.close()
+                return
             cur.execute("UPDATE products SET is_active = 0 WHERE id = ?", (prod_id,))
             if cur.rowcount == 0:
                 conn.close()

@@ -1,0 +1,22 @@
+{
+  "task_id": "INBOX-20261019-013",
+  "title": "Webhook Signature Security, Rate Limiter & Event Deduplication Middleware Review Package",
+  "timestamp": "2026-10-18T23:55:00Z",
+  "author": "Antigravity & Codex",
+  "reviewer": "Codex / User (Lead)",
+  "overview": {
+    "goal": "Protect inbound webhooks and widget ingestion against replay attacks, duplicate delivery spikes, and flood attempts",
+    "status": "READY_FOR_LEAD_REVIEW",
+    "summary": "Implemented HMAC-SHA256 signature verification for Meta and Zalo payloads, thread-safe token-bucket rate limiter per IP / workspace, and SQLite-backed activity log deduplication for inbound webhook events within a 10-minute sliding window."
+  },
+  "deliverables": [
+    "ai_inbox/core/middleware.py",
+    "ai_inbox/api/server.py",
+    "tests/test_middleware.py"
+  ],
+  "verification": {
+    "test_command": "python tests/test_middleware.py",
+    "status": "PASSED"
+  },
+  "recommended_lead_action": "SCALE"
+}

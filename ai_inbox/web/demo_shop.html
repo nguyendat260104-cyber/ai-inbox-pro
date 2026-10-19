@@ -68,7 +68,7 @@
 
     /* Top Announcement */
     .announcement-bar {
-      background: var(--primary);
+      background: var(--text-main);
       color: #ffffff;
       font-size: 12px;
       font-weight: 600;
@@ -231,12 +231,12 @@
       line-height: 1.5;
     }
 
-    /* Guided Journey Bar (Subtle & Actionable) */
+    /* Customer-facing AI assistant entry point */
     .guided-journey-strip {
-      background: var(--bg-subtle);
+      background: var(--bg-surface);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-lg);
-      padding: 16px 20px;
+      padding: 15px 18px;
       margin-bottom: 32px;
       display: flex;
       flex-direction: column;
@@ -244,7 +244,7 @@
     }
 
     .journey-steps {
-      display: flex;
+      display: none;
       justify-content: space-between;
       gap: 8px;
       overflow-x: auto;
@@ -289,12 +289,19 @@
       align-items: center;
       gap: 8px;
       flex-wrap: wrap;
-      border-top: 1px solid var(--border-subtle);
-      padding-top: 10px;
+      padding-top: 0;
+    }
+
+    .journey-prompt-chips::before {
+      content: "Trợ lý mua sắm — hỏi size, màu và tồn kho";
+      color: var(--text-main);
+      font-size: 13px;
+      font-weight: 700;
+      margin-right: 4px;
     }
 
     .prompt-chip-label {
-      font-size: 11.5px;
+      display: none;
       font-weight: 700;
       color: var(--text-muted);
       text-transform: uppercase;
@@ -373,12 +380,26 @@
 
     /* Product Visual Showcase */
     .prod-media {
-      height: 240px;
-      background: var(--bg-subtle);
+      height: 280px;
+      background-color: var(--bg-subtle);
+      background-size: cover;
+      background-position: center;
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
+    }
+
+    .prod-media.product-polo {
+      background-image: linear-gradient(rgba(15, 23, 42, 0.08), rgba(15, 23, 42, 0.08)), url('https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=85');
+    }
+
+    .prod-media.product-linen {
+      background-image: linear-gradient(rgba(15, 23, 42, 0.08), rgba(15, 23, 42, 0.08)), url('https://images.unsplash.com/photo-1598032895397-b9472444bf93?auto=format&fit=crop&w=900&q=85');
+    }
+
+    .prod-media.product-kaki {
+      background-image: linear-gradient(rgba(15, 23, 42, 0.08), rgba(15, 23, 42, 0.08)), url('https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=900&q=85');
     }
 
     .tag-sale {
@@ -406,15 +427,7 @@
       border: 1px solid var(--border-subtle);
     }
 
-    .fashion-art {
-      width: 140px;
-      height: 140px;
-      transition: transform 0.2s ease;
-    }
-
-    .prod-card:hover .fashion-art {
-      transform: scale(1.05);
-    }
+    .fashion-art { display: none; }
 
     .prod-body {
       padding: 18px 20px;
@@ -697,6 +710,7 @@
       .hero-banner { padding: 24px 16px; }
       .container { padding: 20px 16px 80px; }
       .product-grid { grid-template-columns: 1fr; }
+      .guided-journey-strip { align-items: flex-start; }
       .floating-dock { right: 14px; bottom: 14px; }
     }
   </style>
@@ -805,7 +819,7 @@
     <div class="product-grid">
       <!-- Product 1: Classic Polo -->
       <div class="prod-card" id="polo">
-        <div class="prod-media">
+        <div class="prod-media product-polo">
           <span class="tag-sale">-29% GIẢM</span>
           <span class="tag-stock">Sẵn Kho: 50 chiếc</span>
           <svg class="fashion-art" viewBox="0 0 120 120" fill="none">
@@ -860,7 +874,7 @@
 
       <!-- Product 2: Linen Shirt -->
       <div class="prod-card" id="linen">
-        <div class="prod-media">
+        <div class="prod-media product-linen">
           <span class="tag-sale">-20% HOT</span>
           <span class="tag-stock">Sẵn Kho: 30 chiếc</span>
           <svg class="fashion-art" viewBox="0 0 120 120" fill="none">
@@ -915,7 +929,7 @@
 
       <!-- Product 3: Kaki Shorts -->
       <div class="prod-card" id="kaki">
-        <div class="prod-media">
+        <div class="prod-media product-kaki">
           <span class="tag-sale">-28% BÁN CHẠY</span>
           <span class="tag-stock">Sẵn Kho: 80 chiếc</span>
           <svg class="fashion-art" viewBox="0 0 120 120" fill="none">

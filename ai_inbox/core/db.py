@@ -152,7 +152,48 @@ def init_db(db_path: Optional[Path] = None) -> None:
         FOREIGN KEY (assigned_staff_id) REFERENCES staff(id) ON DELETE SET NULL
     );
 
-    -- 8. Activity & Audit Logs
+    -- 8. Draft orders and soft inventory locks. Drafts do not decrement stock;
+    -- active locks are considered when another checkout attempts a reservation.
+    CREATE TABLE IF NOT EXISTS orders (
+        id TEXT PRIMARY KEY,
+        workspace_id TEXT NOT NULL,
+        customer_id TEXT,
+        conversation_id TEXT,
+        product_id TEXT NOT NULL,
+        sku TEXT NOT NULL,
+        quantity INTEGER NOT NULL CHECK (quantity > 0),
+        unit_price_vnd INTEGER NOT NULL,
+        subtotal_vnd INTEGER NOT NULL,
+        shipping_fee_vnd INTEGER NOT NULL,
+        total_vnd INTEGER NOT NULL,
+        shipping_address TEXT,
+        status TEXT NOT NULL DEFAULT 'draft',
+        created_at TEXT NOT NULL,
+        updated_at TEXT NOT NULL,
+        FOREIGN KEY (workspace_id) REFERENCES workspaces(id) ON DELETE CASCADE,
+        FOREIGN KEY (customer_id) REFERENCES customers(id) ON DELETE SET NULL,
+        FOREIGN KEY (conversation_id) REFERENCES conversations(id) ON DELETE SET NULL,
+        FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE RESTRICT
+    );
+
+    CREATE TABLE IF NOT EXISTS inventory_locks (
+        id TEXT PRIMARY KEY,
+        workspace_id TEXT NOT NULL,
+        product_id TEXT NOT NULL,
+        order_id TEXT NOT NULL,
+        quantity INTEGER NOT NULL CHECK (quantity > 0),
+        status TEXT NOT NULL DEFAULT 'active',
+        expires_at TEXT NOT NULL,
+        created_at TEXT NOT NULL,
+        updated_at TEXT NOT NULL,
+        FOREIGN KEY (workspace_id) REFERENCES workspaces(id) ON DELETE CASCADE,
+        FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE RESTRICT,
+        FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE
+    );
+    CREATE INDEX IF NOT EXISTS idx_inventory_locks_active
+        ON inventory_locks(product_id, status, expires_at);
+
+    -- 9. Activity & Audit Logs
     CREATE TABLE IF NOT EXISTS activity_logs (
         id TEXT PRIMARY KEY,
         workspace_id TEXT NOT NULL,

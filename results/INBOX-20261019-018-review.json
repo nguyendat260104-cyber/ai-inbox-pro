@@ -1,0 +1,21 @@
+{
+  "task_id": "INBOX-20261019-018",
+  "title": "Order Drafting & Automated Stock Reservation / Locking Engine Review Package",
+  "timestamp": "2026-10-18T23:56:00Z",
+  "author": "Antigravity & Codex",
+  "reviewer": "Codex / User (Lead)",
+  "overview": {
+    "goal": "Atomic inventory soft-locking and order drafting to prevent overselling across 6 channels",
+    "status": "READY_FOR_LEAD_REVIEW",
+    "summary": "Implemented StockReservationManager with atomic SQLite reservation, automatic 15-minute soft locking on SKU stocks, auto-release of expired locks, subtotal/shipping fee discount calculations (free shipping for 2+ items), and REST API endpoints /api/dashboard/orders/draft and /api/dashboard/orders/confirm."
+  },
+  "deliverables": [
+    "ai_inbox/engine/inventory_manager.py",
+    "tests/test_inventory_reservation.py"
+  ],
+  "verification": {
+    "test_command": "python tests/test_inventory_reservation.py",
+    "status": "PASSED"
+  },
+  "recommended_lead_action": "SCALE"
+}
