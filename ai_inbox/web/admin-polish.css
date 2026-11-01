@@ -1,0 +1,58 @@
+/* AI Inbox Pro — operations workspace polish */
+:root {
+  --ops-ink: #142033;
+  --ops-muted: #758196;
+  --ops-bg: #f4f6f9;
+  --ops-surface: #fff;
+  --ops-line: #e6eaf0;
+  --ops-indigo: #5664f5;
+}
+
+body { background: var(--ops-bg); color: var(--ops-ink); }
+.nav-sidebar { width: 252px; background: #101827; border-right: 0; color: #dce3f2; }
+.sidebar-header { padding: 22px 20px 20px; border-bottom-color: rgba(255,255,255,.08); }
+.sidebar-brand-name { color: #fff; }
+.sidebar-brand-badge { color: #d8f36a; background: rgba(216,243,106,.12); }
+.sidebar-nav-section { color: #7e8aa2; letter-spacing: .12em; }
+.sidebar-menu { padding-inline: 12px; }
+.sidebar-btn { color: #9da9bc; border-radius: 11px; padding: 11px 12px; }
+.sidebar-btn:hover { color: #fff; background: rgba(255,255,255,.07); }
+.sidebar-btn.active { color: #fff; background: linear-gradient(90deg, rgba(86,100,245,.95), rgba(86,100,245,.66)); box-shadow: 0 8px 18px rgba(86,100,245,.2); }
+.sidebar-badge-count { background: #d8f36a; color: #172017; }
+.sidebar-footer { background: #101827; border-top-color: rgba(255,255,255,.08); }
+.workspace-card { background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.08); }
+.workspace-name { color: #fff; }
+.workspace-status { color: #aab5c8; }
+.sidebar-links-row a { background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.1); color: #aab5c8; }
+.sidebar-links-row a:hover { background: rgba(255,255,255,.1); color: #fff; border-color: rgba(255,255,255,.2); }
+.app-shell { background: var(--ops-bg); }
+.app-header { height: 68px; padding-inline: 28px; background: rgba(255,255,255,.9); border-bottom-color: var(--ops-line); backdrop-filter: blur(14px); }
+.header-breadcrumb { color: var(--ops-ink); }
+.ai-engine-status-tag { background: #ecfdf5; border-color: #c9f2df; color: #087443; }
+.header-search-wrap input { background: #f7f8fa; border-color: var(--ops-line); border-radius: 10px; }
+.main-container { padding: 22px 28px 28px; background: var(--ops-bg); }
+.channel-health-bar { border: 1px solid var(--ops-line); border-radius: 14px; background: linear-gradient(90deg, #fff, #fafbff); box-shadow: 0 4px 14px rgba(20,32,51,.03); }
+.metrics-row { gap: 16px; margin-bottom: 18px; }
+.metric-card { border: 1px solid var(--ops-line); border-radius: 14px; padding: 16px 18px; box-shadow: 0 5px 15px rgba(20,32,51,.035); }
+.metric-card:hover { border-color: #cbd2ff; box-shadow: 0 10px 22px rgba(86,100,245,.09); }
+.metric-title { color: var(--ops-muted); letter-spacing: .09em; }
+.metric-val { color: var(--ops-ink); font-size: 25px; }
+.inbox-sidebar, .chat-thread-card, .detail-sidebar, .kanban-column, .customers-table-wrap, .products-table-wrap, .staff-panel, .settings-panel { border-color: var(--ops-line); border-radius: 16px; box-shadow: 0 5px 16px rgba(20,32,51,.035); }
+.inbox-filter-bar, .thread-header, .detail-header { border-bottom-color: var(--ops-line); }
+.inbox-item.active { background: #f0f2ff; border-left-color: var(--ops-indigo); }
+.channel-pill.active { background: var(--ops-indigo); border-color: var(--ops-indigo); }
+.btn-primary { background: var(--ops-indigo); border-color: var(--ops-indigo); border-radius: 9px; }
+.btn-primary:hover { background: #4351e6; border-color: #4351e6; }
+.btn-secondary { border-radius: 9px; }
+
+@media (max-width: 900px) {
+  .nav-sidebar { width: 72px; }
+  .sidebar-brand-name, .sidebar-brand-badge, .sidebar-nav-section, .sidebar-btn span:not(.sidebar-badge-count), .sidebar-footer { display: none; }
+  .sidebar-header { justify-content: center; padding-inline: 10px; }
+  .sidebar-menu { padding-inline: 10px; }
+  .sidebar-btn { justify-content: center; padding-inline: 0; }
+  .sidebar-badge-count { position: absolute; top: 3px; right: 3px; padding: 0 5px; }
+  .app-header { padding-inline: 16px; }
+  .header-search-wrap { width: min(45vw, 260px); }
+  .main-container { padding: 14px; }
+}

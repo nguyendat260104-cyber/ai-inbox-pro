@@ -1,0 +1,88 @@
+/* AI Inbox Pro — public marketing layer
+   A single editorial visual language on top of the existing semantic markup. */
+:root {
+  --marketing-ink: #111827;
+  --marketing-muted: #667085;
+  --marketing-paper: #f7f7f4;
+  --marketing-surface: #ffffff;
+  --marketing-line: #e6e7eb;
+  --marketing-blue: #4c5cff;
+  --marketing-lime: #d8f36a;
+  --marketing-coral: #ff8a65;
+}
+
+body {
+  background: var(--marketing-paper);
+  color: var(--marketing-ink);
+}
+
+.navbar {
+  background: rgba(247, 247, 244, .88);
+  border-bottom: 1px solid rgba(17, 24, 39, .09);
+  backdrop-filter: blur(18px);
+}
+
+.nav-container { max-width: 1280px; padding: 16px 32px; }
+.nav-brand { color: var(--marketing-ink); letter-spacing: -.045em; }
+.brand-icon-box { background: var(--marketing-ink); border-radius: 11px; box-shadow: 0 8px 18px rgba(17,24,39,.16); }
+.nav-menu { gap: 24px; }
+.nav-item { color: #596273; font-size: 13px; }
+.nav-item:hover { color: var(--marketing-blue); }
+.btn-nav-outline { border-color: #d9dce3; border-radius: 999px; background: rgba(255,255,255,.7); }
+.btn-nav-primary, .btn-hero-primary { background: var(--marketing-ink); border-color: var(--marketing-ink); border-radius: 999px; box-shadow: 0 10px 20px rgba(17,24,39,.14); }
+.btn-nav-primary:hover, .btn-hero-primary:hover { background: #293144; border-color: #293144; transform: translateY(-1px); }
+
+.hero {
+  max-width: none;
+  margin: 0;
+  padding: 92px 32px 64px;
+  background:
+    radial-gradient(circle at 74% 20%, rgba(76,92,255,.35), transparent 32%),
+    radial-gradient(circle at 12% 86%, rgba(216,243,106,.18), transparent 28%),
+    #131a2a;
+  color: #fff;
+  border-radius: 0 0 40px 40px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::after { content: ""; position: absolute; inset: auto -10% -70px; height: 150px; background: rgba(255,255,255,.04); transform: rotate(-2deg); }
+.hero > * { position: relative; z-index: 1; }
+.hero-pill { color: var(--marketing-lime); background: rgba(216,243,106,.1); border-color: rgba(216,243,106,.28); }
+.hero-pill-dot { background: var(--marketing-lime); box-shadow: 0 0 0 5px rgba(216,243,106,.12); }
+.hero-heading { max-width: 920px; color: #fff; font-size: clamp(42px, 6vw, 76px); letter-spacing: -.065em; line-height: 1.02; }
+.hero-description { max-width: 720px; color: #c7cfde; font-size: 17px; }
+.hero-description strong { color: #fff; }
+.btn-hero-primary { background: var(--marketing-lime); border-color: var(--marketing-lime); color: #182018; box-shadow: 0 12px 26px rgba(216,243,106,.18); }
+.btn-hero-primary:hover { background: #e5fb86; border-color: #e5fb86; color: #182018; }
+.btn-hero-secondary { background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.2); color: #fff; border-radius: 999px; }
+.btn-hero-secondary:hover { background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.38); }
+.hero-metrics-strip { max-width: 1080px; background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.16); border-radius: 20px; backdrop-filter: blur(10px); }
+.hero-metric-val { color: #fff; }
+.hero-metric-lbl { color: #b7c1d1; }
+
+.product-proof-wrap { max-width: 1280px; margin: -18px auto 0; padding: 0 32px 88px; position: relative; z-index: 3; }
+.product-canvas { border: 1px solid rgba(17,24,39,.12); border-radius: 24px; box-shadow: 0 24px 60px rgba(17,24,39,.16); }
+.canvas-header { padding: 14px 22px; background: #eef0f3; }
+.canvas-title-tab { border-radius: 999px; padding-inline: 18px; }
+.canvas-col-mid { background: #f5f6f8; }
+
+.section { max-width: 1280px; padding: 100px 32px; }
+.section-header-center { margin-bottom: 48px; }
+.section-tag { color: var(--marketing-blue); letter-spacing: .12em; }
+.section-h2 { font-size: clamp(30px, 4vw, 48px); letter-spacing: -.055em; }
+.section-p { color: var(--marketing-muted); }
+.pain-card, .workflow-card, .testimonial-card, .card, .pricing-card, .inline-register-box { border-color: var(--marketing-line); border-radius: 20px; box-shadow: 0 8px 24px rgba(17,24,39,.04); }
+.pain-card:hover, .workflow-card:hover, .testimonial-card:hover, .card:hover, .pricing-card:hover { border-color: #cfd3dd; box-shadow: 0 18px 36px rgba(17,24,39,.08); transform: translateY(-3px); }
+.pricing-card.popular, .pricing-card.featured { border-color: var(--marketing-blue); box-shadow: 0 18px 38px rgba(76,92,255,.16); }
+.pricing-card.popular .btn-pricing-action, .pricing-card.featured .btn-pricing { background: var(--marketing-blue); border-color: var(--marketing-blue); }
+.footer { background: #131a2a; color: #c7cfde; }
+
+@media (max-width: 900px) {
+  .nav-container { padding: 14px 18px; }
+  .nav-menu { display: none; }
+  .nav-actions .btn-nav-outline { display: none; }
+  .hero { padding: 72px 18px 48px; border-radius: 0 0 28px 28px; }
+  .hero-heading { font-size: clamp(38px, 12vw, 58px); }
+  .product-proof-wrap { padding-inline: 14px; }
+  .section { padding: 72px 18px; }
+}
