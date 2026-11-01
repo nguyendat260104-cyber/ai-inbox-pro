@@ -7,6 +7,8 @@ Local-first, zero-dependency SQLite architecture with multi-tenant workspace iso
 import sqlite3
 import os
 import json
+import re
+from urllib.parse import unquote, urlparse
 from pathlib import Path
 from datetime import datetime, timezone
 from typing import Dict, Any, List, Optional
@@ -15,13 +17,90 @@ DEFAULT_DB_FILE = Path(__file__).resolve().parent.parent.parent / "data" / "inbo
 ENV_DB_PATH = os.getenv("DB_PATH") or os.getenv("SQLITE_PATH")
 DB_FILE = Path(ENV_DB_PATH) if ENV_DB_PATH else DEFAULT_DB_FILE
 
+
+class PostgresRow(dict):
+    """Mapping row compatible with sqlite3.Row access used by the app."""
+
+
+class PostgresCursor:
+    def __init__(self, cursor):
+        self._cursor = cursor
+
+    def execute(self, sql, params=()):
+        sql = sql.replace("?", "%s")
+        self._cursor.execute(sql, tuple(params or ()))
+        return self
+
+    def executemany(self, sql, seq_of_params):
+        sql = sql.replace("?", "%s")
+        self._cursor.executemany(sql, seq_of_params)
+        return self
+
+    def fetchone(self):
+        row = self._cursor.fetchone()
+        return self._wrap(row)
+
+    def fetchall(self):
+        return [self._wrap(row) for row in self._cursor.fetchall()]
+
+    def _wrap(self, row):
+        if row is None:
+            return None
+        columns = [description[0] for description in self._cursor.description or ()]
+        return PostgresRow(zip(columns, row))
+
+
+class PostgresConnection:
+    """Small DB-API compatibility layer for the existing SQLite-shaped code."""
+
+    def __init__(self, connection):
+        self._connection = connection
+
+    def cursor(self):
+        return PostgresCursor(self._connection.cursor())
+
+    def execute(self, sql, params=()):
+        return self.cursor().execute(sql, params)
+
+    def commit(self):
+        self._connection.commit()
+
+    def rollback(self):
+        self._connection.rollback()
+
+    def close(self):
+        self._connection.close()
+
+
+def _postgres_connection(database_url: str) -> PostgresConnection:
+    try:
+        import pg8000.dbapi as pg8000
+    except ImportError as exc:
+        raise RuntimeError("DATABASE_URL is set but pg8000 is not installed") from exc
+
+    parsed = urlparse(database_url)
+    if not parsed.hostname or not parsed.path:
+        raise ValueError("DATABASE_URL must be a valid PostgreSQL URL")
+    connection = pg8000.connect(
+        user=unquote(parsed.username or ""),
+        password=unquote(parsed.password or ""),
+        host=parsed.hostname,
+        port=parsed.port or 5432,
+        database=parsed.path.lstrip("/"),
+        ssl_context=True,
+    )
+    return PostgresConnection(connection)
+
 def get_db_file() -> Path:
     env_path = os.getenv("DB_PATH") or os.getenv("SQLITE_PATH")
     if env_path:
         return Path(env_path)
     return DB_FILE
 
-def get_connection(db_path: Optional[Path] = None) -> sqlite3.Connection:
+def get_connection(db_path: Optional[Path] = None):
+    database_url = os.getenv("DATABASE_URL")
+    if database_url and db_path is None:
+        return _postgres_connection(database_url)
     target = db_path or get_db_file()
     target.parent.mkdir(parents=True, exist_ok=True)
     conn = sqlite3.connect(str(target))
@@ -34,7 +113,7 @@ def init_db(db_path: Optional[Path] = None) -> None:
     conn = get_connection(db_path)
     cur = conn.cursor()
 
-    cur.executescript("""
+    schema_sql = """
     -- 1. Workspaces (Multi-tenant)
     CREATE TABLE IF NOT EXISTS workspaces (
         id TEXT PRIMARY KEY,
@@ -210,10 +289,24 @@ def init_db(db_path: Optional[Path] = None) -> None:
         timestamp TEXT NOT NULL,
         FOREIGN KEY (workspace_id) REFERENCES workspaces(id) ON DELETE CASCADE
     );
-    """)
+    """
+    if hasattr(conn, "executescript"):
+        cur.executescript(schema_sql)
+    else:
+        for statement in schema_sql.split(";"):
+            statement = statement.strip()
+            if statement:
+                cur.execute(statement)
 
     # Backward compatibility migrations for existing SQLite databases
-    cur.execute("PRAGMA table_info(workspaces)")
+    if hasattr(conn, "executescript"):
+        cur.execute("PRAGMA table_info(workspaces)")
+    else:
+        cur.execute(
+            "SELECT column_name AS name FROM information_schema.columns "
+            "WHERE table_schema = current_schema() AND table_name = %s",
+            ("workspaces",),
+        )
     existing_cols = {row["name"] for row in cur.fetchall()}
     if "plan" not in existing_cols:
         cur.execute("ALTER TABLE workspaces ADD COLUMN plan TEXT NOT NULL DEFAULT 'starter'")

@@ -32,13 +32,13 @@ def seed_demo_data():
 
     # Workspace
     cur.execute(
-        "INSERT OR IGNORE INTO workspaces (id, name, slug, created_at) VALUES ('ws-01', 'Shop Thời Trang Trẻ', 'shop-tre', ?)",
+        "INSERT INTO workspaces (id, name, slug, created_at) VALUES ('ws-01', 'Shop Thời Trang Trẻ', 'shop-tre', ?) ON CONFLICT DO NOTHING",
         (now_iso,)
     )
 
     # Staff
     cur.execute(
-        "INSERT OR IGNORE INTO staff (id, workspace_id, name, email, role, is_active, created_at) VALUES ('staff-01', 'ws-01', 'Tuấn Sale', 'tuan@shoptre.vn', 'sales_rep', 1, ?)",
+        "INSERT INTO staff (id, workspace_id, name, email, role, is_active, created_at) VALUES ('staff-01', 'ws-01', 'Tuấn Sale', 'tuan@shoptre.vn', 'sales_rep', 1, ?) ON CONFLICT DO NOTHING",
         (now_iso,)
     )
 

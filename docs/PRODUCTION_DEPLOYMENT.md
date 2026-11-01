@@ -4,6 +4,18 @@ Tài liệu hướng dẫn chi tiết quy trình đóng gói và triển khai n�
 
 ---
 
+## 0. Mô hình chi phí thấp (Render Free + PostgreSQL)
+
+Nếu dùng Render Free, không gắn Persistent Disk vì Render không hỗ trợ disk trên
+free tier. Hãy tạo PostgreSQL (Supabase hoặc dịch vụ tương đương), sau đó thêm
+`DATABASE_URL` vào Environment Variables của service. Backend tự động chọn
+PostgreSQL khi biến này tồn tại; nếu không có, local development vẫn dùng SQLite.
+
+Blueprint `render.yaml` đã để `DATABASE_URL` ở chế độ `sync: false` để secret
+không bị commit vào Git.
+
+---
+
 ## 1. Kiến Trúc Vận Hành
 
 - **Runtime**: Python 3.13 (Thuần Standard Library: `http.server`, `sqlite3`, `json`, `urllib`).

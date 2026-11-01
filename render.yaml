@@ -11,14 +11,12 @@ services:
       - key: PYTHON_VERSION
         value: 3.13.0
       - key: DB_PATH
-        value: /var/data/inbox.db
+        value: /tmp/inbox.db
+      - key: DATABASE_URL
+        sync: false
       - key: CORS_ORIGINS
         value: https://ai-inbox-pro.vercel.app
       - key: AI_INBOX_AUTH_SECRET
         generateValue: true
       - key: AI_INBOX_AUTH_REQUIRED
         value: "false"
-    disk:
-      name: inbox-data
-      mountPath: /var/data
-      sizeGB: 1
