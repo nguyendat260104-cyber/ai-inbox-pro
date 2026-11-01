@@ -1,1 +1,281 @@
-<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Tài nguyên | AI Inbox Pro</title><link rel="stylesheet" href="/web/marketing.css"></head><body><nav class="mk-nav"><div class="mk-wrap"><a class="mk-brand" href="/landing"><span class="mk-mark">ϟ</span>AI Inbox Pro</a><div class="mk-links"><a href="/features">Sản phẩm</a><a href="/solutions">Giải pháp</a><a href="/pricing">Bảng giá</a><a class="active" href="/resources">Tài nguyên</a></div><a class="mk-action" href="/admin">Xem workspace</a></div></nav><header class="mk-hero"><div class="mk-wrap"><span class="mk-eyebrow"><i></i> Implementation library</span><h1>Đưa AI vào vận hành, không đưa dữ liệu vào rủi ro.</h1><p>Tài liệu khởi tạo cho đội ngũ cần kết nối kênh bán, chuẩn hóa kiến thức và kiểm soát cách AI trả lời khách.</p></div></header><main class="mk-wrap"><section class="mk-layout"><div class="mk-intro"><h2>Bộ khung để triển khai có trách nhiệm.</h2><p>Các bước rõ ràng trước khi bật tự động hóa cho khách hàng thật.</p></div><div class="mk-stack"><article class="mk-feature"><span class="number">01</span><div><h3>Channel readiness</h3><p>Kiểm kê quyền quản trị, trạng thái webhook và người chịu trách nhiệm từng kênh trước khi kết nối.</p></div><span class="mk-arrow">→</span></article><article class="mk-feature"><span class="number">02</span><div><h3>Knowledge governance</h3><p>Chuẩn hóa catalog, chính sách giao hàng, đổi trả và câu trả lời mẫu. Dữ liệu nhạy cảm không hiển thị trên tài liệu công khai.</p></div><span class="mk-arrow">→</span></article><article class="mk-feature"><span class="number">03</span><div><h3>Handoff playbook</h3><p>Xác định điểm AI dừng, nhân viên nhận và chỉ số phải theo dõi sau khi đưa workflow vào vận hành.</p></div><span class="mk-arrow">→</span></article></div></section></main><section class="mk-section tint"><div class="mk-wrap"><div class="mk-wide-heading"><h2>Nguyên tắc dữ liệu & vận hành.</h2><p>Demo không yêu cầu nhập token hoặc bí mật kênh. Thiết lập thực tế phải nằm trong khu vực quản trị có phân quyền.</p></div><div class="mk-flow"><article class="mk-flow-step"><span>Security</span><h3>Tối thiểu đặc quyền</h3><p>Chỉ cấp quyền đúng người, đúng mục đích và có thể thu hồi.</p></article><article class="mk-flow-step"><span>Quality</span><h3>Nguồn có kiểm chứng</h3><p>AI dựa trên dữ liệu sản phẩm được đội ngũ duyệt.</p></article><article class="mk-flow-step"><span>Visibility</span><h3>Có lịch sử thao tác</h3><p>Biết workflow đã xử lý gì và ai đưa ra quyết định cuối.</p></article></div></div></section><footer class="mk-footer"><div class="mk-wrap"><span>AI Inbox Pro · Built for accountable automation</span><a href="/landing">← Về trang chủ</a></div></footer></body></html>
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tài Nguyên, Hướng Dẫn & Tài Liệu API | AI Inbox Pro</title>
+  <meta name="description" content="Thư viện hướng dẫn kết nối webhook Facebook, Zalo OA, TikTok Shop và tài liệu API kỹ thuật cho AI Inbox Pro.">
+  <link rel="stylesheet" href="/web/landing.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23465fff'><path d='M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0-2-.9-2-2V4c0-1.1-.9-2-2-2z'/></svg>">
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <aside class="top-announcement">
+    <span><strong>Bản phát hành V2.4:</strong> Tự động ẩn SĐT comment Livestream &amp; Sinh mã thanh toán VietQR động</span>
+    <a href="/pricing">Bắt đầu dùng thử miễn phí &rarr;</a>
+  </aside>
+
+  <!-- Sticky Glass Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="/landing" class="nav-brand">
+        <div class="brand-icon-box">
+          <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0-2-.9-2-2V4c0-1.1-.9-2-2-2z"/></svg>
+        </div>
+        <span>AI Inbox <b>Pro</b></span>
+      </a>
+
+      <div class="nav-menu">
+        <a href="/features" class="nav-item">Sản Phẩm</a>
+        <a href="/solutions" class="nav-item">Giải Pháp</a>
+        <a href="/pricing" class="nav-item">Bảng Giá</a>
+        <a href="/resources" class="nav-item active">Tài Nguyên</a>
+      </div>
+
+      <div class="nav-actions">
+        <button class="btn-theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="Chuyển chế độ Sáng / Tối" aria-label="Toggle theme">
+          <span id="theme-icon">&#9790;</span>
+        </button>
+        <a href="/demo" target="_blank" class="btn-nav-outline">
+          <span>Demo Store ↗</span>
+        </a>
+        <a href="/admin" target="_blank" class="btn-nav-outline">
+          <span>Workspace</span>
+        </a>
+        <a href="/pricing" class="btn-nav-primary">
+          <span>Dùng Thử 14 Ngày &rarr;</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Subpage Hero -->
+  <header class="subpage-hero">
+    <div class="subpage-eyebrow">HƯỚNG DẪN KỸ THUẬT &amp; VẬN HÀNH</div>
+    <h1 class="subpage-heading">Thư Viện Tài Nguyên &amp; Tài Liệu Triển Khai</h1>
+    <p class="subpage-lead">
+      Bộ khung chuẩn hóa giúp đội ngũ kết nối nhanh 6 kênh bán hàng, chuẩn hóa kiến thức catalog và kiểm soát an toàn cách AI tương tác với khách hàng thật.
+    </p>
+  </header>
+
+  <!-- Resources & Guides Grid -->
+  <main class="section" style="padding-top: 0;">
+    <div class="section-container">
+      <div class="resources-grid">
+
+        <!-- Guide 1: Facebook Messenger -->
+        <article class="resource-card" id="webhooks">
+          <div class="resource-tag">KẾT NỐI &bull; META GRAPH API</div>
+          <h3>Kết Nối Webhook Facebook Messenger Trong 5 Phút</h3>
+          <p>
+            Hướng dẫn từng bước đăng ký ứng dụng Meta Developers, thiết lập Webhook URL và Verify Token để đồng bộ hội thoại Fanpage và tự động ẩn bình luận livestream.
+          </p>
+          <a href="/pricing" class="resource-link">
+            <span>Xem tài liệu tích hợp &rarr;</span>
+          </a>
+        </article>
+
+        <!-- Guide 2: Zalo OA -->
+        <article class="resource-card">
+          <div class="resource-tag">KẾT NỐI &bull; ZALO OFFICIAL ACCOUNT</div>
+          <h3>Cấu Hình Zalo OA &amp; Kích Hoạt Quyền Gửi Tin</h3>
+          <p>
+            Cách tạo OA ID, cấp quyền ứng dụng Zalo Cloud và cấu hình Webhook nhận sự kiện người dùng gửi tin nhắn để AI tự động tư vấn báo giá.
+          </p>
+          <a href="/pricing" class="resource-link">
+            <span>Xem hướng dẫn Zalo OA &rarr;</span>
+          </a>
+        </article>
+
+        <!-- Guide 3: TikTok & Sàn TMĐT -->
+        <article class="resource-card">
+          <div class="resource-tag">KẾT NỐI &bull; TIKTOK, SHOPEE, LAZADA</div>
+          <h3>Tích Hợp Sàn Thương Mại Điện Tử &amp; TikTok Shop</h3>
+          <p>
+            Liên kết tài khoản người bán (Seller Center), phân quyền ứng dụng chat để tập trung toàn bộ tin nhắn khách hỏi về sản phẩm vào một màn hình duy nhất.
+          </p>
+          <a href="/pricing" class="resource-link">
+            <span>Xem tài liệu sàn TMĐT &rarr;</span>
+          </a>
+        </article>
+
+        <!-- Guide 4: Stalled Leads Playbook -->
+        <article class="resource-card" id="playbook">
+          <div class="resource-tag">CHIẾN LƯỢC &bull; TĂNG TRƯỞNG CVR</div>
+          <h3>Playbook Kích Hoạt Lại Khách Hàng Nguội (Stalled Leads)</h3>
+          <p>
+            Kịch bản gửi tin nhắc nhở tự động sau 24h và 48h cho các khách hàng đã hỏi size hoặc nhận báo giá nhưng chưa quét mã VietQR chuyển khoản.
+          </p>
+          <a href="/pricing" class="resource-link">
+            <span>Tải kịch bản mẫu &rarr;</span>
+          </a>
+        </article>
+
+        <!-- Guide 5: Handoff Protocol -->
+        <article class="resource-card">
+          <div class="resource-tag">VẬN HÀNH &bull; PHỐI HỢP SALE &amp; AI</div>
+          <h3>Quy Chuẩn Chuyển Giao Handoff Khi Chốt Đơn</h3>
+          <p>
+            Quy trình giúp nhân viên sale nhận thông tin tóm tắt khách hàng và giỏ hàng POS từ bot để chốt đơn mượt mà trong 0.45s mà không hỏi lại thông tin.
+          </p>
+          <a href="/pricing" class="resource-link">
+            <span>Xem quy trình bàn giao &rarr;</span>
+          </a>
+        </article>
+
+        <!-- Guide 6: API Specs -->
+        <article class="resource-card" id="api">
+          <div class="resource-tag">LẬP TRÌNH &bull; REST API REFERENCE</div>
+          <h3>Tài Liệu Kỹ Thuật API &amp; Webhook Event Payloads</h3>
+          <p>
+            Mô tả chi tiết các endpoint quản trị: <code>/api/widget/message</code>, <code>/api/dashboard/inbox</code>, <code>/api/workspaces/register</code> kèm schema JSON chuẩn.
+          </p>
+          <a href="/pricing" class="resource-link">
+            <span>Xem đặc tả REST API &rarr;</span>
+          </a>
+        </article>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Security Principles -->
+  <section class="section" style="background:var(--bg-subtle);">
+    <div class="section-container">
+      <div class="section-header">
+        <div class="section-pill">NGUYÊN TẮC AN TOÀN DỮ LIỆU</div>
+        <h2 class="section-h2">Vận Hành Minh Bạch &amp; Bảo Mật Tuyệt Đối</h2>
+        <p class="section-p">Các tiêu chuẩn cam kết dữ liệu khách hàng luôn được bảo vệ tối đa.</p>
+      </div>
+
+      <div class="solutions-grid" style="margin-top: 0;">
+        <div class="solution-card">
+          <span class="solution-badge">LEAST PRIVILEGE</span>
+          <h3>Tối Thiểu Đặc Quyền</h3>
+          <div class="sol-ans">
+            Hệ thống chỉ yêu cầu quyền truy cập tin nhắn cần thiết để phục vụ bán hàng. Tuyệt đối không yêu cầu quyền quản trị viên cao nhất của Fanpage hoặc can thiệp vào tài khoản thanh toán quảng cáo.
+          </div>
+        </div>
+
+        <div class="solution-card">
+          <span class="solution-badge">ZERO HALLUCINATION</span>
+          <h3>Nguồn Dữ Liệu Được Kiểm Chứng</h3>
+          <div class="sol-ans">
+            Mọi câu trả lời của AI đều được đối chiếu với danh mục catalog sản phẩm do chính bạn tải lên. AI không tự ý thêm ưu đãi, giảm giá hay cam kết ngày giao hàng sai lệch.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA Banner -->
+  <section class="section">
+    <div class="section-container">
+      <div class="final-cta-card">
+        <div class="system-status-pill">
+          <span class="status-dot-pulse"></span>
+          <span>Sẵn Sàng Triển Khai Cho Đội Ngũ Của Bạn</span>
+        </div>
+        <h2 class="final-cta-h2">Cần Tư Vấn Kỹ Thuật Chi Tiết Cho Shop Của Bạn?</h2>
+        <p class="final-cta-p">
+          Đội ngũ kỹ sư giải pháp của AI Inbox Pro sẵn sàng hỗ trợ bạn kết nối 6 kênh bán hàng và cấu hình kịch bản bán hàng tự động chỉ trong 1 cuộc gọi 15 phút.
+        </p>
+        <div class="final-cta-btns">
+          <a href="/pricing" class="btn-hero-primary" style="background:#ffffff; color:var(--primary);">
+            <span>Đăng Ký Dùng Thử Miễn Phí &rarr;</span>
+          </a>
+          <a href="/admin" target="_blank" class="btn-hero-secondary" style="border-color:rgba(255,255,255,0.25); color:#ffffff;">
+            <span>Vào Command Center ↗</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Multi-Column Enterprise Footer -->
+  <footer class="footer-multi">
+    <div class="footer-multi-grid">
+      <div class="footer-col footer-col-brand">
+        <a href="/landing" class="nav-brand" style="margin-bottom: 8px;">
+          <div class="brand-icon-box" style="width: 28px; height: 28px;">
+            <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0-2-.9-2-2V4c0-1.1-.9-2-2-2z"/></svg>
+          </div>
+          <span>AI Inbox <b>Pro</b></span>
+        </a>
+        <p>Nền tảng hội thoại và bán hàng đa kênh tự động hàng đầu cho các nhà bán lẻ tại Việt Nam.</p>
+        <div class="system-status-pill" style="margin-bottom: 0;">
+          <span class="status-dot-pulse"></span>
+          <span>99.98% SLA Uptime</span>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Sản Phẩm</h4>
+        <ul>
+          <li><a href="/features#omnichannel">Unified Inbox 6 Kênh</a></li>
+          <li><a href="/features#grounded-ai">AI Tra Kho &amp; Tính Size</a></li>
+          <li><a href="/features#anti-stealing">Ẩn Comment Livestream</a></li>
+          <li><a href="/features#vietqr">Tự Động Khớp VietQR</a></li>
+          <li><a href="/demo">Demo Storefront</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Giải Pháp</h4>
+        <ul>
+          <li><a href="/solutions#fashion">Thời Trang &amp; May Mặc</a></li>
+          <li><a href="/solutions#cosmetics">Mỹ Phẩm &amp; Skincare</a></li>
+          <li><a href="/solutions#livestream">Livestream &amp; Chạy Ads</a></li>
+          <li><a href="/solutions#chains">Chuỗi Bán Lẻ Đa Điểm</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Bảng Giá</h4>
+        <ul>
+          <li><a href="/pricing#pricing-plans">Gói Starter (490K)</a></li>
+          <li><a href="/pricing#pricing-plans">Gói Growth (1.290K)</a></li>
+          <li><a href="/pricing#pricing-plans">Gói Enterprise (3.490K)</a></li>
+          <li><a href="/pricing#comparison">Bảng So Sánh Tính Năng</a></li>
+          <li><a href="/pricing#faq">Chính Sách Hoàn Tiền</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Tài Nguyên</h4>
+        <ul>
+          <li><a href="/resources#webhooks">Tài Liệu Webhook</a></li>
+          <li><a href="/resources#playbook">Playbook Handoff Sale</a></li>
+          <li><a href="/resources#api">API Reference</a></li>
+          <li><a href="/admin">Đăng Nhập Workspace</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom-row">
+      <span>&copy; 2026 AI Inbox Pro. Bảo lưu mọi quyền. Tuân thủ tiêu chuẩn an toàn dữ liệu khách hàng.</span>
+      <span>Hỗ trợ 24/7: support@enterprise.vn &bull; Hotline: 1900 6868</span>
+    </div>
+  </footer>
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const current = html.getAttribute('data-theme') || 'light';
+      const target = current === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', target);
+      localStorage.setItem('ai_inbox_theme', target);
+      document.getElementById('theme-icon').innerHTML = target === 'dark' ? '&#9788;' : '&#9790;';
+    }
+    (function() {
+      const saved = localStorage.getItem('ai_inbox_theme');
+      if (saved) {
+        document.documentElement.setAttribute('data-theme', saved);
+        const icon = document.getElementById('theme-icon');
+        if (icon) icon.innerHTML = saved === 'dark' ? '&#9788;' : '&#9790;';
+      }
+    })();
+  </script>
+</body>
+</html>

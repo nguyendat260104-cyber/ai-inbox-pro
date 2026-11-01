@@ -1,1 +1,589 @@
-<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Bảng giá | AI Inbox Pro</title><link rel="stylesheet" href="/web/marketing.css"></head><body><nav class="mk-nav"><div class="mk-wrap"><a class="mk-brand" href="/landing"><span class="mk-mark">ϟ</span>AI Inbox Pro</a><div class="mk-links"><a href="/features">Sản phẩm</a><a href="/solutions">Giải pháp</a><a class="active" href="/pricing">Bảng giá</a><a href="/resources">Tài nguyên</a></div><a class="mk-action" href="/landing">Bắt đầu dùng thử</a></div></nav><header class="mk-hero"><div class="mk-wrap"><span class="mk-eyebrow"><i></i> Simple, scalable pricing</span><h1>Bắt đầu gọn. Mở rộng khi vận hành chứng minh hiệu quả.</h1><p>Giá hiển thị là cấu trúc tham khảo cho demo; đội ngũ sẽ chốt mức sử dụng, kênh kết nối và yêu cầu triển khai trước khi kích hoạt.</p></div></header><main class="mk-wrap"><section class="mk-section"><div class="mk-price-grid"><article class="mk-price"><h3>Starter</h3><div class="amount">Từ 990K</div><p>/ tháng · cho một nhóm nhỏ đang gom kênh.</p><ul><li>Unified Inbox cơ bản</li><li>Web chat & Messenger</li><li>Hồ sơ khách hàng</li></ul></article><article class="mk-price featured"><h3>Growth</h3><div class="amount">Từ 2.9M</div><p>/ tháng · cho đội sale cần AI hỗ trợ chốt.</p><ul><li>6 kênh hội thoại</li><li>AI sales workflows</li><li>Order desk & analytics</li></ul></article><article class="mk-price"><h3>Enterprise</h3><div class="amount">Theo nhu cầu</div><p>Cho quy trình, phân quyền và tích hợp riêng.</p><ul><li>RBAC & audit trail</li><li>Custom onboarding</li><li>SLA triển khai</li></ul></article></div></section></main><section class="mk-section tint"><div class="mk-wrap"><div class="mk-wide-heading"><h2>Chỉ trả tiền cho năng lực bạn dùng.</h2><p>Không có lời hứa tăng trưởng giả định. Cùng đo conversation volume, kênh kết nối và mức tự động hóa trước khi mở rộng.</p></div><table class="mk-table"><thead><tr><th>Thành phần</th><th>Cách tính</th><th>Phù hợp</th></tr></thead><tbody><tr><td>Người dùng nội bộ</td><td>Theo số seat sale/vận hành</td><td>Đội cần phân quyền</td></tr><tr><td>Kênh kết nối</td><td>Theo kênh đã bật</td><td>Bán đa kênh</td></tr><tr><td>AI workflows</td><td>Theo khối lượng hội thoại</td><td>Đội đang tăng trưởng</td></tr></tbody></table></div></section><footer class="mk-footer"><div class="mk-wrap"><span>Cần cấu hình đúng quy mô?</span><a href="/landing">Trao đổi với đội ngũ →</a></div></footer></body></html>
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bảng Giá & Gói Dịch Vụ | AI Inbox Pro - Nền Tảng Bán Hàng Đa Kênh</title>
+  <meta name="description" content="Bảng giá minh bạch các gói AI Inbox Pro dành cho nhà bán lẻ đa kênh tại Việt Nam. Kích hoạt tự động và thanh toán VietQR trong 30 giây.">
+  <link rel="stylesheet" href="/web/landing.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23465fff'><path d='M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0-2-.9-2-2V4c0-1.1-.9-2-2-2z'/></svg>">
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <aside class="top-announcement">
+    <span><strong>Bản phát hành V2.4:</strong> Tự động ẩn SĐT comment Livestream &amp; Sinh mã thanh toán VietQR động</span>
+    <a href="/features">Khám phá tính năng mới &rarr;</a>
+  </aside>
+
+  <!-- Sticky Glass Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="/landing" class="nav-brand">
+        <div class="brand-icon-box">
+          <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0-2-.9-2-2V4c0-1.1-.9-2-2-2z"/></svg>
+        </div>
+        <span>AI Inbox <b>Pro</b></span>
+      </a>
+
+      <div class="nav-menu">
+        <a href="/features" class="nav-item">Sản Phẩm</a>
+        <a href="/solutions" class="nav-item">Giải Pháp</a>
+        <a href="/pricing" class="nav-item active">Bảng Giá</a>
+        <a href="/resources" class="nav-item">Tài Nguyên</a>
+      </div>
+
+      <div class="nav-actions">
+        <button class="btn-theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="Chuyển chế độ Sáng / Tối" aria-label="Toggle theme">
+          <span id="theme-icon">&#9790;</span>
+        </button>
+        <a href="/demo" target="_blank" class="btn-nav-outline">
+          <span>Demo Store ↗</span>
+        </a>
+        <a href="/admin" target="_blank" class="btn-nav-outline">
+          <span>Workspace</span>
+        </a>
+        <a href="#register-section" class="btn-nav-primary">
+          <span>Đăng Ký Ngay &rarr;</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Subpage Hero -->
+  <header class="subpage-hero">
+    <div class="subpage-eyebrow">BẢNG GIÁ MINH BẠCH &amp; ĐƠN GIẢN</div>
+    <h1 class="subpage-heading">Đầu Tư Xứng Đáng, Tăng Trưởng Doanh Số Vượt Bậc</h1>
+    <p class="subpage-lead">
+      Không chi phí ẩn, không cam kết dài hạn phi lý. Chọn gói phù hợp với quy mô hiện tại của bạn và kích hoạt workspace tự động bằng VietQR trong 30 giây.
+    </p>
+  </header>
+
+  <!-- Pricing Cards Section -->
+  <main class="section" id="pricing-plans" style="padding-top: 0;">
+    <div class="section-container">
+      <div class="pricing-grid">
+        
+        <!-- Starter Plan -->
+        <article class="pricing-card">
+          <div class="pricing-tier-name">Starter</div>
+          <p class="pricing-tier-desc">Phù hợp shop đơn kênh đang mở rộng hoặc cá nhân kinh doanh online.</p>
+          <div class="pricing-price">
+            <span class="pricing-val">490.000đ</span>
+            <span class="pricing-period">/ tháng</span>
+          </div>
+          <ul class="pricing-features">
+            <li>
+              <svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+              <span>Gom 2 Kênh: Web Chat + Fanpage</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+              <span>AI Tra Cứu Catalog &amp; Báo Tồn Kho</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+              <span>Quản lý 500 khách hàng / tháng</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+              <span>1 Tài khoản nhân viên sale</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+              <span>Hỗ trợ kỹ thuật qua Zalo</span>
+            </li>
+          </ul>
+          <a href="#register-section" onclick="selectPlan('starter')" class="btn-pricing">
+            <span>Chọn Gói Starter &rarr;</span>
+          </a>
+        </article>
+
+        <!-- Growth Plan (Featured) -->
+        <article class="pricing-card featured">
+          <div class="featured-badge">KHUYÊN DÙNG • PHỔ BIẾN NHẤT</div>
+          <div class="pricing-tier-name">Growth</div>
+          <p class="pricing-tier-desc">Dành cho thương hiệu thời trang, mỹ phẩm và chuỗi bán lẻ đa kênh chuyên nghiệp.</p>
+          <div class="pricing-price">
+            <span class="pricing-val">1.290.000đ</span>
+            <span class="pricing-period">/ tháng</span>
+          </div>
+          <ul class="pricing-features">
+            <li>
+              <svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+              <span><strong>Gom trọn bộ 6 kênh:</strong> FB, Zalo, TikTok, Shopee, Lazada, Web</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+              <span><strong>Tự động ẩn comment livestream</strong> chống cướp khách</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+              <span><strong>AI tư vấn size</strong> chuẩn theo chiều cao, cân nặng</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+              <span><strong>Báo động HOT Lead tức thì</strong> qua Telegram</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+              <span><strong>Tích hợp VietQR động</strong> tự động khớp đơn ngân hàng</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+              <span>5 Tài khoản nhân viên • Không giới hạn khách</span>
+            </li>
+          </ul>
+          <a href="#register-section" onclick="selectPlan('growth')" class="btn-pricing">
+            <span>Bắt Đầu Dùng Thử Gói Growth &rarr;</span>
+          </a>
+        </article>
+
+        <!-- Enterprise Plan -->
+        <article class="pricing-card">
+          <div class="pricing-tier-name">Enterprise</div>
+          <p class="pricing-tier-desc">Cho chuỗi cửa hàng, thương hiệu lớn cần phân quyền RBAC và tích hợp ERP riêng.</p>
+          <div class="pricing-price">
+            <span class="pricing-val">3.490.000đ</span>
+            <span class="pricing-period">/ tháng</span>
+          </div>
+          <ul class="pricing-features">
+            <li>
+              <svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+              <span>Toàn bộ tính năng gói Growth</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+              <span>Không giới hạn số lượng tài khoản nhân viên</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+              <span>Phân quyền RBAC nâng cao &amp; Bảng hoa hồng sale</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+              <span>Tích hợp Webhook tùy biến &amp; ERP/KiotViet/Sapo</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+              <span>Cam kết SLA hỗ trợ 99.98% • Kỹ sư hỗ trợ 1:1</span>
+            </li>
+          </ul>
+          <a href="#register-section" onclick="selectPlan('enterprise')" class="btn-pricing">
+            <span>Liên Hệ Triển Khai Enterprise &rarr;</span>
+          </a>
+        </article>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Detailed Comparison Matrix -->
+  <section class="section" id="comparison">
+    <div class="section-container">
+      <div class="section-header">
+        <div class="section-pill">SO SÁNH CHI TIẾT TÍNH NĂNG</div>
+        <h2 class="section-h2">Sự Khác Biệt Giữa AI Inbox Pro &amp; Các Giải Pháp Khác</h2>
+        <p class="section-p">Xem xét hiệu quả vận hành và chi phí giữa các phương thức quản lý bán lẻ hiện tại.</p>
+      </div>
+
+      <div class="comp-table-wrap">
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th style="width: 28%;">Tiêu Chí Vận Hành</th>
+              <th class="highlight" style="width: 24%;">AI Inbox Pro</th>
+              <th style="width: 24%;">Chatbot Kịch Bản Cũ</th>
+              <th style="width: 24%;">Nhân Sự Trực Thủ Công</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Tốc độ phản hồi</strong></td>
+              <td class="highlight"><span class="badge-emerald">&lt; 0.45 giây (24/7)</span></td>
+              <td>Tức thì nhưng theo kịch bản cứng</td>
+              <td>5 &ndash; 30 phút (trễ ca đêm)</td>
+            </tr>
+            <tr>
+              <td><strong>Độ chính xác tồn kho &amp; size</strong></td>
+              <td class="highlight"><strong>100% Khóa Catalog thật</strong></td>
+              <td>Không tra được kho real-time</td>
+              <td>Dễ nhầm lẫn khi kho biến động</td>
+            </tr>
+            <tr>
+              <td><strong>Ẩn comment chống cướp khách</strong></td>
+              <td class="highlight"><strong>Tự động sau 0.5s</strong></td>
+              <td>Không hỗ trợ</td>
+              <td>Thủ công chậm, dễ bị cướp</td>
+            </tr>
+            <tr>
+              <td><strong>Báo động HOT Lead Telegram</strong></td>
+              <td class="highlight"><strong>Bắn alert tức thì kèm link</strong></td>
+              <td>Không có</td>
+              <td>Không có</td>
+            </tr>
+            <tr>
+              <td><strong>Khóa giữ hàng tạm thời</strong></td>
+              <td class="highlight"><strong>Khóa tự động 15 phút</strong></td>
+              <td>Không hỗ trợ</td>
+              <td>Dễ bán trùng tồn</td>
+            </tr>
+            <tr>
+              <td><strong>Khớp thanh toán VietQR Napas</strong></td>
+              <td class="highlight"><strong>Sinh mã động + Webhook tự động</strong></td>
+              <td>Mã tĩnh, đối soát thủ công</td>
+              <td>Chụp bill kiểm tra thủ công</td>
+            </tr>
+            <tr>
+              <td><strong>Hỗ trợ đa kênh (6 nền tảng)</strong></td>
+              <td class="highlight"><strong>Gom chung 1 màn hình</strong></td>
+              <td>Thường chỉ hỗ trợ 1-2 kênh</td>
+              <td>Mở 5-6 tab riêng biệt</td>
+            </tr>
+            <tr>
+              <td><strong>Chi phí vận hành hàng tháng</strong></td>
+              <td class="highlight"><strong>Từ 490K / tháng</strong></td>
+              <td>300K &ndash; 800K / tháng</td>
+              <td>18 &ndash; 30 triệu (3 ca trực)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Workspace Self-Registration Form & VietQR Box -->
+  <section class="section" id="register-section">
+    <div class="section-container">
+      <div class="inline-register-box">
+        <div class="section-pill">KHỞI TẠO WORKSPACE TỨC THÌ</div>
+        <h2 class="section-h2" style="margin-top: 12px;">Bắt Đầu Trải Nghiệm Trong 30 Giây</h2>
+        <p class="section-p" style="max-width: 580px; margin: 0 auto 32px;">
+          Điền thông tin thương hiệu của bạn để khởi tạo không gian làm việc. Hệ thống hỗ trợ quét mã VietQR tự động kích hoạt tài khoản ngay lập tức.
+        </p>
+
+        <!-- Registration Form -->
+        <form id="inline-register-form" onsubmit="handleRegistration(event)">
+          <div class="form-group">
+            <label class="form-label" for="reg-brand-name">Tên Cửa Hàng / Thương Hiệu *</label>
+            <input type="text" id="reg-brand-name" class="form-input" placeholder="Ví dụ: Routine Fashion, GlowLab Cosmetics..." required>
+          </div>
+
+          <div class="form-row-2">
+            <div class="form-group">
+              <label class="form-label" for="reg-admin-name">Họ Tên Quản Trị *</label>
+              <input type="text" id="reg-admin-name" class="form-input" placeholder="Nguyễn Văn A" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="reg-admin-phone">Số Điện Thoại Zalo *</label>
+              <input type="tel" id="reg-admin-phone" class="form-input" placeholder="0911223344" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="reg-admin-email">Email Nhận Thông Báo &amp; Hóa Đơn *</label>
+            <input type="email" id="reg-admin-email" class="form-input" placeholder="owner@thuonghieu.vn" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="reg-plan-code">Gói Dịch Vụ Muốn Kích Hoạt</label>
+            <select id="reg-plan-code" class="form-select">
+              <option value="growth" selected>Gói Growth — 1.290.000đ/tháng (6 kênh + AI tư vấn + Ẩn comment)</option>
+              <option value="starter">Gói Starter — 490.000đ/tháng (2 kênh cơ bản)</option>
+              <option value="enterprise">Gói Enterprise — 3.490.000đ/tháng (Không giới hạn + RBAC)</option>
+            </select>
+          </div>
+
+          <button type="submit" id="reg-btn-submit" class="btn-hero-primary" style="width: 100%; justify-content: center; margin-top: 10px;">
+            <span>Khởi Tạo Workspace &amp; Nhận Mã VietQR &rarr;</span>
+          </button>
+        </form>
+
+        <!-- Dynamic VietQR Result Box -->
+        <div id="vietqr-result-box" class="vietqr-box" style="display: none;">
+          <div class="badge-emerald" style="display: inline-block; margin-bottom: 12px;">WORKSPACE ĐÃ SẴN SÀNG</div>
+          <h3 style="font-size: 20px; font-weight: 800; margin-bottom: 8px;">Quét Mã VietQR Để Kích Hoạt Ngay</h3>
+          <p style="font-size: 13.5px; color: var(--text-muted); margin-bottom: 18px;">
+            Mở app ngân hàng quét mã bên dưới. Sau khi chuyển khoản thành công, hệ thống tự động cấp quyền truy cập.
+          </p>
+
+          <img id="vietqr-image-display" src="" alt="Mã VietQR Thanh Toán" class="vietqr-img">
+
+          <div class="vietqr-info-grid">
+            <div class="vietqr-info-row">
+              <span class="v-label">Ngân hàng:</span>
+              <span class="v-val" id="v-bank-name">MB Bank (Quân Đội)</span>
+            </div>
+            <div class="vietqr-info-row">
+              <span class="v-label">Số tài khoản:</span>
+              <span class="v-val" id="v-account-no">0911223344</span>
+            </div>
+            <div class="vietqr-info-row">
+              <span class="v-label">Số tiền:</span>
+              <span class="v-val" id="v-amount">1.290.000đ</span>
+            </div>
+            <div class="vietqr-info-row">
+              <span class="v-label">Nội dung CK:</span>
+              <span class="v-val highlight" id="v-memo">INBOX B2B-FASHION GROWTH</span>
+            </div>
+          </div>
+
+          <div style="margin-top: 24px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+            <a id="v-login-btn" href="/admin" target="_blank" class="btn-nav-primary" style="padding: 12px 24px;">
+              <span>Vào Không Gian Quản Trị (Admin) &rarr;</span>
+            </a>
+            <button onclick="resetRegisterForm()" class="btn-nav-outline" style="padding: 12px 20px;">
+              <span>Đăng Ký Workspace Khác</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing FAQs -->
+  <section class="section" id="faq">
+    <div class="section-container">
+      <div class="section-header">
+        <div class="section-pill">GIẢI ĐÁP VỀ GÓI &amp; THANH TOÁN</div>
+        <h2 class="section-h2">Câu Hỏi Thường Gặp</h2>
+        <p class="section-p">Tất cả những gì bạn cần biết về thanh toán, dùng thử và cam kết dịch vụ.</p>
+      </div>
+
+      <div class="faq-accordion">
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span>Tôi có thể dùng thử trước khi thanh toán không?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            Có! Mọi tài khoản khởi tạo đều được cung cấp 14 ngày trải nghiệm đầy đủ toàn bộ tính năng của gói Growth mà không cần nhập thẻ tín dụng.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span>Thanh toán mã VietQR Napas hoạt động như thế nào?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            Hệ thống sinh mã VietQR Napas chuẩn 24/7 kèm đúng số tiền và cú pháp chuyển khoản tương ứng với mã Workspace của bạn. Khi tiền về tài khoản ngân hàng, webhook tự động đối soát và kích hoạt gói ngay trong 5 giây mà không cần nhân viên chụp màn hình gửi hóa đơn thủ công.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span>Tôi có được xuất hóa đơn VAT điện tử cho doanh nghiệp không?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            Có. AI Inbox Pro hỗ trợ xuất hóa đơn GTGT điện tử hợp lệ theo quy định của Tổng cục Thuế cho mọi gói dịch vụ từ Starter đến Enterprise. Bạn chỉ cần nhập thông tin mã số thuế trong phần Cài đặt hóa đơn sau khi đăng nhập.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span>Tôi có thể nâng cấp hoặc hạ cấp gói bất kỳ lúc nào không?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            Hoàn toàn có thể. Khi nâng cấp gói giữa chu kỳ, hệ thống sẽ tự động trừ phần tiền chưa sử dụng của gói cũ vào hóa đơn gói mới. Khi hạ gói, gói mới sẽ có hiệu lực vào chu kỳ tiếp theo.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span>Chính sách hoàn tiền nếu không hài lòng như thế nào?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            Chúng tôi cam kết hoàn tiền 100% trong vòng 30 ngày đầu tiên nếu hệ thống không đáp ứng được cam kết về tốc độ phản hồi hoặc không giúp bạn giảm tải vận hành như tư vấn.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA Banner -->
+  <section class="section" style="padding-top: 0;">
+    <div class="section-container">
+      <div class="final-cta-card">
+        <div class="system-status-pill">
+          <span class="status-dot-pulse"></span>
+          <span>Hệ Thống Hoạt Động Ổn Định 99.98% SLA</span>
+        </div>
+        <h2 class="final-cta-h2">Sẵn Sàng Tăng Trưởng Doanh Số Cùng AI Inbox Pro?</h2>
+        <p class="final-cta-p">
+          Hơn 300+ thương hiệu bán lẻ tại Việt Nam đang sử dụng AI Inbox Pro để gom kênh, giữ chân khách hàng 24/7 và gia tăng 35% tỷ lệ chốt đơn mỗi tháng.
+        </p>
+        <div class="final-cta-btns">
+          <a href="#register-section" class="btn-hero-primary" style="background:#ffffff; color:var(--primary);">
+            <span>Khởi Tạo Workspace Dùng Thử 14 Ngày &rarr;</span>
+          </a>
+          <a href="/admin" target="_blank" class="btn-hero-secondary" style="border-color:rgba(255,255,255,0.25); color:#ffffff;">
+            <span>Vào Command Center ↗</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Multi-Column Enterprise Footer -->
+  <footer class="footer-multi">
+    <div class="footer-multi-grid">
+      <div class="footer-col footer-col-brand">
+        <a href="/landing" class="nav-brand" style="margin-bottom: 8px;">
+          <div class="brand-icon-box" style="width: 28px; height: 28px;">
+            <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0-2-.9-2-2V4c0-1.1-.9-2-2-2z"/></svg>
+          </div>
+          <span>AI Inbox <b>Pro</b></span>
+        </a>
+        <p>Nền tảng hội thoại và bán hàng đa kênh tự động hàng đầu cho các nhà bán lẻ tại Việt Nam.</p>
+        <div class="system-status-pill" style="margin-bottom: 0;">
+          <span class="status-dot-pulse"></span>
+          <span>99.98% SLA Uptime</span>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Sản Phẩm</h4>
+        <ul>
+          <li><a href="/features#omnichannel">Unified Inbox 6 Kênh</a></li>
+          <li><a href="/features#grounded-ai">AI Tra Kho &amp; Tính Size</a></li>
+          <li><a href="/features#anti-stealing">Ẩn Comment Livestream</a></li>
+          <li><a href="/features#vietqr">Tự Động Khớp VietQR</a></li>
+          <li><a href="/demo">Demo Storefront</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Giải Pháp</h4>
+        <ul>
+          <li><a href="/solutions#fashion">Thời Trang &amp; May Mặc</a></li>
+          <li><a href="/solutions#cosmetics">Mỹ Phẩm &amp; Skincare</a></li>
+          <li><a href="/solutions#livestream">Livestream &amp; Chạy Ads</a></li>
+          <li><a href="/solutions#chains">Chuỗi Bán Lẻ Đa Điểm</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Bảng Giá</h4>
+        <ul>
+          <li><a href="/pricing#pricing-plans">Gói Starter (490K)</a></li>
+          <li><a href="/pricing#pricing-plans">Gói Growth (1.290K)</a></li>
+          <li><a href="/pricing#pricing-plans">Gói Enterprise (3.490K)</a></li>
+          <li><a href="/pricing#comparison">Bảng So Sánh Tính Năng</a></li>
+          <li><a href="/pricing#faq">Chính Sách Hoàn Tiền</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Tài Nguyên</h4>
+        <ul>
+          <li><a href="/resources#webhooks">Tài Liệu Webhook</a></li>
+          <li><a href="/resources#playbook">Playbook Handoff Sale</a></li>
+          <li><a href="/resources#api">API Reference</a></li>
+          <li><a href="/admin">Đăng Nhập Workspace</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom-row">
+      <span>&copy; 2026 AI Inbox Pro. Bảo lưu mọi quyền. Tuân thủ tiêu chuẩn an toàn dữ liệu khách hàng.</span>
+      <span>Hỗ trợ 24/7: support@enterprise.vn &bull; Hotline: 1900 6868</span>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    // Theme Switcher
+    function toggleTheme() {
+      const html = document.documentElement;
+      const current = html.getAttribute('data-theme') || 'light';
+      const target = current === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', target);
+      localStorage.setItem('ai_inbox_theme', target);
+      document.getElementById('theme-icon').innerHTML = target === 'dark' ? '&#9788;' : '&#9790;';
+    }
+
+    // Load saved theme
+    (function() {
+      const saved = localStorage.getItem('ai_inbox_theme');
+      if (saved) {
+        document.documentElement.setAttribute('data-theme', saved);
+        const icon = document.getElementById('theme-icon');
+        if (icon) icon.innerHTML = saved === 'dark' ? '&#9788;' : '&#9790;';
+      }
+    })();
+
+    // FAQ Accordion
+    function toggleFaq(btn) {
+      const item = btn.parentElement;
+      const isOpen = item.classList.contains('active');
+      document.querySelectorAll('.faq-item').forEach(el => el.classList.remove('active'));
+      if (!isOpen) item.classList.add('active');
+    }
+
+    // Select plan helper
+    function selectPlan(planCode) {
+      const select = document.getElementById('reg-plan-code');
+      if (select) select.value = planCode;
+    }
+
+    // Handle Workspace Registration with VietQR
+    async function handleRegistration(e) {
+      e.preventDefault();
+      const btn = document.getElementById('reg-btn-submit');
+      const brandName = document.getElementById('reg-brand-name').value.trim();
+      const adminName = document.getElementById('reg-admin-name').value.trim();
+      const adminPhone = document.getElementById('reg-admin-phone').value.trim();
+      const adminEmail = document.getElementById('reg-admin-email').value.trim();
+      const planCode = document.getElementById('reg-plan-code').value;
+
+      btn.disabled = true;
+      btn.innerHTML = '<span>Đang khởi tạo workspace &amp; sinh mã VietQR...</span>';
+
+      try {
+        const res = await fetch('/api/workspaces/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: brandName,
+            admin_name: adminName,
+            admin_phone: adminPhone,
+            admin_email: adminEmail,
+            plan_code: planCode
+          })
+        });
+
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Đăng ký không thành công');
+
+        // Populate VietQR Box
+        const b = data.billing || {};
+        document.getElementById('vietqr-image-display').src = b.vietqr_quicklink_url || `https://img.vietqr.io/image/MB-0911223344-compact2.png?amount=1290000&addInfo=INBOX+GROWTH`;
+        document.getElementById('v-amount').textContent = (b.amount_vnd ? b.amount_vnd.toLocaleString('vi-VN') + 'đ' : '1.290.000đ');
+        document.getElementById('v-memo').textContent = b.payment_memo || ('INBOX ' + brandName.toUpperCase() + ' ' + planCode.toUpperCase());
+        if (data.workspace && data.workspace.id) {
+          document.getElementById('v-login-btn').href = `/admin?ws=${data.workspace.id}`;
+        }
+
+        document.getElementById('inline-register-form').style.display = 'none';
+        document.getElementById('vietqr-result-box').style.display = 'block';
+      } catch (err) {
+        alert('Lỗi đăng ký: ' + err.message);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<span>Khởi Tạo Workspace &amp; Nhận Mã VietQR &rarr;</span>';
+      }
+    }
+
+    function resetRegisterForm() {
+      document.getElementById('inline-register-form').reset();
+      document.getElementById('inline-register-form').style.display = 'block';
+      document.getElementById('vietqr-result-box').style.display = 'none';
+    }
+  </script>
+</body>
+</html>

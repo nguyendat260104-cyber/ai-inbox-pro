@@ -14,13 +14,13 @@
 <body>
 
   <!-- Top Announcement Bar -->
-  <div class="top-announcement">
+  <aside class="top-announcement">
     <span style="display:inline-block; width:6px; height:6px; border-radius:50%; background:var(--emerald);"></span>
     <span><strong>Bản phát hành V2.4:</strong> Tự động ẩn SĐT comment Livestream &amp; Sinh mã thanh toán VietQR động</span>
-    <a href="#product">Xem chi tiết &rarr;</a>
-  </div>
+    <a href="/features">Khám phá tính năng mới &rarr;</a>
+  </aside>
 
-  <!-- 1. Slim Quiet Enterprise Navbar (4 Items + 1 Primary CTA) -->
+  <!-- 1. Slim Quiet Enterprise Navbar (Multi-Page Navigation) -->
   <nav class="navbar" id="navbar">
     <div class="nav-container">
       <a href="/landing" class="nav-brand">
@@ -31,11 +31,10 @@
       </a>
 
       <div class="nav-menu">
-        <a href="#product" class="nav-item">Sản Phẩm</a>
-        <a href="#capabilities" class="nav-item">Năng Lực</a>
-        <a href="#workflow" class="nav-item">Quy Trình</a>
-        <a href="#pricing" class="nav-item">Bảng Giá</a>
-        <a href="#faq" class="nav-item">Hỏi Đáp</a>
+        <a href="/features" class="nav-item">Sản Phẩm</a>
+        <a href="/solutions" class="nav-item">Giải Pháp</a>
+        <a href="/pricing" class="nav-item">Bảng Giá</a>
+        <a href="/resources" class="nav-item">Tài Nguyên</a>
       </div>
 
       <div class="nav-actions">
@@ -47,9 +46,12 @@
         <a href="/demo" target="_blank" class="btn-nav-outline">
           <span>Demo Store ↗</span>
         </a>
-        <button onclick="openRegisterModal('growth')" class="btn-nav-primary">
-          <span>Dùng Thử Workspace &rarr;</span>
-        </button>
+        <a href="/admin" target="_blank" class="btn-nav-outline">
+          <span>Workspace</span>
+        </a>
+        <a href="/pricing" class="btn-nav-primary">
+          <span>Dùng Thử 14 Ngày &rarr;</span>
+        </a>
       </div>
     </div>
   </nav>
@@ -811,23 +813,69 @@
     </div>
   </section>
 
-  <!-- 14. Enterprise Footer -->
-  <footer>
-    <div class="footer-container">
-      <div style="display:flex; flex-direction:column; gap:6px;">
-        <div style="font-weight:700; color:var(--text-main); font-size:15px; display:flex; align-items:center; gap:8px;">
+  <!-- 14. Multi-Column Enterprise Footer -->
+  <footer class="footer-multi">
+    <div class="footer-multi-grid">
+      <div class="footer-col footer-col-brand">
+        <a href="/landing" class="nav-brand" style="margin-bottom: 8px;">
+          <div class="brand-icon-box" style="width: 28px; height: 28px;">
+            <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><polyline points="9 10 12 13 15 10"/></svg>
+          </div>
           <span>AI Inbox <b>Pro</b></span>
-          <span style="font-size:11px; background:var(--primary-light); color:var(--primary); padding:2px 6px; border-radius:4px; font-weight:600;">B2B SaaS</span>
+        </a>
+        <p>Nền tảng hội thoại và bán hàng đa kênh tự động hàng đầu cho các nhà bán lẻ tại Việt Nam.</p>
+        <div class="system-status-pill" style="margin-bottom: 0;">
+          <span class="status-dot-pulse"></span>
+          <span>99.98% SLA Uptime</span>
         </div>
-        <div>&copy; 2026 AI Inbox Pro. Nền tảng vận hành hội thoại và bán hàng đa kênh tự động.</div>
       </div>
-      <div style="display:flex; gap:20px; align-items:center; flex-wrap:wrap;">
-        <a href="#product" style="color:var(--text-muted); text-decoration:none; font-weight:500;">Sản Phẩm</a>
-        <a href="#capabilities" style="color:var(--text-muted); text-decoration:none; font-weight:500;">Năng Lực</a>
-        <a href="#pricing" style="color:var(--text-muted); text-decoration:none; font-weight:500;">Bảng Giá</a>
-        <a href="/demo" target="_blank" style="color:var(--text-muted); text-decoration:none; font-weight:500;">Demo Storefront ↗</a>
-        <a href="/admin" target="_blank" style="color:var(--primary); text-decoration:none; font-weight:700;">Command Center ↗</a>
+
+      <div class="footer-col">
+        <h4>Sản Phẩm</h4>
+        <ul>
+          <li><a href="/features#omnichannel">Unified Inbox 6 Kênh</a></li>
+          <li><a href="/features#grounded-ai">AI Tra Kho &amp; Tính Size</a></li>
+          <li><a href="/features#anti-stealing">Ẩn Comment Livestream</a></li>
+          <li><a href="/features#vietqr">Tự Động Khớp VietQR</a></li>
+          <li><a href="/demo">Demo Storefront</a></li>
+        </ul>
       </div>
+
+      <div class="footer-col">
+        <h4>Giải Pháp</h4>
+        <ul>
+          <li><a href="/solutions#fashion">Thời Trang &amp; May Mặc</a></li>
+          <li><a href="/solutions#cosmetics">Mỹ Phẩm &amp; Skincare</a></li>
+          <li><a href="/solutions#livestream">Livestream &amp; Chạy Ads</a></li>
+          <li><a href="/solutions#chains">Chuỗi Bán Lẻ Đa Điểm</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Bảng Giá</h4>
+        <ul>
+          <li><a href="/pricing#pricing-plans">Gói Starter (490K)</a></li>
+          <li><a href="/pricing#pricing-plans">Gói Growth (1.290K)</a></li>
+          <li><a href="/pricing#pricing-plans">Gói Enterprise (3.490K)</a></li>
+          <li><a href="/pricing#comparison">Bảng So Sánh Tính Năng</a></li>
+          <li><a href="/pricing#faq">Chính Sách Hoàn Tiền</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Tài Nguyên</h4>
+        <ul>
+          <li><a href="/resources#webhooks">Tài Liệu Webhook</a></li>
+          <li><a href="/resources#playbook">Playbook Handoff Sale</a></li>
+          <li><a href="/resources#api">API Reference</a></li>
+          <li><a href="/admin">Đăng Nhập Workspace</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom-row">
+      <span>&copy; 2026 AI Inbox Pro. Bảo lưu mọi quyền. Tuân thủ tiêu chuẩn an toàn dữ liệu khách hàng.</span>
+      <span>Hỗ trợ 24/7: support@enterprise.vn &bull; Hotline: 1900 6868</span>
     </div>
   </footer>
 
