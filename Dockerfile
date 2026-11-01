@@ -21,7 +21,9 @@ ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     PORT=8080 \
     HOST=0.0.0.0 \
-    PYTHONPATH=/app
+    PYTHONPATH=/app \
+    CORS_ORIGINS=* \
+    AI_INBOX_AUTH_REQUIRED=false
 
 # Prepare persistent data directory with proper ownership
 RUN mkdir -p /app/data && chown -R appuser:appgroup /app/data

@@ -9,6 +9,7 @@ import base64
 import hashlib
 import hmac
 import json
+import os
 import time
 from datetime import datetime, timezone
 from pathlib import Path
@@ -16,7 +17,9 @@ from typing import Dict, Any, Optional, Set
 
 from ai_inbox.core.db import get_connection
 
-AUTH_SECRET_KEY = "ai-inbox-enterprise-auth-secret-key-2026"
+# Development fallback only. Production deployments must provide a secret via
+# AI_INBOX_AUTH_SECRET so tokens cannot be forged with a public default.
+AUTH_SECRET_KEY = os.getenv("AI_INBOX_AUTH_SECRET", "ai-inbox-dev-only-secret-change-me")
 
 ROLE_PERMISSIONS: Dict[str, Set[str]] = {
     "admin": {

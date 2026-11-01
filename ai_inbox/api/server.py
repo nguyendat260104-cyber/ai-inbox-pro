@@ -37,6 +37,16 @@ from ai_inbox.core.auth import verify_token, has_permission, authorize_tenant_ac
 
 REQUEST_LIMITER = TokenBucketRateLimiter(capacity=60, refill_per_second=1.0)
 
+
+def _configured_origins():
+    """Return explicitly allowed browser origins, or wildcard in local dev."""
+    raw = os.getenv("CORS_ORIGINS", "*")
+    return {origin.strip() for origin in raw.split(",") if origin.strip()} or {"*"}
+
+
+CORS_ORIGINS = _configured_origins()
+AUTH_REQUIRED = os.getenv("AI_INBOX_AUTH_REQUIRED", "false").lower() in {"1", "true", "yes"}
+
 class InboxRequestHandler(BaseHTTPRequestHandler):
     VALID_LEAD_STAGES = {
         "new", "ai_qualified", "assigned", "contacted",
@@ -53,6 +63,9 @@ class InboxRequestHandler(BaseHTTPRequestHandler):
     def enforce_rbac(self, workspace_id: str, required_permission: Optional[str] = None) -> bool:
         auth = self.get_auth_context()
         if not auth:
+            if AUTH_REQUIRED:
+                self.send_json(401, {"error": "Authentication required", "status": "unauthorized"})
+                return False
             return True
 
         if not authorize_tenant_access(auth.get("workspace_id", ""), workspace_id):
@@ -66,7 +79,12 @@ class InboxRequestHandler(BaseHTTPRequestHandler):
         return True
 
     def send_cors_headers(self):
-        self.send_header("Access-Control-Allow-Origin", "*")
+        request_origin = self.headers.get("Origin", "")
+        if "*" in CORS_ORIGINS:
+            self.send_header("Access-Control-Allow-Origin", "*")
+        elif request_origin in CORS_ORIGINS:
+            self.send_header("Access-Control-Allow-Origin", request_origin)
+            self.send_header("Vary", "Origin")
         self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
         self.send_header("Access-Control-Allow-Headers", "Content-Type, Authorization")
         self.send_header("Access-Control-Max-Age", "86400")
@@ -81,6 +99,9 @@ class InboxRequestHandler(BaseHTTPRequestHandler):
         self.send_response(status_code)
         self.send_header("Content-Type", "application/json; charset=utf-8")
         self.send_header("Content-Length", str(len(payload)))
+        self.send_header("X-Content-Type-Options", "nosniff")
+        self.send_header("X-Frame-Options", "DENY")
+        self.send_header("Referrer-Policy", "same-origin")
         self.send_cors_headers()
         self.end_headers()
         self.wfile.write(payload)
