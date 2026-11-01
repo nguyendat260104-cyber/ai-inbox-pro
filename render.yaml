@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: ai-inbox-backend
+    runtime: python
+    region: singapore
+    plan: free
+    branch: main
+    buildCommand: pip install -r requirements.txt
+    startCommand: python scripts/serve_inbox.py
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.13.0
+      - key: DB_PATH
+        value: /var/data/inbox.db
+    disk:
+      name: inbox-data
+      mountPath: /var/data
+      sizeGB: 1

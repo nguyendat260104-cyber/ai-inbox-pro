@@ -26,6 +26,10 @@ ENV PYTHONUNBUFFERED=1 \
 # Prepare persistent data directory with proper ownership
 RUN mkdir -p /app/data && chown -R appuser:appgroup /app/data
 
+# Install Python dependencies
+COPY requirements.txt /app/
+RUN pip install --no-cache-dir -r requirements.txt
+
 # Copy project source files
 COPY --chown=appuser:appgroup ai_inbox/ /app/ai_inbox/
 COPY --chown=appuser:appgroup scripts/ /app/scripts/

@@ -1,6 +1,8 @@
 (function() {
   const SCRIPT_URL = document.currentScript ? document.currentScript.src : "http://127.0.0.1:8080/widget/chat_widget.js";
   const BASE_ORIGIN = new URL(SCRIPT_URL).origin;
+  const DATA_API_BASE = document.currentScript ? document.currentScript.getAttribute("data-api-base") : null;
+  const API_ORIGIN = (window.API_BASE_URL || DATA_API_BASE || localStorage.getItem("AI_INBOX_API_BASE_URL") || BASE_ORIGIN).replace(/\/+$/, "");
 
   // 1. Inject Stylesheet (Guarded against duplicates)
   if (!document.getElementById("ai-widget-stylesheet")) {
@@ -157,7 +159,7 @@
   async function fetchHistory() {
     if (!conversationId) return;
     try {
-      const res = await fetch(`${BASE_ORIGIN}/api/widget/history?conversation_id=${conversationId}`);
+      const res = await fetch(`${API_ORIGIN}/api/widget/history?conversation_id=${conversationId}`);
       if (!res.ok) return;
       const data = await res.json();
       if (data.status === "assigned_human") {
@@ -189,7 +191,7 @@
     feed.scrollTop = feed.scrollHeight;
 
     try {
-      const res = await fetch(`${BASE_ORIGIN}/api/widget/message`, {
+      const res = await fetch(`${API_ORIGIN}/api/widget/message`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

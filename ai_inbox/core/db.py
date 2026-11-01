@@ -11,10 +11,18 @@ from pathlib import Path
 from datetime import datetime, timezone
 from typing import Dict, Any, List, Optional
 
-DB_FILE = Path(__file__).resolve().parent.parent.parent / "data" / "inbox.db"
+DEFAULT_DB_FILE = Path(__file__).resolve().parent.parent.parent / "data" / "inbox.db"
+ENV_DB_PATH = os.getenv("DB_PATH") or os.getenv("SQLITE_PATH")
+DB_FILE = Path(ENV_DB_PATH) if ENV_DB_PATH else DEFAULT_DB_FILE
+
+def get_db_file() -> Path:
+    env_path = os.getenv("DB_PATH") or os.getenv("SQLITE_PATH")
+    if env_path:
+        return Path(env_path)
+    return DB_FILE
 
 def get_connection(db_path: Optional[Path] = None) -> sqlite3.Connection:
-    target = db_path or DB_FILE
+    target = db_path or get_db_file()
     target.parent.mkdir(parents=True, exist_ok=True)
     conn = sqlite3.connect(str(target))
     conn.row_factory = sqlite3.Row

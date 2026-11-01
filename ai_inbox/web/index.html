@@ -522,6 +522,25 @@
               <p class="panel-sub">Hợp nhất tất cả webhook và cổng API vào một đầu mối xử lý dữ liệu tập trung.</p>
             </div>
           </div>
+
+          <!-- Production Backend API Configuration -->
+          <div style="background:#ffffff; border:1px solid var(--border-light); border-radius:var(--radius-lg); padding:20px; margin-bottom:20px; box-shadow:var(--shadow-sm);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
+              <div>
+                <h3 style="font-size:16px; font-weight:700; color:var(--text-main); margin-bottom:4px;">Cổng Dịch Vụ Backend (Production API Endpoint)</h3>
+                <p style="font-size:13px; color:var(--text-muted); margin:0;">Cấu hình URL máy chủ backend (Render, Railway, Fly.io, Cloud Run) khi chạy frontend trên Vercel.</p>
+              </div>
+              <span id="backend-status-pill" style="font-size:12px; background:var(--bg-subtle); color:var(--text-muted); padding:3px 10px; border-radius:12px; font-weight:600; border:1px solid var(--border-light);">Tự Động Nhận Diện</span>
+            </div>
+
+            <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+              <div style="flex:1; min-width:280px;">
+                <input id="backend-api-url-input" type="url" placeholder="https://ai-inbox-backend.onrender.com (hoặc để trống nếu cùng domain/proxy)" style="width:100%; padding:10px 14px; border:1px solid var(--border-light); border-radius:var(--radius-md); font-size:14px; font-family:var(--font-mono); outline:none;">
+              </div>
+              <button onclick="saveBackendSettings()" class="btn-primary" style="padding:10px 20px; font-size:13.5px; white-space:nowrap;">Lưu & Kiểm Tra Kết Nối</button>
+            </div>
+            <div id="backend-status-msg" style="margin-top:10px; font-size:13px;"></div>
+          </div>
           <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:14px;">
             <div style="background:var(--bg-subtle); border:1px solid var(--border-light); border-radius:var(--radius-md); padding:16px;">
               <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">

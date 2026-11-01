@@ -12,6 +12,23 @@ let searchQuery = "";
 let currentCarrier = "GHTK";
 let currentShippingFee = 25000;
 
+// Dynamic Backend API Base URL Resolution
+function getApiBaseUrl() {
+  if (window.API_BASE_URL && typeof window.API_BASE_URL === "string" && window.API_BASE_URL.trim()) {
+    return window.API_BASE_URL.trim().replace(/\/+$/, "");
+  }
+  const stored = localStorage.getItem("AI_INBOX_API_BASE_URL");
+  if (stored && stored.trim()) {
+    return stored.trim().replace(/\/+$/, "");
+  }
+  return "";
+}
+
+function apiUrl(path) {
+  const base = getApiBaseUrl();
+  return base ? `${base}${path.startsWith("/") ? path : "/" + path}` : path;
+}
+
 const CHANNEL_LABELS = {
   "web_widget": "Web Livechat",
   "facebook_page": "Messenger",
@@ -66,7 +83,7 @@ function switchTab(tabId) {
 
 async function loadMetrics() {
   try {
-    const res = await fetch("/api/dashboard/metrics");
+    const res = await fetch(apiUrl("/api/dashboard/metrics"));
     if (!res.ok) return;
     const data = await res.json();
     document.getElementById("metric-convs").textContent = data.total_conversations || 0;
@@ -86,7 +103,7 @@ async function loadMetrics() {
 
 async function loadInbox() {
   try {
-    const res = await fetch("/api/dashboard/inbox");
+    const res = await fetch(apiUrl("/api/dashboard/inbox"));
     if (!res.ok) return;
     const data = await res.json();
     currentConversations = data.conversations || [];
@@ -224,7 +241,7 @@ async function selectConversation(convId) {
   filterAndRenderConversations(); // Update active highlight
 
   try {
-    const res = await fetch(`/api/dashboard/conversations/${convId}/messages`);
+    const res = await fetch(apiUrl(`/api/dashboard/conversations/${convId}/messages`));
     if (!res.ok) return;
     const data = await res.json();
     const conv = data.conversation;
@@ -467,7 +484,7 @@ function selectCarrier(name, fee) {
 async function takeoverChat() {
   if (!activeConvId) return alert("Vui lòng chọn một cuộc trò chuyện trước.");
   try {
-    const res = await fetch(`/api/dashboard/conversations/${activeConvId}/takeover`, {
+    const res = await fetch(apiUrl(`/api/dashboard/conversations/${activeConvId}/takeover`), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ staff_id: "staff-01" })
@@ -489,7 +506,7 @@ async function sendStaffReply(e) {
   if (!text) return;
 
   try {
-    const res = await fetch(`/api/dashboard/conversations/${activeConvId}/reply`, {
+    const res = await fetch(apiUrl(`/api/dashboard/conversations/${activeConvId}/reply`), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ staff_name: "Tuấn Sale", message: text })
@@ -541,7 +558,7 @@ async function updateLeadStageFromSidebar(newStage) {
     return;
   }
   try {
-    const res = await fetch(`/api/dashboard/leads/${currentActiveLeadId}/stage`, {
+    const res = await fetch(apiUrl(`/api/dashboard/leads/${currentActiveLeadId}/stage`), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ stage: newStage })
@@ -561,7 +578,7 @@ async function markLeadWonFast() {
     return;
   }
   try {
-    const res = await fetch(`/api/dashboard/leads/${currentActiveLeadId}/stage`, {
+    const res = await fetch(apiUrl(`/api/dashboard/leads/${currentActiveLeadId}/stage`), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ stage: "won" })
@@ -582,7 +599,7 @@ async function markLeadWonFast() {
 async function loadKanban() {
   const container = document.getElementById("kanban-board");
   try {
-    const res = await fetch("/api/dashboard/leads/kanban");
+    const res = await fetch(apiUrl("/api/dashboard/leads/kanban"));
     if (!res.ok) return;
     const data = await res.json();
     const stages = data.stages || {};
@@ -670,7 +687,7 @@ async function loadKanban() {
 
 async function moveLeadStage(leadId, newStage) {
   try {
-    const res = await fetch(`/api/dashboard/leads/${leadId}/stage`, {
+    const res = await fetch(apiUrl(`/api/dashboard/leads/${leadId}/stage`), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ stage: newStage })
@@ -687,7 +704,7 @@ async function moveLeadStage(leadId, newStage) {
 async function loadProducts() {
   const container = document.getElementById("product-list-container");
   try {
-    const res = await fetch("/api/dashboard/products");
+    const res = await fetch(apiUrl("/api/dashboard/products"));
     if (!res.ok) return;
     const data = await res.json();
     const products = data.products || [];
@@ -757,7 +774,7 @@ async function submitAddProduct(e) {
   const shipping = document.getElementById("prod-shipping").value.trim();
 
   try {
-    const res = await fetch("/api/dashboard/products", {
+    const res = await fetch(apiUrl("/api/dashboard/products"), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -786,7 +803,7 @@ async function submitAddProduct(e) {
 async function deleteProduct(productId) {
   if (!confirm("Bạn có chắc chắn muốn xóa sản phẩm này khỏi danh mục không?")) return;
   try {
-    const res = await fetch(`/api/dashboard/products/${productId}/delete`, {
+    const res = await fetch(apiUrl(`/api/dashboard/products/${productId}/delete`), {
       method: "POST"
     });
     if (res.ok) {
@@ -801,7 +818,7 @@ async function loadStaffMetrics() {
   const tbody = document.getElementById("staff-leaderboard-body");
   if (!tbody) return;
   try {
-    const res = await fetch("/api/dashboard/staff/metrics");
+    const res = await fetch(apiUrl("/api/dashboard/staff/metrics"));
     if (!res.ok) return;
     const data = await res.json();
     const leaderboard = data.leaderboard || [];
@@ -860,7 +877,7 @@ async function loadCustomersTable() {
   const tbody = document.getElementById("customers-table-body");
   if (!tbody) return;
   try {
-    const res = await fetch("/api/dashboard/inbox");
+    const res = await fetch(apiUrl("/api/dashboard/inbox"));
     if (!res.ok) return;
     const data = await res.json();
     allCustomersData = data.conversations || [];
@@ -926,7 +943,7 @@ function openChatFromDirectory(convId) {
 
 async function triggerManualFollowups() {
   try {
-    const res = await fetch("/api/dashboard/followups/run", {
+    const res = await fetch(apiUrl("/api/dashboard/followups/run"), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ workspace_id: "ws-01", hours: 0, dry_run: false })
@@ -936,6 +953,47 @@ async function triggerManualFollowups() {
   } catch (e) {
     console.error("Followup batch error:", e);
     alert("Có lỗi khi chạy tự động hóa chăm sóc khách hàng.");
+  }
+}
+
+// Backend Production Service Endpoint Manager
+function initBackendSettings() {
+  const input = document.getElementById("backend-api-url-input");
+  if (input) {
+    input.value = localStorage.getItem("AI_INBOX_API_BASE_URL") || "";
+  }
+}
+
+async function saveBackendSettings() {
+  const input = document.getElementById("backend-api-url-input");
+  const msgEl = document.getElementById("backend-status-msg");
+  if (!input) return;
+  const raw = input.value.trim().replace(/\/+$/, "");
+  localStorage.setItem("AI_INBOX_API_BASE_URL", raw);
+
+  if (msgEl) {
+    msgEl.innerHTML = `<span style="color:var(--primary);">⏳ Đang kiểm tra kết nối tới: ${raw || 'Localhost / Cùng host'}...</span>`;
+  }
+
+  try {
+    const testUrl = (raw ? raw : "") + "/api/health";
+    const res = await fetch(testUrl);
+    if (res.ok) {
+      const data = await res.json();
+      if (msgEl) {
+        msgEl.innerHTML = `<span style="color:var(--emerald-dark); font-weight:700;">✅ Kết nối thành công! Service Online (DB: ${data.database || 'connected'})</span>`;
+      }
+      loadMetrics();
+      loadInbox();
+    } else {
+      if (msgEl) {
+        msgEl.innerHTML = `<span style="color:var(--hot-dark); font-weight:600;">⚠️ Phản hồi mã lỗi HTTP ${res.status}. Vui lòng kiểm tra lại URL.</span>`;
+      }
+    }
+  } catch (err) {
+    if (msgEl) {
+      msgEl.innerHTML = `<span style="color:var(--hot-dark); font-weight:600;">❌ Không thể kết nối tới backend: ${err.message}</span>`;
+    }
   }
 }
 
@@ -949,6 +1007,7 @@ window.addEventListener("keydown", (e) => {
 });
 
 // Initial Boot
+initBackendSettings();
 loadMetrics();
 loadInbox();
 
