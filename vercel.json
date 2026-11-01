@@ -1,14 +1,16 @@
 {
+  "framework": null,
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/", "destination": "/ai_inbox/web/landing.html" },
-    { "source": "/landing", "destination": "/ai_inbox/web/landing.html" },
-    { "source": "/features", "destination": "/ai_inbox/web/features.html" },
-    { "source": "/solutions", "destination": "/ai_inbox/web/solutions.html" },
-    { "source": "/pricing", "destination": "/ai_inbox/web/pricing.html" },
-    { "source": "/resources", "destination": "/ai_inbox/web/resources.html" },
-    { "source": "/admin", "destination": "/ai_inbox/web/index.html" },
-    { "source": "/demo", "destination": "/ai_inbox/web/demo_shop.html" },
+    { "source": "/", "destination": "/ai_inbox/web/landing" },
+    { "source": "/landing", "destination": "/ai_inbox/web/landing" },
+    { "source": "/features", "destination": "/ai_inbox/web/features" },
+    { "source": "/solutions", "destination": "/ai_inbox/web/solutions" },
+    { "source": "/pricing", "destination": "/ai_inbox/web/pricing" },
+    { "source": "/resources", "destination": "/ai_inbox/web/resources" },
+    { "source": "/admin", "destination": "/ai_inbox/web/index" },
+    { "source": "/demo", "destination": "/ai_inbox/web/demo_shop" },
+    { "source": "/widget/(.*)", "destination": "/ai_inbox/widget/$1" },
     { "source": "/web/(.*)", "destination": "/ai_inbox/web/$1" }
   ]
 }
