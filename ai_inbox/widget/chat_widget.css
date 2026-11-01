@@ -25,6 +25,28 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* V3 product skin — matches the AI Inbox workspace instead of a generic green bot. */
+#ai-chat-root{--ai-primary:#5867ef;--ai-primary-dark:#4351d7;--ai-primary-light:#eef0ff;--ai-bubble-user:#5867ef;--ai-bg:#fff;--ai-text-main:#172033;--ai-text-muted:#747f91;--ai-border:#e3e6eb;--ai-bubble-bot:#f5f6f8;--ai-shadow:0 24px 70px rgba(23,32,51,.2),0 4px 16px rgba(23,32,51,.08);font-family:Inter,"Plus Jakarta Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.ai-launcher-btn{width:60px;height:60px;border-radius:18px;background:#172033;box-shadow:0 12px 28px rgba(23,32,51,.28)}.ai-launcher-btn:hover{transform:translateY(-2px);background:#2a3851;box-shadow:0 16px 34px rgba(23,32,51,.32)}.ai-launcher-btn:focus-visible{outline-color:#9ca6ff}
+.ai-chat-dialog{width:400px;height:620px;border:1px solid #dfe2e8;border-radius:22px;box-shadow:var(--ai-shadow)}.ai-header{padding:16px 18px;color:#172033;background:#fff;border-bottom:1px solid var(--ai-border)}.ai-avatar{width:38px;height:38px;color:#fff;background:#172033;border-radius:11px;box-shadow:none}.ai-title{font-size:14px}.ai-status{color:#778295;opacity:1}.ai-status-dot{background:#31b77e;box-shadow:0 0 0 4px #e3f7ee}.ai-close-btn{color:#6f7a8c;background:#f3f4f6;border-radius:10px}.ai-close-btn:hover{background:#e9ebef}.ai-feed{padding:18px;background:#f7f8fa;gap:13px}.ai-msg{padding:11px 13px;border-radius:13px;font-size:13px}.ai-msg.bot{background:#fff;border-color:#e2e5ea;box-shadow:none}.ai-msg.user{background:#5867ef;box-shadow:none}.ai-msg.staff{border-color:#cdd2ff;border-left:3px solid #5867ef}.ai-dot{background:#5867ef}.ai-quick-actions{padding:10px 14px;background:#fff}.ai-quick-chip{border-radius:999px;background:#f7f8fa}.ai-quick-chip:hover{color:#4351d7;background:#eef0ff;border-color:#d9ddff}
+
+/* Keep message content readable even when embedded in a host page with aggressive typography rules. */
+#ai-chat-root .ai-msg{max-width:82%;line-height:1.55;white-space:normal;overflow-wrap:anywhere;word-break:normal}
+
+@media (max-width: 600px) {
+  #ai-chat-root .ai-chat-dialog {
+    inset: 0;
+    width: 100vw;
+    height: 100dvh;
+    max-width: 100vw;
+    max-height: 100dvh;
+    border: 0;
+    border-radius: 0;
+  }
+  #ai-chat-root .ai-header { padding-top: max(14px, env(safe-area-inset-top)); }
+  #ai-chat-root .ai-composer { padding-bottom: max(12px, env(safe-area-inset-bottom)); }
+}
+
 #ai-chat-root * {
   box-sizing: border-box;
   margin: 0;
@@ -480,3 +502,8 @@
     opacity: 0.8;
   }
 }
+
+/* V3 product skin (final cascade) */
+#ai-chat-root{--ai-primary:#5867ef;--ai-primary-dark:#4351d7;--ai-primary-light:#eef0ff;--ai-bubble-user:#5867ef;--ai-bg:#fff;--ai-text-main:#172033;--ai-text-muted:#747f91;--ai-border:#e3e6eb;--ai-bubble-bot:#f5f6f8;--ai-shadow:0 24px 70px rgba(23,32,51,.2),0 4px 16px rgba(23,32,51,.08);font-family:Inter,"Plus Jakarta Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.ai-launcher-btn{width:60px;height:60px;border-radius:18px;background:#172033;box-shadow:0 12px 28px rgba(23,32,51,.28)}.ai-launcher-btn:hover{transform:translateY(-2px);background:#2a3851;box-shadow:0 16px 34px rgba(23,32,51,.32)}.ai-launcher-btn:focus-visible{outline-color:#9ca6ff}
+.ai-chat-dialog{width:400px;height:620px;border:1px solid #dfe2e8;border-radius:22px;box-shadow:var(--ai-shadow)}.ai-header{padding:16px 18px;color:#172033;background:#fff;border-bottom:1px solid var(--ai-border)}.ai-avatar{width:38px;height:38px;color:#fff;background:#172033;border-radius:11px;box-shadow:none}.ai-title{font-size:14px}.ai-status{color:#778295;opacity:1}.ai-status-dot{background:#31b77e;box-shadow:0 0 0 4px #e3f7ee}.ai-close-btn{color:#6f7a8c;background:#f3f4f6;border-radius:10px}.ai-close-btn:hover{background:#e9ebef}.ai-feed{padding:18px;background:#f7f8fa;gap:13px}.ai-msg{padding:11px 13px;border-radius:13px;font-size:13px}.ai-msg.bot{background:#fff;border-color:#e2e5ea;box-shadow:none}.ai-msg.user{background:#5867ef;box-shadow:none}.ai-msg.staff{border-color:#cdd2ff;border-left:3px solid #5867ef}.ai-dot{background:#5867ef}.ai-quick-actions{padding:10px 14px;background:#fff}.ai-quick-chip{border-radius:999px;background:#f7f8fa}.ai-quick-chip:hover{color:#4351d7;background:#eef0ff;border-color:#d9ddff}

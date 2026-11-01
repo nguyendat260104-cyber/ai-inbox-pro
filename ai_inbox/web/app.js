@@ -371,7 +371,7 @@ async function selectConversation(convId) {
       const pName = conv ? (conv.product_name || "sản phẩm") : "sản phẩm";
       const pPhone = conv && conv.customer_phone ? `SĐT: ${conv.customer_phone}` : "chưa có SĐT";
       const pStage = conv ? (conv.lead_status || "mới") : "mới";
-      summaryTextEl.textContent = `Khách hỏi mua ${pName}, kênh ${channelName}, ${pPhone}. Giai đoạn: ${pStage.toUpperCase()}. AI đã đối chiếu kho dữ liệu thật 100% và sẵn sàng chốt đơn.`;
+      summaryTextEl.textContent = `Khách hỏi mua ${pName}, kênh ${channelName}, ${pPhone}. Giai đoạn: ${pStage.toUpperCase()}. AI đã đối chiếu dữ liệu sản phẩm hiện có và đề xuất bước xử lý tiếp theo.`;
     }
 
     // Stage Select
