@@ -493,46 +493,46 @@
       <p class="section-p">Xem xét hiệu quả vận hành và chi phí giữa các phương thức quản lý bán lẻ hiện tại.</p>
     </div>
 
-    <div style="max-width:960px; margin:0 auto; overflow-x:auto;">
-      <table style="width:100%; border-collapse:collapse; background:var(--bg-surface); border:1px solid var(--border-subtle); border-radius:var(--radius-lg); overflow:hidden; font-size:14px;">
+    <div class="comparison-table-wrap" style="max-width:960px; margin:0 auto;">
+      <table class="comp-table">
         <thead>
-          <tr style="background:var(--bg-subtle); border-bottom:1px solid var(--border-subtle); text-align:left;">
-            <th style="padding:16px 20px; font-weight:700; color:var(--text-main);">Tiêu Chí Vận Hành</th>
-            <th style="padding:16px 20px; font-weight:800; color:var(--primary); background:var(--primary-light);">AI Inbox Pro</th>
-            <th style="padding:16px 20px; font-weight:600; color:var(--text-secondary);">Chatbot Kịch Bản Cũ</th>
-            <th style="padding:16px 20px; font-weight:600; color:var(--text-secondary);">Nhân Sự Trực Thủ Công</th>
+          <tr>
+            <th>Tiêu Chí Vận Hành</th>
+            <th class="highlight">AI Inbox Pro</th>
+            <th>Chatbot Kịch Bản Cũ</th>
+            <th>Nhân Sự Trực Thủ Công</th>
           </tr>
         </thead>
         <tbody>
-          <tr style="border-bottom:1px solid var(--border-subtle);">
-            <td style="padding:14px 20px; font-weight:600;">Tốc độ phản hồi</td>
-            <td style="padding:14px 20px; font-weight:700; color:var(--emerald-dark); background:rgba(70,95,255,0.03);">&lt; 0.45 giây (24/7)</td>
-            <td style="padding:14px 20px; color:var(--text-muted);">Tức thì nhưng theo kịch bản cứng</td>
-            <td style="padding:14px 20px; color:var(--rose);">5 &ndash; 30 phút (trễ ca đêm)</td>
-          </tr>
-          <tr style="border-bottom:1px solid var(--border-subtle);">
-            <td style="padding:14px 20px; font-weight:600;">Độ chính xác tồn kho &amp; size</td>
-            <td style="padding:14px 20px; font-weight:700; color:var(--emerald-dark); background:rgba(70,95,255,0.03);">100% Khóa Catalog thật</td>
-            <td style="padding:14px 20px; color:var(--rose);">Không tra được kho real-time</td>
-            <td style="padding:14px 20px; color:var(--amber);">Dễ nhầm lẫn khi kho biến động</td>
-          </tr>
-          <tr style="border-bottom:1px solid var(--border-subtle);">
-            <td style="padding:14px 20px; font-weight:600;">Ẩn comment chống cướp khách</td>
-            <td style="padding:14px 20px; font-weight:700; color:var(--emerald-dark); background:rgba(70,95,255,0.03);">Tự động sau 0.5s</td>
-            <td style="padding:14px 20px; color:var(--rose);">Không hỗ trợ</td>
-            <td style="padding:14px 20px; color:var(--rose);">Thủ công chậm, dễ bị cướp</td>
-          </tr>
-          <tr style="border-bottom:1px solid var(--border-subtle);">
-            <td style="padding:14px 20px; font-weight:600;">Báo động HOT Lead Telegram</td>
-            <td style="padding:14px 20px; font-weight:700; color:var(--emerald-dark); background:rgba(70,95,255,0.03);">Bắn alert tức thì kèm link</td>
-            <td style="padding:14px 20px; color:var(--rose);">Không có</td>
-            <td style="padding:14px 20px; color:var(--rose);">Không có</td>
+          <tr>
+            <td style="font-weight:600;">Tốc độ phản hồi</td>
+            <td class="highlight" style="color:var(--emerald-dark); font-weight:700;">&lt; 0.45 giây (24/7)</td>
+            <td style="color:var(--text-muted);">Tức thì nhưng theo kịch bản cứng</td>
+            <td style="color:var(--rose);">5 &ndash; 30 phút (trễ ca đêm)</td>
           </tr>
           <tr>
-            <td style="padding:14px 20px; font-weight:600;">Chi phí vận hành hàng tháng</td>
-            <td style="padding:14px 20px; font-weight:700; color:var(--emerald-dark); background:rgba(70,95,255,0.03);">Từ 490k / tháng</td>
-            <td style="padding:14px 20px; color:var(--text-muted);">300k &ndash; 800k / tháng</td>
-            <td style="padding:14px 20px; color:var(--rose);">18 &ndash; 30 triệu (3 ca trực)</td>
+            <td style="font-weight:600;">Độ chính xác tồn kho &amp; size</td>
+            <td class="highlight" style="color:var(--emerald-dark); font-weight:700;">100% Khóa Catalog thật</td>
+            <td style="color:var(--rose);">Không tra được kho real-time</td>
+            <td style="color:var(--amber);">Dễ nhầm lẫn khi kho biến động</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">Ẩn comment chống cướp khách</td>
+            <td class="highlight" style="color:var(--emerald-dark); font-weight:700;">Tự động sau 0.5s</td>
+            <td style="color:var(--rose);">Không hỗ trợ</td>
+            <td style="color:var(--rose);">Thủ công chậm, dễ bị cướp</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">Báo động HOT Lead Telegram</td>
+            <td class="highlight" style="color:var(--emerald-dark); font-weight:700;">Bắn alert tức thì kèm link</td>
+            <td style="color:var(--rose);">Không có</td>
+            <td style="color:var(--rose);">Không có</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">Chi phí vận hành hàng tháng</td>
+            <td class="highlight" style="color:var(--emerald-dark); font-weight:700;">Từ 490k / tháng</td>
+            <td style="color:var(--text-muted);">300k &ndash; 800k / tháng</td>
+            <td style="color:var(--rose);">18 &ndash; 30 triệu (3 ca trực)</td>
           </tr>
         </tbody>
       </table>
