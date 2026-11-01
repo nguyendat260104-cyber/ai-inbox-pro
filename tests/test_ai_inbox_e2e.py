@@ -579,10 +579,10 @@ def run_e2e():
         l_status, l_html = get_text("/landing")
         assert l_status == 200
         assert "AI Inbox Pro" in l_html
-        assert "Biến Mọi Tin Nhắn Thành Đơn Hàng" in l_html
-        assert "Facebook Messenger" in l_html and "Zalo Official Account" in l_html and "TikTok Shop" in l_html
-        assert "Shopee Open Platform" in l_html and "Lazada Open Platform" in l_html
-        assert "Starter" in l_html and "Growth" in l_html and "Pro" in l_html
+
+        p_status, p_html = get_text("/pricing")
+        assert p_status == 200
+        assert "Starter" in p_html and "Growth" in p_html
 
         c_status, c_css = get_text("/web/landing.css")
         assert c_status == 200

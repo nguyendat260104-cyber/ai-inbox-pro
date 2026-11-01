@@ -1,0 +1,14 @@
+/* Keep the first frame readable; motion is a restrained settle rather than a fade-in. */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-copy,
+  .hero-stage {
+    animation: landing-settle .42s ease-out both;
+  }
+
+  .hero-stage { animation-delay: .06s; }
+
+  @keyframes landing-settle {
+    from { transform: translateY(8px); }
+    to { transform: translateY(0); }
+  }
+}

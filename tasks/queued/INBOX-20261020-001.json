@@ -1,0 +1,35 @@
+{
+  "id": "INBOX-20261020-001",
+  "type": "frontend_design",
+  "executor": "codex",
+  "goal": "Finish a premium, conversion-focused AI Inbox Pro landing page",
+  "context": "Use research/reports/20261020-ai-inbox-ux-reference-audit.md and continue the existing uncommitted work without reset/revert. Reference patterns from Intercom, Zendesk, Crisp, Tidio, and HubSpot without copying their branding. Landing is P0 and must pass visual review before other pages become the active focus.",
+  "requirements": [
+    "Rework Vietnamese copy hierarchy and typography so the hero clearly explains omnichannel AI sales outcomes, with polished line lengths, weights, and spacing",
+    "Show credible product proof above the fold: coherent inbox conversation, agent activity, customer/product context, and channel health; do not invent performance claims",
+    "Make the mascot and Messenger/Zalo/Facebook sticker rail feel intentional and premium; rail stays vertical, ordered, spaced, readable, non-overlapping, and responsive",
+    "Build a distinct narrative across problem, workflow, outcomes, proof, and conversion CTA; remove repeated or decorative sections that do not advance the story",
+    "Use restrained interaction/motion with reduced-motion support; ensure ticker/marquee is readable, non-jittery, and never obscures content",
+    "Verify 1440px, 1024px, and 390px viewports; verify navigation and CTA behavior, keyboard focus, accessible labels, contrast, no horizontal overflow, no clipping or overlapping"
+  ],
+  "deliverables": [
+    "ai_inbox/web/landing.html",
+    "ai_inbox/web/landing-rebuild.css",
+    "ai_inbox/web/landing-art-direction.css",
+    "ai_inbox/web/orbit-dock.css",
+    "research/reports/20261020-ai-inbox-ux-reference-audit.md"
+  ],
+  "acceptance_criteria": [
+    "Review desktop/tablet/mobile screenshots and fix every visible overlap, truncation, inconsistent alignment, weak type hierarchy, or generic card pattern before marking this task complete",
+    "Hero communicates a specific customer outcome and presents believable product UI within the first viewport",
+    "Channel rail is vertical and visually balanced at desktop and mobile; mascot is distinct but does not compete with the page",
+    "Every visible navigation link and CTA goes to the intended independent route or working demo/admin action",
+    "No unsupported metrics, horizontal overflow, inaccessible keyboard focus, or motion without reduced-motion handling",
+    "Do not move to P1 Admin until all checks above pass and a review note records the viewports/routes checked"
+  ],
+  "priority": "critical",
+  "dependencies": ["INBOX-20261020-000"],
+  "status": "in_progress",
+  "created_at": "2026-10-20T00:00:00+07:00",
+  "research": "research/reports/20261020-ai-inbox-ux-reference-audit.md"
+}

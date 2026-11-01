@@ -1,0 +1,29 @@
+{
+  "id": "INBOX-20261021-005",
+  "type": "brand_identity_system",
+  "executor": "codex",
+  "goal": "Consolidate a distinctive production-grade visual identity for AI Inbox Pro",
+  "context": "Run after the Landing visual direction passes, before propagating the system across the remaining routes. There is no official brand kit, so every asset must be original, internally consistent, and usable across light/dark UI.",
+  "requirements": [
+    "Finalize a sharp wordmark, compact app mark, favicon/app-icon set, mascot usage rules, and Vietnamese typography pairing",
+    "Replace placeholder letters and improvised marks with accessible original SVG assets or clearly labeled third-party channel marks",
+    "Define light/dark, compact/full, monochrome, and small-size variants with minimum-size and spacing rules",
+    "Document where mascot, channel marks, product illustrations, and motion are appropriate so the brand remains premium rather than decorative"
+  ],
+  "deliverables": [
+    "ai_inbox/web/assets/",
+    "ai_inbox/web/brand.css",
+    "research/reports/20261021-brand-identity-system.md"
+  ],
+  "acceptance_criteria": [
+    "Wordmark and app mark remain crisp at header, favicon, mobile, and dark-surface sizes",
+    "No emoji, placeholder letter tile, distorted logo, or unlicensed copied visual remains in primary UI",
+    "Brand assets have meaningful accessible names where informative and are hidden from assistive technology where decorative",
+    "Landing screenshots demonstrate a coherent identity at desktop and mobile before the system is propagated"
+  ],
+  "priority": "high",
+  "dependencies": ["INBOX-20261020-001"],
+  "status": "queued",
+  "created_at": "2026-10-21T00:00:00+07:00",
+  "research": "research/reports/20261020-ai-inbox-ux-reference-audit.md"
+}

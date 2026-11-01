@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI Inbox & Sales Command Center — Quản Trị Bán Hàng Đa Kênh</title>
   <link rel="stylesheet" href="/web/style.css">
+  <link rel="stylesheet" href="/web/admin-refine.css">
 </head>
 <body>
   <!-- 1. Single Consolidated Enterprise Sidebar (240px) -->
@@ -122,6 +123,10 @@
     </header>
 
     <main class="main-container">
+      <div class="channel-health-bar" aria-label="Tình trạng kết nối kênh bán">
+        <div class="channel-health-summary"><span class="channel-health-dot"></span><strong>Luồng hội thoại đang hoạt động</strong><span>6/6 kênh sẵn sàng</span></div>
+        <div class="channel-health-list"><span>Messenger</span><span>Zalo OA</span><span>TikTok Shop</span><span>Shopee</span><span>Lazada</span><span>Web Chat</span></div>
+      </div>
       <!-- Compact Metrics Row -->
       <section class="metrics-row">
         <div class="metric-card">
@@ -194,6 +199,9 @@
                 </div>
               </div>
               <div style="display:flex; align-items:center; gap:8px;">
+                <button class="btn-context-toggle" type="button" onclick="document.body.classList.toggle('customer-context-open')" aria-controls="detail-sidebar">
+                  Hồ sơ 360
+                </button>
                 <button class="btn-takeover" id="btn-takeover" onclick="takeoverChat()">
                   <svg style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg>
                   <span>Nhận Khách / Tiếp Quản</span>
@@ -224,6 +232,16 @@
               <div style="flex:1;">
                 <strong style="color:var(--primary); font-size:12px;">Tóm tắt AI: </strong>
                 <span id="ai-summary-text" style="font-size:12px; color:var(--text-secondary);">Chọn một cuộc trò chuyện để xem tóm tắt nhu cầu, kích cỡ và tiến trình chốt đơn của khách hàng.</span>
+              </div>
+            </div>
+
+            <div class="agent-activity-bar" aria-label="Trạng thái AI Agent">
+              <div class="agent-activity-heading"><span class="agent-activity-dot"></span><strong>Agent activity</strong><span>được kiểm soát</span></div>
+              <div class="agent-activity-items">
+                <span><b>01</b> Đọc ngữ cảnh</span>
+                <span><b>02</b> Tra tồn kho</span>
+                <span><b>03</b> Đề xuất câu trả lời</span>
+                <span><b>04</b> Chờ nhân viên duyệt</span>
               </div>
             </div>
 
@@ -280,6 +298,7 @@
             <div class="detail-section-title">
               <span>Hồ Sơ Khách Hàng 360</span>
               <span id="detail-channel-badge" class="badge-channel channel-web_widget">Web</span>
+              <button class="btn-context-close" type="button" onclick="document.body.classList.remove('customer-context-open')" aria-label="Đóng hồ sơ khách hàng">×</button>
             </div>
 
             <div class="detail-group">

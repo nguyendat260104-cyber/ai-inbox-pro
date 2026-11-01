@@ -1,0 +1,16 @@
+.env
+.env.*
+data/
+metrics/
+results/
+tasks/
+research/
+content/
+tests/
+dashboard/
+docs/
+scripts/
+DATN-UIT/
+__pycache__/
+*.sqlite
+*.db

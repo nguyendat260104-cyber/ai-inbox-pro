@@ -1,0 +1,32 @@
+{
+  "id": "INBOX-20261020-000",
+  "type": "frontend_design_system",
+  "executor": "codex",
+  "goal": "Establish a coherent premium design system and Vietnamese typography foundation",
+  "context": "Foundation for the approved AI Inbox Pro redesign. Inspect and preserve current uncommitted changes. Use the audit at research/reports/20261020-ai-inbox-ux-reference-audit.md; do not copy competitor branding.",
+  "requirements": [
+    "Inventory current shared styles, route-specific CSS, fonts, icon approach, and responsive breakpoints before changing tokens",
+    "Define semantic color, typography, spacing/grid, radii, border, shadow, focus, motion, and z-index tokens appropriate to B2B SaaS",
+    "Select a sharp Vietnamese-capable type system with clear display/body/UI roles and robust fallback; verify diacritics, line breaks, numeric readability, and weights",
+    "Standardize shared navigation, buttons, links, badges/status, form controls, content widths, and focus-visible behavior without flattening distinct page identities",
+    "Remove generic gradient/glow effects, gratuitous emoji, unsemantic card borders, conflicting overrides, and overlapping floating layers where present"
+  ],
+  "deliverables": [
+    "ai_inbox/web/style.css",
+    "ai_inbox/web/landing-rebuild.css",
+    "ai_inbox/web/landing-art-direction.css",
+    "ai_inbox/web/marketing.css",
+    "ai_inbox/web/orbit-dock.css"
+  ],
+  "acceptance_criteria": [
+    "Typography and Vietnamese diacritics are visually checked at desktop and mobile sizes with no clipping or awkward wrapping",
+    "Shared tokens are the source of truth and route-specific styles consume them rather than duplicating contradictory values",
+    "Focus, contrast, reduced-motion, semantic hierarchy, and overlay z-index are verified",
+    "Document the token choices and representative components; do not proceed to Landing until foundation review passes"
+  ],
+  "priority": "critical",
+  "dependencies": [],
+  "status": "queued",
+  "created_at": "2026-10-20T00:00:00+07:00",
+  "research": "research/reports/20261020-ai-inbox-ux-reference-audit.md"
+}

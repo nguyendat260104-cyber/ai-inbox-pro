@@ -1,0 +1,28 @@
+{
+  "id": "INBOX-20261021-006",
+  "type": "cross_route_product_coherence",
+  "executor": "codex",
+  "goal": "Make Landing, marketing routes, Admin, and Demo tell one coherent product story with consistent sample data and state transitions",
+  "context": "Run after the core route, Admin, and Demo slices pass individually. The project has no live backend, so the review must keep simulated data explicit while making the prototype feel intentionally connected.",
+  "requirements": [
+    "Create one canonical sample scenario for customer, products, stock, conversation, lead score, handoff, and order state",
+    "Align terminology, prices, SKU values, channel names, status labels, timestamps, and actions across all routes",
+    "Make cross-route CTAs preserve user intent and explain what changes when moving from marketing proof to demo or workspace",
+    "Remove contradictory claims, dead-end actions, duplicate concepts, and unsupported metrics"
+  ],
+  "deliverables": [
+    "ai_inbox/web/",
+    "research/reports/20261021-cross-route-coherence.md"
+  ],
+  "acceptance_criteria": [
+    "A reviewer can follow one scenario from Landing proof through Demo qualification into Admin context without contradictions",
+    "All simulated values are labeled consistently and no screen implies a live integration or backend action",
+    "Primary navigation and CTA destinations preserve context and do not create meaningless page changes",
+    "An end-to-end route and interaction sweep is recorded with no P0/P1 continuity defect"
+  ],
+  "priority": "high",
+  "dependencies": ["INBOX-20261020-002", "INBOX-20261020-003", "INBOX-20261020-004", "INBOX-20261021-005"],
+  "status": "queued",
+  "created_at": "2026-10-21T00:00:00+07:00",
+  "research": "research/reports/20261020-assistant-experience-research.md"
+}

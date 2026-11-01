@@ -1,0 +1,31 @@
+{
+  "id": "INBOX-20261020-003",
+  "type": "frontend_information_architecture",
+  "executor": "codex",
+  "goal": "Give Product, Solutions, Pricing, and Resources distinct purposeful pages",
+  "context": "P2 begins after Landing and Admin acceptance. Keep existing route behavior and shared visual language without reusing one generic page template as a substitute for separate experiences.",
+  "requirements": [
+    "Confirm routes for Product, Solutions, Pricing, and Resources load independently and the main navigation links to each exact destination",
+    "Give Product a capability/product-proof story; Solutions a use-case/industry story; Pricing a scannable plan comparison and CTA; Resources an editorial library layout",
+    "Maintain shared typography, color, spacing, buttons, footer, and responsive navigation while allowing distinct page composition",
+    "Use truthful product claims and working internal links; avoid decorative card grids without useful information"
+  ],
+  "deliverables": [
+    "ai_inbox/web/features.html",
+    "ai_inbox/web/solutions.html",
+    "ai_inbox/web/pricing.html",
+    "ai_inbox/web/resources.html",
+    "ai_inbox/web/marketing.css",
+    "ai_inbox/api/server.py"
+  ],
+  "acceptance_criteria": [
+    "All four pages load directly and via navigation with no missing/static 404 route",
+    "Each page has a unique purpose, hierarchy, body content, and appropriate CTA rather than only swapped labels",
+    "Desktop/mobile layouts are checked for overflow, accessible focus, and visual consistency"
+  ],
+  "priority": "high",
+  "dependencies": ["INBOX-20261020-001", "INBOX-20261020-002"],
+  "status": "queued",
+  "created_at": "2026-10-20T00:00:00+07:00",
+  "research": "research/reports/20261020-ai-inbox-ux-reference-audit.md"
+}

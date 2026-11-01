@@ -1,0 +1,32 @@
+{
+  "id": "INBOX-20261021-007",
+  "type": "production_readiness_hardening",
+  "executor": "codex",
+  "goal": "Harden the complete AI Inbox Pro experience for a review-ready Vercel preview",
+  "context": "Run only after every UI slice and the cross-route coherence pass. This task prepares, but does not deploy, the preview until the owner approves.",
+  "requirements": [
+    "Add complete page titles, descriptions, canonical metadata, social preview metadata, favicon/app icons, and useful 404/error handling",
+    "Audit asset sizes, font loading, layout shift, lazy loading, caching/content types, and avoid unnecessary third-party requests",
+    "Run a final accessibility pass covering landmarks, heading order, forms, names, focus, contrast, reduced motion, zoom, keyboard, and touch targets",
+    "Validate route refresh behavior, broken links/assets, empty/loading/error states, security-sensitive defaults, and Vercel configuration without deploying",
+    "Record performance, accessibility, responsive, console/network, and functional evidence for desktop, tablet, and mobile"
+  ],
+  "deliverables": [
+    "ai_inbox/web/",
+    "ai_inbox/api/server.py",
+    "vercel.json",
+    ".vercelignore",
+    "research/reports/20261021-production-readiness.md"
+  ],
+  "acceptance_criteria": [
+    "All public routes load directly and on refresh with correct metadata, assets, and status behavior",
+    "No P0/P1 accessibility, responsive, console, network, broken-link, or content-type defect remains",
+    "Performance and accessibility checks meet documented budgets or have an explicit owner-approved exception",
+    "Preview configuration is ready for review but no deployment, credential use, or external publication occurs without explicit approval"
+  ],
+  "priority": "high",
+  "dependencies": ["INBOX-20261021-006"],
+  "status": "queued",
+  "created_at": "2026-10-21T00:00:00+07:00",
+  "research": "research/reports/20261020-ai-inbox-ux-reference-audit.md"
+}

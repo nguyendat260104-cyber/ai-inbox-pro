@@ -11,6 +11,7 @@ import sys
 import os
 import json
 import uuid
+import mimetypes
 from pathlib import Path
 from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler
 from urllib.parse import urlparse, parse_qs
@@ -880,6 +881,18 @@ class InboxRequestHandler(BaseHTTPRequestHandler):
         elif clean in ["landing", "landing/", "welcome", "welcome/"]:
             file_path = base_dir / "web" / "landing.html"
             content_type = "text/html; charset=utf-8"
+        elif clean in ["features", "features/"]:
+            file_path = base_dir / "web" / "features.html"
+            content_type = "text/html; charset=utf-8"
+        elif clean in ["solutions", "solutions/"]:
+            file_path = base_dir / "web" / "solutions.html"
+            content_type = "text/html; charset=utf-8"
+        elif clean in ["pricing", "pricing/"]:
+            file_path = base_dir / "web" / "pricing.html"
+            content_type = "text/html; charset=utf-8"
+        elif clean in ["resources", "resources/"]:
+            file_path = base_dir / "web" / "resources.html"
+            content_type = "text/html; charset=utf-8"
         elif clean in ["demo", "demo/"]:
             file_path = base_dir / "web" / "demo_shop.html"
             content_type = "text/html; charset=utf-8"
@@ -888,7 +901,12 @@ class InboxRequestHandler(BaseHTTPRequestHandler):
             content_type = "application/javascript" if clean.endswith(".js") else "text/css"
         elif clean.startswith("web/"):
             file_path = base_dir / clean
-            content_type = "application/javascript" if clean.endswith(".js") else ("text/css" if clean.endswith(".css") else "text/html")
+            content_type = {
+                ".js": "application/javascript; charset=utf-8",
+                ".css": "text/css; charset=utf-8",
+                ".html": "text/html; charset=utf-8",
+                ".svg": "image/svg+xml",
+            }.get(file_path.suffix.lower(), mimetypes.guess_type(file_path.name)[0] or "application/octet-stream")
         else:
             file_path = base_dir / "web" / clean
             content_type = "text/plain"

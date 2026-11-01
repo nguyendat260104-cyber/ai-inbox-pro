@@ -1,0 +1,28 @@
+{
+  "id": "INBOX-20261020-004",
+  "type": "frontend_demo_journey",
+  "executor": "codex",
+  "goal": "Turn Demo Storefront into a guided product-to-qualified-lead journey",
+  "context": "P2 begins after the dedicated marketing pages pass. The demo should show a realistic Vietnamese fashion store and prove the AI Inbox use case interactively.",
+  "requirements": [
+    "Guide visitors through shopper question, grounded stock/size answer, qualification, lead handoff, and order confirmation",
+    "Use realistic consistent product imagery/data, prices, inventory, and transcript details",
+    "Make channel labels and AI/human roles clear without excessive badges, emoji, or instructional clutter",
+    "Keep journey responsive, keyboard usable, and linked to the relevant product/admin page"
+  ],
+  "deliverables": [
+    "ai_inbox/web/demo_shop.html",
+    "ai_inbox/web/style.css",
+    "ai_inbox/web/app.js"
+  ],
+  "acceptance_criteria": [
+    "A first-time visitor can complete or understand the end-to-end journey without external explanation",
+    "Each step changes or explains the product/conversation state rather than serving as a static decorative stepper",
+    "Desktop/mobile layouts, interactions, routes, and accessibility are reviewed and recorded"
+  ],
+  "priority": "medium",
+  "dependencies": ["INBOX-20261020-001", "INBOX-20261020-002", "INBOX-20261020-003"],
+  "status": "queued",
+  "created_at": "2026-10-20T00:00:00+07:00",
+  "research": "research/reports/20261020-ai-inbox-ux-reference-audit.md"
+}

@@ -1,0 +1,31 @@
+{
+  "id": "INBOX-20261020-002",
+  "type": "frontend_admin_ux",
+  "executor": "codex",
+  "goal": "Restructure Admin Inbox around active conversation and customer context",
+  "context": "P1 begins only after INBOX-20261020-001 passes its visual acceptance gate. Continue current uncommitted Admin refinements; preserve existing behavior and data.",
+  "requirements": [
+    "Make active conversation the primary workspace; remove duplicate navigation and redundant metric/header layers",
+    "Organize inbox list, conversation, customer 360/order context, AI activity, and channel health into a clear responsive hierarchy",
+    "Provide meaningful loading, empty, error, offline, assigned, unread, and human-handoff states",
+    "Ensure selecting a conversation updates messages, customer data, channel, and order consistently; keep composer, quick replies, and primary actions usable",
+    "Review 1440px, 1024px, and 390px layouts, keyboard operation, focus, contrast, and reduced-motion"
+  ],
+  "deliverables": [
+    "ai_inbox/web/index.html",
+    "ai_inbox/web/style.css",
+    "ai_inbox/web/admin-refine.css",
+    "ai_inbox/web/app.js"
+  ],
+  "acceptance_criteria": [
+    "At desktop, the active conversation is visually dominant without losing customer context or channel status",
+    "At tablet/mobile, panels collapse into purposeful views/drawers and controls remain reachable without horizontal page overflow",
+    "No duplicate nav, overlapping panes, clipped composer, dead primary actions, or mismatched customer/order data",
+    "Document screenshots and route/interactions reviewed before starting P2"
+  ],
+  "priority": "high",
+  "dependencies": ["INBOX-20261020-001"],
+  "status": "queued",
+  "created_at": "2026-10-20T00:00:00+07:00",
+  "research": "research/reports/20261020-ai-inbox-ux-reference-audit.md"
+}

@@ -1,0 +1,90 @@
+/* Inbox is the primary working surface on a laptop-sized command center. */
+@media (min-width: 901px) and (max-width: 1400px) {
+  .inbox-split {
+    grid-template-columns: 280px minmax(0, 1fr);
+  }
+
+  .detail-sidebar { display: none; }
+
+  body.customer-context-open .detail-sidebar {
+    display: flex;
+    position: fixed;
+    z-index: 60;
+    top: 78px;
+    right: 16px;
+    width: 320px;
+    height: calc(100vh - 94px);
+    border-radius: 14px;
+    box-shadow: -18px 22px 45px rgba(15, 23, 42, .18);
+  }
+}
+
+.btn-context-toggle {
+  display: inline-flex;
+  align-items: center;
+  min-height: 31px;
+  padding: 0 10px;
+  border: 1px solid #dfe5ef;
+  border-radius: 7px;
+  background: #fff;
+  color: #516078;
+  font: 700 11px var(--font-family);
+  cursor: pointer;
+}
+
+.btn-context-toggle:hover { border-color: #aebdfc; color: var(--primary); background: #f7f8ff; }
+
+.btn-context-close { display: none; }
+
+@media (min-width: 901px) and (max-width: 1400px) {
+  body.customer-context-open .btn-context-close {
+    display: grid;
+    place-items: center;
+    width: 24px;
+    height: 24px;
+    margin-left: auto;
+    border: 0;
+    border-radius: 6px;
+    background: #f1f4f8;
+    color: #526079;
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  body.customer-context-open .detail-section-title > .badge-channel { margin-left: auto; }
+}
+
+@media (min-width: 901px) {
+  .chat-thread-card { min-width: 0; }
+
+  .thread-body {
+    min-height: 260px;
+    scrollbar-color: #b6c0d1 transparent;
+  }
+
+  .ai-summary-card {
+    min-height: 38px;
+    display: flex;
+    align-items: center;
+  }
+
+  .ai-summary-card strong { font-family: var(--font-mono); letter-spacing: .03em; }
+
+  .agent-activity-bar {
+    border-bottom-color: #e7ebf2;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .channel-health-bar,
+  .metrics-row,
+  .inbox-split {
+    animation: admin-settle .34s ease-out both;
+  }
+
+  @keyframes admin-settle {
+    from { transform: translateY(6px); }
+    to { transform: translateY(0); }
+  }
+}

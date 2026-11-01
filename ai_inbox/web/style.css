@@ -4,11 +4,13 @@
    WCAG AA Contrast | 8px Grid | Typography: Inter / Plus Jakarta Sans
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap');
+@import url("/web/brand.css");
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap');
 
 :root {
-  --font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  --font-family: 'Manrope', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: 'DM Mono', monospace;
 
   /* Quiet Enterprise SaaS Palette */
   --bg-app: #f8fafc;
@@ -1564,6 +1566,33 @@ body {
 .sidebar-links-row a { background: transparent; color: #94a3b8; border-color: #26334a; }
 .sidebar-links-row a:hover { background: #162038; color: #ffffff; }
 .main-header { background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(14px); }
+
+.channel-health-bar { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:10px 14px; margin-bottom:14px; border:1px solid var(--border-light); border-radius:10px; background:#fff; color:var(--text-muted); font-size:12px; }
+.channel-health-summary, .channel-health-list { display:flex; align-items:center; gap:9px; min-width:0; }
+.channel-health-summary strong { color:var(--text-main); font-size:12px; }
+.channel-health-dot { width:7px; height:7px; border-radius:50%; background:var(--emerald); box-shadow:0 0 0 4px rgba(16,185,129,.11); }
+.channel-health-list { gap:14px; color:#667085; font-weight:650; white-space:nowrap; }
+.channel-health-list span::before { content:""; display:inline-block; width:5px; height:5px; margin:0 6px 1px 0; border-radius:50%; background:#98a2b3; }
+@media (max-width: 1160px) { .channel-health-bar { align-items:flex-start; flex-direction:column; gap:8px; } .channel-health-list { overflow-x:auto; max-width:100%; padding-bottom:2px; } }
+
+.agent-activity-bar { display:flex; align-items:center; justify-content:space-between; gap:14px; min-height:43px; padding:8px 16px; border-bottom:1px solid var(--border-light); background:#fbfcfe; }
+.agent-activity-heading,.agent-activity-items { display:flex; align-items:center; gap:8px; white-space:nowrap; }.agent-activity-heading { color:var(--text-muted); font-size:11.5px; }.agent-activity-heading strong { color:var(--text-main); font-size:11.5px; }.agent-activity-dot { width:7px; height:7px; border-radius:50%; background:var(--emerald); box-shadow:0 0 0 3px rgba(16,185,129,.12); }.agent-activity-items { justify-content:flex-end; gap:8px; overflow:hidden; color:#667085; font-size:10.5px; }.agent-activity-items span { display:inline-flex; align-items:center; gap:5px; padding:4px 6px; border:1px solid #e4e7ec; border-radius:999px; background:#fff; }.agent-activity-items b { color:var(--primary); font-size:9px; }
+@media (max-width: 1050px) { .agent-activity-bar { align-items:flex-start; flex-direction:column; } .agent-activity-items { width:100%; overflow-x:auto; padding-bottom:2px; } }
+@media (max-width: 1380px) { .header-breadcrumb > span:first-child { display:none; } .header-breadcrumb { gap:0; } .header-breadcrumb > span:nth-child(2) { display:none; } .header-left-section { min-width:0; } }
+@media (max-width: 1240px) { .agent-activity-items span:nth-child(4) { display:none; } }
+
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes command-enter { from { opacity:0; transform:translateY(7px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes connection-pulse { 0%,100% { box-shadow:0 0 0 4px rgba(16,185,129,.11); } 50% { box-shadow:0 0 0 7px rgba(16,185,129,.04); } }
+  .channel-health-bar { animation:command-enter .32s ease-out both; }
+  .metrics-row { animation:command-enter .4s .04s ease-out both; }
+  .inbox-split { animation:command-enter .46s .09s ease-out both; }
+  .channel-health-dot, .agent-activity-dot { animation:connection-pulse 2.3s ease-in-out infinite; }
+  .metric-card, .inbox-list > *, .quick-chip, .carrier-pill, .sidebar-btn { transition:background-color .16s ease, border-color .16s ease, color .16s ease, transform .16s ease; }
+  .quick-chip:hover, .carrier-pill:hover { transform:translateY(-1px); }
+}
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior:auto !important; animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; } }
 .main-container { background: #f6f8fc; }
 .metrics-row { gap: 1px; border: 1px solid var(--border-light); border-radius: var(--radius-lg); background: var(--border-light); overflow: hidden; }
 .metric-card { border: 0; border-radius: 0; box-shadow: none; min-height: 82px; padding: 15px 18px; }
@@ -1576,3 +1605,50 @@ body {
 .inbox-item.active { box-shadow: inset 3px 0 0 var(--primary); }
 .ai-insights-banner { background: #f1f5ff; }
 .ai-summary-card { background: #ffffff; }
+
+/* Conversation-first workspace refinement. */
+.main-container { padding: 12px 16px 16px; }
+.channel-health-bar { margin-bottom: 10px; border-color: #e5eaf2; border-radius: 12px; padding: 9px 14px; }
+.channel-health-summary strong, .agent-activity-heading strong { font-family: var(--font-mono); font-size: 10px; letter-spacing: .045em; text-transform: uppercase; }
+.channel-health-list { font-family: var(--font-mono); font-size: 10px; letter-spacing: -.015em; }
+.metrics-row { margin-bottom: 10px; border-radius: 12px; }
+.metric-card { min-height: 66px; padding: 11px 16px; }
+.metric-title, .detail-label, .copilot-header { font-family: var(--font-mono); font-size: 9.5px; font-weight: 500; letter-spacing: .055em; }
+.metric-val { margin-top: 1px; font-size: 22px; line-height: 1.1; letter-spacing: -.075em; }
+.metric-sub { margin-top: 3px; font-size: 10.5px; }
+.inbox-split { height: calc(100vh - 145px); min-height: 510px; gap: 10px; }
+.inbox-sidebar, .chat-thread-card, .detail-sidebar { border-radius: 14px; }
+.thread-header { min-height: 68px; padding: 13px 18px; background: #fff; }
+.thread-cust-title, .detail-value, .panel-title { letter-spacing: -.04em; }
+.thread-cust-title { font-size: 16px; }
+.thread-cust-meta { margin-top: 3px; font-family: var(--font-mono); font-size: 10px; letter-spacing: -.01em; }
+.ai-insights-banner { padding: 9px 18px; background: #f7f9ff; }
+.ai-sparkle-pill { font-family: var(--font-mono); letter-spacing: .045em; }
+.ai-summary-card { margin: 10px 14px 0; border-color: #dfe7f5; border-radius: 10px; box-shadow: none; }
+.agent-activity-bar { padding: 8px 16px; background: #fff; }
+.agent-activity-items span { border-color: #e7ebf2; color: #596579; }
+.thread-body { padding: 18px 20px; background: #f6f8fc; }
+.copilot-action-bar { background: #fff; }
+.quick-chip { font-size: 11px; font-weight: 700; letter-spacing: -.02em; }
+.thread-footer { background: #fff; }
+.detail-section-title { font-family: var(--font-mono); letter-spacing: .04em; }
+.detail-sidebar { padding: 16px; }
+.btn-reply, .btn-takeover, .btn-quick-close { font-family: var(--font-family); font-weight: 800; letter-spacing: -.02em; }
+@media (max-width: 1200px) { .inbox-split { height: calc(100vh - 145px); } }
+@media (max-width: 900px) { .main-container { padding: 10px; } .metrics-row { grid-template-columns: 1fr 1fr; } .metric-card { min-height: 72px; } .inbox-split { height: auto; } }
+
+/* The inbox is the product surface. Full KPI detail lives in the dedicated KPI view. */
+@media (min-width: 901px) {
+  .metrics-row { display: none; }
+  .inbox-split { height: calc(100vh - 108px); }
+  .ai-summary-card { max-height: 42px; overflow: hidden; padding: 7px 12px; margin-top: 7px; }
+  .ai-summary-card > div { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .agent-activity-bar { min-height: 36px; padding-top: 6px; padding-bottom: 6px; }
+  .copilot-action-bar { padding: 7px 14px; gap: 5px; }
+  .copilot-header { font-size: 9px; }
+  .quick-chip { padding: 4px 9px; }
+  .thread-footer { padding: 8px 14px; gap: 5px; }
+  .composer-toolbar { gap: 6px; }
+  .composer-tool-btn { padding: 1px 5px; }
+  .thread-input, .btn-reply { padding-top: 8px; padding-bottom: 8px; }
+}
